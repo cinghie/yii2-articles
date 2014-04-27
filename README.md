@@ -45,6 +45,13 @@ Create Database Tables running the file artcles\docs\database_tables.sql
 
 If you want database prefix, edit the file sql adding the prefix.
 
-<h2>NEEDED</h2>
+<h2>LINK</h2>
+<ul>
+  <li>Categories: path/to/app/index.php?r=articles/articles-categories</li>
+  <li>Items: path/to/app/index.php?r=articles/articles-items</li>
+</ul>
+
+
+<h2>LIBRARIES NEEDED</h2>
 
 Yii2 Widget: https://github.com/kartik-v/yii2-widgets
