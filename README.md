@@ -10,6 +10,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>Manage categories, subcategories and multiple categories</li>
   <li>Advanced Access Permission</li>
   <li>Approval</li>
+  <li>Multi-Language</li>
   <li>Extra Field Management</li>
   <li>Hits</li>
   <li>SEO Optimization</li>
