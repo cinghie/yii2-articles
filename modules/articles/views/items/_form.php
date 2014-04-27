@@ -18,12 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'catid')->textInput() ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'image_caption')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'image_credits')->textInput(['maxlength' => 255]) ?>
-
     <?= $form->field($model, 'created')->textInput() ?>
 
     <?= $form->field($model, 'modified')->textInput() ?>
@@ -46,6 +40,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fulltext')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'image_caption')->textarea(['rows' => 6]) ?>
+
     <?= $form->field($model, 'params')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'metadesc')->textarea(['rows' => 6]) ?>
@@ -53,6 +49,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'metakey')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => 255]) ?>
+
+    <?= $form->field($model, 'image')->textInput(['maxlength' => 255]) ?>
+
+    <?= $form->field($model, 'image_credits')->textInput(['maxlength' => 255]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

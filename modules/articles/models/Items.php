@@ -45,7 +45,7 @@ class Items extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'catid', 'image', 'image_caption', 'image_credits', 'created', 'modified', 'language'], 'required'],
+            [['title', 'catid', 'created', 'modified', 'language'], 'required'],
             [['catid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'image_caption', 'params', 'metadesc', 'metakey'], 'string'],
             [['created', 'modified'], 'safe'],
