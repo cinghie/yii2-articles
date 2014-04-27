@@ -29,9 +29,9 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 Download and copy the file in your module folder
 
 <h2>CONFIGURATION</h2>
+<ul>
 
-Add in your configuration file, in modules section:
-
+<li>Add in your configuration file, in modules section:
 <pre>'modules' => [ 
 ...
 	// Articles
@@ -40,10 +40,11 @@ Add in your configuration file, in modules section:
 	],
 ...
 ]</pre>
+</li>
 
-Create Database Tables running the file artcles\docs\database_tables.sql
+<li>Create Database Tables running the file artcles\docs\database_tables.sql
 
-If you want database prefix, edit the file sql adding the prefix.
+If you want database prefix, edit the file sql adding the prefix.</li>
 
 <h2>LINK</h2>
 <ul>
