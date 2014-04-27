@@ -14,7 +14,8 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 
 <h2>CONFIGURATION</h2>
 
-<pre>'modules' => [ ...
+<pre>'modules' => [ 
+...
 // Articles
 	'articles' => [
 		'class' => 'app\modules\articles\Articles',
