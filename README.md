@@ -42,8 +42,7 @@ Download and copy the file in your module folder
 ]</pre>
 </li>
 
-<li>Create Database Tables running the file artcles\docs\database_tables.sql
-
+<li>Create Database Tables running the file articles\docs\database_tables.sql
 If you want database prefix, edit the file sql adding the prefix.</li>
 
 <h2>LINK</h2>
