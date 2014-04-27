@@ -42,7 +42,7 @@ Download and copy the file in your module folder
 ]</pre>
 </li>
 
-<li>Create Database Tables running the file articles\docs\database_tables.sql. If you want database prefix, edit the file sql adding the prefix and remember to set it in your config:
+<li>Create Database Tables running the file articles\docs\database_tables.sql. If you want use database prefix, edit the file sql adding the prefix and remember to set it in your config:
 <pre>
 'components' => [
 ...
@@ -58,6 +58,7 @@ Download and copy the file in your module folder
 ]
 </pre>
 </li>
+</ul>
 
 <h2>LINK</h2>
 <ul>
