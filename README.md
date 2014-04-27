@@ -9,8 +9,8 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>Create, edit and delete articles</li>
   <li>Manage categories and subcategories</li>
   <li>Extra Field Management</li>
-  <li>SEO Optimization</li>
   <li>Hits</li>
+  <li>SEO Optimization</li>
 </ul>
 
 <h2>CHANGELOG</h2>
