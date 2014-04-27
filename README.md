@@ -10,6 +10,8 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>SEO Optimization</li>
 </ul>
 
+<h2>INSTALLATION</h2>
+
 <h2>CONFIGURATION</h2>
 
 <pre>// Articles
