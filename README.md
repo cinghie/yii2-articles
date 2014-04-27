@@ -63,8 +63,8 @@ Download and copy the file in your module folder
 <h2>LINK</h2>
 <ul> 
   <li>Admin: path/to/app/index.php?r=articles</li>
-  <li>Categories: path/to/app/index.php?r=articles/articles-categories</li>
-  <li>Items: path/to/app/index.php?r=articles/articles-items</li>
+  <li>Categories: path/to/app/index.php?r=articles/categories</li>
+  <li>Items: path/to/app/index.php?r=articles/items</li>
 </ul>
 
 
