@@ -42,8 +42,21 @@ Download and copy the file in your module folder
 ]</pre>
 </li>
 
-<li>Create Database Tables running the file articles\docs\database_tables.sql
-If you want database prefix, edit the file sql adding the prefix.</li>
+<li>Create Database Tables running the file articles\docs\database_tables.sql. If you want database prefix, edit the file sql adding the prefix and remember to set it in your config:
+<pre>
+'components' => [
+...
+	'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=yii2dev_env',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
+...
+]
+</pre>
+</li>
 
 <h2>LINK</h2>
 <ul>
