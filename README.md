@@ -1,4 +1,4 @@
-yii2-articles
+Yii2 Articles
 =============
 
 Yii2 Articles to create, manage, and delete articles in a Yii2 site.
