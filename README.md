@@ -19,7 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 <h2>CHANGELOG</h2>
 
 <ul>
-  <li>0.0.1 - Initial Realese</li>
+  <li>0.0.1 - Initial Realese, CRUD for Categories and Items</li>
 </ul>
 
 <h2>INSTALLATION USING COMPOSER</h2>
