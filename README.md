@@ -10,6 +10,13 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>SEO Optimization</li>
 </ul>
 
+<h2>CONFIGURATION</h2>
+
+<pre>// Articles
+		'articles' => [
+            'class' => 'app\modules\articles\Articles',
+        ],</pre>
+
 <h2>NEEDED</h2>
 
 Yii2 Widget: https://github.com/kartik-v/yii2-widgets
