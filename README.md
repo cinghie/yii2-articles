@@ -10,7 +10,11 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>SEO Optimization</li>
 </ul>
 
-<h2>INSTALLATION</h2>
+<h2>INSTALLATION USING COMPOSER</h2>
+
+<h2>MANUAL INSTALLATION</h2>
+
+Download and copy the file in your module folder
 
 <h2>CONFIGURATION</h2>
 
