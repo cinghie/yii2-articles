@@ -48,10 +48,11 @@ Download and copy the file in your module folder
 ...
 	'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2dev_env',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=localhost;dbname=YOURDBNAME',
+            'username' => 'YOURDBUSER',
+            'password' => 'YOURDBPSW',
             'charset' => 'utf8',
+            'tablePrefix' => 'YOURPREFIX_',
         ],
 ...
 ]
