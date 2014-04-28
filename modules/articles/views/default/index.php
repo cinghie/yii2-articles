@@ -1,12 +1,40 @@
-<div class="articles-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+<div class="col-md-6">
+	<div class="panel panel-default most-viewed">
+  		<div class="panel-heading">
+    		<h3 class="panel-title">Most Viewed Articles</h3>
+  		</div>
+        <div class="panel-body">
+            Panel content
+        </div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="panel panel-default without-seo">
+  		<div class="panel-heading">
+    		<h3 class="panel-title">Without SEO Articles</h3>
+  		</div>
+        <div class="panel-body">
+            Panel content
+        </div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="panel panel-default last-articles">
+  		<div class="panel-heading">
+    		<h3 class="panel-title">Last Articles</h3>
+  		</div>
+        <div class="panel-body">
+            Panel content
+        </div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="panel panel-default last-categories">
+  		<div class="panel-heading">
+    		<h3 class="panel-title">Last Categories</h3>
+  		</div>
+        <div class="panel-body">
+            Panel content
+        </div>
+	</div>
 </div>

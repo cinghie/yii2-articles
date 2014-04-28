@@ -21,9 +21,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'alias') ?>
-
     <?= $form->field($model, 'catid') ?>
+
+    <?= $form->field($model, 'userid') ?>
 
     <?= $form->field($model, 'published') ?>
 
@@ -57,11 +57,19 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'hits') ?>
 
-    <?php // echo $form->field($model, 'params') ?>
+    <?php // echo $form->field($model, 'alias') ?>
 
     <?php // echo $form->field($model, 'metadesc') ?>
 
     <?php // echo $form->field($model, 'metakey') ?>
+
+    <?php // echo $form->field($model, 'robots') ?>
+
+    <?php // echo $form->field($model, 'author') ?>
+
+    <?php // echo $form->field($model, 'copyright') ?>
+
+    <?php // echo $form->field($model, 'params') ?>
 
     <?php // echo $form->field($model, 'language') ?>
 

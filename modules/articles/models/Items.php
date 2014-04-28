@@ -9,8 +9,8 @@ use Yii;
  *
  * @property integer $id
  * @property string $title
- * @property string $alias
  * @property integer $catid
+ * @property integer $userid
  * @property integer $published
  * @property string $introtext
  * @property string $fulltext
@@ -27,9 +27,13 @@ use Yii;
  * @property integer $access
  * @property integer $ordering
  * @property string $hits
- * @property string $params
+ * @property string $alias
  * @property string $metadesc
  * @property string $metakey
+ * @property string $robots
+ * @property string $author
+ * @property string $copyright
+ * @property string $params
  * @property string $language
  */
 class Items extends \yii\db\ActiveRecord
@@ -48,11 +52,13 @@ class Items extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'catid', 'created', 'modified', 'language'], 'required'],
-            [['catid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'image_caption', 'video', 'video_caption', 'params', 'metadesc', 'metakey'], 'string'],
+            [['title', 'catid', 'userid', 'created', 'modified', 'language'], 'required'],
+            [['catid', 'userid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
+            [['introtext', 'fulltext', 'image_caption', 'video', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
             [['created', 'modified'], 'safe'],
-            [['title', 'alias', 'image', 'image_credits', 'video_credits'], 'string', 'max' => 255],
+            [['title', 'image', 'image_credits', 'video_credits', 'alias'], 'string', 'max' => 255],
+            [['robots'], 'string', 'max' => 20],
+            [['author', 'copyright'], 'string', 'max' => 50],
             [['language'], 'string', 'max' => 7]
         ];
     }
@@ -65,8 +71,8 @@ class Items extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
-            'alias' => Yii::t('app', 'Alias'),
             'catid' => Yii::t('app', 'Catid'),
+            'userid' => Yii::t('app', 'Userid'),
             'published' => Yii::t('app', 'Published'),
             'introtext' => Yii::t('app', 'Introtext'),
             'fulltext' => Yii::t('app', 'Fulltext'),
@@ -83,9 +89,13 @@ class Items extends \yii\db\ActiveRecord
             'access' => Yii::t('app', 'Access'),
             'ordering' => Yii::t('app', 'Ordering'),
             'hits' => Yii::t('app', 'Hits'),
-            'params' => Yii::t('app', 'Params'),
+            'alias' => Yii::t('app', 'Alias'),
             'metadesc' => Yii::t('app', 'Metadesc'),
             'metakey' => Yii::t('app', 'Metakey'),
+            'robots' => Yii::t('app', 'Robots'),
+            'author' => Yii::t('app', 'Author'),
+            'copyright' => Yii::t('app', 'Copyright'),
+            'params' => Yii::t('app', 'Params'),
             'language' => Yii::t('app', 'Language'),
         ];
     }

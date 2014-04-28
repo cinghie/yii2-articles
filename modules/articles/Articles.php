@@ -2,6 +2,8 @@
 
 namespace app\modules\articles;
 
+use Yii;
+
 class Articles extends \yii\base\Module
 {
     public $controllerNamespace = 'app\modules\articles\controllers';
@@ -12,5 +14,12 @@ class Articles extends \yii\base\Module
     {
         parent::init();
 		
+		// Translating module messages
+		\Yii::$app->getI18n()->translations['articles.*'] = [
+			'class' => 'yii\i18n\PhpMessageSource',
+			'basePath' => __DIR__.'/messages',
+		];
+		
     }
+
 }

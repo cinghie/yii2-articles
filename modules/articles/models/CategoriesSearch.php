@@ -16,7 +16,7 @@ class CategoriesSearch extends Categories
     {
         return [
             [['id', 'parent', 'published', 'access', 'ordering'], 'integer'],
-            [['name', 'alias', 'description', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'language'], 'safe'],
+            [['name', 'alias', 'description', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'language'], 'safe'],
         ];
     }
 
@@ -55,6 +55,9 @@ class CategoriesSearch extends Categories
             ->andFilterWhere(['like', 'params', $this->params])
             ->andFilterWhere(['like', 'metadesc', $this->metadesc])
             ->andFilterWhere(['like', 'metakey', $this->metakey])
+            ->andFilterWhere(['like', 'robots', $this->robots])
+            ->andFilterWhere(['like', 'author', $this->author])
+            ->andFilterWhere(['like', 'copyright', $this->copyright])
             ->andFilterWhere(['like', 'language', $this->language]);
 
         return $dataProvider;

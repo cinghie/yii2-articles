@@ -45,6 +45,12 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'metakey') ?>
 
+    <?php // echo $form->field($model, 'robots') ?>
+
+    <?php // echo $form->field($model, 'author') ?>
+
+    <?php // echo $form->field($model, 'copyright') ?>
+
     <?php // echo $form->field($model, 'language') ?>
 
     <div class="form-group">

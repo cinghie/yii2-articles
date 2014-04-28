@@ -21,6 +21,9 @@ use Yii;
  * @property string $params
  * @property string $metadesc
  * @property string $metakey
+ * @property string $robots
+ * @property string $author
+ * @property string $copyright
  * @property string $language
  */
 class Categories extends \yii\db\ActiveRecord
@@ -39,10 +42,12 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'alias', 'params', 'language'], 'required'],
+            [['name', 'alias', 'language'], 'required'],
             [['description', 'image_caption', 'params', 'metadesc', 'metakey'], 'string'],
             [['parent', 'published', 'access', 'ordering'], 'integer'],
             [['name', 'alias', 'image', 'image_credits'], 'string', 'max' => 255],
+            [['robots'], 'string', 'max' => 20],
+            [['author', 'copyright'], 'string', 'max' => 50],
             [['language'], 'string', 'max' => 7]
         ];
     }
@@ -67,6 +72,9 @@ class Categories extends \yii\db\ActiveRecord
             'params' => Yii::t('app', 'Params'),
             'metadesc' => Yii::t('app', 'Metadesc'),
             'metakey' => Yii::t('app', 'Metakey'),
+            'robots' => Yii::t('app', 'Robots'),
+            'author' => Yii::t('app', 'Author'),
+            'copyright' => Yii::t('app', 'Copyright'),
             'language' => Yii::t('app', 'Language'),
         ];
     }

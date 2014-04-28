@@ -44,6 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'params:ntext',
             'metadesc:ntext',
             'metakey:ntext',
+            'robots',
+            'author',
+            'copyright',
             'language',
         ],
     ]) ?>

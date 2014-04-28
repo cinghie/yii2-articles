@@ -15,8 +15,8 @@ class ItemsSearch extends Items
     public function rules()
     {
         return [
-            [['id', 'catid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
-            [['title', 'alias', 'introtext', 'fulltext', 'image', 'image_caption', 'image_credits', 'video', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'language'], 'safe'],
+            [['id', 'catid', 'userid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
+            [['title', 'introtext', 'fulltext', 'image', 'image_caption', 'image_credits', 'video', 'video_caption', 'video_credits', 'created', 'modified', 'alias', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'params', 'language'], 'safe'],
         ];
     }
 
@@ -41,6 +41,7 @@ class ItemsSearch extends Items
         $query->andFilterWhere([
             'id' => $this->id,
             'catid' => $this->catid,
+            'userid' => $this->userid,
             'published' => $this->published,
             'created' => $this->created,
             'created_by' => $this->created_by,
@@ -52,7 +53,6 @@ class ItemsSearch extends Items
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'alias', $this->alias])
             ->andFilterWhere(['like', 'introtext', $this->introtext])
             ->andFilterWhere(['like', 'fulltext', $this->fulltext])
             ->andFilterWhere(['like', 'image', $this->image])
@@ -61,9 +61,13 @@ class ItemsSearch extends Items
             ->andFilterWhere(['like', 'video', $this->video])
             ->andFilterWhere(['like', 'video_caption', $this->video_caption])
             ->andFilterWhere(['like', 'video_credits', $this->video_credits])
-            ->andFilterWhere(['like', 'params', $this->params])
+            ->andFilterWhere(['like', 'alias', $this->alias])
             ->andFilterWhere(['like', 'metadesc', $this->metadesc])
             ->andFilterWhere(['like', 'metakey', $this->metakey])
+            ->andFilterWhere(['like', 'robots', $this->robots])
+            ->andFilterWhere(['like', 'author', $this->author])
+            ->andFilterWhere(['like', 'copyright', $this->copyright])
+            ->andFilterWhere(['like', 'params', $this->params])
             ->andFilterWhere(['like', 'language', $this->language]);
 
         return $dataProvider;

@@ -18,7 +18,11 @@ use kartik\widgets\FileInput;
 
 <div class="categories-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+		'options' => [
+			'enctype'=>'multipart/form-data',
+		]
+	]); ?>
     
     <div class="row">
     
@@ -40,17 +44,15 @@ use kartik\widgets\FileInput;
                         <div class="col-lg-8">
             
                             <?= $form->field($model, 'name', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-plus"></i>']]] )->textInput(['maxlength' => 255]) ?>
-                
-                            <?= $form->field($model, 'alias', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-bookmark"></i>']]] )->textInput(['maxlength' => 255]) ?>
                             
-                            <?= $form->field($model, 'description', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-pencil"></i>']]] )->textarea(['rows' => 10]) ?>
+                            <?= $form->field($model, 'description', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-pencil"></i>']]] )->textarea(['rows' => 12]) ?>
                 
                         </div> <!-- col-lg-8 -->
             
                         <div class="col-lg-4">
                         
                             <?= $form->field($model, 'parent')->widget(Select2::classname(), [
-								'data' => array_merge(["0" => "No Parent"]),
+								'data' => array_merge(["0" => \Yii::t('articles.message', 'No Parent')]),
 								'pluginOptions' => [
 									'allowClear' => true
 								],
@@ -58,7 +60,7 @@ use kartik\widgets\FileInput;
 							]); ?>
 						
 							<?= $form->field($model, 'published')->widget(Select2::classname(), [
-                                    'data' => array_merge(["1" => "Published"],["0" => "Unpublished"],["-1" => "Trashed"]),
+                                    'data' => array_merge(["1" => \Yii::t('articles.message', 'Published')],["0" => \Yii::t('articles.message', 'Unpublished')],["-1" => \Yii::t('articles.message', 'Trashed')]),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -75,7 +77,7 @@ use kartik\widgets\FileInput;
                             
                             <?php if ($model->isNewRecord){ ?>
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
-                                    'data' => array_merge([ "0" => "Automatic" ]),
+                                    'data' => array_merge([ "0" =>  \Yii::t('articles.message', 'Automatic') ]),
 									'options' => [
 										'disabled' => 'disabled'
 									],
@@ -95,7 +97,7 @@ use kartik\widgets\FileInput;
                             <?php } ?>
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
-                                    'data' => array_merge(["0" => "en-GB"],["1" => "us-US"],["2" => "it-IT"],["3" => "es-ES"],["4" => "fr-FR"]),
+                                    'data' => array_merge(["en-GB" => "en-GB"],["us-US" => "us-US"],["it-IT" => "it-IT"],["es-ES" => "es-ES"],["fr-FR" => "fr-FR"]),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -113,14 +115,14 @@ use kartik\widgets\FileInput;
 							<?= $form->field($model, 'image')->widget(FileInput::classname(), [
 									'options' => ['accept' => 'image/*'],
 								]);?>
-                            
-                            <?= $form->field($model, 'image_credits', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-barcode"></i>']]])->textInput(['maxlength' => 255]) ?>
                         
                         </div> <!-- col-lg-6 -->
                         
                         <div class="col-lg-6">
 		
 							<?= $form->field($model, 'image_caption', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-picture"></i>']]])->textarea(['rows' => 6]) ?>
+                            
+                            <?= $form->field($model, 'image_credits', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-barcode"></i>']]])->textInput(['maxlength' => 255]) ?>
             
             			</div> <!-- col-lg-6 -->
                         
@@ -129,17 +131,31 @@ use kartik\widgets\FileInput;
                     
                     <div id="seo" class="tab-pane fade">
                     
-                    	<div class="col-lg-6">
+                    	<div class="col-lg-5">
                         
-                        	<?= $form->field($model, 'metadesc', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-info-sign"></i>']]] )->textarea(['rows' => 3]) ?>
-                        
-                        </div> <!-- col-lg-6 -->
-                        
-                        <div class="col-lg-6">
+                        	<?= $form->field($model, 'alias', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-bookmark"></i>']]] )->textInput(['maxlength' => 255]) ?>
+							
+                            <?= $form->field($model, 'robots')->widget(Select2::classname(), [
+                                    'data' => array_merge(["index, follow" => "index, follow"],["no index, no follow" => "no index, no follow"],["no index, follow" => "no index, follow"],["index, no follow" => "index, no follow"]),
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-globe"></i>']],
+                                ]); ?>   
+                            
+							<?= $form->field($model, 'author', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-user"></i>']]] )->textInput(['maxlength' => 50]) ?>
 
-    		 				<?= $form->field($model, 'metakey', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-tags"></i>']]] )->textarea(['rows' => 3]) ?>
+   							<?= $form->field($model, 'copyright', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-ban-circle"></i>']]] )->textInput(['maxlength' => 50]) ?>
+						
+                        </div> <!-- col-lg-5 -->
                         
-                        </div> <!-- col-lg-6 -->
+                        <div class="col-lg-7">
+
+							<?= $form->field($model, 'metadesc', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-info-sign"></i>']]] )->textarea(['rows' => 4]) ?>
+                            
+                            <?= $form->field($model, 'metakey', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-tags"></i>']]] )->textarea(['rows' => 4]) ?>
+                        
+                        </div> <!-- col-lg-7 -->
                         
                     </div> <!-- #seo -->
                     
