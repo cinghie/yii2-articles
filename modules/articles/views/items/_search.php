@@ -37,6 +37,12 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'image_credits') ?>
 
+    <?php // echo $form->field($model, 'video') ?>
+
+    <?php // echo $form->field($model, 'video_caption') ?>
+
+    <?php // echo $form->field($model, 'video_credits') ?>
+
     <?php // echo $form->field($model, 'created') ?>
 
     <?php // echo $form->field($model, 'created_by') ?>

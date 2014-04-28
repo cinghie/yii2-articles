@@ -17,6 +17,9 @@ use Yii;
  * @property string $image
  * @property string $image_caption
  * @property string $image_credits
+ * @property string $video
+ * @property string $video_caption
+ * @property string $video_credits
  * @property string $created
  * @property integer $created_by
  * @property string $modified
@@ -47,9 +50,9 @@ class Items extends \yii\db\ActiveRecord
         return [
             [['title', 'catid', 'created', 'modified', 'language'], 'required'],
             [['catid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'image_caption', 'params', 'metadesc', 'metakey'], 'string'],
+            [['introtext', 'fulltext', 'image_caption', 'video', 'video_caption', 'params', 'metadesc', 'metakey'], 'string'],
             [['created', 'modified'], 'safe'],
-            [['title', 'alias', 'image', 'image_credits'], 'string', 'max' => 255],
+            [['title', 'alias', 'image', 'image_credits', 'video_credits'], 'string', 'max' => 255],
             [['language'], 'string', 'max' => 7]
         ];
     }
@@ -70,6 +73,9 @@ class Items extends \yii\db\ActiveRecord
             'image' => Yii::t('app', 'Image'),
             'image_caption' => Yii::t('app', 'Image Caption'),
             'image_credits' => Yii::t('app', 'Image Credits'),
+            'video' => Yii::t('app', 'Video'),
+            'video_caption' => Yii::t('app', 'Video Caption'),
+            'video_credits' => Yii::t('app', 'Video Credits'),
             'created' => Yii::t('app', 'Created'),
             'created_by' => Yii::t('app', 'Created By'),
             'modified' => Yii::t('app', 'Modified'),

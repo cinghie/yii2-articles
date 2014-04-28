@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `article_categories` (
   KEY `published` (`published`),
   KEY `access` (`access`),
   KEY `language` (`language`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -37,6 +37,9 @@ CREATE TABLE IF NOT EXISTS `article_items` (
   `image` varchar(255),
   `image_caption` text,
   `image_credits` varchar(255),
+  `video` text,
+  `video_caption` text,
+  `video_credits` varchar(255),
   `created` datetime NOT NULL,
   `created_by` int(11) NOT NULL DEFAULT '0',
   `modified` datetime NOT NULL,
@@ -58,4 +61,4 @@ CREATE TABLE IF NOT EXISTS `article_items` (
   KEY `language` (`language`),
   FULLTEXT KEY `search` (`title`,`introtext`,`fulltext`),
   FULLTEXT KEY `title` (`title`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

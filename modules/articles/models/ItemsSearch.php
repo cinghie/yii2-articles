@@ -16,7 +16,7 @@ class ItemsSearch extends Items
     {
         return [
             [['id', 'catid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
-            [['title', 'alias', 'introtext', 'fulltext', 'image', 'image_caption', 'image_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'language'], 'safe'],
+            [['title', 'alias', 'introtext', 'fulltext', 'image', 'image_caption', 'image_credits', 'video', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'language'], 'safe'],
         ];
     }
 
@@ -58,6 +58,9 @@ class ItemsSearch extends Items
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'image_caption', $this->image_caption])
             ->andFilterWhere(['like', 'image_credits', $this->image_credits])
+            ->andFilterWhere(['like', 'video', $this->video])
+            ->andFilterWhere(['like', 'video_caption', $this->video_caption])
+            ->andFilterWhere(['like', 'video_credits', $this->video_credits])
             ->andFilterWhere(['like', 'params', $this->params])
             ->andFilterWhere(['like', 'metadesc', $this->metadesc])
             ->andFilterWhere(['like', 'metakey', $this->metakey])
