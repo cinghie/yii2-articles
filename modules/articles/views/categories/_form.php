@@ -73,6 +73,7 @@ use kartik\widgets\FileInput;
                                     'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-log-in"></i>']],
                                 ]); ?>
                             
+                            <?php if ($model->isNewRecord){ ?>
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
                                     'data' => array_merge([ "0" => "Automatic" ]),
 									'options' => [
@@ -83,6 +84,15 @@ use kartik\widgets\FileInput;
                                     ],
                                     'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-sort"></i>']],
                                 ]); ?>
+                            <?php } else { ?>
+                            <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
+                                    'data' => array_merge([ "0" => "Automatic" ]),
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-sort"></i>']],
+                                ]); ?>
+                            <?php } ?>
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
                                     'data' => array_merge(["0" => "en-GB"],["1" => "us-US"],["2" => "it-IT"],["3" => "es-ES"],["4" => "fr-FR"]),
@@ -102,7 +112,6 @@ use kartik\widgets\FileInput;
                     
 							<?= $form->field($model, 'image')->widget(FileInput::classname(), [
 									'options' => ['accept' => 'image/*'],
-									'multiple' => false,
 								]);?>
                             
                             <?= $form->field($model, 'image_credits', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-barcode"></i>']]])->textInput(['maxlength' => 255]) ?>
