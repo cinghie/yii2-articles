@@ -7,15 +7,17 @@ use yii\helpers\Html;
  * @var app\modules\articles\models\Categories $model
  */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
+$this->title = Yii::t('articles.message', 'Create Category', [
   'modelClass' => 'Categories',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('articles.message', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+	<div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -1,3 +1,13 @@
+<div class="page-header">
+  <h1>Articles Module <small>to Article's Advanced Management</small></h1>
+</div>
+<div class="col-md-12">
+    <ul class="nav nav-pills">
+      <li class="active"><a href="/">Admin Panel</a></li>
+      <li><a href="articles/categories">Categories</a></li>
+      <li><a href="articles/items">Items</a></li>
+    </ul>
+</div>
 <div class="col-md-6">
 	<div class="panel panel-default most-viewed">
   		<div class="panel-heading">

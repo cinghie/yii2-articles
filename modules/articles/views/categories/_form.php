@@ -8,12 +8,11 @@ use kartik\widgets\ActiveField;
 use kartik\widgets\Select2;
 use kartik\widgets\DateTimePicker;
 use kartik\widgets\FileInput;
+use kartik\markdown\MarkdownEditor;
 
-/**
- * @var yii\web\View $this
- * @var app\modules\articles\models\Categories $model
- * @var yii\widgets\ActiveForm $form
- */
+// Get info For the Select2 Categories 
+$select2categories = $model->getCategoriesSelect2();
+
 ?>
 
 <div class="categories-form">
@@ -31,10 +30,10 @@ use kartik\widgets\FileInput;
             <div class="bs-example bs-example-tabs">
             
                 <ul class="nav nav-tabs" id="myTab">
-                  <li class="active"><a data-toggle="tab" href="#item">Item</a></li>
-                  <li class=""><a data-toggle="tab" href="#image">Image</a></li>
+                  <li class="active"><a data-toggle="tab" href="#item"><?= \Yii::t('articles.message', 'Category') ?></a></li>
+                  <li class=""><a data-toggle="tab" href="#image"><?= \Yii::t('articles.message', 'Image') ?></a></li>
                   <li class=""><a data-toggle="tab" href="#seo">SEO</a></li>
-                  <li class=""><a data-toggle="tab" href="#params">Params</a></li>
+                  <li class=""><a data-toggle="tab" href="#params"><?= \Yii::t('articles.message', 'Options') ?></a></li>
                 </ul>
                 
                 <div class="tab-content" id="myTabContent">
@@ -45,14 +44,18 @@ use kartik\widgets\FileInput;
             
                             <?= $form->field($model, 'name', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-plus"></i>']]] )->textInput(['maxlength' => 255]) ?>
                             
-                            <?= $form->field($model, 'description', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-pencil"></i>']]] )->textarea(['rows' => 12]) ?>
+                            <?= $form->field($model, 'description')->widget(
+									MarkdownEditor::classname(),
+									['height' => 250, 'encodeLabels' => true]
+								);
+//$form->field($model, 'description', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-pencil"></i>']]] )->textarea(['rows' => 12]) ?>
                 
                         </div> <!-- col-lg-8 -->
             
                         <div class="col-lg-4">
                         
                             <?= $form->field($model, 'parent')->widget(Select2::classname(), [
-								'data' => array_merge(["0" => \Yii::t('articles.message', 'No Parent')]),
+								'data' => $select2categories,
 								'pluginOptions' => [
 									'allowClear' => true
 								],
@@ -68,7 +71,10 @@ use kartik\widgets\FileInput;
                                 ]); ?>
                                 
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => array_merge(["0" => "Public Access"]),
+                                    'data' => array_merge(["0" => \Yii::t('articles.message', 'Public Access') ]),
+									'options' => [
+										'disabled' => 'disabled'
+									],
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -88,7 +94,7 @@ use kartik\widgets\FileInput;
                                 ]); ?>
                             <?php } else { ?>
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
-                                    'data' => array_merge([ "0" => "Automatic" ]),
+                                    'data' => array_merge([ "0" =>  \Yii::t('articles.message', 'Automatic') ]),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -97,7 +103,7 @@ use kartik\widgets\FileInput;
                             <?php } ?>
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
-                                    'data' => array_merge(["en-GB" => "en-GB"],["us-US" => "us-US"],["it-IT" => "it-IT"],["es-ES" => "es-ES"],["fr-FR" => "fr-FR"]),
+                                    'data' => array_merge(Yii::$app->controller->module->languages),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -174,7 +180,7 @@ use kartik\widgets\FileInput;
     </div> <!-- row -->  
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save & Exit') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?  \Yii::t('articles.message', 'Save & Exit') : \Yii::t('articles.message', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

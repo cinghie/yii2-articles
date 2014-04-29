@@ -62,9 +62,14 @@ class CategoriesController extends Controller
     {
         $model = new Categories;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+		{
+			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been saved!'));
+            return $this->redirect([
+				'view', 'id' => $model->id,
+			]);
         } else {
+			//Yii::$app->session->setFlash('error', 'Model could not be saved');
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -81,7 +86,9 @@ class CategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+		{
+			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been updated!'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -99,7 +106,8 @@ class CategoriesController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+		
+		Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been deleted!'));
         return $this->redirect(['index']);
     }
 
@@ -112,7 +120,8 @@ class CategoriesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Categories::findOne($id)) !== null) {
+        if (($model = Categories::findOne($id)) !== null) 
+		{
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -7,18 +7,19 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 
 <ul>
   <li>Create, edit and delete articles</li>
-  <li>Manage categories, subcategories and multiple categories</li>
+  <li>Article with attachments, image, gallery, hits</li>
+  <li>Manage categories and subcategories</li>
   <li>Advanced Access Permission</li>
   <li>Approval</li>
-  <li>Multi-Language</li>
+  <li>Multi-Language with I18N</li>
   <li>Extra Field Management</li>
-  <li>Hits</li>
   <li>SEO Optimization</li>
 </ul>
 
 <h2>CHANGELOG</h2>
 
 <ul>
+  <li>0.0.2 - Update Categories Create View, multi-linguage with I18N</li>
   <li>0.0.1 - Initial Realese, CRUD for Categories and Items</li>
 </ul>
 
@@ -34,9 +35,12 @@ Download and copy the file in your module folder
 <li>Add in your configuration file, in modules section:
 <pre>'modules' => [ 
 ...
-	// Articles
+	// Module Articles
 	'articles' => [
 		'class' => 'app\modules\articles\Articles',
+		
+		// Languages allowed
+		'languages' => array_merge([ "en-GB" => "en-GB" ],[ "it-IT" => "it-IT" ]),
 	],
 ...
 ]</pre>

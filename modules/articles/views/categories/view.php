@@ -14,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+	<div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

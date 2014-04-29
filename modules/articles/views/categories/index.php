@@ -9,12 +9,13 @@ use yii\grid\GridView;
  * @var app\modules\articles\models\CategoriesSearch $searchModel
  */
 
-$this->title = Yii::t('app', 'Categories');
+$this->title = Yii::t('articles.message', 'Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+	<div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

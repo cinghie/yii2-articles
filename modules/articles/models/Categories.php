@@ -58,24 +58,43 @@ class Categories extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'alias' => Yii::t('app', 'Alias'),
-            'description' => Yii::t('app', 'Description'),
-            'parent' => Yii::t('app', 'Parent'),
-            'published' => Yii::t('app', 'Published'),
-            'access' => Yii::t('app', 'Access'),
-            'ordering' => Yii::t('app', 'Ordering'),
-            'image' => Yii::t('app', 'Image'),
-            'image_caption' => Yii::t('app', 'Image Caption'),
-            'image_credits' => Yii::t('app', 'Image Credits'),
-            'params' => Yii::t('app', 'Params'),
-            'metadesc' => Yii::t('app', 'Metadesc'),
-            'metakey' => Yii::t('app', 'Metakey'),
-            'robots' => Yii::t('app', 'Robots'),
-            'author' => Yii::t('app', 'Author'),
-            'copyright' => Yii::t('app', 'Copyright'),
-            'language' => Yii::t('app', 'Language'),
+            'id' => Yii::t('articles.message', 'ID'),
+            'name' => Yii::t('articles.message', 'Name'),
+            'alias' => Yii::t('articles.message', 'Alias'),
+            'description' => Yii::t('articles.message', 'Description'),
+            'parent' => Yii::t('articles.message', 'Parent'),
+            'published' => Yii::t('articles.message', 'Published'),
+            'access' => Yii::t('articles.message', 'Access'),
+            'ordering' => Yii::t('articles.message', 'Ordering'),
+            'image' => Yii::t('articles.message', 'Image'),
+            'image_caption' => Yii::t('articles.message', 'Image Caption'),
+            'image_credits' => Yii::t('articles.message', 'Image Credits'),
+            'params' => Yii::t('articles.message', 'Params'),
+            'metadesc' => Yii::t('articles.message', 'Metadesc'),
+            'metakey' => Yii::t('articles.message', 'Metakey'),
+            'robots' => Yii::t('articles.message', 'Robots'),
+            'author' => Yii::t('articles.message', 'Author'),
+            'copyright' => Yii::t('articles.message', 'Copyright'),
+            'language' => Yii::t('articles.message', 'Language'),
         ];
     }
+	
+	// Return array for Category Select2
+	public function getCategoriesSelect2()
+	{
+		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1';
+		$categories = Categories::findBySql($sql)->asArray()->all();
+		
+		$array[0] = \Yii::t('articles.message', 'No Parent'); 
+		
+		foreach($categories as $category)
+		{
+			$array[$category['id']] = $category['name'];
+		}
+		
+		return $array;
+	}
+	
+	// Return Oredering Number
+	
 }
