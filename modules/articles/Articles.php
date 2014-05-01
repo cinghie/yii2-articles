@@ -9,6 +9,8 @@ class Articles extends \yii\base\Module
     public $controllerNamespace = 'app\modules\articles\controllers';
 	
 	public $languages = [];
+	
+	public $editor = "ckeditor";
 
     public function init()
     {

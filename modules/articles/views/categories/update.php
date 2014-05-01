@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var app\modules\articles\models\Categories $model
  */
 
-$this->title = Yii::t('articles.message', 'Update {modelClass}: ', [
+$this->title = Yii::t('articles.message', 'Update Category: ', [
   'modelClass' => 'Categories',
 ]) . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles.message', 'Categories'), 'url' => ['index']];

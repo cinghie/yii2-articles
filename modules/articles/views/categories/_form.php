@@ -1,17 +1,32 @@
 <?php
 
 use yii\helpers\Html;
+use app\modules\articles\assets\ArticlesAsset; /* !!! Da cambiare con vendor tramite composer !!! */
 
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
 use kartik\widgets\ActiveField;
-use kartik\widgets\Select2;
 use kartik\widgets\DateTimePicker;
 use kartik\widgets\FileInput;
+use kartik\widgets\Select2;
+
+// Load Editors Libraries
+use dosamigos\ckeditor\CKEditor;
+use dosamigos\tinymce\TinyMce;
 use kartik\markdown\MarkdownEditor;
 
+// Load Articles Assets
+ArticlesAsset::register($this);
+$asset = $this->assetBundles['app\modules\articles\assets\ArticlesAsset']; /* !!! Da cambiare con vendor tramite composer !!! */
+
 // Get info For the Select2 Categories 
-$select2categories = $model->getCategoriesSelect2();
+if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
+$select2categories = $model->getCategoriesSelect2($id);
+
+// Get info by Configuration
+$editor    = Yii::$app->controller->module->editor;
+$language  = substr(Yii::$app->language,0,2);
+$languages = Yii::$app->controller->module->languages;
 
 ?>
 
@@ -43,12 +58,28 @@ $select2categories = $model->getCategoriesSelect2();
                         <div class="col-lg-8">
             
                             <?= $form->field($model, 'name', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-plus"></i>']]] )->textInput(['maxlength' => 255]) ?>
-                            
-                            <?= $form->field($model, 'description')->widget(
-									MarkdownEditor::classname(),
-									['height' => 250, 'encodeLabels' => true]
-								);
-//$form->field($model, 'description', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-pencil"></i>']]] )->textarea(['rows' => 12]) ?>
+                            <?php if ($editor=="ckeditor"){ ?>
+                            	<?= $form->field($model, 'description')->widget(CKEditor::className(), 
+									[
+										'options' => ['rows' => 14],
+										'preset' => 'basic'
+									]); ?>
+                            <?php } else if ($editor=="tinymce") { ?>
+                            	<?= $form->field($model, 'description')->widget(TinyMce::className(), [
+										'options' => ['rows' => 12],
+										'language' => $language,
+										'clientOptions' => [
+											'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+										]
+									]); ?>
+                            <?php } else if ($editor=="markdown") { ?>
+                            	<?= $form->field($model, 'description')->widget(
+										MarkdownEditor::classname(),
+										['height' => 250, 'encodeLabels' => true]
+									); ?>
+                            <?php } else { ?>
+                            	<?= $form->field($model, 'description')->textarea(['rows' => 12]); ?>
+                            <?php } ?>
                 
                         </div> <!-- col-lg-8 -->
             
@@ -103,7 +134,7 @@ $select2categories = $model->getCategoriesSelect2();
                             <?php } ?>
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
-                                    'data' => array_merge(Yii::$app->controller->module->languages),
+                                    'data' => array_merge($languages),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -120,6 +151,7 @@ $select2categories = $model->getCategoriesSelect2();
                     
 							<?= $form->field($model, 'image')->widget(FileInput::classname(), [
 									'options' => ['accept' => 'image/*'],
+									'pluginOptions' => ['previewFileType' => 'image'],
 								]);?>
                         
                         </div> <!-- col-lg-6 -->
