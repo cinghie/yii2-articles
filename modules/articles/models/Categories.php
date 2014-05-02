@@ -35,7 +35,7 @@ class Categories extends \yii\db\ActiveRecord
     {
         return '{{%article_categories}}';
     }
-
+	
     /**
      * @inheritdoc
      */
@@ -46,6 +46,8 @@ class Categories extends \yii\db\ActiveRecord
             [['description', 'image_caption', 'params', 'metadesc', 'metakey'], 'string'],
             [['parent', 'published', 'access', 'ordering'], 'integer'],
             [['name', 'alias', 'image', 'image_credits'], 'string', 'max' => 255],
+			[['image'], 'safe'],
+	        [['image'], 'file', 'types' => Yii::$app->controller->module->categoryimagetype],
             [['robots'], 'string', 'max' => 20],
             [['author', 'copyright'], 'string', 'max' => 50],
             [['language'], 'string', 'max' => 7]
@@ -94,7 +96,5 @@ class Categories extends \yii\db\ActiveRecord
 		
 		return $array;
 	}
-	
-	// Return Oredering Number
 	
 }

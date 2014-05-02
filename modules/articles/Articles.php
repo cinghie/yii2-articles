@@ -8,9 +8,15 @@ class Articles extends \yii\base\Module
 {
     public $controllerNamespace = 'app\modules\articles\controllers';
 	
-	public $languages = [];
+	public $languages  = [];
 	
-	public $editor = "ckeditor";
+	public $editor 	   = "";
+	
+	public $categoryimagepath = "";
+	
+	public $categorythumbpath = "";
+	
+	public $categoryimagetype = "";
 
     public function init()
     {

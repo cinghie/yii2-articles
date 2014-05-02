@@ -24,18 +24,17 @@ if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
 $select2categories = $model->getCategoriesSelect2($id);
 
 // Get info by Configuration
-$editor    = Yii::$app->controller->module->editor;
-$language  = substr(Yii::$app->language,0,2);
-$languages = Yii::$app->controller->module->languages;
+$editor     = Yii::$app->controller->module->editor;
+$language   = substr(Yii::$app->language,0,2);
+$languages  = Yii::$app->controller->module->languages;
+$imagetype  = Yii::$app->controller->module->categoryimagetype;
 
 ?>
 
 <div class="categories-form">
 
     <?php $form = ActiveForm::begin([
-		'options' => [
-			'enctype'=>'multipart/form-data',
-		]
+		'options' => ['enctype'=>'multipart/form-data'],
 	]); ?>
     
     <div class="row">
@@ -94,7 +93,7 @@ $languages = Yii::$app->controller->module->languages;
 							]); ?>
 						
 							<?= $form->field($model, 'published')->widget(Select2::classname(), [
-                                    'data' => array_merge(["1" => \Yii::t('articles.message', 'Published')],["0" => \Yii::t('articles.message', 'Unpublished')],["-1" => \Yii::t('articles.message', 'Trashed')]),
+                                    'data' => array_merge(["0" => \Yii::t('articles.message', 'Unpublished')],["1" => \Yii::t('articles.message', 'Published')]),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -150,8 +149,11 @@ $languages = Yii::$app->controller->module->languages;
                     	<div class="col-lg-6">
                     
 							<?= $form->field($model, 'image')->widget(FileInput::classname(), [
-									'options' => ['accept' => 'image/*'],
-									'pluginOptions' => ['previewFileType' => 'image'],
+									'options' => ['accept' => 'image/'.$imagetype],
+									'pluginOptions' => [
+										'previewFileType' => 'image',
+										'showUpload' => false,
+									],
 								]);?>
                         
                         </div> <!-- col-lg-6 -->

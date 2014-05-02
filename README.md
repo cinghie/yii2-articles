@@ -19,6 +19,9 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 <h2>CHANGELOG</h2>
 
 <ul>
+  <li>0.0.5 - Fixed problem with Upload Image</li>		
+  <li>0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
+  <li>0.0.3 - Various Fix and Update for Categorie Views</li>	
   <li>0.0.2 - Update Categories Create View, multi-linguage with I18N</li>
   <li>0.0.1 - Initial Realese, CRUD for Categories and Items</li>
 </ul>
@@ -39,8 +42,16 @@ Download and copy the file in your module folder
 	'articles' => [
 		'class' => 'app\modules\articles\Articles',
 		
-		// Languages allowed
-		'languages' => array_merge([ "en-GB" => "en-GB" ],[ "it-IT" => "it-IT" ]),
+		// Select Languages allowed
+		'languages' => array_merge([ "en-GB" => "en-GB" ],[ "it-IT" => "it-IT" ]),			
+		// Select Editor: no-editor, ckeditor, tinymce, markdown
+		'editor' => 'ckeditor',
+		// Select Image Types allowed
+		'categoryimagetype' => 'jpg,jpeg,gif,png',
+		// Select Image Path To Upload
+		'categoryimagepath' => dirname(dirname(__DIR__)) . '/frontend/web/img/articles/categories/',
+		// Select Image Path To Upload
+		'categorythumbpath' => dirname(dirname(__DIR__)) . '/frontend/web/img/articles/categories/thumb/',
 	],
 ...
 ]</pre>
@@ -74,4 +85,9 @@ Download and copy the file in your module folder
 
 <h2>LIBRARIES NEEDED</h2>
 
+Yii2 Grid: https://github.com/kartik-v/yii2-grid
 Yii2 Widget: https://github.com/kartik-v/yii2-widgets
+Yii2 MarkDown: https://github.com/kartik-v/yii2-markdown
+Yii2 CKEditor: https://github.com/2amigos/yii2-ckeditor-widget
+Yii2 TinyMCE: https://github.com/2amigos/yii2-tinymce-widget
+

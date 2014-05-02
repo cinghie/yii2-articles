@@ -63,7 +63,9 @@ class CategoriesController extends Controller
         $model = new Categories;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
-		{
+		{		
+			$this->uploadImage($model);
+				
 			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been saved!'));
             return $this->redirect([
 				'view', 'id' => $model->id,
@@ -88,8 +90,12 @@ class CategoriesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{
+			$this->uploadCatImage($model);			
+			
 			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been updated!'));
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect([
+				'view', 'id' => $model->id
+			]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -127,4 +133,26 @@ class CategoriesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+	
+	// Upload Image in a select Folder
+	protected function uploadCatImage($model)
+	{
+		$imagepath = Yii::$app->controller->module->categoryimagepath;
+		$thumbpath = Yii::$app->controller->module->categorythumbpath;
+		
+		$file = \yii\web\UploadedFile::getInstance($model, 'image');
+		
+		$type = $file->type;
+		$type = str_replace("image/","",$type);
+		$size = $file->size;
+		$name = $model->name.".".$type;
+		$path = $imagepath.$name;
+		
+		$model->image = $name;
+		$model->save();
+		
+		$file->saveAs($path);
+		
+	}
+	
 }
