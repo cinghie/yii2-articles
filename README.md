@@ -53,6 +53,30 @@ Download and copy the file in your module folder
 		// Select Image Path To Upload
 		'categorythumbpath' => dirname(dirname(__DIR__)) . '/frontend/web/img/articles/categories/thumb/',
 	],
+	
+	// Module Kartik-v Grid
+		'gridview' =>  [
+			'class' => '\kartik\grid\Module',
+			
+			// array the the internalization configuration for this module
+			'i18n' => [
+				'class' => 'yii\i18n\PhpMessageSource',
+				'basePath' => '@kvgrid/messages',
+				'forceTranslation' => true
+			], 
+		],
+		
+	// Module Kartik-v Markdown Editor
+		'markdown' => [
+			'class' => 'kartik\markdown\Module',
+			
+			// array the the internalization configuration for this module
+			'i18n' => [
+				'class' => 'yii\i18n\PhpMessageSource',
+				'basePath' => '@markdown/messages',
+				'forceTranslation' => true
+			], 
+		],
 ...
 ]</pre>
 </li>
