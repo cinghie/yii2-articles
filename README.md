@@ -101,17 +101,21 @@ Download and copy the file in your module folder
 
 <h2>LINK</h2>
 <ul> 
-  <li>Admin: path/to/app/index.php?r=articles</li>
-  <li>Categories: path/to/app/index.php?r=articles/categories</li>
-  <li>Items: path/to/app/index.php?r=articles/items</li>
+  <li>Admin Panel: PathToApp/index.php?r=articles</li>
+  <li>Admin Panel with Pretty Urls: PathToApp/articles</li>
+  <li>Categories: PathToApp/index.php?r=articles/categories</li>
+  <li>Categories with Pretty Urls: PathToApp/articles/categories</li>
+  <li>Items: PathToApp/index.php?r=articles/items</li>
+  <li>Items with Pretty Urls: PathToApp/articles/items</li>
 </ul>
 
 
 <h2>LIBRARIES NEEDED</h2>
 
-Yii2 Grid: https://github.com/kartik-v/yii2-grid
-Yii2 Widget: https://github.com/kartik-v/yii2-widgets
-Yii2 MarkDown: https://github.com/kartik-v/yii2-markdown
-Yii2 CKEditor: https://github.com/2amigos/yii2-ckeditor-widget
-Yii2 TinyMCE: https://github.com/2amigos/yii2-tinymce-widget
-
+<ul> 
+  <li>Yii2 Grid: https://github.com/kartik-v/yii2-grid</li>
+  <li>Yii2 Widget: https://github.com/kartik-v/yii2-widgets</li>
+  <li>Yii2 MarkDown: https://github.com/kartik-v/yii2-markdown</li>
+  <li>Yii2 CKEditor: https://github.com/2amigos/yii2-ckeditor-widget</li>
+  <li>Yii2 TinyMCE: https://github.com/2amigos/yii2-tinymce-widget</li>
+</ul> 

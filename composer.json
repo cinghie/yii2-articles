@@ -1,0 +1,28 @@
+{
+    "name": "cinghie/yii2-articles",
+    "description": "Yii2 Articles to create, manage, and delete articles in a Yii2 site.",
+    "keywords": ["yii2", "module", "articles", "contents","category","seo"],
+    "homepage": "https://github.com/cinghie/yii2-articles",
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Giandomenico Olini",
+            "email": "info@gogodigital.it",
+            "homepage": "http://www.gogodigital.it/"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+		"kartik-v/yii2-grid": "*",
+		"kartik-v/yii2-markdown": "*",
+		"kartik-v/yii2-widgets": "*",
+		"2amigos/yii2-ckeditor-widget": "*",
+        "2amigos/yii2-tinymce-widget": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "cinghie\\": ""
+        }
+    }
+}
