@@ -21,9 +21,9 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 <ul>
   <li>0.0.5 - Fixed problem with Upload Image</li>		
   <li>0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
-  <li>0.0.3 - Various Fix and Update for Categorie Views</li>	
-  <li>0.0.2 - Update Categories Create View, multi-linguage with I18N</li>
-  <li>0.0.1 - Initial Realese, CRUD for Categories and Items</li>
+  <li>0.0.3 - Various Fix and Update for Categories Views</li>	
+  <li>0.0.2 - Added multi-language with I18N</li>
+  <li>0.0.1 - Initial Releases</li>
 </ul>
 
 <h2>INSTALLATION USING COMPOSER</h2>
