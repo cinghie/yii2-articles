@@ -51,6 +51,7 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
                 </ul>
                 
                 <div class="tab-content" id="myTabContent">
+                	<div class="separator"></div>
                     
                     <div id="item" class="tab-pane fade active in">
                     
@@ -60,8 +61,8 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
                             <?php if ($editor=="ckeditor"){ ?>
                             	<?= $form->field($model, 'description')->widget(CKEditor::className(), 
 									[
-										'options' => ['rows' => 14],
-										'preset' => 'basic'
+										'options' => ['rows' => 12],
+										'preset' => 'advanced'
 									]); ?>
                             <?php } else if ($editor=="tinymce") { ?>
                             	<?= $form->field($model, 'description')->widget(TinyMce::className(), [
