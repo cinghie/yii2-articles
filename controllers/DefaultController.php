@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\articles\controllers;
+namespace cinghie\articles\controllers;
 
 use yii\web\Controller;
 

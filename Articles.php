@@ -1,12 +1,12 @@
 <?php
 
-namespace app\modules\articles;
+namespace cinghie\articles;
 
 use Yii;
 
 class Articles extends \yii\base\Module
 {
-    public $controllerNamespace = 'app\modules\articles\controllers';
+    public $controllerNamespace = 'cinghie\articles\controllers';
 	
 	public $languages  = [];
 	

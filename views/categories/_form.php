@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use app\modules\articles\assets\ArticlesAsset; /* !!! Da cambiare con vendor tramite composer !!! */
+use cinghie\articles\assets\ArticlesAsset; /* !!! Da cambiare con vendor tramite composer !!! */
 
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
@@ -17,7 +17,7 @@ use kartik\markdown\MarkdownEditor;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['app\modules\articles\assets\ArticlesAsset']; /* !!! Da cambiare con vendor tramite composer !!! */
+$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset']; /* !!! Da cambiare con vendor tramite composer !!! */
 
 // Get info For the Select2 Categories 
 if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }

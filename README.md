@@ -19,6 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 <h2>CHANGELOG</h2>
 
 <ul>
+  <li>0.0.6 - Added Composer</li>	
   <li>0.0.5 - Fixed problem with Upload Image</li>		
   <li>0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
   <li>0.0.3 - Various Fix and Update for Categories Views</li>	
@@ -40,7 +41,7 @@ Download and copy the file in your module folder
 ...
 	// Module Articles
 	'articles' => [
-		'class' => 'app\modules\articles\Articles',
+		'class' => 'cinghie\articles\Articles',
 		
 		// Select Languages allowed
 		'languages' => array_merge([ "en-GB" => "en-GB" ],[ "it-IT" => "it-IT" ]),			

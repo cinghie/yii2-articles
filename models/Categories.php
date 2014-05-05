@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\articles\models;
+namespace cinghie\articles\models;
 
 use Yii;
 

@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "cinghie\\yii2-articles\\": ""
+            "cinghie\\": ""
         }
     }
 }

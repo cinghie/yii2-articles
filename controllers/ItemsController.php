@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\articles\controllers;
+namespace cinghie\articles\controllers;
 
 use Yii;
-use app\modules\articles\models\Items;
-use app\modules\articles\models\ItemsSearch;
+use cinghie\articles\models\Items;
+use cinghie\articles\models\ItemsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

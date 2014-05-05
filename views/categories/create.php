@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var app\modules\articles\models\Categories $model
+ * @var cinghie\articles\models\Categories $model
  */
 
 $this->title = Yii::t('articles.message', 'Create Category', [

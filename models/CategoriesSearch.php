@@ -1,14 +1,14 @@
 <?php
 
-namespace app\modules\articles\models;
+namespace cinghie\articles\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\articles\models\Categories;
+use cinghie\articles\models\Categories;
 
 /**
- * CategoriesSearch represents the model behind the search form about `app\modules\articles\models\Categories`.
+ * CategoriesSearch represents the model behind the search form about `cinghie\articles\models\Categories`.
  */
 class CategoriesSearch extends Categories
 {

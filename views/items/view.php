@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var app\modules\articles\models\Items $model
+ * @var cinghie\articles\models\Items $model
  */
 
 $this->title = $model->title;

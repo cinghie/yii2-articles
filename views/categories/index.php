@@ -6,7 +6,7 @@ use kartik\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var app\modules\articles\models\CategoriesSearch $searchModel
+ * @var cinghie\articles\models\CategoriesSearch $searchModel
  */
 
 $this->title = Yii::t('articles.message', 'Categories');

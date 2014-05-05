@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var app\modules\articles\models\ItemsSearch $searchModel
+ * @var cinghie\articles\models\ItemsSearch $searchModel
  */
 
 $this->title = Yii::t('app', 'Items');
