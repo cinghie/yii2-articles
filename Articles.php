@@ -10,13 +10,15 @@ class Articles extends \yii\base\Module
 	
 	public $languages  = [];
 	
-	public $editor 	   = "";
+	public $editor 	   = "ckeditor";
+	
+	public $categoryimagetype = "jpg,jpeg,gif,png";
+	
+	public $categoryimgname = "categoryname";
 	
 	public $categoryimagepath = "";
 	
 	public $categorythumbpath = "";
-	
-	public $categoryimagetype = "";
 
     public function init()
     {

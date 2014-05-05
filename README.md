@@ -49,6 +49,8 @@ Download and copy the file in your module folder
 		'editor' => 'ckeditor',
 		// Select Image Types allowed
 		'categoryimagetype' => 'jpg,jpeg,gif,png',
+		// Select Image Name: original, categoryname, casual
+		'categoryimgname' => 'categoryname',
 		// Select Path To Upload Category Image
 		'categoryimagepath' => dirname(dirname(__DIR__)) . '/frontend/web/img/articles/categories/',
 		// Select Path To Upload Category Thumb 

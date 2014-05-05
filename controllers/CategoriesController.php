@@ -64,7 +64,8 @@ class CategoriesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{		
-			$this->uploadImage($model);
+			$this->uploadCatImage($model);
+			$model->save();
 				
 			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been saved!'));
             return $this->redirect([
@@ -90,7 +91,8 @@ class CategoriesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{
-			$this->uploadCatImage($model);			
+			$this->uploadCatImage($model);	
+			$model->save();		
 			
 			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been updated!'));
             return $this->redirect([
@@ -139,20 +141,58 @@ class CategoriesController extends Controller
 	{
 		$imagepath = Yii::$app->controller->module->categoryimagepath;
 		$thumbpath = Yii::$app->controller->module->categorythumbpath;
+		$imgname   = Yii::$app->controller->module->categoryimgname;
 		
 		$file = \yii\web\UploadedFile::getInstance($model, 'image');
 		
 		$type = $file->type;
 		$type = str_replace("image/","",$type);
 		$size = $file->size;
-		$name = $model->name.".".$type;
-		$path = $imagepath.$name;
 		
+		switch($imgname) 
+		{
+			case "original":
+				$name = $this->generateAlias($file->name,"img");
+				break;
+			
+			case "casual":
+				$name = uniqid(rand(), true).".".$type;
+				break;
+			
+			default:
+				$name = $this->generateAlias($model->name,"img").".".$type;
+				break;
+		}
+		
+		// Update the Image Name
 		$model->image = $name;
-		$model->save();
 		
-		$file->saveAs($path);
-		
+		// Save the file in the Image Folder
+		$path = $imagepath.$name;
+		$file->saveAs($path);		
 	}
+	
+	// Generate URL or IMG alias
+	protected function generateAlias($name,$type)
+    {
+        // remove any '-' from the string they will be used as concatonater
+        $str = str_replace('-', ' ', $name);
+        $str = str_replace('_', ' ', $name);
+
+        // remove any duplicate whitespace, and ensure all characters are alphanumeric
+		if($type == "img") 
+		{
+        	$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('_',''), $str);
+		}
+		else 
+		{
+			$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
+		}
+
+        // lowercase and trim
+        $str = trim(strtolower($str));
+		
+        return $str;
+    }
 	
 }
