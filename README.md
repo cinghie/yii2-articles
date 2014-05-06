@@ -3,7 +3,7 @@ Yii2 Articles
 
 Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 
-<h2>FEATURES</h2>
+## FEATURES
 
 <ul>
   <li>Create, edit and delete articles</li>
@@ -16,7 +16,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>SEO Optimization</li>
 </ul>
 
-<h2>CHANGELOG</h2>
+## CHANGELOG
 
 <ul>
   <li>0.0.6 - Added Composer</li>	
@@ -27,13 +27,23 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>0.0.1 - Initial Releases</li>
 </ul>
 
-<h2>INSTALLATION USING COMPOSER</h2>
+## INSTALLATION USING COMPOSER
 
-<h2>MANUAL INSTALLATION</h2>
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-Download and copy the file in your module folder
+Either run
 
-<h2>CONFIGURATION</h2>
+```
+$ php composer.phar require cinghie/yii2-articles "dev-master"
+```
+
+or add
+
+```
+"cinghie/yii2-articles": "dev-master"
+```
+
+## CONFIGURATION
 <ul>
 
 <li>Add in your configuration file, in modules section:
@@ -102,7 +112,7 @@ Download and copy the file in your module folder
 </li>
 </ul>
 
-<h2>LINK</h2>
+## LINK
 <ul> 
   <li>Admin Panel: PathToApp/index.php?r=articles</li>
   <li>Admin Panel with Pretty Urls: PathToApp/articles</li>
@@ -113,7 +123,7 @@ Download and copy the file in your module folder
 </ul>
 
 
-<h2>LIBRARIES NEEDED</h2>
+## LIBRARIES NEEDED
 
 <ul> 
   <li>Yii2 Grid: https://github.com/kartik-v/yii2-grid</li>
