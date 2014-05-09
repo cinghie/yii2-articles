@@ -194,14 +194,19 @@ class CategoriesController extends Controller
     }
 	
 	// Upload Image in a select Folder
-	protected function uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype)
+	protected function uploadCatImage($model)
 	{
+		$imagepath = Yii::$app->controller->module->categoryimagepath;
+		$thumbpath = Yii::$app->controller->module->categorythumbpath;
+		$imgname   = Yii::$app->controller->module->categoryimgname;
+		
+		$file = \yii\web\UploadedFile::getInstance($model, 'image');
 		
 		$type = $file->type;
 		$type = str_replace("image/","",$type);
 		$size = $file->size;
 		
-		switch($imgnametype) 
+		switch($imgname) 
 		{
 			case "original":
 				$name = $this->generateAlias($file->name,"img");
@@ -212,15 +217,16 @@ class CategoriesController extends Controller
 				break;
 			
 			default:
-				$name = $this->generateAlias($imgname,"img").".".$type;
+				$name = $this->generateAlias($model->name,"img").".".$type;
 				break;
 		}
 		
+		// Update the Image Name
+		$model->image = $name;
+		
 		// Save the file in the Image Folder
 		$path = $imagepath.$name;
-		$file->saveAs($path);	
-		
-		return $name;
+		$file->saveAs($path);		
 	}
 	
 	// Generate URL or IMG alias

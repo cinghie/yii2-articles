@@ -1,18 +1,31 @@
 <?php
 
-/**
- * @copyright Copyright &copy;2014 Giandomenico Olini
- * @company Gogodigital - Wide ICT Solutions 
- * @website http://www.gogodigital.it
- * @package yii2-articles
- * @github https://github.com/cinghie/yii2-articles
- * @license GNU GENERAL PUBLIC LICENSE VERSION 3
- */
-
 namespace cinghie\articles\models;
 
 use Yii;
 
+/**
+ * This is the model class for table "article_categories".
+ *
+ * @property string $id
+ * @property string $name
+ * @property string $alias
+ * @property string $description
+ * @property integer $parent
+ * @property integer $published
+ * @property integer $access
+ * @property integer $ordering
+ * @property string $image
+ * @property string $image_caption
+ * @property string $image_credits
+ * @property string $params
+ * @property string $metadesc
+ * @property string $metakey
+ * @property string $robots
+ * @property string $author
+ * @property string $copyright
+ * @property string $language
+ */
 class Categories extends \yii\db\ActiveRecord
 {
     /**
@@ -29,7 +42,7 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'language'], 'required'],
+            [['name', 'alias', 'language'], 'required'],
             [['description', 'image_caption', 'params', 'metadesc', 'metakey'], 'string'],
             [['parent', 'published', 'access', 'ordering'], 'integer'],
             [['name', 'alias', 'image', 'image_credits'], 'string', 'max' => 255],

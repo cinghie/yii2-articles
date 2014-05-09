@@ -43,9 +43,7 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
 <div class="categories-form">
 
     <?php $form = ActiveForm::begin([
-		'options' => [
-			'enctype'=>'multipart/form-data'
-		],
+		'options' => ['enctype'=>'multipart/form-data'],
 	]); ?>
     
     <div class="row">
@@ -105,10 +103,7 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
 							]); ?>
 						
 							<?= $form->field($model, 'published')->widget(Select2::classname(), [
-                                    'data' => [
-										1 => \Yii::t('articles.message', 'Published'),
-										0 => \Yii::t('articles.message', 'Unpublished'),
-									],
+                                    'data' => array_merge(["0" => \Yii::t('articles.message', 'Unpublished')],["1" => \Yii::t('articles.message', 'Published')]),
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],
@@ -164,13 +159,10 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
                     	<div class="col-lg-6">
                     
 							<?= $form->field($model, 'image')->widget(FileInput::classname(), [
-									'options' => [
-										'accept' => 'image/'.$imagetype
-									],
+									'options' => ['accept' => 'image/'.$imagetype],
 									'pluginOptions' => [
 										'previewFileType' => 'image',
 										'showUpload' => false,
-										'browseLabel' => \Yii::t('articles.message', 'Browse &hellip;'),
 									],
 								]);?>
                         

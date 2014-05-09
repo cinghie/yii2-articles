@@ -1,13 +1,16 @@
 <?php
 
+/**
+ * @copyright Copyright &copy;2014 Giandomenico Olini
+ * @company Gogodigital - Wide ICT Solutions 
+ * @website http://www.gogodigital.it
+ * @package yii2-articles
+ * @github https://github.com/cinghie/yii2-articles
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ */
+
 use yii\helpers\Html;
 use kartik\grid\GridView;
-
-/**
- * @var yii\web\View $this
- * @var yii\data\ActiveDataProvider $dataProvider
- * @var cinghie\articles\models\CategoriesSearch $searchModel
- */
 
 $this->title = Yii::t('articles.message', 'Categories');
 $this->params['breadcrumbs'][] = $this->title;

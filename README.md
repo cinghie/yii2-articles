@@ -112,7 +112,7 @@ or add
 </li>
 </ul>
 
-## LINK
+## LINKS
 <ul> 
   <li>Admin Panel: PathToApp/index.php?r=articles</li>
   <li>Admin Panel with Pretty Urls: PathToApp/articles</li>
