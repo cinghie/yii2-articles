@@ -84,4 +84,26 @@ class Categories extends \yii\db\ActiveRecord
 		return $array;
 	}
 	
+	// Return Image Category from Database
+	public function getCategoriesimage($id)
+	{
+		$sql = 'SELECT image FROM {{%article_categories}} WHERE id ='.$id;
+		$image = Categories::findBySql($sql)->asArray()->one();
+		
+		return $image['image'];
+	}
+	
+	// Delete Image From Category
+	public function deleteImage() {
+		$image = \Yii::getAlias('@webroot').Yii::$app->controller->module->categoryimagepath.$this->image;
+		
+		if (unlink($image)) {
+			$this->image = "";
+			$this->save();
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

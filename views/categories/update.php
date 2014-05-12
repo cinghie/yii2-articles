@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = Yii::t('articles.message', 'Update');
 ?>
 <div class="categories-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,

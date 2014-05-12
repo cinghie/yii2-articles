@@ -30,6 +30,7 @@ class CategoriesController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+					'deleteImage' => ['post'],
                 ],
             ],
         ];
@@ -74,8 +75,8 @@ class CategoriesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{		
 			// Upload Image and Thumb if is not Null
-			$imagepath   = Yii::$app->controller->module->categoryimagepath;
-			$thumbpath   = Yii::$app->controller->module->categorythumbpath;
+			$imagepath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categoryimagepath;
+			$thumbpath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categorythumbpath;
 			$imgnametype = Yii::$app->controller->module->categoryimgname;
 			$imgname     = $model->name;
 			
@@ -123,17 +124,16 @@ class CategoriesController extends Controller
 		{
 		
 			// Upload Image and Thumb if is not Null
-			$imagepath   = Yii::$app->controller->module->categoryimagepath;
-			$thumbpath   = Yii::$app->controller->module->categorythumbpath;
+			$imagepath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categoryimagepath;
+			$thumbpath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categorythumbpath;
 			$imgnametype = Yii::$app->controller->module->categoryimgname;
 			$imgname     = $model->name;
 			
 			$file = \yii\web\UploadedFile::getInstance($model, 'image');
 			
-			// If is set an image, update it
+			// If is set an image update it, else show the image and the button to remove it
 			if ($file->name != "")
 			{ 
-				Yii::$app->session->setFlash('success', var_dump($file->name));
 				$filename = $this->uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype);
 				$model->image = $filename;	
 			}
@@ -175,6 +175,23 @@ class CategoriesController extends Controller
 		Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been deleted!'));
         return $this->redirect(['index']);
     }
+	
+	/* Delete the Image from the Categories model */
+	public function actionDeleteimage($id) {
+		$model = $this->findModel($id);
+		
+		if ($model->deleteImage()) {
+			Yii::$app->session->setFlash('success', 
+		   \Yii::t('articles.message', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
+		} else {
+			Yii::$app->session->setFlash('error', 
+		   \Yii::t('articles.message', 'Error removing image. Please try again later or contact the system admin.'));
+		}
+		
+		return $this->redirect([
+				'update', 'id' => $model->id,
+		]);
+	}
 
     /**
      * Finds the Categories model based on its primary key value.

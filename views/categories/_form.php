@@ -32,11 +32,16 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
 $select2categories = $model->getCategoriesSelect2($id);
 
+// Get image from Categories
+$imagecategories = $model->getCategoriesimage($id);
+
 // Get info by Configuration
 $editor     = Yii::$app->controller->module->editor;
 $language   = substr(Yii::$app->language,0,2);
 $languages  = Yii::$app->controller->module->languages;
 $imagetype  = Yii::$app->controller->module->categoryimagetype;
+
+//print_r(Yii::$app->urlManager);
 
 ?>
 
@@ -163,16 +168,32 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
                     
                     	<div class="col-lg-6">
                     
-							<?= $form->field($model, 'image')->widget(FileInput::classname(), [
-									'options' => [
-										'accept' => 'image/'.$imagetype
-									],
-									'pluginOptions' => [
-										'previewFileType' => 'image',
-										'showUpload' => false,
-										'browseLabel' => \Yii::t('articles.message', 'Browse &hellip;'),
-									],
-								]);?>
+                    		<?php if ($imagecategories==""){ ?>
+                            
+								<?= $form->field($model, 'image')->widget(FileInput::classname(), [
+                                        'options' => [
+                                            'accept' => 'image/'.$imagetype
+                                        ],
+                                        'pluginOptions' => [
+                                            'previewFileType' => 'image',
+                                            'showUpload' => false,
+                                            'browseLabel' => \Yii::t('articles.message', 'Browse &hellip;'),
+                                        ],
+                                    ]);?>
+                             
+                            <?php } else { 	?>		
+                            
+                            	<div class="thumbnail">                       	
+                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px; height: 250px;" src="">
+                                    <div class="caption">
+                                    	<p></p>
+                                        <p>
+                                        	<a class="btn btn-danger" href="deleteimage?id=<?= $model->id ?>"><?= \Yii::t('articles.message', 'Delete Image') ?></a> 
+                                        </p>
+                                    </div>
+                                </div>
+                            		
+							<?php }  ?>
                         
                         </div> <!-- col-lg-6 -->
                         

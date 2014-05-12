@@ -17,7 +17,7 @@ class Articles extends \yii\base\Module
 {
     public $controllerNamespace = 'cinghie\articles\controllers';
 	
-	public $languages  = [];
+	public $languages  = ["en-GB" => "en-GB"];
 	
 	public $editor 	   = "ckeditor";
 	
@@ -25,9 +25,9 @@ class Articles extends \yii\base\Module
 	
 	public $categoryimgname = "categoryname";
 	
-	public $categoryimagepath = "";
+	public $categoryimagepath = "/img/articles/categories/";
 	
-	public $categorythumbpath = "";
+	public $categorythumbpath = "/img/articles/categories/thumb/";
 
     public function init()
     {
