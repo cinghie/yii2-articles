@@ -19,6 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>0.0.7 - Added Image Upload for Categories</li>
   <li>0.0.6 - Added Composer</li>	
   <li>0.0.5 - Fixed problem with Upload Image</li>		
   <li>0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
@@ -45,7 +46,7 @@ or add
 
 ## CONFIGURATION
 <ul>
-
+<li>Copy images folder from docs to yor webroot</li>
 <li>Add in your configuration file, in modules section:
 <pre>'modules' => [ 
 ...
@@ -62,34 +63,34 @@ or add
 		// Select Image Name: original, categoryname, casual
 		'categoryimgname' => 'categoryname',
 		// Select Path To Upload Category Image
-		'categoryimagepath' => dirname(dirname(__DIR__)) . '/frontend/web/img/articles/categories/',
-		// Select Path To Upload Category Thumb 
-		'categorythumbpath' => dirname(dirname(__DIR__)) . '/frontend/web/img/articles/categories/thumb/',
+		'categoryimagepath' => 'images/articles/categories/',
+		// Select Path To Upload Category Thumb
+		'categorythumbpath' => 'images/articles/categories/thumb/',
 	],
 	
 	// Module Kartik-v Grid
-		'gridview' =>  [
-			'class' => '\kartik\grid\Module',
-			
-			// array the the internalization configuration for this module
-			'i18n' => [
-				'class' => 'yii\i18n\PhpMessageSource',
-				'basePath' => '@kvgrid/messages',
-				'forceTranslation' => true
-			], 
-		],
+	'gridview' =>  [
+		'class' => '\kartik\grid\Module',
+		
+		// array the the internalization configuration for this module
+		'i18n' => [
+			'class' => 'yii\i18n\PhpMessageSource',
+			'basePath' => '@kvgrid/messages',
+			'forceTranslation' => true
+		], 
+	],
 		
 	// Module Kartik-v Markdown Editor
-		'markdown' => [
-			'class' => 'kartik\markdown\Module',
+	'markdown' => [
+		'class' => 'kartik\markdown\Module',
 			
-			// array the the internalization configuration for this module
-			'i18n' => [
-				'class' => 'yii\i18n\PhpMessageSource',
-				'basePath' => '@markdown/messages',
-				'forceTranslation' => true
-			], 
-		],
+		// array the the internalization configuration for this module
+		'i18n' => [
+			'class' => 'yii\i18n\PhpMessageSource',
+			'basePath' => '@markdown/messages',
+			'forceTranslation' => true
+		], 
+	],
 ...
 ]</pre>
 </li>

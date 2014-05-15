@@ -36,12 +36,11 @@ $select2categories = $model->getCategoriesSelect2($id);
 $imagecategories = $model->getCategoriesimage($id);
 
 // Get info by Configuration
-$editor     = Yii::$app->controller->module->editor;
-$language   = substr(Yii::$app->language,0,2);
-$languages  = Yii::$app->controller->module->languages;
-$imagetype  = Yii::$app->controller->module->categoryimagetype;
-
-//print_r(Yii::$app->urlManager);
+$editor    = Yii::$app->controller->module->editor;
+$language  = substr(Yii::$app->language,0,2);
+$languages = Yii::$app->controller->module->languages;
+$imagetype = Yii::$app->controller->module->categoryimagetype;
+$imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->categoryimagepath;
 
 ?>
 
@@ -166,6 +165,8 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
                     
                     <div id="image" class="tab-pane fade">
                     
+                    	<p class="bg-info">Allowed Extensions: <?= $imagetype ?></p>
+                    
                     	<div class="col-lg-6">
                     
                     		<?php if ($imagecategories==""){ ?>
@@ -184,7 +185,7 @@ $imagetype  = Yii::$app->controller->module->categoryimagetype;
                             <?php } else { 	?>		
                             
                             	<div class="thumbnail">                       	
-                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px; height: 250px;" src="">
+                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $imageurl ?>test.png">
                                     <div class="caption">
                                     	<p></p>
                                         <p>

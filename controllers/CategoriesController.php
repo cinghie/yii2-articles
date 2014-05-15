@@ -75,8 +75,8 @@ class CategoriesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{		
 			// Upload Image and Thumb if is not Null
-			$imagepath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categoryimagepath;
-			$thumbpath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categorythumbpath;
+			$imagepath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath;
+			$thumbpath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath;
 			$imgnametype = Yii::$app->controller->module->categoryimgname;
 			$imgname     = $model->name;
 			
@@ -124,8 +124,8 @@ class CategoriesController extends Controller
 		{
 		
 			// Upload Image and Thumb if is not Null
-			$imagepath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categoryimagepath;
-			$thumbpath   = \Yii::getAlias('@webroot').Yii::$app->controller->module->categorythumbpath;
+			$imagepath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath;
+			$thumbpath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath;
 			$imgnametype = Yii::$app->controller->module->categoryimgname;
 			$imgname     = $model->name;
 			
