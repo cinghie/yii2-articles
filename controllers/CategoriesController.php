@@ -75,8 +75,8 @@ class CategoriesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{		
 			// Upload Image and Thumb if is not Null
-			$imagepath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath;
-			$thumbpath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath;
+			$imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath;
+			$thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath;
 			$imgnametype = Yii::$app->controller->module->categoryimgname;
 			$imgname     = $model->name;
 			
@@ -124,24 +124,28 @@ class CategoriesController extends Controller
 		{
 		
 			// Upload Image and Thumb if is not Null
-			$imagepath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath;
-			$thumbpath   = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath;
+			$imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath;
+			$thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath;
 			$imgnametype = Yii::$app->controller->module->categoryimgname;
 			$imgname     = $model->name;
 			
-			$file = \yii\web\UploadedFile::getInstance($model, 'image');
-			
-			// If is set an image update it, else show the image and the button to remove it
-			if ($file->name != "")
-			{ 
-				$filename = $this->uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype);
-				$model->image = $filename;	
-			}
-			
-			// If alias is not set, generate it
-			if ($_POST['Categories']['alias']=="") 
+			if (\yii\web\UploadedFile::getInstance($model, 'image')) 
 			{
-				$model->alias = $this->generateAlias($model->name,"url");
+			
+				$file = \yii\web\UploadedFile::getInstance($model, 'image');
+				
+				// If is set an image update it, else show the image and the button to remove it
+				if ($file->name != "")
+				{ 
+					$filename = $this->uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype);
+					$model->image = $filename;	
+				}
+				
+				// If alias is not set, generate it
+				if ($_POST['Categories']['alias']=="") 
+				{
+					$model->alias = $this->generateAlias($model->name,"url");
+				}
 			}
 			
 			// Save changes

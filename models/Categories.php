@@ -95,7 +95,7 @@ class Categories extends \yii\db\ActiveRecord
 	
 	// Delete Image From Category
 	public function deleteImage() {
-		$image = \Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath.$this->image;
+		$image = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath.$this->image;
 		
 		if (unlink($image)) {
 			$this->image = "";

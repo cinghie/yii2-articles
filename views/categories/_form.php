@@ -184,12 +184,16 @@ $imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->categoryimagepath
                              
                             <?php } else { 	?>		
                             
+                            	<?= $form->field($model, 'image')->hiddenInput() ?>
+                            
                             	<div class="thumbnail">                       	
-                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $imageurl ?>test.png">
+                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $imageurl.$model->image ?>">
                                     <div class="caption">
                                     	<p></p>
                                         <p>
-                                        	<a class="btn btn-danger" href="deleteimage?id=<?= $model->id ?>"><?= \Yii::t('articles.message', 'Delete Image') ?></a> 
+                                        	<a class="btn btn-danger" href="deleteimage?id=<?= $model->id ?>">
+												<?= \Yii::t('articles.message', 'Delete Image') ?>
+                                            </a> 
                                         </p>
                                     </div>
                                 </div>
