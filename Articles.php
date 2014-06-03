@@ -23,11 +23,18 @@ class Articles extends \yii\base\Module
 	
 	public $categoryimagetype = "jpg,jpeg,gif,png";
 	
-	public $categoryimgname = "categoryname";
+	public $categoryimgname   = "categoryname";
 	
 	public $categoryimagepath = "/img/articles/categories/";
 	
 	public $categorythumbpath = "/img/articles/categories/thumb/";
+	
+	public $categorythumboptions =	[ 
+		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],
+		'medium' => ['quality' => 100, 'width' => 300, 'height' => 200],
+		'large'  => ['quality' => 100, 'width' => 400, 'height' => 300],
+		'extra'  => ['quality' => 100, 'width' => 600, 'height' => 400],
+	];
 
     public function init()
     {

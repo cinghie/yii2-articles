@@ -1,8 +1,16 @@
+/* Category Form*/
+
 div.separator {
 	margin-top: 25px;
 }
 p.bg-info {
 	padding: 15px;
+}
+div#params h4 {
+	background-color: #5CB85C;
+	color: #FFFFFF!important;
+	padding: 10px;
+	text-align: center;
 }
 
 /* Category View */

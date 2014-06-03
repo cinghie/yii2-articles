@@ -24,6 +24,16 @@ $languages = Yii::$app->controller->module->languages;
 $imagetype = Yii::$app->controller->module->categoryimagetype;
 $imageurl  = Yii::$app->homeUrl.Yii::$app->controller->module->categoryimagepath;
 
+// Get Article Image or Default Image
+if (file_exists($imageurl.$model->name)) 
+{
+	$image = $imageurl.$model->image;
+}
+else 
+{
+	$image = $imageurl."default.jpg";
+}
+
 // SEO Parameters
 $this->title = $model->name;
 $this->registerMetaTag([
@@ -76,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-4 col-sm-4">
             <div class="image">
-                <img alt="<?= $imageurl.$model->name ?>" src="<?= $imageurl.$model->image ?>" class="img-responsive" title="<?= $imageurl.$model->name ?>">
+                <img alt="<?= $imageurl.$model->name ?>" src="<?= $image ?>" class="img-responsive" title="<?= $imageurl.$model->name ?>">
                 <?php if($model->image_caption) { ?>
                     <div class="caption">
                         <?= $model->image_caption ?>

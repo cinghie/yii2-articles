@@ -10,6 +10,8 @@
  */
 
 return array(
+	'Yes'=>'Si',
+	'No'=>'No',
 	'Category'=>'Categoria',
 	'Categories'=>'Categorie',
 	'Create Category'=>'Crea Categoria',
@@ -18,15 +20,16 @@ return array(
 	'Category has been saved!'=>'Categoria salvata correttamente!',
 	'Category has been updated!'=>'Categoria aggiornata correttamente!',
 	'Category has been deleted!'=>'Categoria eliminata correttamente!',
+	'In Development'=>'In Sviluppo',
 	'Image'=>'Immagine',
 	'Delete Image'=>'Cancella Immagine',
 	'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'=>"L'immagine &egrave; stato rimossa con successo! Ora puoi caricarne un'altra facendo clic sul tasto Sfoglia nel Tab Immagine",
 	'Error removing image. Please try again later or contact the system admin.'=>"Errore durante la rimozione dell' immagine. Riprovare più tardi o contattare l'amministratore del sistema.",
 	'Browse &hellip;'=>'Sfoglia',
-	'Options'=>'Opzioni',
+	'Allowed Extensions'=>'Estensioni Permesse',
 	'Save & Exit'=>'Salva & Esci',
 	'Update'=>'Aggiorna',
-	'Reset Grid'=>'Resetta Griglia',
+	'Reset Grid'=>'Reset',
 	'Name'=>'Nome',
 	'Description'=>'Descrizione',
 	'Parent'=>'Genitore',
@@ -43,4 +46,10 @@ return array(
 	'Image Credits'=>'Crediti Immagine',
 	'Metadesc'=>'Meta Description',
 	'Metakey'=>'Meta Keywords',
+	'Options'=>'Opzioni',
+	'Categories View'=>'Vista Categorie',
+	'Category View'=>'Vista Categoria',
+	'Item View'=>'Vista Articolo',
+	'Image Width (px)'=>'Larghezza Immagine',
+	'Show Item Data'=>'Mostra Data Articoli',
 );

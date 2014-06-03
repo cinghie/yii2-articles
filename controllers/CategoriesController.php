@@ -17,6 +17,7 @@ use cinghie\articles\models\CategoriesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\imagine\Image;
 
 /**
  * CategoriesController implements the CRUD actions for Categories model.
@@ -95,6 +96,11 @@ class CategoriesController extends Controller
 				$model->alias = $this->generateAlias($model->name,"url");
 			}
 			
+			// Genarate Json Params 
+			$params = array( 'categoriesImageWidth' => $_POST['categoriesImageWidth'], 'categoriesViewData' => $_POST['categoriesViewData'],'categoryImageWidth' => $_POST['categoryImageWidth'], 'categoryViewData' => $_POST['categoryViewData'], 'itemImageWidth' => $_POST['itemImageWidth'], 'itemViewData' => $_POST['itemViewData'] );
+			$params = $this->generateJsonParams($params);
+			$model->params = $params;
+			
 			// Save changes
 			$model->save();	
 				
@@ -147,6 +153,11 @@ class CategoriesController extends Controller
 					$model->alias = $this->generateAlias($model->name,"url");
 				}
 			}
+			
+			// Genarate Json Params 
+			$params = array( 'categoriesImageWidth' => $_POST['categoriesImageWidth'], 'categoriesViewData' => $_POST['categoriesViewData'],'categoryImageWidth' => $_POST['categoryImageWidth'], 'categoryViewData' => $_POST['categoryViewData'], 'itemImageWidth' => $_POST['itemImageWidth'], 'itemViewData' => $_POST['itemViewData'] );
+			$params = $this->generateJsonParams($params);
+			$model->params = $params;
 			
 			// Save changes
 			$model->save();	
@@ -239,7 +250,11 @@ class CategoriesController extends Controller
 		
 		// Save the file in the Image Folder
 		$path = $imagepath.$name;
-		$file->saveAs($path);	
+		$file->saveAs($path);
+		
+		// Save Image Thumb
+		Image::thumbnail($imagepath.$name, 120, 120)
+    	->save($thumbpath.$name, ['quality' => 50]);	
 		
 		return $name;
 	}
@@ -266,5 +281,11 @@ class CategoriesController extends Controller
 		
         return $str;
     }
+	
+	// Generate JSON for Params
+	protected function generateJsonParams($params)
+	{
+		return json_encode($params);
+	}
 	
 }

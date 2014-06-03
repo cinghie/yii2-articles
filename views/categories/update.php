@@ -11,6 +11,21 @@
 
 use yii\helpers\Html;
 
+// Params
+$options = $model->params;
+$options = json_decode($options);
+
+// Load Javascript to load Options Data
+$script = "
+	jQuery('div.field-categories-categoriesImageWidth select').val('".$options->categoriesImageWidth."');
+	jQuery('div.field-categories-categoryImageWidth select').val('".$options->categoryImageWidth."');
+	jQuery('div.field-categories-itemImageWidth select').val('".$options->itemImageWidth."');
+	jQuery('div.field-categories-categoriesViewData select').val('".$options->categoriesViewData."');
+	jQuery('div.field-categories-categoryViewData select').val('".$options->categoryViewData."');
+	jQuery('div.field-categories-itemViewData select').val('".$options->itemViewData."');
+";
+$this->registerJs($script);
+
 $this->title = Yii::t('articles.message', 'Update Category: ', [
   'modelClass' => 'Categories',
 ]) . ' ' . $model->name;
