@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @copyright Copyright &copy;2014 Giandomenico Olini
- * @company Gogodigital - Wide ICT Solutions 
- * @website http://www.gogodigital.it
- * @package yii2-articles
- * @github https://github.com/cinghie/yii2-articles
- * @license GNU GENERAL PUBLIC LICENSE VERSION 3
- */
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
 
 namespace cinghie\articles\models;
 
@@ -27,17 +28,17 @@ class Categories extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public function rules()
-    {
+    {	
         return [
             [['name', 'language'], 'required'],
-            [['description', 'image_caption', 'params', 'metadesc', 'metakey'], 'string'],
-            [['parent', 'published', 'access', 'ordering'], 'integer'],
-            [['name', 'alias', 'image', 'image_credits'], 'string', 'max' => 255],
-			[['image'], 'safe'],
-	        [['image'], 'file', 'types' => Yii::$app->controller->module->categoryimagetype],
-            [['robots'], 'string', 'max' => 20],
-            [['author', 'copyright'], 'string', 'max' => 50],
-            [['language'], 'string', 'max' => 7]
+			[['parentid', 'published', 'access', 'ordering'], 'integer'],
+			[['name', 'alias', 'image_caption', 'image_credits'], 'string', 'max' => 255],
+            [['description', 'image', 'params', 'metadesc', 'metakey'], 'string'],
+			[['author', 'copyright'], 'string', 'max' => 50],
+			[['language'], 'string', 'max' => 7],
+			[['robots'], 'string', 'max' => 20],
+			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->categoryimagetype,],
+			[['image'], 'safe']
         ];
     }
 
@@ -51,7 +52,7 @@ class Categories extends \yii\db\ActiveRecord
             'name' => Yii::t('articles.message', 'Name'),
             'alias' => Yii::t('articles.message', 'Alias'),
             'description' => Yii::t('articles.message', 'Description'),
-            'parent' => Yii::t('articles.message', 'Parent'),
+            'parentid' => Yii::t('articles.message', 'Parent'),
             'published' => Yii::t('articles.message', 'Published'),
             'access' => Yii::t('articles.message', 'Access'),
             'ordering' => Yii::t('articles.message', 'Ordering'),
@@ -66,6 +67,35 @@ class Categories extends \yii\db\ActiveRecord
             'copyright' => Yii::t('articles.message', 'Copyright'),
             'language' => Yii::t('articles.message', 'Language'),
         ];
+    }
+	
+	// Return Parent ID
+    public function getParent()
+    {
+        return $this->hasOne(Categories::className(), ['id' => 'parentid']);
+    }
+	
+	// Return Parent Name
+	public function getParentName()
+	{
+        $model = $this->parent;
+        return $model?$model->name:'';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategories()
+    {
+        return $this->hasMany(Categories::className(), ['parentid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticleItems()
+    {
+        return $this->hasMany(ArticleItems::className(), ['catid' => 'id']);
     }
 	
 	// Return array for Category Select2
@@ -84,22 +114,25 @@ class Categories extends \yii\db\ActiveRecord
 		return $array;
 	}
 	
-	// Return Image Category from Database
-	public function getCategoriesimage($id)
-	{
-		$sql = 'SELECT image FROM {{%article_categories}} WHERE id ='.$id;
-		$image = Categories::findBySql($sql)->asArray()->one();
-		
-		return $image['image'];
-	}
-	
 	// Delete Image From Category
-	public function deleteImage() {
-		$image = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath.$this->image;
+	public function deleteImage() 
+	{
 		
-		if (unlink($image)) {
+		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath.$this->image;
+		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."small/".$this->image;
+		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."medium/".$this->image;
+		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."large/".$this->image;
+		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."extra/".$this->image;
+		
+		if (unlink($image)) 
+		{
+			unlink($imageS);
+			unlink($imageM);
+			unlink($imageL);
+			unlink($imageXL);
 			$this->image = "";
 			$this->save();
+			
 			return true;
 		}
 		

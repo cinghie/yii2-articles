@@ -1,14 +1,22 @@
 <?php
 
+/**
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
+
 use yii\helpers\Html;
 
-/**
- * @var yii\web\View $this
- * @var cinghie\articles\models\Items $model
- */
+/* @var $this yii\web\View */
+/* @var $model app\modules\articles\models\Items */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
-  'modelClass' => 'Items',
+    'modelClass' => 'Items',
 ]) . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];

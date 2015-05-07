@@ -1,5 +1,15 @@
 <?php
 
+/**
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
+
 namespace cinghie\articles\controllers;
 
 use Yii;
@@ -8,6 +18,7 @@ use cinghie\articles\models\ItemsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\imagine\Image;
 
 /**
  * ItemsController implements the CRUD actions for Items model.
@@ -21,6 +32,7 @@ class ItemsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+					'deleteImage' => ['post'],
                 ],
             ],
         ];
@@ -32,12 +44,12 @@ class ItemsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ItemsSearch;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $searchModel = new ItemsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -60,7 +72,7 @@ class ItemsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Items;
+        $model = new Items();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

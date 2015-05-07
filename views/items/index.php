@@ -1,25 +1,32 @@
 <?php
 
+/**
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-/**
- * @var yii\web\View $this
- * @var yii\data\ActiveDataProvider $dataProvider
- * @var cinghie\articles\models\ItemsSearch $searchModel
- */
-
-$this->title = Yii::t('app', 'Items');
+$this->title = Yii::t('articles.message', 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="items-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
+        <?= Html::a(Yii::t('articles.message', 'Create Article', [
   'modelClass' => 'Items',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -28,36 +35,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [ 'class' => 'yii\grid\SerialColumn' ],
             'title',
             'catid',
-            'userid',
-            'published',
+			'published',
+            'access',
+			'created_by',
+			'created',
+            'language',
+            'ordering',
+			'id',
+            //'userid',
             // 'introtext:ntext',
             // 'fulltext:ntext',
-            // 'image',
-            // 'image_caption:ntext',
+            //'alias',            
+            // 'hits',
+            // 'image:ntext',
+            // 'image_caption',
             // 'image_credits',
             // 'video:ntext',
-            // 'video_caption:ntext',
+            // 'video_caption',
             // 'video_credits',
-            // 'created',
-            // 'created_by',
             // 'modified',
             // 'modified_by',
-            // 'access',
-            // 'ordering',
-            // 'hits',
-            // 'alias',
+            // 'params:ntext',
             // 'metadesc:ntext',
             // 'metakey:ntext',
             // 'robots',
             // 'author',
             // 'copyright',
-            // 'params:ntext',
-            // 'language',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

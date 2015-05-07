@@ -25,6 +25,7 @@ return array(
 	'Delete Image'=>'Cancella Immagine',
 	'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'=>"L'immagine &egrave; stato rimossa con successo! Ora puoi caricarne un'altra facendo clic sul tasto Sfoglia nel Tab Immagine",
 	'Error removing image. Please try again later or contact the system admin.'=>"Errore durante la rimozione dell' immagine. Riprovare più tardi o contattare l'amministratore del sistema.",
+	'Category could not be saved!' => 'Impossibile salvare la Categoria!',
 	'Browse &hellip;'=>'Sfoglia',
 	'Allowed Extensions'=>'Estensioni Permesse',
 	'Save & Exit'=>'Salva & Esci',

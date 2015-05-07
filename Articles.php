@@ -1,33 +1,32 @@
 <?php
 
 /**
- * @copyright Copyright &copy;2014 Giandomenico Olini
- * @company Gogodigital - Wide ICT Solutions 
- * @website http://www.gogodigital.it
- * @package yii2-articles
- * @github https://github.com/cinghie/yii2-articles
- * @license GNU GENERAL PUBLIC LICENSE VERSION 3
- */
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
 
 namespace cinghie\articles;
 
-use Yii;
-
 class Articles extends \yii\base\Module
 {
-    public $controllerNamespace = 'cinghie\articles\controllers';
+    public $controllerNamespace  = 'cinghie\articles\controllers';
 	
-	public $languages  = ["en-GB" => "en-GB"];
+	public $languages            = [ "en-GB" => "en-GB" ];
 	
-	public $editor 	   = "ckeditor";
+	public $editor 	             = "ckeditor";
 	
-	public $categoryimagetype = "jpg,jpeg,gif,png";
+	public $categoryimagetype    = "image/jpg,image/jpeg,image/gif,image/png";
 	
-	public $categoryimgname   = "categoryname";
+	public $categoryimgname      = "categoryname";
 	
-	public $categoryimagepath = "/img/articles/categories/";
+	public $categoryimagepath    = "/img/articles/categories/";
 	
-	public $categorythumbpath = "/img/articles/categories/thumb/";
+	public $categorythumbpath    = "/img/articles/categories/thumb/";
 	
 	public $categorythumboptions =	[ 
 		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],
@@ -39,13 +38,15 @@ class Articles extends \yii\base\Module
     public function init()
     {
         parent::init();
-		
-		// Translating module messages
+		$this->registerTranslations();
+    }
+	
+	public function registerTranslations()
+    {
+        // Translating module messages
 		\Yii::$app->getI18n()->translations['articles.*'] = [
 			'class' => 'yii\i18n\PhpMessageSource',
 			'basePath' => __DIR__.'/messages',
 		];
-		
     }
-
 }

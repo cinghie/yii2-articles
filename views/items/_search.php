@@ -1,13 +1,18 @@
 <?php
 
+/**
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/**
- * @var yii\web\View $this
- * @var cinghie\articles\models\ItemsSearch $model
- * @var yii\widgets\ActiveForm $form
- */
 ?>
 
 <div class="items-search">
@@ -21,15 +26,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+    <?= $form->field($model, 'alias') ?>
+
     <?= $form->field($model, 'catid') ?>
 
     <?= $form->field($model, 'userid') ?>
 
-    <?= $form->field($model, 'published') ?>
-
     <?php // echo $form->field($model, 'introtext') ?>
 
     <?php // echo $form->field($model, 'fulltext') ?>
+
+    <?php // echo $form->field($model, 'published') ?>
+
+    <?php // echo $form->field($model, 'access') ?>
+
+    <?php // echo $form->field($model, 'language') ?>
+
+    <?php // echo $form->field($model, 'ordering') ?>
+
+    <?php // echo $form->field($model, 'hits') ?>
 
     <?php // echo $form->field($model, 'image') ?>
 
@@ -51,13 +66,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'modified_by') ?>
 
-    <?php // echo $form->field($model, 'access') ?>
-
-    <?php // echo $form->field($model, 'ordering') ?>
-
-    <?php // echo $form->field($model, 'hits') ?>
-
-    <?php // echo $form->field($model, 'alias') ?>
+    <?php // echo $form->field($model, 'params') ?>
 
     <?php // echo $form->field($model, 'metadesc') ?>
 
@@ -68,10 +77,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'author') ?>
 
     <?php // echo $form->field($model, 'copyright') ?>
-
-    <?php // echo $form->field($model, 'params') ?>
-
-    <?php // echo $form->field($model, 'language') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

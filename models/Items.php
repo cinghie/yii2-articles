@@ -1,41 +1,19 @@
 <?php
 
+/**
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
+
 namespace cinghie\articles\models;
 
 use Yii;
 
-/**
- * This is the model class for table "article_items".
- *
- * @property integer $id
- * @property string $title
- * @property integer $catid
- * @property integer $userid
- * @property integer $published
- * @property string $introtext
- * @property string $fulltext
- * @property string $image
- * @property string $image_caption
- * @property string $image_credits
- * @property string $video
- * @property string $video_caption
- * @property string $video_credits
- * @property string $created
- * @property integer $created_by
- * @property string $modified
- * @property integer $modified_by
- * @property integer $access
- * @property integer $ordering
- * @property string $hits
- * @property string $alias
- * @property string $metadesc
- * @property string $metakey
- * @property string $robots
- * @property string $author
- * @property string $copyright
- * @property string $params
- * @property string $language
- */
 class Items extends \yii\db\ActiveRecord
 {
     /**
@@ -54,12 +32,13 @@ class Items extends \yii\db\ActiveRecord
         return [
             [['title', 'catid', 'userid', 'created', 'modified', 'language'], 'required'],
             [['catid', 'userid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'image_caption', 'video', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
-            [['created', 'modified'], 'safe'],
-            [['title', 'image', 'image_credits', 'video_credits', 'alias'], 'string', 'max' => 255],
-            [['robots'], 'string', 'max' => 20],
-            [['author', 'copyright'], 'string', 'max' => 50],
-            [['language'], 'string', 'max' => 7]
+            [['introtext', 'fulltext', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
+			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
+			/*[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->categoryimagetype],*/
+			[['video', 'author', 'copyright'], 'string', 'max' => 50],
+			[['robots'], 'string', 'max' => 20],
+			[['language'], 'string', 'max' => 7],
+            [['created', 'modified','image'], 'safe']
         ];
     }
 
@@ -69,34 +48,102 @@ class Items extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'catid' => Yii::t('app', 'Catid'),
-            'userid' => Yii::t('app', 'Userid'),
-            'published' => Yii::t('app', 'Published'),
-            'introtext' => Yii::t('app', 'Introtext'),
-            'fulltext' => Yii::t('app', 'Fulltext'),
-            'image' => Yii::t('app', 'Image'),
-            'image_caption' => Yii::t('app', 'Image Caption'),
-            'image_credits' => Yii::t('app', 'Image Credits'),
-            'video' => Yii::t('app', 'Video'),
-            'video_caption' => Yii::t('app', 'Video Caption'),
-            'video_credits' => Yii::t('app', 'Video Credits'),
-            'created' => Yii::t('app', 'Created'),
-            'created_by' => Yii::t('app', 'Created By'),
-            'modified' => Yii::t('app', 'Modified'),
-            'modified_by' => Yii::t('app', 'Modified By'),
-            'access' => Yii::t('app', 'Access'),
-            'ordering' => Yii::t('app', 'Ordering'),
-            'hits' => Yii::t('app', 'Hits'),
-            'alias' => Yii::t('app', 'Alias'),
-            'metadesc' => Yii::t('app', 'Metadesc'),
-            'metakey' => Yii::t('app', 'Metakey'),
-            'robots' => Yii::t('app', 'Robots'),
-            'author' => Yii::t('app', 'Author'),
-            'copyright' => Yii::t('app', 'Copyright'),
-            'params' => Yii::t('app', 'Params'),
-            'language' => Yii::t('app', 'Language'),
+            'id' => Yii::t('articles.message', 'ID'),
+            'title' => Yii::t('articles.message', 'Title'),
+            'catid' => Yii::t('articles.message', 'Catid'),
+            'userid' => Yii::t('articles.message', 'Userid'),
+            'published' => Yii::t('articles.message', 'Published'),
+            'introtext' => Yii::t('articles.message', 'Introtext'),
+            'fulltext' => Yii::t('articles.message', 'Fulltext'),
+            'image' => Yii::t('articles.message', 'Image'),
+            'image_caption' => Yii::t('articles.message', 'Image Caption'),
+            'image_credits' => Yii::t('articles.message', 'Image Credits'),
+            'video' => Yii::t('articles.message', 'Video ID'),
+			'video_type' => Yii::t('articles.message', 'Video Type'),
+            'video_caption' => Yii::t('articles.message', 'Video Caption'),
+            'video_credits' => Yii::t('articles.message', 'Video Credits'),
+            'created' => Yii::t('articles.message', 'Created'),
+            'created_by' => Yii::t('articles.message', 'Created By'),
+            'modified' => Yii::t('articles.message', 'Modified'),
+            'modified_by' => Yii::t('articles.message', 'Modified By'),
+            'access' => Yii::t('articles.message', 'Access'),
+            'ordering' => Yii::t('articles.message', 'Ordering'),
+            'hits' => Yii::t('articles.message', 'Hits'),
+            'alias' => Yii::t('articles.message', 'Alias'),
+            'metadesc' => Yii::t('articles.message', 'Metadesc'),
+            'metakey' => Yii::t('articles.message', 'Metakey'),
+            'robots' => Yii::t('articles.message', 'Robots'),
+            'author' => Yii::t('articles.message', 'Author'),
+            'copyright' => Yii::t('articles.message', 'Copyright'),
+            'params' => Yii::t('articles.message', 'Params'),
+            'language' => Yii::t('articles.message', 'Language'),
         ];
     }
+	
+	// Return array for Category Select2
+	public function getCategoriesSelect2($id)
+	{
+		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1 AND id !='.$id;
+		$categories = Categories::findBySql($sql)->asArray()->all();
+		
+		$array[0] = \Yii::t('articles.message', 'No Category'); 
+		
+		foreach($categories as $category)
+		{
+			$array[$category['id']] = $category['name'];
+		}
+		
+		return $array;
+	}
+	
+	// Return Username by UserID
+	public function getUsernameByUserID($id)
+	{
+		$sql      = 'SELECT username FROM {{%user}} WHERE id='.$id;
+		$username = Items::findBySql($sql)->asArray()->one();
+		
+		return $username['username'];
+	}
+	
+	// Return array for User Select2
+	public function getUsersSelect2()
+	{
+		$sql   = 'SELECT id,username FROM {{%user}}';
+		$users = Items::findBySql($sql)->asArray()->all();
+		
+		foreach($users as $user)
+		{
+			$array[$user['id']] = $user['username'];
+		}
+		
+		return $array;
+	}
+	
+	// Return array for Video Type
+	public function getVideoTypeSelect2()
+	{
+		$videotype = [ "youtube" => "YouTube", "vimeo" => "Vimeo", "dailymotion" => "Dailymotion" ];
+
+		return $videotype;
+		
+	}
+	
+	// Return Attachment
+    public function getArticleAttachments()
+    {
+        return $this->hasMany(ArticleAttachments::className(), ['itemid' => 'id']);
+    }
+
+    // Return Category
+    public function getCat()
+    {
+        return $this->hasOne(ArticleCategories::className(), ['id' => 'catid']);
+    }
+	
+	// Return User
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userid']);
+    }
+	
 }

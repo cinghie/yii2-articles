@@ -1,17 +1,21 @@
 <?php
 
 /**
- * @copyright Copyright &copy;2014 Giandomenico Olini
- * @company Gogodigital - Wide ICT Solutions 
- * @website http://www.gogodigital.it
- * @package yii2-articles
- * @github https://github.com/cinghie/yii2-articles
- * @license GNU GENERAL PUBLIC LICENSE VERSION 3
- */
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+/* @var $this yii\web\View */
+/* @var $model app\modules\articles\models\CategoriesSearch */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="categories-search">
@@ -29,7 +33,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'parent') ?>
+    <?= $form->field($model, 'parentid') ?>
 
     <?php // echo $form->field($model, 'published') ?>
 

@@ -1,21 +1,19 @@
 <?php
 
 /**
- * @copyright Copyright &copy;2014 Giandomenico Olini
- * @company Gogodigital - Wide ICT Solutions 
- * @website http://www.gogodigital.it
- * @package yii2-articles
- * @github https://github.com/cinghie/yii2-articles
- * @license GNU GENERAL PUBLIC LICENSE VERSION 3
- */
+* @copyright Copyright &copy; Gogodigital Srls
+* @company Gogodigital Srls - Wide ICT Solutions 
+* @website http://www.gogodigital.it
+* @github https://github.com/cinghie/yii2-articles
+* @license GNU GENERAL PUBLIC LICENSE VERSION 3
+* @package yii2-articles
+* @version 1.0
+*/
 
 use yii\helpers\Html;
 
-// Params
-$options = $model->params;
-$options = json_decode($options);
-
-// Load Javascript to load Options Data
+// Javascript to load Options Data
+$options = json_decode($model->params);
 $script = "
 	jQuery('div.field-categories-categoriesImageWidth select').val('".$options->categoriesImageWidth."');
 	jQuery('div.field-categories-categoryImageWidth select').val('".$options->categoryImageWidth."');
@@ -26,18 +24,19 @@ $script = "
 ";
 $this->registerJs($script);
 
+// Set Title
 $this->title = Yii::t('articles.message', 'Update Category: ', [
   'modelClass' => 'Categories',
 ]) . ' ' . $model->name;
+
+// Set Breadcrumbs
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles.message', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('articles.message', 'Update');
 ?>
 <div class="categories-update">
 
-    <div class="page-header">
-    	<h1><?= Html::encode($this->title) ?></h1>
-    </div>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
