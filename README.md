@@ -19,7 +19,9 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
-  <li>0.1.2 - Added Facebook and Twitter Tageto Item View</li>
+  <li>0.1.4 - Adding Item Variables in Module</li>
+  <li>0.1.3 - Refactoring Module Variables</li>
+  <li>0.1.2 - Added Facebook and Twitter Item View</li>
   <li>0.1.1 - Added Attachment's Table in database</li>
   <li>0.1.0 - Refactoring Project</li>
   <li>0.0.7 - Added Image Upload for Categories</li>

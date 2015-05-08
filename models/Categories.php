@@ -37,7 +37,7 @@ class Categories extends \yii\db\ActiveRecord
 			[['author', 'copyright'], 'string', 'max' => 50],
 			[['language'], 'string', 'max' => 7],
 			[['robots'], 'string', 'max' => 20],
-			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->categoryimagetype,],
+			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->imageType,],
 			[['image'], 'safe']
         ];
     }

@@ -20,15 +20,21 @@ class Articles extends \yii\base\Module
 	
 	public $editor 	             = "ckeditor";
 	
-	public $categoryimagetype    = "image/jpg,image/jpeg,image/gif,image/png";
+	public $categoryImageName    = "categoryname";
 	
-	public $categoryimgname      = "categoryname";
+	public $categoryImagePath    = "img/articles/categories/";
 	
-	public $categoryimagepath    = "/img/articles/categories/";
+	public $categoryThumbPath    = "img/articles/categories/thumb/";
 	
-	public $categorythumbpath    = "/img/articles/categories/thumb/";
+	public $itemImageName    	 = "categoryname";
 	
-	public $categorythumboptions =	[ 
+	public $itemImagePath  		 = "img/articles/items/";
+	
+	public $itemThumbPath   	 = "img/articles/items/thumb/";
+	
+	public $imageType    		 = "image/jpg,image/jpeg,image/gif,image/png";
+	
+	public $thumbOptions =	[ 
 		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],
 		'medium' => ['quality' => 100, 'width' => 300, 'height' => 200],
 		'large'  => ['quality' => 100, 'width' => 400, 'height' => 300],
