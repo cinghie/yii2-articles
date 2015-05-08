@@ -77,18 +77,18 @@ class CategoriesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			
 			// Upload Image and Thumb if is not Null
-			$imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
-			$thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
-			$imgnametype = Yii::$app->controller->module->categoryImageName;
-			$imgoptions  = Yii::$app->controller->module->thumbOptions;
-			$imgname     = $model->name;
+			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
+			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
+			$imgNameType = Yii::$app->controller->module->categoryImageName;
+			$imgOptions  = Yii::$app->controller->module->thumbOptions;
+			$imgName     = $model->name;
 			
 			$file = \yii\web\UploadedFile::getInstance($model, 'image');
 			
 			// If is set an image, upload it
 			if ($file->name != "")
 			{ 
-				$filename = $this->uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype,$imgoptions);
+				$filename = $this->uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions);
 				$model->image = $filename;	
 			}
 			
@@ -116,8 +116,7 @@ class CategoriesController extends Controller
 			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been saved!'));
 		
             return $this->redirect([
-				'view', 
-				'id' => $model->id
+				'view', 'id' => $model->id
 			]);
 
         } else {
@@ -143,11 +142,11 @@ class CategoriesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			
 			// Upload Image and Thumb if is not Null
-			$imagepath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
-			$thumbpath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
-			$imgnametype = Yii::$app->controller->module->categoryImageName;
-			$imgoptions  = Yii::$app->controller->module->thumbOptions;
-			$imgname     = $model->name;
+			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
+			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
+			$imgNameType = Yii::$app->controller->module->categoryImageName;
+			$imgOptions  = Yii::$app->controller->module->thumbOptions;
+			$imgName     = $model->name;
 			
 			if (\yii\web\UploadedFile::getInstance($model, 'image')) 
 			{
@@ -157,7 +156,7 @@ class CategoriesController extends Controller
 				// If is set an image update it, else show the image and the button to remove it
 				if ($file->name != "")
 				{ 
-					$filename = $this->uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype,$imgoptions);
+					$filename = $this->uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions);
 					$model->image = $filename;	
 				}
 				
@@ -211,7 +210,8 @@ class CategoriesController extends Controller
     }
 	
 	/* Delete the Image from the Categories model */
-	public function actionDeleteimage($id) {
+	public function actionDeleteimage($id) 
+	{
 		$model = $this->findModel($id);
 		
 		if ($model->deleteImage()) {
@@ -242,17 +242,16 @@ class CategoriesController extends Controller
     }
 	
 	// Upload Image in a select Folder
-	protected function uploadCatImage($file,$imagepath,$thumbpath,$imgname,$imgnametype,$imgoptions)
-	{
-		
+	protected function uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions)
+	{		
 		$type = $file->type;
 		$type = str_replace("image/","",$type);
 		$size = $file->size;
 		
-		switch($imgnametype) 
+		switch($imgNameType) 
 		{
 			case "original":
-				$name = $this->generateAlias($file->name,"img");
+				$name = str_replace(" ","_",$file->name);
 				break;
 			
 			case "casual":
@@ -260,19 +259,19 @@ class CategoriesController extends Controller
 				break;
 			
 			default:
-				$name = $this->generateAlias($imgname,"img").".".$type;
+				$name = str_replace(" ","_",$imgName).".".$type;
 				break;
 		}
 		
 		// Save the file in the Image Folder
-		$path = $imagepath.$name;
+		$path = $imagePath.$name;
 		$file->saveAs($path);
 		
 		// Save Image Thumbs
-		Image::thumbnail($imagepath.$name, $imgoptions['small']['width'], $imgoptions['small']['height'])->save($thumbpath."small/".$name, ['quality' => $imgoptions['small']['quality']]);
-		Image::thumbnail($imagepath.$name, $imgoptions['medium']['width'], $imgoptions['medium']['height'])->save($thumbpath."medium/".$name, ['quality' => $imgoptions['medium']['quality']]);
-		Image::thumbnail($imagepath.$name, $imgoptions['large']['width'], $imgoptions['large']['height'])->save($thumbpath."large/".$name, ['quality' => $imgoptions['large']['quality']]);
-		Image::thumbnail($imagepath.$name, $imgoptions['extra']['width'], $imgoptions['extra']['height'])->save($thumbpath."extra/".$name, ['quality' => $imgoptions['extra']['quality']]);			
+		Image::thumbnail($imagePath.$name, $imgOptions['small']['width'], $imgOptions['small']['height'])->save($thumbPath."small/".$name, ['quality' => $imgOptions['small']['quality']]);
+		Image::thumbnail($imagePath.$name, $imgOptions['medium']['width'], $imgOptions['medium']['height'])->save($thumbPath."medium/".$name, ['quality' => $imgOptions['medium']['quality']]);
+		Image::thumbnail($imagePath.$name, $imgOptions['large']['width'], $imgOptions['large']['height'])->save($thumbPath."large/".$name, ['quality' => $imgOptions['large']['quality']]);
+		Image::thumbnail($imagePath.$name, $imgOptions['extra']['width'], $imgOptions['extra']['height'])->save($thumbPath."extra/".$name, ['quality' => $imgOptions['extra']['quality']]);			
 		
 		return $name;
 	}
@@ -283,16 +282,9 @@ class CategoriesController extends Controller
         // remove any '-' from the string they will be used as concatonater
         $str = str_replace('-', ' ', $name);
         $str = str_replace('_', ' ', $name);
-
-        // remove any duplicate whitespace, and ensure all characters are alphanumeric
-		if($type == "img") 
-		{
-        	$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('_',''), $str);
-		}
-		else 
-		{
-			$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
-		}
+		
+		// remove any duplicate whitespace, and ensure all characters are alphanumeric
+		$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
 
         // lowercase and trim
         $str = trim(strtolower($str));

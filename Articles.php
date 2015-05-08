@@ -14,25 +14,23 @@ namespace cinghie\articles;
 
 class Articles extends \yii\base\Module
 {
-    public $controllerNamespace  = 'cinghie\articles\controllers';
+    public $controllerNamespace = 'cinghie\articles\controllers';
 	
-	public $languages            = [ "en-GB" => "en-GB" ];
+	public $languages           = [ "en-GB" => "en-GB" ];
 	
-	public $editor 	             = "ckeditor";
+	public $editor 	            = "ckeditor";
 	
-	public $categoryImageName    = "categoryname";
+	public $categoryImagePath   = "img/articles/categories/";
 	
-	public $categoryImagePath    = "img/articles/categories/";
+	public $categoryThumbPath   = "img/articles/categories/thumb/";
 	
-	public $categoryThumbPath    = "img/articles/categories/thumb/";
+	public $itemImagePath  		= "img/articles/items/";
 	
-	public $itemImageName    	 = "categoryname";
+	public $itemThumbPath   	= "img/articles/items/thumb/";
 	
-	public $itemImagePath  		 = "img/articles/items/";
+	public $imageName    		= "categoryname";
 	
-	public $itemThumbPath   	 = "img/articles/items/thumb/";
-	
-	public $imageType    		 = "image/jpg,image/jpeg,image/gif,image/png";
+	public $imageType    		= "image/jpg,image/jpeg,image/gif,image/png";
 	
 	public $thumbOptions =	[ 
 		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],

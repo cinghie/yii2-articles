@@ -34,7 +34,7 @@ class Items extends \yii\db\ActiveRecord
             [['catid', 'userid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
 			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
-			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->itemImageType],
+			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->imageType],
 			[['video', 'author', 'copyright'], 'string', 'max' => 50],
 			[['robots'], 'string', 'max' => 20],
 			[['language'], 'string', 'max' => 7],

@@ -50,8 +50,8 @@ if ($model->isNewRecord) {
 $editor           = Yii::$app->controller->module->editor;
 $language         = substr(Yii::$app->language,0,2);
 $languages        = Yii::$app->controller->module->languages;
-$imagetype        = Yii::$app->controller->module->categoryimagetype;
-$imageurl         = Yii::$app->homeUrl.Yii::$app->controller->module->categoryimagepath;
+$imagetype        = Yii::$app->controller->module->imageType;
+$imageurl         = Yii::$app->homeUrl.Yii::$app->controller->module->itemImagePath;
 
 $select2users     = $model->getUsersSelect2();
 $select2videotype = $model->getVideoTypeSelect2();

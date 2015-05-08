@@ -65,13 +65,13 @@ $imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryIm
 						</a>
 					</li>
 					<li class="">
-						<a data-toggle="tab" href="#image">
-							<?= Yii::t('articles.message', 'Image') ?>
-						</a>
-					</li>
-					<li class="">
 						<a data-toggle="tab" href="#seo">
 							<?= Yii::t('articles.message', 'SEO') ?>
+						</a>
+					</li>
+                    <li class="">
+						<a data-toggle="tab" href="#image">
+							<?= Yii::t('articles.message', 'Image') ?>
 						</a>
 					</li>
 					<li class="">
@@ -216,7 +216,62 @@ $imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryIm
 						
 					</div> <!-- #item -->
 					
-					<!-- Image -->
+					<!-- SEO -->
+					<div id="seo" class="tab-pane fade">
+                    
+                    	<div class="col-lg-5">
+						
+							<?= $form->field($model, 'alias', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-bookmark"></i>']]] )->textInput(['maxlength' => 255]) ?>
+							
+                            <?= $form->field($model, 'robots')->widget(Select2::classname(), [
+                                    'data' => [ "index, follow" => "index, follow", "no index, no follow" => "no index, no follow", "no index, follow" => "no index, follow", "index, no follow" => "index, no follow" ],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-globe"></i>']],
+                                ]); ?>   
+                            
+							<?= $form->field($model, 'author', [
+									'addon' => [
+										'prepend' => [
+											'content'=>'<i class="glyphicon glyphicon-user"></i>'
+										]
+									]
+								])->textInput(['maxlength' => 50]) ?>
+
+   							<?= $form->field($model, 'copyright', [
+									'addon' => [
+										'prepend' => [
+											'content'=>'<i class="glyphicon glyphicon-ban-circle"></i>'
+										]
+									]
+								])->textInput(['maxlength' => 50]) ?>
+						
+						</div> <!-- col-lg-5 -->
+                        
+                        <div class="col-lg-7">
+						
+							<?= $form->field($model, 'metadesc', [
+									'addon' => [
+										'prepend' => [
+											'content'=>'<i class="glyphicon glyphicon-info-sign"></i>'
+										]
+									]
+								])->textarea(['rows' => 4]) ?>
+                            
+                            <?= $form->field($model, 'metakey', [
+									'addon' => [
+										'prepend' => [
+											'content'=>'<i class="glyphicon glyphicon-tags"></i>'
+										]
+									]
+								])->textarea(['rows' => 4]) ?>
+						
+						</div> <!-- col-lg-7 -->
+                        
+                    </div> <!-- #seo -->
+                    
+                    <!-- Image -->
 					<div id="image" class="tab-pane fade">
                     
                     	<p class="bg-info">
@@ -279,61 +334,6 @@ $imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryIm
 						</div> <!-- col-lg-6 -->
 					
 					</div> <!-- #image -->
-					
-					<!-- SEO -->
-					<div id="seo" class="tab-pane fade">
-                    
-                    	<div class="col-lg-5">
-						
-							<?= $form->field($model, 'alias', ['addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-bookmark"></i>']]] )->textInput(['maxlength' => 255]) ?>
-							
-                            <?= $form->field($model, 'robots')->widget(Select2::classname(), [
-                                    'data' => [ "index, follow" => "index, follow", "no index, no follow" => "no index, no follow", "no index, follow" => "no index, follow", "index, no follow" => "index, no follow" ],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
-                                    'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-globe"></i>']],
-                                ]); ?>   
-                            
-							<?= $form->field($model, 'author', [
-									'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-user"></i>'
-										]
-									]
-								])->textInput(['maxlength' => 50]) ?>
-
-   							<?= $form->field($model, 'copyright', [
-									'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-ban-circle"></i>'
-										]
-									]
-								])->textInput(['maxlength' => 50]) ?>
-						
-						</div> <!-- col-lg-5 -->
-                        
-                        <div class="col-lg-7">
-						
-							<?= $form->field($model, 'metadesc', [
-									'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-info-sign"></i>'
-										]
-									]
-								])->textarea(['rows' => 4]) ?>
-                            
-                            <?= $form->field($model, 'metakey', [
-									'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-tags"></i>'
-										]
-									]
-								])->textarea(['rows' => 4]) ?>
-						
-						</div> <!-- col-lg-7 -->
-                        
-                    </div> <!-- #seo -->
 					
 					<!-- Params -->
 					<div id="params" class="tab-pane fade">

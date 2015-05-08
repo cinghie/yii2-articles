@@ -75,7 +75,38 @@ class ItemsController extends Controller
         $model = new Items();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+			
+			// Upload Image and Thumb if is not Null
+			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath;
+			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath;
+			$imgNameType = Yii::$app->controller->module->itemImageName;
+			$imgOptions  = Yii::$app->controller->module->thumbOptions;
+			$imgName     = $model->title;
+			
+			$file = \yii\web\UploadedFile::getInstance($model, 'image');
+			
+			// If is set an image, upload it
+			if ($file->name != "")
+			{ 
+				$filename = $this->uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions);
+				$model->image = $filename;	
+			}
+			
+			// If alias is not set, generate it
+			if ($_POST['Items']['alias']=="") 
+			{
+				$model->alias = $this->generateAlias($model->title,"url");
+			}
+			
+			// Save changes
+			$model->save();	
+				
+			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Item has been saved!'));
+			
+            return $this->redirect([
+				'view', 'id' => $model->id
+			]);
+			
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -130,4 +161,61 @@ class ItemsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+	
+	// Upload Image in a select Folder
+	protected function uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions)
+	{
+		$type = $file->type;
+		$type = str_replace("image/","",$type);
+		$size = $file->size;
+		
+		switch($imgNameType) 
+		{
+			case "original":
+				$name = str_replace(" ","_",$file->name);
+				break;
+			
+			case "casual":
+				$name = uniqid(rand(), true).".".$type;
+				break;
+			
+			default:
+				$name = str_replace(" ","_",$imgName).".".$type;
+				break;
+		}
+		
+		// Save the file in the Image Folder
+		$path = $imagePath.$name;
+		$file->saveAs($path);
+		
+		// Save Image Thumbs
+		Image::thumbnail($imagePath.$name, $imgOptions['small']['width'], $imgOptions['small']['height'])->save($thumbPath."small/".$name, ['quality' => $imgOptions['small']['quality']]);
+		Image::thumbnail($imagePath.$name, $imgOptions['medium']['width'], $imgOptions['medium']['height'])->save($thumbPath."medium/".$name, ['quality' => $imgOptions['medium']['quality']]);
+		Image::thumbnail($imagePath.$name, $imgOptions['large']['width'], $imgOptions['large']['height'])->save($thumbPath."large/".$name, ['quality' => $imgOptions['large']['quality']]);
+		Image::thumbnail($imagePath.$name, $imgOptions['extra']['width'], $imgOptions['extra']['height'])->save($thumbPath."extra/".$name, ['quality' => $imgOptions['extra']['quality']]);			
+		
+		return $name;
+	}
+	
+	// Generate URL or IMG alias
+	protected function generateAlias($name,$type)
+    {
+        // remove any '-' from the string they will be used as concatonater
+        $str = str_replace('-', ' ', $name);
+        $str = str_replace('_', ' ', $name);
+		
+        // remove any duplicate whitespace, and ensure all characters are alphanumeric
+		$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
+
+        // lowercase and trim
+        $str = trim(strtolower($str));
+		
+        return $str;
+    }
+	
+	// Generate JSON for Params
+	protected function generateJsonParams($params)
+	{
+		return json_encode($params);
+	}
 }

@@ -60,17 +60,27 @@ or add
 		'class' => 'cinghie\articles\Articles',
 		
 		// Select Languages allowed
-		'languages' => array_merge([ "en-GB" => "en-GB" ],[ "it-IT" => "it-IT" ]),			
+		'languages' => [ 
+			"it-IT" => "it-IT", 
+			"en-GB" => "en-GB" 
+		],			
 		// Select Editor: no-editor, ckeditor, tinymce, markdown
 		'editor' => 'ckeditor',
-		// Select Image Types allowed
-		'categoryimagetype' => 'jpg,jpeg,gif,png',
-		// Select Image Name: original, categoryname, casual
-		'categoryimgname' => 'categoryname',
 		// Select Path To Upload Category Image
-		'categoryimagepath' => 'img/articles/categories/',
+		'categoryImagePath' => 'img/articles/categories/',
 		// Select Path To Upload Category Thumb
-		'categorythumbpath' => 'img/articles/categories/thumb/',
+		'categoryThumbPath' => 'img/articles/categories/thumb/',
+		// Select Image Name: categoryname, original, casual
+		'imageName' => 'categoryname',
+		// Select Image Types allowed
+		'imageType' => 'img/jpg,image/jpeg,image/gif,image/png',
+		// Thumbnails Options
+		'thumbOptions' => [ 
+			'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
+			'medium' => ['quality' => 100, 'width' => 200, 'height' => 150],
+			'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
+			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
+		],
 	],
 	
 	// Module Kartik-v Grid

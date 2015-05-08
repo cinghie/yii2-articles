@@ -14,7 +14,7 @@ use yii\helpers\Html;
 
 // Javascript to load Options Data
 $options = json_decode($model->params);
-$script = "
+$script  = "
 	jQuery('div.field-categories-categoriesImageWidth select').val('".$options->categoriesImageWidth."');
 	jQuery('div.field-categories-categoryImageWidth select').val('".$options->categoryImageWidth."');
 	jQuery('div.field-categories-itemImageWidth select').val('".$options->itemImageWidth."');
@@ -25,7 +25,7 @@ $script = "
 $this->registerJs($script);
 
 // Set Title
-$this->title = Yii::t('articles.message', 'Update Category: ', [
+$this->title = Yii::t('articles.message', 'Update ', [
   'modelClass' => 'Categories',
 ]) . ' ' . $model->name;
 
@@ -33,10 +33,13 @@ $this->title = Yii::t('articles.message', 'Update Category: ', [
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles.message', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('articles.message', 'Update');
+
 ?>
 <div class="categories-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+	
+    <div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,
