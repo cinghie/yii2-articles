@@ -109,6 +109,11 @@ $imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryIm
                             	<?= $form->field($model, 'description')->widget(TinyMce::className(), [
 										'options' => ['rows' => 12],
 										'language' => $language,
+										'plugins' => [
+											"advlist autolink lists link charmap print preview anchor",
+											"searchreplace visualblocks code fullscreen",
+											"insertdatetime media table contextmenu paste"
+										],
 										'clientOptions' => [
 											'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 										]

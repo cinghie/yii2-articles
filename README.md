@@ -70,8 +70,12 @@ or add
 		'categoryImagePath' => 'img/articles/categories/',
 		// Select Path To Upload Category Thumb
 		'categoryThumbPath' => 'img/articles/categories/thumb/',
+		// Select Path To Upload Item Image
+		'itemImagePath' => 'img/articles/items/',
+		// Select Path To Upload Item Thumb
+		'itemThumbPath' => 'img/articles/items/thumb/',
 		// Select Image Name: categoryname, original, casual
-		'imageName' => 'categoryname',
+		'imageNameType' => 'categoryname',
 		// Select Image Types allowed
 		'imageType' => 'img/jpg,image/jpeg,image/gif,image/png',
 		// Thumbnails Options
@@ -81,30 +85,14 @@ or add
 			'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
 			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
 		],
-	],
-	
+	],	
 	// Module Kartik-v Grid
 	'gridview' =>  [
 		'class' => '\kartik\grid\Module',
-		
-		// array the the internalization configuration for this module
-		'i18n' => [
-			'class' => 'yii\i18n\PhpMessageSource',
-			'basePath' => '@kvgrid/messages',
-			'forceTranslation' => true
-		], 
-	],
-		
+	],	
 	// Module Kartik-v Markdown Editor
 	'markdown' => [
 		'class' => 'kartik\markdown\Module',
-			
-		// array the the internalization configuration for this module
-		'i18n' => [
-			'class' => 'yii\i18n\PhpMessageSource',
-			'basePath' => '@markdown/messages',
-			'forceTranslation' => true
-		], 
 	],
 ...
 ]</pre>

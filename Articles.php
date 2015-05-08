@@ -28,7 +28,7 @@ class Articles extends \yii\base\Module
 	
 	public $itemThumbPath   	= "img/articles/items/thumb/";
 	
-	public $imageName    		= "categoryname";
+	public $imageNameType 		= "categoryname";
 	
 	public $imageType    		= "image/jpg,image/jpeg,image/gif,image/png";
 	

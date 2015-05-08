@@ -14,7 +14,12 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-		"yiisoft/yii2-imagine": "*"
+		"yiisoft/yii2-imagine": "*",
+		"kartik-v/yii2-grid": "*",
+		"kartik-v/yii2-markdown": "*",
+		"kartik-v/yii2-widgets": "*",
+		"2amigos/yii2-ckeditor-widget": "*",
+        "2amigos/yii2-tinymce-widget": "*"
     },
     "autoload": {
         "psr-4": {

@@ -79,7 +79,7 @@ class ItemsController extends Controller
 			// Upload Image and Thumb if is not Null
 			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath;
 			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath;
-			$imgNameType = Yii::$app->controller->module->itemImageName;
+			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->title;
 			
