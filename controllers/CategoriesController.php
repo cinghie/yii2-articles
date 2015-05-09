@@ -206,6 +206,7 @@ class CategoriesController extends Controller
         $this->findModel($id)->delete();
 		
 		Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been deleted!'));
+		
         return $this->redirect(['index']);
     }
 	

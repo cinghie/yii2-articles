@@ -37,7 +37,7 @@ class Categories extends \yii\db\ActiveRecord
 			[['author', 'copyright'], 'string', 'max' => 50],
 			[['language'], 'string', 'max' => 7],
 			[['robots'], 'string', 'max' => 20],
-			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->imageType,],
+			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,],
 			[['image'], 'safe']
         ];
     }
@@ -117,13 +117,18 @@ class Categories extends \yii\db\ActiveRecord
 	// Delete Image From Category
 	public function deleteImage() 
 	{
+		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath.$this->image;
+		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."small/".$this->image;
+		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."medium/".$this->image;
+		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."large/".$this->image;
+		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."extra/".$this->image;
 		
-		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryimagepath.$this->image;
-		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."small/".$this->image;
-		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."medium/".$this->image;
-		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."large/".$this->image;
-		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categorythumbpath."extra/".$this->image;
+		// check if image exists on server
+        if (empty($image) || !file_exists($image)) {
+            return false;
+        }
 		
+		// check if uploaded file can be deleted on server
 		if (unlink($image)) 
 		{
 			unlink($imageS);
@@ -134,9 +139,10 @@ class Categories extends \yii\db\ActiveRecord
 			$this->save();
 			
 			return true;
+		} else {
+			return false;
 		}
 		
-		return false;
 	}
 	
 }

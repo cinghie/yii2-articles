@@ -146,4 +146,29 @@ class Items extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'userid']);
     }
 	
+	// Delete Image From Item
+	public function deleteImage() 
+	{
+		
+		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath.$this->image;
+		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."small/".$this->image;
+		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."medium/".$this->image;
+		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."large/".$this->image;
+		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."extra/".$this->image;
+		
+		if (unlink($image)) 
+		{
+			unlink($imageS);
+			unlink($imageM);
+			unlink($imageL);
+			unlink($imageXL);
+			$this->image = "";
+			$this->save();
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

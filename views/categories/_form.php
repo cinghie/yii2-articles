@@ -294,9 +294,13 @@ $imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryIm
                                     <div class="caption">
                                     	<p></p>
                                         <p>
-                                        	<a class="btn btn-danger" href="deleteimage?id=<?= $model->id ?>">
-												<?= Yii::t('articles.message', 'Delete Image') ?>
-                                            </a> 
+                                        <?= Html::a(Yii::t('articles.message', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
+											'class' => 'btn btn-danger',
+											'data' => [
+												'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+												'method' => 'post',
+											],
+										]) ?>
                                         </p>
                                     </div>
                                 </div>
@@ -309,8 +313,8 @@ $imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryIm
                                         ],
                                         'pluginOptions' => [
                                             'previewFileType' => 'image',
-                                            'showUpload' => false,
-                                            'browseLabel' => Yii::t('articles.message', 'Browse &hellip;'),
+                                            'showUpload'      => false,
+                                            'browseLabel'     => Yii::t('articles.message', 'Browse &hellip;'),
                                         ],
                                 ]);?>                            	
                             		
