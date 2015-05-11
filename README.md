@@ -77,9 +77,9 @@ or add
 		// Select Image Name: categoryname, original, casual
 		'imageNameType' => 'categoryname',
 		// Select Image Types allowed
-		'imageType' => 'img/jpg,image/jpeg,image/gif,image/png',
+		'imageType'     => 'img/jpg,image/jpeg,image/gif,image/png',
 		// Thumbnails Options
-		'thumbOptions' => [ 
+		'thumbOptions'  => [ 
 			'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
 			'medium' => ['quality' => 100, 'width' => 200, 'height' => 150],
 			'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
