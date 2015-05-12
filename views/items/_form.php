@@ -153,16 +153,34 @@ $select2videotype = $model->getVideoTypeSelect2();
                         
                         <div class="col-lg-4">
                         
-                        	<?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
-									'options' => [
-										'value'    => date("Y-m-d H:i:s"),    
-									],
-									'pluginOptions' => [
-										'autoclose' => true,
-										'format'    => 'yyyy-mm-dd hh:ii:ss',
-										'todayHighlight' => true,
-									]
-							]); ?>
+                        	<?php if ($model->isNewRecord): ?>
+                        
+								<?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
+                                        'options' => [
+                                            'value' => date("Y-m-d H:i:s"),    
+                                        ],
+                                        'pluginOptions' => [
+                                            'autoclose'      => true,
+                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
+                                            'todayHighlight' => true,
+                                        ]
+                                ]); ?>
+                                
+                            <?php else : ?>
+                            
+                            	<?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
+                                        'options' => [
+											'disabled' => 'disabled',
+                                            'value'    => $model->created,    
+                                        ],
+                                        'pluginOptions' => [
+                                            'autoclose'      => true,
+                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
+                                            'todayHighlight' => true,
+                                        ]
+                                ]); ?>
+                            
+                            <?php endif; ?>
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
                                     'data' => $languages,
@@ -193,7 +211,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 										"0" =>  Yii::t('articles.message', 'In Development') 
 									],
 									'options' => [
-										'disabled' => 'disabled'
+										'disabled' => 'disabled',
 									],
                                     'pluginOptions' => [
                                         'allowClear' => true
@@ -208,31 +226,34 @@ $select2videotype = $model->getVideoTypeSelect2();
                         </div> <!-- end col-lg-4 -->
                         
                         <div class="col-lg-3">
+                                                       
+                            <?php if ($model->isNewRecord): ?>
                         
-                        	<?php if ($model->isNewRecord) : ?>
-                        
-								<?= $form->field($model, 'modified')->textInput() ?>
-                            
-                            <?php else : ?>
-                            
-								<?= $form->field($model, 'modified')->widget(Select2::classname(), [
-                                    'data' => [ 
-										$model->modified => $model->modified 
-									],
-                                    'options' => [
-                                        'disabled' => 'disabled'
-                                    ],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-calendar"></i>'
+								<?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
+                                        'options' => [
+                                            'value' => date("Y-m-d H:i:s"),    
+                                        ],
+                                        'pluginOptions' => [
+                                            'autoclose'      => true,
+                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
+                                            'todayHighlight' => true,
                                         ]
-                                    ],
+                                ]); ?>
+                                
+                            <?php else: ?>
+                            
+                            	<?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
+                                        'options' => [
+											'disabled' => 'disabled',
+                                            'value'    => $model->modified,    
+                                        ],
+                                        'pluginOptions' => [
+                                            'autoclose' => true,
+                                            'format'    => 'yyyy-mm-dd hh:ii:ss',
+                                        ]
                                 ]); ?>
                             
-                            <?php endif ?>
+                            <?php endif ?>                            
                             
                             <?= $form->field($model, 'created_by')->widget(Select2::classname(), [
 								'data' => [ 

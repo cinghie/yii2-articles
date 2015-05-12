@@ -124,9 +124,18 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ( $model->load(Yii::$app->request->post()) ) {
+			
+			// Set Modified as actual date 
+			$model->modified = date("Y-m-d H:i:s");
+			
+			// Save changes
+			$model->save();	
+			
             return $this->redirect(['view', 'id' => $model->id]);
+			
         } else {
+			
             return $this->render('update', [
                 'model' => $model,
             ]);
