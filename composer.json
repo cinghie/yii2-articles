@@ -21,7 +21,7 @@
 		"kartik-v/yii2-widgets": "*",
 		"2amigos/yii2-ckeditor-widget": "*",
         "2amigos/yii2-tinymce-widget": "*",
-		"asofter/yii2-imperavi-redactor"
+		"asofter/yii2-imperavi-redactor": "*"
     },
     "autoload": {
         "psr-4": {
