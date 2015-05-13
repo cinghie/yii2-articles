@@ -338,20 +338,32 @@ $select2videotype = $model->getVideoTypeSelect2();
 									[
 										'options' => ['rows' => 4],
 										'preset' => 'advanced'
-									]); ?>
+								]); ?>
                             <?php elseif ($editor=="tinymce"): ?>
                             	<?= $form->field($model, 'introtext')->widget(TinyMce::className(), [
-										'options' => ['rows' => 6],
-										'language' => $language,
+										'options' => ['rows' => 12],
 										'clientOptions' => [
+											'plugins' => [
+												"advlist autolink lists link charmap print preview anchor",
+												"searchreplace visualblocks code fullscreen",
+												"insertdatetime media table contextmenu paste"
+											],			
 											'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 										]
-									]); ?>
+								]); ?>
                             <?php elseif ($editor=="markdown"): ?>
                             	<?= $form->field($model, 'introtext')->widget(
 										MarkdownEditor::classname(),
 										['height' => 150, 'encodeLabels' => true]
-									); ?>
+								); ?>
+                            <?php elseif ($editor=="imperavi"): ?>
+                            	<?= $form->field($model, 'introtext')->widget(yii\imperavi\Widget::className(), [
+								
+									// Some options, see http://imperavi.com/redactor/docs/
+									'options' => [
+										'css' => 'wym.css',
+									],
+								]); ?>
                             <?php else: ?>
                             	<?= $form->field($model, 'introtext')->textarea(['rows' => 12]); ?>
                             <?php endif ?>
@@ -365,20 +377,32 @@ $select2videotype = $model->getVideoTypeSelect2();
 									[
 										'options' => ['rows' => 6],
 										'preset' => 'advanced'
-									]); ?>
+								]); ?>
                             <?php elseif ($editor=="tinymce"): ?>
                             	<?= $form->field($model, 'fulltext')->widget(TinyMce::className(), [
-										'options' => ['rows' => 6],
-										'language' => $language,
+										'options' => ['rows' => 12],
 										'clientOptions' => [
+											'plugins' => [
+												"advlist autolink lists link charmap print preview anchor",
+												"searchreplace visualblocks code fullscreen",
+												"insertdatetime media table contextmenu paste"
+											],			
 											'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 										]
-									]); ?>
+								]); ?>
                             <?php elseif ($editor=="markdown"): ?>
                             	<?= $form->field($model, 'fulltext')->widget(
 										MarkdownEditor::classname(),
 										['height' => 150, 'encodeLabels' => true]
-									); ?>
+								); ?>
+                            <?php elseif ($editor=="imperavi"): ?>
+                            	<?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
+								
+									// Some options, see http://imperavi.com/redactor/docs/
+									'options' => [
+										'css' => 'wym.css',
+									],
+								]); ?>
                             <?php else: ?>
                             	<?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
                             <?php endif ?>

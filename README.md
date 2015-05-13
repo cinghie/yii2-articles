@@ -19,6 +19,9 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>0.1.7 - Fixing TinyMCE problems</li>
+  <li>0.1.6 - Adding Imperavi Redactor as Editor in Categories and Items</li>
+  <li>0.1.5 - Update Item Created and Modified</li>
   <li>0.1.4 - Adding Item Variables in Module</li>
   <li>0.1.3 - Refactoring Module Variables</li>
   <li>0.1.2 - Added Facebook and Twitter Item View</li>
@@ -64,7 +67,7 @@ or add
 			"it-IT" => "it-IT", 
 			"en-GB" => "en-GB" 
 		],			
-		// Select Editor: no-editor, ckeditor, tinymce, markdown
+		// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 		'editor' => 'ckeditor',
 		// Select Path To Upload Category Image
 		'categoryImagePath' => 'img/articles/categories/',
@@ -77,7 +80,7 @@ or add
 		// Select Image Name: categoryname, original, casual
 		'imageNameType' => 'categoryname',
 		// Select Image Types allowed
-		'imageType'     => 'img/jpg,image/jpeg,image/gif,image/png',
+		'imageType'     => 'jpg,jpeg,gif,png',
 		// Thumbnails Options
 		'thumbOptions'  => [ 
 			'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
@@ -132,7 +135,9 @@ or add
 <ul> 
   <li>Yii2 Grid: https://github.com/kartik-v/yii2-grid</li>
   <li>Yii2 Widget: https://github.com/kartik-v/yii2-widgets</li>
+  <li>Yii2 mPDF: https://github.com/kartik-v/yii2-mpdf</li>
   <li>Yii2 MarkDown: https://github.com/kartik-v/yii2-markdown</li>
   <li>Yii2 CKEditor: https://github.com/2amigos/yii2-ckeditor-widget</li>
   <li>Yii2 TinyMCE: https://github.com/2amigos/yii2-tinymce-widget</li>
+  <li>Yii2 Imperavi Redactor: https://github.com/asofter/yii2-imperavi-redactor</li>
 </ul> 
