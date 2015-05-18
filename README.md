@@ -19,6 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>0.1.8 - Refactoring Categories Upload Image</li>
   <li>0.1.7 - Fixing TinyMCE problems</li>
   <li>0.1.6 - Adding Imperavi Redactor as Editor in Categories and Items</li>
   <li>0.1.5 - Update Item Created and Modified</li>

@@ -13,12 +13,12 @@
 namespace cinghie\articles\controllers;
 
 use Yii;
+use cinghie\articles\models\Articles;
 use cinghie\articles\models\Categories;
 use cinghie\articles\models\CategoriesSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\imagine\Image;
 
 /**
  * CategoriesController implements the CRUD actions for Categories model.
@@ -74,28 +74,12 @@ class CategoriesController extends Controller
     {
         $model = new Categories();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			
-			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
-			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
-			$imgNameType = Yii::$app->controller->module->imageNameType;
-			$imgOptions  = Yii::$app->controller->module->thumbOptions;
-			$imgName     = $model->name;
-			
-			$file = \yii\web\UploadedFile::getInstance($model, 'image');
-			
-			// If is set an image, upload it
-			if ($file->name != "")
-			{ 
-				$filename = $this->uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions);
-				$model->image = $filename;	
-			}
+        if ( $model->load(Yii::$app->request->post()) ) {
 			
 			// If alias is not set, generate it
 			if ($_POST['Categories']['alias']=="") 
 			{
-				$model->alias = $this->generateAlias($model->name,"url");
+				$model->alias = $model->generateAlias($model->name,"url");
 			}
 			
 			// Genarate Json Params 
@@ -107,21 +91,47 @@ class CategoriesController extends Controller
 				'itemImageWidth'       => $_POST['itemImageWidth'], 
 				'itemViewData'         => $_POST['itemViewData']
 			 );
-			$params = $this->generateJsonParams($params);
+			$params = $model->generateJsonParams($params);
 			$model->params = $params;
 			
-			// Save changes
-			$model->save();	
+			// Upload Image and Thumb if is not Null
+			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
+			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
+			$imgNameType = Yii::$app->controller->module->imageNameType;
+			$imgOptions  = Yii::$app->controller->module->thumbOptions;
+			$imgName     = $model->name;
+			
+			// Create UploadFile Instance
+			$image = $model->uploadFile($imgName,$imgNameType,$imagePath);		
 				
-			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been saved!'));
-		
-            return $this->redirect([
-				'view', 'id' => $model->id
-			]);
-
+			if ($model->save()) {
+				
+				// upload only if valid uploaded file instance found
+                if ($image !== false) {
+					// save thumbs to thumbPaths
+					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                }
+				
+				// Set Success Message
+				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been updated!'));
+				//Yii::$app->session->setFlash('success', var_dump($model));
+				//Yii::$app->session->setFlash('success', var_dump($file));
+				
+				return $this->redirect(['view', 'id' => $model->id]);
+				
+			} else {
+				
+				// Set Error Message
+				Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Category could not be saved!'));
+				
+				return $this->render('create', [
+					'model' => $model,
+				]);
+            }	
+	
         } else {
 			
-			Yii::$app->session->setFlash('error', \Yii::t('articles.message', 'Category could not be saved!'));
+			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Category could not be saved!'));
             
 			return $this->render('create', [
                 'model' => $model,
@@ -137,34 +147,15 @@ class CategoriesController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model    = $this->findModel($id);
+		$oldImage = $model->image;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 			
-			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
-			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
-			$imgNameType = Yii::$app->controller->module->imageNameType;
-			$imgOptions  = Yii::$app->controller->module->thumbOptions;
-			$imgName     = $model->name;
-			
-			if (\yii\web\UploadedFile::getInstance($model, 'image')) 
+			// If alias is not set, generate it
+			if ($_POST['Categories']['alias']=="") 
 			{
-			
-				$file = \yii\web\UploadedFile::getInstance($model, 'image');
-				
-				// If is set an image update it, else show the image and the button to remove it
-				if ($file->name != "")
-				{ 
-					$filename = $this->uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions);
-					$model->image = $filename;	
-				}
-				
-				// If alias is not set, generate it
-				if ($_POST['Categories']['alias']=="") 
-				{
-					$model->alias = $this->generateAlias($model->name,"url");
-				}
+				$model->alias = $model->generateAlias($model->name,"url");
 			}
 			
 			// Genarate Json Params 
@@ -174,21 +165,50 @@ class CategoriesController extends Controller
 				'categoryImageWidth'   => $_POST['categoryImageWidth'], 
 				'categoryViewData'     => $_POST['categoryViewData'], 
 				'itemImageWidth'       => $_POST['itemImageWidth'], 
-				'itemViewData'         => $_POST['itemViewData'] 
-			);
-			$params = $this->generateJsonParams($params);
+				'itemViewData'         => $_POST['itemViewData']
+			 );
+			$params = $model->generateJsonParams($params);
 			$model->params = $params;
 			
-			// Save changes
-			$model->save();	
+			// Upload Image and Thumb if is not Null
+			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
+			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
+			$imgNameType = Yii::$app->controller->module->imageNameType;
+			$imgOptions  = Yii::$app->controller->module->thumbOptions;
+			$imgName     = $model->name;
 			
-			// Set Message
-			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been updated!'));
-			//Yii::$app->session->setFlash('success', var_dump($model));
-			//Yii::$app->session->setFlash('success', var_dump($file));
+			// Create UploadFile Instance
+			$image = $model->uploadFile($imgName,$imgNameType,$imagePath);		
 			
-            return $this->redirect(['view', 'id' => $model->id]);
+			// revert back if no valid file instance uploaded
+            if ($image === false) {
+                $model->image = $oldImage;
+            }
+				
+			if ($model->save()) {
+				
+				// upload only if valid uploaded file instance found
+                if ($image !== false) {
+					// save thumbs to thumbPaths
+					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                }
+				
+				// Set Success Message
+				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been updated!'));
+				//Yii::$app->session->setFlash('success', var_dump($model));
+				//Yii::$app->session->setFlash('success', var_dump($file));
+				
+				return $this->redirect(['view', 'id' => $model->id]);
+				
+			} else {
+
+				return $this->render('update', [
+					'model' => $model,
+				]);
+            }			
+            
         } else {
+			
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -203,9 +223,16 @@ class CategoriesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 		
-		Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'Category has been deleted!'));
+		if ($model->delete()) 
+		{
+            if (!$model->deleteImage()) {
+                Yii::$app->session->setFlash('error', 'Error deleting image');
+            } else {
+				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been deleted!'));
+			}
+        }
 		
         return $this->redirect(['index']);
     }
@@ -215,10 +242,11 @@ class CategoriesController extends Controller
 	{
 		$model = $this->findModel($id);
 		
-		if ($model->deleteImage()) {
-			Yii::$app->session->setFlash('success', \Yii::t('articles.message', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
+		if ($model->deleteImage()) 
+		{
+			Yii::$app->session->setFlash('success', Yii::t('articles.message', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
 		} else {
-			Yii::$app->session->setFlash('error', \Yii::t('articles.message', 'Error removing image. Please try again later or contact the system admin.'));
+			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Error removing image. Please try again later or contact the system admin.'));
 		}
 		
 		return $this->redirect([
@@ -241,62 +269,5 @@ class CategoriesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-	
-	// Upload Image in a select Folder
-	protected function uploadImage($file,$imagePath,$thumbPath,$imgName,$imgNameType,$imgOptions)
-	{		
-		$type = $file->type;
-		$type = str_replace("image/","",$type);
-		$size = $file->size;
-		
-		switch($imgNameType) 
-		{
-			case "original":
-				$name = str_replace(" ","_",$file->name);
-				break;
-			
-			case "casual":
-				$name = uniqid(rand(), true).".".$type;
-				break;
-			
-			default:
-				$name = str_replace(" ","_",$imgName).".".$type;
-				break;
-		}
-		
-		// Save the file in the Image Folder
-		$path = $imagePath.$name;
-		$file->saveAs($path);
-		
-		// Save Image Thumbs
-		Image::thumbnail($imagePath.$name, $imgOptions['small']['width'], $imgOptions['small']['height'])->save($thumbPath."small/".$name, ['quality' => $imgOptions['small']['quality']]);
-		Image::thumbnail($imagePath.$name, $imgOptions['medium']['width'], $imgOptions['medium']['height'])->save($thumbPath."medium/".$name, ['quality' => $imgOptions['medium']['quality']]);
-		Image::thumbnail($imagePath.$name, $imgOptions['large']['width'], $imgOptions['large']['height'])->save($thumbPath."large/".$name, ['quality' => $imgOptions['large']['quality']]);
-		Image::thumbnail($imagePath.$name, $imgOptions['extra']['width'], $imgOptions['extra']['height'])->save($thumbPath."extra/".$name, ['quality' => $imgOptions['extra']['quality']]);			
-		
-		return $name;
-	}
-	
-	// Generate URL or IMG alias
-	protected function generateAlias($name,$type)
-    {
-        // remove any '-' from the string they will be used as concatonater
-        $str = str_replace('-', ' ', $name);
-        $str = str_replace('_', ' ', $name);
-		
-		// remove any duplicate whitespace, and ensure all characters are alphanumeric
-		$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
-
-        // lowercase and trim
-        $str = trim(strtolower($str));
-		
-        return $str;
-    }
-	
-	// Generate JSON for Params
-	protected function generateJsonParams($params)
-	{
-		return json_encode($params);
-	}
 	
 }

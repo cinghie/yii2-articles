@@ -14,7 +14,7 @@ namespace cinghie\articles\models;
 
 use Yii;
 
-class Categories extends \yii\db\ActiveRecord
+class Categories extends Articles
 {
     /**
      * @inheritdoc
@@ -98,13 +98,33 @@ class Categories extends \yii\db\ActiveRecord
         return $this->hasMany(ArticleItems::className(), ['catid' => 'id']);
     }
 	
+	/**
+     * fetch stored file name with complete path 
+     * @return string
+     */
+    public function getFilePath() 
+    {
+        return isset($this->image) ? Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath. $this->image : null;
+    }
+	
+	/**
+     * fetch stored file url
+     * @return string
+     */
+    public function getImageUrl() 
+    {
+        // return a default image placeholder if your source avatar is not found
+        $file = isset($this->image) ? $this->image : 'default.jpg';
+        return Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryImagePath . $file;
+    }
+		
 	// Return array for Category Select2
 	public function getCategoriesSelect2($id)
 	{
 		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1 AND id !='.$id;
 		$categories = Categories::findBySql($sql)->asArray()->all();
 		
-		$array[0] = \Yii::t('articles.message', 'No Parent'); 
+		$array[0] = Yii::t('articles.message', 'No Parent'); 
 		
 		foreach($categories as $category)
 		{
@@ -135,10 +155,15 @@ class Categories extends \yii\db\ActiveRecord
 			unlink($imageM);
 			unlink($imageL);
 			unlink($imageXL);
-			$this->image = "";
-			$this->save();
+			
+			if ($this->image) 
+			{
+				$this->image = "";
+				$this->save();	
+			}
 			
 			return true;
+			
 		} else {
 			return false;
 		}
