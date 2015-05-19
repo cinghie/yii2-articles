@@ -29,10 +29,8 @@ $this->title = Yii::t('articles.message', 'Update ', [
   'modelClass' => 'Categories',
 ]) . ' ' . $model->name;
 
-// Set Breadcrumbs
-$this->params['breadcrumbs'][] = ['label' => Yii::t('articles.message', 'Categories'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('articles.message', 'Update');
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
 
 ?>
 <div class="categories-update">

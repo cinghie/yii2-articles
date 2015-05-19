@@ -12,21 +12,20 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\articles\models\Categories */
-
+// Set Title
 $this->title = Yii::t('app', 'Create Categories');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
+
 ?>
+
 <div class="categories-create">
 
 	<div class="page-header">
     	<h1><?= Html::encode($this->title) ?></h1>
     </div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?= $this->render('_form', [ 'model' => $model, ]) ?>
 
 </div>

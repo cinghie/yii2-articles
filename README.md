@@ -19,6 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>0.1.10 - Adding Admin Menù</li>
   <li>0.1.9 - Adding Attachment's Files</li>
   <li>0.1.8 - Refactoring Categories Upload Image</li>
   <li>0.1.7 - Fixing TinyMCE problems</li>

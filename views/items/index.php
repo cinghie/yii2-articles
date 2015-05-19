@@ -13,8 +13,11 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+// Set Title
 $this->title = Yii::t('articles.message', 'Articles');
-$this->params['breadcrumbs'][] = $this->title;
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
 
 ?>
 <div class="items-index">

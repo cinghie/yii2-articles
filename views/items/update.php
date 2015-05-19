@@ -12,15 +12,14 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\articles\models\Items */
-
+// Set Title
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Items',
 ]) . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Items'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
+
 ?>
 <div class="items-update">
 	

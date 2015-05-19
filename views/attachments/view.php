@@ -13,9 +13,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+// Set Title
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Attachments'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="attachments-view">
 

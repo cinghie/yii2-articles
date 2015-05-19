@@ -12,16 +12,20 @@
 
 use yii\helpers\Html;
 
+// Set Title
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Attachments',
 ]) . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Attachments'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
+
 ?>
 <div class="attachments-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+	<div class="page-header">
+    	<h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
     <?= $this->render('_form', [
         'model' => $model,

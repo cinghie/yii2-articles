@@ -12,9 +12,11 @@
 
 use yii\helpers\Html;
 
+// Set Title
 $this->title = Yii::t('articles.message', 'Create Article', ['modelClass' => 'Items',]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('articles.message', 'Articles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
 
 ?>
 <div class="items-create">

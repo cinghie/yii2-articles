@@ -13,9 +13,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+// Set Title
 $this->title = Html::encode($model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Items'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 
 /* MetaData */
 

@@ -18,12 +18,18 @@ use cinghie\articles\assets\ArticlesAsset;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
+// Set Title
 $this->title = Yii::t('app', 'Attachments');
-$this->params['breadcrumbs'][] = $this->title;
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
+
 ?>
 <div class="attachments-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+	
+    <div class="page-header">
+   		<h1><?= Html::encode($this->title) ?></h1>
+    </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

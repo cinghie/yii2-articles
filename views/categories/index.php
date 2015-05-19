@@ -18,14 +18,17 @@ use cinghie\articles\assets\ArticlesAsset;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
+// Set Title
 $this->title = Yii::t('articles.message', 'Categories');
-$this->params['breadcrumbs'][] = $this->title;
+
+// Render Yii2-Articles Menu
+echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
+
 ?>
 
 <div class="page-header">
 	
-    <!-- Categories Title --> 
-    <div class="categories-title">
+    <div class="page-header">
     	<h1><?= Html::encode($this->title) ?></h1>
     </div>
     
