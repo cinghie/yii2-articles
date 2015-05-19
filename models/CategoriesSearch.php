@@ -17,6 +17,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use cinghie\articles\models\Categories;
 
+/**
+ * CategoriesSearch represents the model behind the search form about `cinghie\articles\models\Attachments`.
+ */
 class CategoriesSearch extends Categories
 {
     /**
