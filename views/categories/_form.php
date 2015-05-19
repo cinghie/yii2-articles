@@ -39,7 +39,6 @@ $editor    = Yii::$app->controller->module->editor;
 $language  = substr(Yii::$app->language,0,2);
 $languages = Yii::$app->controller->module->languages;
 $imagetype = Yii::$app->controller->module->imageType;
-$imageurl  = Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryImagePath;
 
 ?>
 

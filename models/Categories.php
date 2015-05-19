@@ -117,6 +117,39 @@ class Categories extends Articles
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryImagePath . $file;
     }
+	
+	/**
+    * Delete Image
+    * @return mixed the uploaded image instance
+    */
+	public function deleteImage() 
+	{
+		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath.$this->image;
+		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."small/".$this->image;
+		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."medium/".$this->image;
+		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."large/".$this->image;
+		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."extra/".$this->image;
+		
+		// check if image exists on server
+        if (empty($image) || !file_exists($image)) {
+            return false;
+        }
+		
+		// check if uploaded file can be deleted on server
+		if (unlink($image)) 
+		{
+			unlink($imageS);
+			unlink($imageM);
+			unlink($imageL);
+			unlink($imageXL);
+			
+			return true;
+			
+		} else {
+			return false;
+		}
+		
+	}
 		
 	// Return array for Category Select2
 	public function getCategoriesSelect2($id)

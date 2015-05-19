@@ -79,7 +79,7 @@ class CategoriesController extends Controller
 			// If alias is not set, generate it
 			if ($_POST['Categories']['alias']=="") 
 			{
-				$model->alias = $model->generateAlias($model->name,"url");
+				$model->alias = $model->generateAlias($model->name);
 			}
 			
 			// Genarate Json Params 
@@ -108,15 +108,14 @@ class CategoriesController extends Controller
 			if ($model->save()) {
 				
 				// upload only if valid uploaded file instance found
-                if ($image !== false) {
+                if ($image !== false) 
+				{
 					// save thumbs to thumbPaths
 					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                 }
 				
 				// Set Success Message
-				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been updated!'));
-				//Yii::$app->session->setFlash('success', var_dump($model));
-				//Yii::$app->session->setFlash('success', var_dump($file));
+				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been created!'));
 				
 				return $this->redirect(['view', 'id' => $model->id]);
 				
@@ -125,18 +124,14 @@ class CategoriesController extends Controller
 				// Set Error Message
 				Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Category could not be saved!'));
 				
-				return $this->render('create', [
-					'model' => $model,
-				]);
+				return $this->render('create', ['model' => $model,]);
             }	
 	
         } else {
 			
 			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Category could not be saved!'));
             
-			return $this->render('create', [
-                'model' => $model,
-            ]);
+			return $this->render('create', ['model' => $model,]);
         }
     }
 
@@ -156,7 +151,7 @@ class CategoriesController extends Controller
 			// If alias is not set, generate it
 			if ($_POST['Categories']['alias']=="") 
 			{
-				$model->alias = $model->generateAlias($model->name,"url");
+				$model->alias = $model->generateAlias($model->name);
 			}
 			
 			// Genarate Json Params 
@@ -190,15 +185,14 @@ class CategoriesController extends Controller
 			if ($model->save()) {
 				
 				// upload only if valid uploaded file instance found
-                if ($image !== false) {
+                if ($image !== false) 
+				{
 					// save thumbs to thumbPaths
 					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                 }
 				
 				// Set Success Message
 				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been updated!'));
-				//Yii::$app->session->setFlash('success', var_dump($model));
-				//Yii::$app->session->setFlash('success', var_dump($file));
 				
 				return $this->redirect(['view', 'id' => $model->id]);
 				
@@ -234,7 +228,9 @@ class CategoriesController extends Controller
             } else {
 				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been deleted!'));
 			}
-        }
+        } else {
+			Yii::$app->session->setFlash('error', 'Error deleting item');
+		}
 		
         return $this->redirect(['index']);
     }

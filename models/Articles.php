@@ -88,39 +88,6 @@ class Articles extends \yii\db\ActiveRecord
 		Image::thumbnail($imageLink, $imgOptions['extra']['width'], $imgOptions['extra']['height'])
 			->save($thumbPath."extra/".$imageName, ['quality' => $imgOptions['extra']['quality']]);		
 	}
-
-	/**
-    * Delete Image
-    * @return mixed the uploaded image instance
-    */
-	public function deleteImage() 
-	{
-		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath.$this->image;
-		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."small/".$this->image;
-		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."medium/".$this->image;
-		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."large/".$this->image;
-		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."extra/".$this->image;
-		
-		// check if image exists on server
-        if (empty($image) || !file_exists($image)) {
-            return false;
-        }
-		
-		// check if uploaded file can be deleted on server
-		if (unlink($image)) 
-		{
-			unlink($imageS);
-			unlink($imageM);
-			unlink($imageL);
-			unlink($imageXL);
-			
-			return true;
-			
-		} else {
-			return false;
-		}
-		
-	}
 	
 	/**
 	* Generate fileName
@@ -141,7 +108,7 @@ class Articles extends \yii\db\ActiveRecord
 	* Generate URL alias
 	* @return string alias
 	*/ 
-	public function generateAlias($name,$type)
+	public function generateAlias($name)
     {
         // remove any '-' from the string they will be used as concatonater
         $str = str_replace('-', ' ', $name);
