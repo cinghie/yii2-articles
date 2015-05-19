@@ -51,7 +51,6 @@ $editor           = Yii::$app->controller->module->editor;
 $language         = substr(Yii::$app->language,0,2);
 $languages        = Yii::$app->controller->module->languages;
 $imagetype        = Yii::$app->controller->module->imageType;
-$imageurl         = Yii::$app->homeUrl.Yii::$app->controller->module->itemImagePath;
 
 $select2users     = $model->getUsersSelect2();
 $select2videotype = $model->getVideoTypeSelect2();
@@ -488,36 +487,35 @@ $select2videotype = $model->getVideoTypeSelect2();
                         
                         <div class="col-lg-6">
                         
-                        	<?php if ($model->image): ?>
+                        	<?= $form->field($model, 'image')->widget(FileInput::classname(), [
+                                	'options' => [
+                                    	'accept' => 'image/'.$imagetype
+                                    ],
+                                    'pluginOptions' => [
+                                        'previewFileType' => 'image',
+                                        'showUpload'      => false,
+                                        'browseLabel'     => Yii::t('articles.message', 'Browse &hellip;'),
+                                    ],
+                            ]); ?> 
                             
-                            	<?= $form->field($model, 'image')->hiddenInput() ?>
+                            <?php if ( isset($model->image) && !empty($model->image) ): ?>
                             
-                            	<div class="thumbnail">                       	
-                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $imageurl.$model->image ?>">
-                                    <div class="caption">
-                                    	<p></p>
-                                        <p>
-                                        	<a class="btn btn-danger" href="deleteimage?id=<?= $model->id ?>">
-												<?= Yii::t('articles.message', 'Delete Image') ?>
-                                            </a> 
-                                        </p>
-                                    </div>
-                                </div>
-                             
-                            <?php else: ?>		
+                            <div class="thumbnail">                       	
+                            	<img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $model->getImageUrl() ?>">
+                            	<div class="caption">
+                            		<p></p>
+                            	    <p>
+										<?= Html::a(Yii::t('articles.message', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
+                                                'class' => 'btn btn-danger',
+                                                'data' => [
+                                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                ],
+										]) ?>
+                            	    </p>
+                            	</div>
+                            </div>
                             
-								<?= $form->field($model, 'image')->widget(FileInput::classname(), [
-                                        'options' => [
-                                            'accept' => 'image/'.$imagetype
-                                        ],
-                                        'pluginOptions' => [
-                                            'previewFileType' => 'image',
-                                            'showUpload' => false,
-                                            'browseLabel' => Yii::t('articles.message', 'Browse &hellip;'),
-                                        ],
-                                ]);?>                            	
-                            		
-							<?php endif ?>
+                            <?php endif ?>
                         
                         </div> <!-- col-lg-6 -->
                         

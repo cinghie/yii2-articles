@@ -19,6 +19,8 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.2.0 - Adding Upload Image in Items</li>
+  <li>Version 0.1.14 - Cleaning Categories Code</li>
   <li>Version 0.1.13 - Generalizing Upload File Field</li>
   <li>Version 0.1.12 - Adding Migrations Example</li>
   <li>Version 0.1.11 - Fixing Delete Image in Categories</li>

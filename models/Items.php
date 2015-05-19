@@ -14,7 +14,7 @@ namespace cinghie\articles\models;
 
 use Yii;
 
-class Items extends \yii\db\ActiveRecord
+class Items extends Articles
 {
     /**
      * @inheritdoc
@@ -34,11 +34,11 @@ class Items extends \yii\db\ActiveRecord
             [['catid', 'userid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
 			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
-			[['image'], 'image', 'mimeTypes' => Yii::$app->controller->module->imageType],
 			[['video', 'author', 'copyright'], 'string', 'max' => 50],
 			[['robots'], 'string', 'max' => 20],
 			[['language'], 'string', 'max' => 7],
-            [['created', 'modified','image'], 'safe']
+            [['created', 'modified','image'], 'safe'],
+			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,]
         ];
     }
 
@@ -79,6 +79,59 @@ class Items extends \yii\db\ActiveRecord
             'language' => Yii::t('articles.message', 'Language'),
         ];
     }
+	
+	/**
+     * fetch stored file name with complete path 
+     * @return string
+     */
+    public function getFilePath() 
+    {
+        return isset($this->image) ? Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath. $this->image : null;
+    }
+	
+	/**
+     * fetch stored file url
+     * @return string
+     */
+    public function getImageUrl() 
+    {
+        // return a default image placeholder if your source avatar is not found
+        $file = isset($this->image) ? $this->image : 'default.jpg';
+        return Yii::getAlias('@web')."/".Yii::$app->controller->module->itemImagePath . $file;
+    }
+	
+	/**
+    * Delete Image
+    * @return mixed the uploaded image instance
+    */
+	public function deleteImage() 
+	{
+		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath.$this->image;
+		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."small/".$this->image;
+		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."medium/".$this->image;
+		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."large/".$this->image;
+		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."extra/".$this->image;
+		
+		// check if image exists on server
+        if (empty($image) || !file_exists($image)) {
+            return false;
+        }
+		
+		// check if uploaded file can be deleted on server
+		if (unlink($image)) 
+		{
+			unlink($imageS);
+			unlink($imageM);
+			unlink($imageL);
+			unlink($imageXL);
+			
+			return true;
+			
+		} else {
+			return false;
+		}
+		
+	}
 	
 	// Return array for Category Select2
 	public function getCategoriesSelect2($id)
@@ -145,30 +198,5 @@ class Items extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'userid']);
     }
-	
-	// Delete Image From Item
-	public function deleteImage() 
-	{
-		
-		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath.$this->image;
-		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."small/".$this->image;
-		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."medium/".$this->image;
-		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."large/".$this->image;
-		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."extra/".$this->image;
-		
-		if (unlink($image)) 
-		{
-			unlink($imageS);
-			unlink($imageM);
-			unlink($imageL);
-			unlink($imageXL);
-			$this->image = "";
-			$this->save();
-			
-			return true;
-		}
-		
-		return false;
-	}
 	
 }
