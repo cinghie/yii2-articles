@@ -100,9 +100,10 @@ class CategoriesController extends Controller
 			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->name;
+			$fileField   = "image";
 			
 			// Create UploadFile Instance
-			$image = $model->uploadFile($imgName,$imgNameType,$imagePath);		
+			$image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);		
 				
 			if ($model->save()) {
 				
@@ -176,9 +177,10 @@ class CategoriesController extends Controller
 			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->name;
+			$fileField   = "image";
 			
 			// Create UploadFile Instance
-			$image = $model->uploadFile($imgName,$imgNameType,$imagePath);		
+			$image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);		
 			
 			// revert back if no valid file instance uploaded
             if ($image === false) {

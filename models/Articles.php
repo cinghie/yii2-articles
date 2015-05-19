@@ -23,12 +23,12 @@ class Articles extends \yii\db\ActiveRecord
     * Upload file
     * @return mixed the uploaded image instance
     */
-    public function uploadFile($fileName,$fileNameType,$filePath) 
+    public function uploadFile($fileName,$fileNameType,$filePath,$fileField) 
 	{
         // get the uploaded file instance. for multiple file uploads
         // the following data will return an array (you may need to use
         // getInstances method)
-        $file = UploadedFile::getInstance($this, 'image');
+        $file = UploadedFile::getInstance($this, $fileField);
  
         // if no file was uploaded abort the upload
         if (empty($file)) {
@@ -57,7 +57,7 @@ class Articles extends \yii\db\ActiveRecord
 			// purge filename
 			$fileName = $this->generateFileName($name);
 			// set field to filename.extensions
-			$this->image = $fileName.".{$fileExt}";
+			$this->$fileField = $fileName.".{$fileExt}";
 			// update file->name
 			$file->name  = $fileName.".{$fileExt}";
 			// save images to imagePath

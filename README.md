@@ -19,6 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.1.13 - Generalizing Upload File Field</li>
   <li>Version 0.1.12 - Adding Migrations Example</li>
   <li>Version 0.1.11 - Fixing Delete Image in Categories</li>
   <li>Version 0.1.10 - Adding Admin Menù</li>
