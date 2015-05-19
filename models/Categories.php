@@ -134,40 +134,4 @@ class Categories extends Articles
 		return $array;
 	}
 	
-	// Delete Image From Category
-	public function deleteImage() 
-	{
-		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath.$this->image;
-		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."small/".$this->image;
-		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."medium/".$this->image;
-		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."large/".$this->image;
-		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."extra/".$this->image;
-		
-		// check if image exists on server
-        if (empty($image) || !file_exists($image)) {
-            return false;
-        }
-		
-		// check if uploaded file can be deleted on server
-		if (unlink($image)) 
-		{
-			unlink($imageS);
-			unlink($imageM);
-			unlink($imageL);
-			unlink($imageXL);
-			
-			if ($this->image) 
-			{
-				$this->image = "";
-				$this->save();	
-			}
-			
-			return true;
-			
-		} else {
-			return false;
-		}
-		
-	}
-	
 }

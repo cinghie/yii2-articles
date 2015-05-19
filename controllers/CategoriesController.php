@@ -244,6 +244,8 @@ class CategoriesController extends Controller
 		
 		if ($model->deleteImage()) 
 		{
+			$model->image = "";
+			$model->save();
 			Yii::$app->session->setFlash('success', Yii::t('articles.message', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
 		} else {
 			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Error removing image. Please try again later or contact the system admin.'));

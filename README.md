@@ -19,24 +19,25 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
-  <li>0.1.10 - Adding Admin Menù</li>
-  <li>0.1.9 - Adding Attachment's Files</li>
-  <li>0.1.8 - Refactoring Categories Upload Image</li>
-  <li>0.1.7 - Fixing TinyMCE problems</li>
-  <li>0.1.6 - Adding Imperavi Redactor as Editor in Categories and Items</li>
-  <li>0.1.5 - Update Item Created and Modified</li>
-  <li>0.1.4 - Adding Item Variables in Module</li>
-  <li>0.1.3 - Refactoring Module Variables</li>
-  <li>0.1.2 - Added Facebook and Twitter Item View</li>
-  <li>0.1.1 - Added Attachment's Table in database</li>
-  <li>0.1.0 - Refactoring Project</li>
-  <li>0.0.7 - Added Image Upload for Categories</li>
-  <li>0.0.6 - Added Composer</li>	
-  <li>0.0.5 - Fixed problem with Upload Image</li>		
-  <li>0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
-  <li>0.0.3 - Various Fix and Update for Categories Views</li>	
-  <li>0.0.2 - Added multi-language with I18N</li>
-  <li>0.0.1 - Initial Releases</li>
+  <li>Version 0.1.11 - Fixing Delete Image in Categories</li>
+  <li>Version 0.1.10 - Adding Admin Menù</li>
+  <li>Version 0.1.9 - Adding Attachment's Files</li>
+  <li>Version 0.1.8 - Refactoring Categories Upload Image</li>
+  <li>Version 0.1.7 - Fixing TinyMCE problems</li>
+  <li>Version 0.1.6 - Adding Imperavi Redactor as Editor in Categories and Items</li>
+  <li>Version 0.1.5 - Update Item Created and Modified</li>
+  <li>Version 0.1.4 - Adding Item Variables in Module</li>
+  <li>Version 0.1.3 - Refactoring Module Variables</li>
+  <li>Version 0.1.2 - Added Facebook and Twitter Item View</li>
+  <li>Version 0.1.1 - Added Attachment's Table in database</li>
+  <li>Version 0.1.0 - Refactoring Project</li>
+  <li>Version 0.0.7 - Added Image Upload for Categories</li>
+  <li>Version 0.0.6 - Added Composer</li>	
+  <li>Version 0.0.5 - Fixed problem with Upload Image</li>		
+  <li>Version 0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
+  <li>Version 0.0.3 - Various Fix and Update for Categories Views</li>	
+  <li>Version 0.0.2 - Added multi-language with I18N</li>
+  <li>Version 0.0.1 - Initial Releases</li>
 </ul>
 
 ## INSTALLATION USING COMPOSER
