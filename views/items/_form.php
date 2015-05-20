@@ -586,7 +586,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                     </div> <!-- end video -->
                     
                     <div id="params" class="tab-pane fade">
-                    
+                    	
                         <?= $form->field($model, 'params')->textarea(['rows' => 6]) ?>
                     
                     </div> <!-- #params -->

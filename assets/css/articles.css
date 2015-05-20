@@ -12,6 +12,10 @@ h1 {
 	margin: 40px 0 20px;
     padding: 5px 0 15px;
 }
+hr {
+    border-color: #eaedf2;
+    border-top-width: 2px;
+}
 
 /* Categories View */
 
@@ -72,4 +76,11 @@ div.category-view .description {
 div.category-items .category-item {
 	border-bottom: 1px solid #EEEEEE;
 	padding: 10px;
+}
+
+/* Item View */
+
+.item-view figcaption {
+	margin-bottom: 25px;
+	text-align: center;
 }
