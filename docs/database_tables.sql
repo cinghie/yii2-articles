@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `article_items` (
   `image_caption` varchar(255) DEFAULT NULL,
   `image_credits` varchar(255) DEFAULT NULL,
   `video` text,
+  `video_type` varchar(20) DEFAULT NULL,
   `video_caption` varchar(255) DEFAULT NULL,
   `video_credits` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL,

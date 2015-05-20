@@ -41,11 +41,6 @@ if (!$model->isNewRecord && $model->modified_by) {
 	$modified_by = 0; 
 }
 
-// Get Modified
-if ($model->isNewRecord) { 
-	$model->modified = "0000-00-00 00:00:00"; 
-}
-
 // Get info by Configuration
 $editor           = Yii::$app->controller->module->editor;
 $language         = substr(Yii::$app->language,0,2);
@@ -230,7 +225,8 @@ $select2videotype = $model->getVideoTypeSelect2();
                         
 								<?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
                                         'options' => [
-                                            'value' => date("Y-m-d H:i:s"),    
+											'disabled' => 'disabled',
+                                            'value'    => date("Y-m-d H:i:s"),    
                                         ],
                                         'pluginOptions' => [
                                             'autoclose'      => true,
@@ -545,7 +541,15 @@ $select2videotype = $model->getVideoTypeSelect2();
                     
                     	<div class="col-lg-6">
                         
-                        	<?php /* $form->field($model, 'video_type')->widget(Select2::classname(), [
+                        	<?= $form->field($model, 'video', [
+									'addon' => [
+										'prepend' => [
+											'content'=>'<i class="glyphicon glyphicon-film"></i>'
+										]
+									]
+							])->textInput(['maxlength' => true]) ?>
+                        
+                        	<?= $form->field($model, 'video_type')->widget(Select2::classname(), [
                                     'data' => $select2videotype,
                                     'pluginOptions' => [
                                         'allowClear' => true
@@ -555,15 +559,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 											'content'=>'<i class="glyphicon glyphicon-film"></i>'
 										]
 									],
-                            ]); */ ?>   
-                        
-                        	<?= $form->field($model, 'video', [
-									'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-film"></i>'
-										]
-									]
-							])->textInput(['maxlength' => true]) ?>
+                            ]); ?>   
                             
                         </div> <!-- end col-lg-6 -->
                         

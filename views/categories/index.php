@@ -56,7 +56,7 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 					}
 				],
 				'access',
-				'ordering',
+				/*'ordering',*/
 				[
 					'attribute' => 'language',
 					'width' => '7%',

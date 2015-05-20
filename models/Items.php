@@ -35,7 +35,7 @@ class Items extends Articles
             [['introtext', 'fulltext', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
 			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
 			[['video', 'author', 'copyright'], 'string', 'max' => 50],
-			[['robots'], 'string', 'max' => 20],
+			[['robots','video_type'], 'string', 'max' => 20],
 			[['language'], 'string', 'max' => 7],
             [['created', 'modified','image'], 'safe'],
 			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,]
