@@ -8,13 +8,21 @@
 * @version 1.0
 */
 
-h1 {
-	margin: 40px 0 20px;
-    padding: 5px 0 15px;
+body {
+	font-family: "Open Sans";
 }
 hr {
     border-color: #eaedf2;
     border-top-width: 2px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #434955;
+    font-family: "Roboto";
+    font-weight: 500;
+}
+h1 {
+	margin: 40px 0 20px;
+    padding: 5px 0 15px;
 }
 
 /* Categories View */

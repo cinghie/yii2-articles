@@ -16,8 +16,16 @@ use yii\web\AssetBundle;
 class ArticlesAsset extends AssetBundle
 {
 	public $sourcePath = __DIR__;
+	
 	public $css = array(
+		'//fonts.googleapis.com/css?family=Roboto:400,700',
+		'//fonts.googleapis.com/css?family=Open+Sans:400,700',
 		'css/articles.css',
 	);
+	
+	public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
 
 }
