@@ -19,6 +19,7 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.2.5 - Update Asset Depends</li>
   <li>Version 0.2.4 - Update Italian Translations</li>
   <li>Version 0.2.3 - Update Asset setting articles.css after bootstrap</li>
   <li>Version 0.2.2 - Update Item View</li>

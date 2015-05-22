@@ -26,6 +26,12 @@ class ArticlesAsset extends AssetBundle
 	public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+		'kartik\form\ActiveFormAsset',
+		'kartik\base\WidgetAsset',
+		'kartik\select2\Select2Asset',
+		'kartik\select2\ThemeKrajeeAsset',
+		'kartik\datetime\DateTimePickerAsset',
+		'kartik\file\FileInputAsset',
     ];
 
 }

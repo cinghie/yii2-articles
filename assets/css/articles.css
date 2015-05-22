@@ -25,6 +25,12 @@ h1 {
     padding: 5px 0 15px;
 }
 
+/* Select2 */
+
+span.select2.select2-container.select2-container--krajee {
+	width: 100%;
+}
+
 /* Categories View */
 
 div.categories .categories-grid {
