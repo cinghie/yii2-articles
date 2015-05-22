@@ -14,7 +14,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 // Set Title
-$this->title = Yii::t('articles.message', 'Articles');
+$this->title = Yii::t('articles.message', 'Items');
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
@@ -29,7 +29,7 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('articles.message', 'Create Article', [
+        <?= Html::a(Yii::t('articles.message', 'Create Item', [
   'modelClass' => 'Items',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

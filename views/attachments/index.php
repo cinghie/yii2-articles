@@ -19,7 +19,7 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title
-$this->title = Yii::t('app', 'Attachments');
+$this->title = Yii::t('articles.message', 'Attachments');
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
@@ -33,7 +33,7 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Attachments'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('articles.message', 'Create Attachment'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

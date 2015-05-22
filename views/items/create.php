@@ -13,7 +13,7 @@
 use yii\helpers\Html;
 
 // Set Title
-$this->title = Yii::t('articles.message', 'Create Article', ['modelClass' => 'Items',]);
+$this->title = Yii::t('articles.message', 'Create Item', ['modelClass' => 'Items',]);
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
