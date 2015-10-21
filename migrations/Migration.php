@@ -12,6 +12,8 @@
 
 namespace cinghie\articles\migrations;
 
+use Yii;
+
 class Migration extends \yii\db\Migration
 {
 
