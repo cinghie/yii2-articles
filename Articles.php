@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 1.0
+* @version 0.2.6
 */
 
 namespace cinghie\articles;

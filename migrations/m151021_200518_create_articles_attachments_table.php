@@ -2,12 +2,12 @@
 
 /**
  * @copyright Copyright &copy; Gogodigital Srls
- * @company Gogodigital Srls - Wide ICT Solutions
+ * @company Gogodigital Srls - Wide ICT Solutions 
  * @website http://www.gogodigital.it
- * @github https://github.com/cinghie/yii2-user-extended
+ * @github https://github.com/cinghie/yii2-articles
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
- * @package yii2-user-extended
- * @version 0.4.0
+ * @package yii2-articles
+ * @version 0.2.6
  */
 
 use cinghie\articles\migrations\Migration;

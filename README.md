@@ -3,8 +3,6 @@ Yii2 Articles
 
 Yii2 Articles to create, manage, and delete articles in a Yii2 site.
 
-## FEATURES
-
 <ul>
   <li>Create, edit and delete articles</li>
   <li>Article with attachments, image, gallery, hits</li>
@@ -16,40 +14,8 @@ Yii2 Articles to create, manage, and delete articles in a Yii2 site.
   <li>SEO Optimization</li>
 </ul>
 
-## CHANGELOG
-
-<ul>
-  <li>Version 0.2.5 - Update Asset Depends</li>
-  <li>Version 0.2.4 - Update Italian Translations</li>
-  <li>Version 0.2.3 - Update Asset setting articles.css after bootstrap</li>
-  <li>Version 0.2.2 - Update Item View</li>
-  <li>Version 0.2.1 - Adding video_type field in Items and fixed modified</li>
-  <li>Version 0.2.0 - Adding Upload Image in Items</li>
-  <li>Version 0.1.14 - Cleaning Categories Code</li>
-  <li>Version 0.1.13 - Generalizing Upload File Field</li>
-  <li>Version 0.1.12 - Adding Migrations Example</li>
-  <li>Version 0.1.11 - Fixing Delete Image in Categories</li>
-  <li>Version 0.1.10 - Adding Admin Menù</li>
-  <li>Version 0.1.9 - Adding Attachment's Files</li>
-  <li>Version 0.1.8 - Refactoring Categories Upload Image</li>
-  <li>Version 0.1.7 - Fixing TinyMCE problems</li>
-  <li>Version 0.1.6 - Adding Imperavi Redactor as Editor in Categories and Items</li>
-  <li>Version 0.1.5 - Update Item Created and Modified</li>
-  <li>Version 0.1.4 - Adding Item Variables in Module</li>
-  <li>Version 0.1.3 - Refactoring Module Variables</li>
-  <li>Version 0.1.2 - Added Facebook and Twitter Item View</li>
-  <li>Version 0.1.1 - Added Attachment's Table in database</li>
-  <li>Version 0.1.0 - Refactoring Project</li>
-  <li>Version 0.0.7 - Added Image Upload for Categories</li>
-  <li>Version 0.0.6 - Added Composer</li>	
-  <li>Version 0.0.5 - Fixed problem with Upload Image</li>		
-  <li>Version 0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
-  <li>Version 0.0.3 - Various Fix and Update for Categories Views</li>	
-  <li>Version 0.0.2 - Added multi-language with I18N</li>
-  <li>Version 0.0.1 - Initial Releases</li>
-</ul>
-
-## INSTALLATION USING COMPOSER
+Installation
+-----------------
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
@@ -65,12 +31,28 @@ or add
 "cinghie/yii2-articles": "dev-master"
 ```
 
-## CONFIGURATION
-<ul>
-<li>Copy images folder from Extension root to yor webroot</li>
-<li>Add in your configuration file, in modules section:
-<pre>'modules' => [ 
-...
+Configuration
+-----------------
+
+### 1. Images folder
+
+Copy img folder to your webroot
+
+### 2. Update yii2 articles database schema
+
+Make sure that you have properly configured `db` application component
+and run the following command:
+```
+$ php yii migrate/up --migrationPath=@vendor/cinghie/yii2-articles/migrations
+```
+
+### 3. Set configuration file
+
+Set on your configuration file, in modules section
+
+```
+'modules' => [ 
+
 	// Module Articles
 	'articles' => [
 		'class' => 'cinghie\articles\Articles',
@@ -110,27 +92,9 @@ or add
 	'markdown' => [
 		'class' => 'kartik\markdown\Module',
 	],
-...
-]</pre>
-</li>
 
-<li>Create Database Tables running the file articles\docs\database_tables.sql. If you want use database prefix, edit the file sql adding the prefix and remember to set it in your config:
-<pre>
-'components' => [
-...
-	'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=YOURDBNAME',
-            'username' => 'YOURDBUSER',
-            'password' => 'YOURDBPSW',
-            'charset' => 'utf8',
-            'tablePrefix' => 'YOURPREFIX_',
-        ],
-...
 ]
-</pre>
-</li>
-</ul>
+```
 
 ## LINKS
 <ul> 
@@ -140,6 +104,40 @@ or add
   <li>Categories with Pretty Urls: PathToApp/articles/categories</li>
   <li>Items: PathToApp/index.php?r=articles/items</li>
   <li>Items with Pretty Urls: PathToApp/articles/items</li>
+</ul>
+
+## CHANGELOG
+
+<ul>
+  <li>Version 0.2.6 - Update Migrations</li>
+  <li>Version 0.2.5 - Update Asset Depends</li>
+  <li>Version 0.2.4 - Update Italian Translations</li>
+  <li>Version 0.2.3 - Update Asset setting articles.css after bootstrap</li>
+  <li>Version 0.2.2 - Update Item View</li>
+  <li>Version 0.2.1 - Adding video_type field in Items and fixed modified</li>
+  <li>Version 0.2.0 - Adding Upload Image in Items</li>
+  <li>Version 0.1.14 - Cleaning Categories Code</li>
+  <li>Version 0.1.13 - Generalizing Upload File Field</li>
+  <li>Version 0.1.12 - Adding Migrations Example</li>
+  <li>Version 0.1.11 - Fixing Delete Image in Categories</li>
+  <li>Version 0.1.10 - Adding Admin Menù</li>
+  <li>Version 0.1.9 - Adding Attachment's Files</li>
+  <li>Version 0.1.8 - Refactoring Categories Upload Image</li>
+  <li>Version 0.1.7 - Fixing TinyMCE problems</li>
+  <li>Version 0.1.6 - Adding Imperavi Redactor as Editor in Categories and Items</li>
+  <li>Version 0.1.5 - Update Item Created and Modified</li>
+  <li>Version 0.1.4 - Adding Item Variables in Module</li>
+  <li>Version 0.1.3 - Refactoring Module Variables</li>
+  <li>Version 0.1.2 - Added Facebook and Twitter Item View</li>
+  <li>Version 0.1.1 - Added Attachment's Table in database</li>
+  <li>Version 0.1.0 - Refactoring Project</li>
+  <li>Version 0.0.7 - Added Image Upload for Categories</li>
+  <li>Version 0.0.6 - Added Composer</li>	
+  <li>Version 0.0.5 - Fixed problem with Upload Image</li>		
+  <li>Version 0.0.4 - Added editors ckeditor, tinymce, markdown from other Packages</li>		
+  <li>Version 0.0.3 - Various Fix and Update for Categories Views</li>	
+  <li>Version 0.0.2 - Added multi-language with I18N</li>
+  <li>Version 0.0.1 - Initial Releases</li>
 </ul>
 
 
