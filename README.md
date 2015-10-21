@@ -22,13 +22,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require cinghie/yii2-articles "dev-master"
+$ php composer.phar require cinghie/yii2-articles "*"
 ```
 
 or add
 
 ```
-"cinghie/yii2-articles": "dev-master"
+"cinghie/yii2-articles": "*"
 ```
 
 Configuration
