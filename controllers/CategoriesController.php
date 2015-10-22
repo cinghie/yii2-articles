@@ -7,13 +7,12 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.6
+* @version 0.2.7
 */
 
 namespace cinghie\articles\controllers;
 
 use Yii;
-use cinghie\articles\models\Articles;
 use cinghie\articles\models\Categories;
 use cinghie\articles\models\CategoriesSearch;
 use yii\filters\VerbFilter;
@@ -95,42 +94,42 @@ class CategoriesController extends Controller
 			$model->params = $params;
 			
 			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
-			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
+			$imagePath   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
+			$thumbPath   = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
 			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->name;
 			$fileField   = "image";
-			
+
 			// Create UploadFile Instance
-			$image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);		
-				
+			$image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+
 			if ($model->save()) {
-				
+
 				// upload only if valid uploaded file instance found
-                if ($image !== false) 
+                if ($image !== false)
 				{
 					// save thumbs to thumbPaths
 					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                 }
-				
+
 				// Set Success Message
 				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been created!'));
-				
+
 				return $this->redirect(['view', 'id' => $model->id]);
-				
+
 			} else {
-				
+
 				// Set Error Message
 				Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Category could not be saved!'));
-				
+
 				return $this->render('create', ['model' => $model,]);
-            }	
-	
+            }
+
         } else {
-			
+
 			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Category could not be saved!'));
-            
+
 			return $this->render('create', ['model' => $model,]);
         }
     }
@@ -147,28 +146,28 @@ class CategoriesController extends Controller
 		$oldImage = $model->image;
 
         if ($model->load(Yii::$app->request->post())) {
-			
+
 			// If alias is not set, generate it
-			if ($_POST['Categories']['alias']=="") 
+			if ($_POST['Categories']['alias']=="")
 			{
 				$model->alias = $model->generateAlias($model->name);
 			}
-			
-			// Genarate Json Params 
-			$params = array( 
-				'categoriesImageWidth' => $_POST['categoriesImageWidth'], 
+
+			// Genarate Json Params
+			$params = array(
+				'categoriesImageWidth' => $_POST['categoriesImageWidth'],
 				'categoriesViewData'   => $_POST['categoriesViewData'],
-				'categoryImageWidth'   => $_POST['categoryImageWidth'], 
-				'categoryViewData'     => $_POST['categoryViewData'], 
-				'itemImageWidth'       => $_POST['itemImageWidth'], 
+				'categoryImageWidth'   => $_POST['categoryImageWidth'],
+				'categoryViewData'     => $_POST['categoryViewData'],
+				'itemImageWidth'       => $_POST['itemImageWidth'],
 				'itemViewData'         => $_POST['itemViewData']
 			 );
 			$params = $model->generateJsonParams($params);
 			$model->params = $params;
-			
+
 			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath;
-			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath;
+			$imagePath   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
+			$thumbPath   = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
 			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->name;

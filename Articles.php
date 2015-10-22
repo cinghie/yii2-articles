@@ -7,30 +7,39 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.6
+* @version 0.2.7
 */
 
 namespace cinghie\articles;
 
 class Articles extends \yii\base\Module
 {
+
     public $controllerNamespace = 'cinghie\articles\controllers';
 	
-	public $languages           = [ "en-GB" => "en-GB" ];
+	public $languages         = [ "en-GB" => "en-GB" ];
 	
-	public $editor 	            = "ckeditor";
+	public $editor 	          = "ckeditor";
 	
-	public $categoryImagePath   = "img/articles/categories/";
+	public $categoryImagePath = "@webroot/img/articles/categories/";
+
+	public $categoryImageURL  = "@web/img/articles/categories/";
 	
-	public $categoryThumbPath   = "img/articles/categories/thumb/";
+	public $categoryThumbPath = "@webroot/img/articles/categories/thumb/";
+
+	public $categoryThumbURL  = "@web/img/articles/categories/thumb/";
 	
-	public $itemImagePath  		= "img/articles/items/";
+	public $itemImagePath  	  = "@webroot/img/articles/items/";
+
+	public $itemImageURL  	  = "@web/img/articles/items/";
 	
-	public $itemThumbPath   	= "img/articles/items/thumb/";
+	public $itemThumbPath     = "@webroot/img/articles/items/thumb/";
+
+	public $itemThumbURL      = "@web/img/articles/items/thumb/";
 	
-	public $imageNameType 		= "categoryname";
+	public $imageNameType 	  = "categoryname";
 	
-	public $imageType    		= "image/jpg,image/jpeg,image/gif,image/png";
+	public $imageType    	  = "image/jpg,image/jpeg,image/gif,image/png";
 	
 	public $thumbOptions =	[ 
 		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],
@@ -53,4 +62,5 @@ class Articles extends \yii\base\Module
 			'basePath' => __DIR__.'/messages',
 		];
     }
+
 }

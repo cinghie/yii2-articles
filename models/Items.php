@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.6
+* @version 0.2.7
 */
 
 namespace cinghie\articles\models;
@@ -86,7 +86,7 @@ class Items extends Articles
      */
     public function getFilePath() 
     {
-        return isset($this->image) ? Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath. $this->image : null;
+        return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image : null;
     }
 	
 	/**
@@ -97,7 +97,7 @@ class Items extends Articles
     {
         // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias('@web')."/".Yii::$app->controller->module->itemImagePath . $file;
+        return Yii::getAlias(Yii::$app->controller->module->itemImageURL).$file;
     }
 	
 	/**
@@ -106,11 +106,11 @@ class Items extends Articles
     */
 	public function deleteImage() 
 	{
-		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath.$this->image;
-		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."small/".$this->image;
-		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."medium/".$this->image;
-		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."large/".$this->image;
-		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath."extra/".$this->image;
+		$image   = Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image;
+		$imageS  = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."small/").$this->image;
+		$imageM  = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."medium/").$this->image;
+		$imageL  = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."large/").$this->image;
+		$imageXL = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."extra/").$this->image;
 		
 		// check if image exists on server
         if (empty($image) || !file_exists($image)) {

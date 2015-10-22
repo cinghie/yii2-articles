@@ -7,11 +7,16 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.6
+* @version 0.2.7
 */
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use cinghie\articles\assets\ArticlesAsset;
+
+// Load Articles Assets
+ArticlesAsset::register($this);
+$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title
 $this->title = Yii::t('articles.message', 'Items');

@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.6
+* @version 0.2.7
 */
 
 namespace cinghie\articles\models;
@@ -104,7 +104,7 @@ class Categories extends Articles
      */
     public function getFilePath() 
     {
-        return isset($this->image) ? Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath. $this->image : null;
+        return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image : null;
     }
 	
 	/**
@@ -115,7 +115,7 @@ class Categories extends Articles
     {
         // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias('@web')."/".Yii::$app->controller->module->categoryImagePath . $file;
+        return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
     }
 	
 	/**
@@ -124,11 +124,11 @@ class Categories extends Articles
     */
 	public function deleteImage() 
 	{
-		$image   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryImagePath.$this->image;
-		$imageS  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."small/".$this->image;
-		$imageM  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."medium/".$this->image;
-		$imageL  = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."large/".$this->image;
-		$imageXL = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->categoryThumbPath."extra/".$this->image;
+		$image   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image;
+		$imageS  = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."small/").$this->image;
+		$imageM  = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."medium/").$this->image;
+		$imageL  = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."large/").$this->image;
+		$imageXL = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."extra/").$this->image;
 		
 		// check if image exists on server
         if (empty($image) || !file_exists($image)) {

@@ -62,16 +62,28 @@ Set on your configuration file, in modules section
 			"it-IT" => "it-IT", 
 			"en-GB" => "en-GB" 
 		],			
+		
 		// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 		'editor' => 'ckeditor',
+		
 		// Select Path To Upload Category Image
-		'categoryImagePath' => 'img/articles/categories/',
-		// Select Path To Upload Category Thumb
-		'categoryThumbPath' => 'img/articles/categories/thumb/',
-		// Select Path To Upload Item Image
-		'itemImagePath' => 'img/articles/items/',
-		// Select Path To Upload Item Thumb
-		'itemThumbPath' => 'img/articles/items/thumb/',
+        'categoryImagePath' => '@webroot/img/articles/categories/',
+        // Select URL To Upload Category Image
+        'categoryImageURL'  => '@web/img/articles/categories/',
+        // Select Path To Upload Category Thumb
+        'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
+        // Select URL To Upload Category Image
+        'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
+
+        // Select Path To Upload Item Image
+        'itemImagePath' => '@webroot/img/articles/items/',
+        // Select URL To Upload Item Image
+        'itemImageURL'  => '@web/img/articles/items/',
+        // Select Path To Upload Item Thumb
+        'itemThumbPath' => '@webroot/img/articles/items/thumb/',
+        // Select URL To Upload Item Thumb
+        'itemThumbURL'  => '@web/img/articles/items/thumb/',
+		
 		// Select Image Name: categoryname, original, casual
 		'imageNameType' => 'categoryname',
 		// Select Image Types allowed
@@ -84,10 +96,12 @@ Set on your configuration file, in modules section
 			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
 		],
 	],	
+	
 	// Module Kartik-v Grid
 	'gridview' =>  [
 		'class' => '\kartik\grid\Module',
-	],	
+	],
+	
 	// Module Kartik-v Markdown Editor
 	'markdown' => [
 		'class' => 'kartik\markdown\Module',
@@ -104,11 +118,14 @@ Set on your configuration file, in modules section
   <li>Categories with Pretty Urls: PathToApp/articles/categories</li>
   <li>Items: PathToApp/index.php?r=articles/items</li>
   <li>Items with Pretty Urls: PathToApp/articles/items</li>
+  <li>Attachments: PathToApp/index.php?r=articles/attachments</li>
+  <li>Attachments with Pretty Urls: PathToApp/articles/attachments</li>
 </ul>
 
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.2.7 - Update Articles Params</li>
   <li>Version 0.2.6 - Update Migrations</li>
   <li>Version 0.2.5 - Update Asset Depends</li>
   <li>Version 0.2.4 - Update Italian Translations</li>

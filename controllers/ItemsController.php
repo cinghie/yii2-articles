@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.6
+* @version 0.2.7
 */
 
 namespace cinghie\articles\controllers;
@@ -15,16 +15,16 @@ namespace cinghie\articles\controllers;
 use Yii;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\imagine\Image;
 
 /**
  * ItemsController implements the CRUD actions for Items model.
  */
 class ItemsController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -86,8 +86,8 @@ class ItemsController extends Controller
 			}
 			
 			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath;
-			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath;
+			$imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
+			$thumbPath   = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
 			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->title;
@@ -149,8 +149,8 @@ class ItemsController extends Controller
 			}
 			
 			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemImagePath;
-			$thumbPath   = Yii::getAlias('@webroot')."/".Yii::$app->controller->module->itemThumbPath;
+			$imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
+			$thumbPath   = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
 			$imgNameType = Yii::$app->controller->module->imageNameType;
 			$imgOptions  = Yii::$app->controller->module->thumbOptions;
 			$imgName     = $model->title;
@@ -252,6 +252,5 @@ class ItemsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-	
 
 }

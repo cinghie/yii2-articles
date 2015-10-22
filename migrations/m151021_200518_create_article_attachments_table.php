@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-articles
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-articles
- * @version 0.2.6
+ * @version 0.2.7
  */
 
 use cinghie\articles\migrations\Migration;
@@ -15,6 +15,7 @@ use yii\db\Schema;
 
 class m151021_200518_create_article_attachments_table extends Migration
 {
+
     public function up()
     {
         $this->createTable('{{%article_attachments}}', [
