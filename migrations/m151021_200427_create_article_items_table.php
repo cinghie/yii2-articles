@@ -13,12 +13,12 @@
 use cinghie\articles\migrations\Migration;
 use yii\db\Schema;
 
-class m151021_200427_create_articles_items_table extends Migration
+class m151021_200427_create_article_items_table extends Migration
 {
 
     public function up()
     {
-        $this->createTable('{{%articles_items}}', [
+        $this->createTable('{{%article_items}}', [
             'id' => Schema::TYPE_PK,
             'title' => 'varchar(255) NOT NULL',
             'alias' => 'varchar(255) DEFAULT NULL',
@@ -50,13 +50,13 @@ class m151021_200427_create_articles_items_table extends Migration
             'copyright' => 'varchar(50) DEFAULT NULL',
         ], $this->tableOptions);
 
-        $this->addForeignKey('fk_article_category', '{{%articles_items}}', 'catid', '{{%articles_categories}}', 'id', 'CASCADE', 'RESTRICT');
-        $this->addForeignKey('fk_article_user', '{{%articles_items}}', 'userid', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('fk_article_category', '{{%article_items}}', 'catid', '{{%article_categories}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('fk_article_user', '{{%article_items}}', 'userid', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     public function down()
     {
-        $this->dropTable('{{%articles_items}}');
+        $this->dropTable('{{%article_items}}');
     }
 
 }

@@ -13,11 +13,11 @@
 use cinghie\articles\migrations\Migration;
 use yii\db\Schema;
 
-class m151021_200518_create_articles_attachments_table extends Migration
+class m151021_200518_create_article_attachments_table extends Migration
 {
     public function up()
     {
-        $this->createTable('{{%articles_attachments}}', [
+        $this->createTable('{{%article_attachments}}', [
             'id' => Schema::TYPE_PK,
             'itemid' => 'int(11) NOT NULL',
             'filename' => Schema::TYPE_STRING . ' NOT NULL',
@@ -26,12 +26,12 @@ class m151021_200518_create_articles_attachments_table extends Migration
             'hits' => 'int(11) NOT NULL',
         ], $this->tableOptions);
 
-        $this->addForeignKey('fk_attachment_article', '{{%articles_attachments}}', 'itemid', '{{%articles_items}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('fk_attachment_article', '{{%article_attachments}}', 'itemid', '{{%article_items}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     public function down()
     {
-        $this->dropTable('{{%articles_attachments}}');
+        $this->dropTable('{{%article_attachments}}');
     }
 
 }

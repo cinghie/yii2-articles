@@ -13,12 +13,12 @@
 use cinghie\articles\migrations\Migration;
 use yii\db\Schema;
 
-class m151021_200401_create_articles_categories_table extends Migration
+class m151021_200401_create_article_categories_table extends Migration
 {
 
     public function up()
     {
-        $this->createTable('{{%articles_categories}}', [
+        $this->createTable('{{%article_categories}}', [
             'id' => Schema::TYPE_PK,
             'name' => 'varchar(255) NOT NULL',
             'alias' => 'varchar(255) NOT NULL',
@@ -42,7 +42,7 @@ class m151021_200401_create_articles_categories_table extends Migration
 
     public function down()
     {
-        $this->dropTable('{{%articles_categories}}');
+        $this->dropTable('{{%article_categories}}');
     }
 
 }
