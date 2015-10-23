@@ -123,11 +123,13 @@ $imagetype = Yii::$app->controller->module->imageType;
 								); ?>
                             <?php elseif ($editor=="imperavi"): ?>
                             	<?= $form->field($model, 'description')->widget(yii\imperavi\Widget::className(), [
-								
-									// Some options, see http://imperavi.com/redactor/docs/
 									'options' => [
 										'css'  => 'wym.css',
 									],
+									'plugins' => [
+										'fullscreen',
+										'clips'
+									]
 								]); ?>
                             <?php else: ?>
                             	<?= $form->field($model, 'description')->textarea(['rows' => 12]); ?>
