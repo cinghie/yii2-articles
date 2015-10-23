@@ -12,12 +12,30 @@
 
 namespace cinghie\articles\controllers;
 
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class DefaultController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['allow' => true, 'actions' => ['index'], 'roles' => ['@']],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    throw new \Exception('You are not allowed to access this page');
+                }
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         return $this->render('index');
     }
+
 }

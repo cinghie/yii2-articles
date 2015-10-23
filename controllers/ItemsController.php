@@ -15,6 +15,7 @@ namespace cinghie\articles\controllers;
 use Yii;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,6 +29,16 @@ class ItemsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['allow' => true, 'actions' => ['index','create','update','delete'], 'roles' => ['@']],
+                    ['allow' => true, 'actions' => ['view'], 'roles' => ['?', '@']],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    throw new \Exception('You are not allowed to access this page');
+                }
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

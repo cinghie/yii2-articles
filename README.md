@@ -125,6 +125,7 @@ Set on your configuration file, in modules section
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.3.0 - Deny to not logged to index, create, update, delete; only view permitted</li>
   <li>Version 0.2.7 - Update Articles Params</li>
   <li>Version 0.2.6 - Update Migrations</li>
   <li>Version 0.2.5 - Update Asset Depends</li>
