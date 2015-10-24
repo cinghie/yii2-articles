@@ -110,6 +110,10 @@ Set on your configuration file, in modules section
 ]
 ```
 
+### Advanced Template Recommended Configuration
+
+[Advanced Template recommended configuration](docs/advanced-template-recommended-configuration.md)
+
 ## LINKS
 <ul> 
   <li>Admin Panel: PathToApp/index.php?r=articles</li>
