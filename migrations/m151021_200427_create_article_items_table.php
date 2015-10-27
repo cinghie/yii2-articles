@@ -49,9 +49,6 @@ class m151021_200427_create_article_items_table extends Migration
             'author' => 'varchar(50) DEFAULT NULL',
             'copyright' => 'varchar(50) DEFAULT NULL',
         ], $this->tableOptions);
-
-        $this->addForeignKey('fk_article_category', '{{%article_items}}', 'catid', '{{%article_categories}}', 'id', 'CASCADE', 'RESTRICT');
-        $this->addForeignKey('fk_article_user', '{{%article_items}}', 'userid', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     public function down()

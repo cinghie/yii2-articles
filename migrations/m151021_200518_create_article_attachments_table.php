@@ -26,8 +26,6 @@ class m151021_200518_create_article_attachments_table extends Migration
             'titleAttribute' => Schema::TYPE_TEXT,
             'hits' => 'int(11) NOT NULL',
         ], $this->tableOptions);
-
-        $this->addForeignKey('fk_attachment_article', '{{%article_attachments}}', 'itemid', '{{%article_items}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     public function down()
