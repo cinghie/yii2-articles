@@ -128,7 +128,7 @@ class CategoriesController extends Controller
 				// Set Success Message
 				Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
 
-				return $this->redirect(['view', 'id' => $model->id]);
+				return $this->redirect(['index']);
 
 			} else {
 
@@ -205,7 +205,7 @@ class CategoriesController extends Controller
 				// Set Success Message
 				Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
 				
-				return $this->redirect(['view', 'id' => $model->id]);
+				return $this->redirect(['index']);
 				
 			} else {
 

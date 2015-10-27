@@ -119,7 +119,7 @@ class ItemsController extends Controller
 				// Set Success Message
 				Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
 				
-				return $this->redirect(['view', 'id' => $model->id]);
+				return $this->redirect(['index']);
 			
 			} else {
 				
@@ -182,7 +182,7 @@ class ItemsController extends Controller
 				// Set Success Message
 				Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
 				
-				return $this->redirect(['view', 'id' => $model->id]);
+				return $this->redirect(['index']);
 			
 			} else {
 				
