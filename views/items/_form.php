@@ -30,6 +30,11 @@ use kartik\markdown\MarkdownEditor;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
+// Get current user
+$user     = Yii::$app->user->identity;
+$userid   = $user->id;
+$username = $user->username;
+
 // Get info For the Select2 Categories 
 if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
 $select2categories = $model->getCategoriesSelect2($id);
@@ -252,7 +257,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'created_by')->widget(Select2::classname(), [
 								'data' => [ 
-									0 =>  Yii::t('articles', 'In Development') 
+									$userid =>  $username
 								],
 								'options' => [
 									'disabled' => 'disabled'
