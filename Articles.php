@@ -64,12 +64,11 @@ class Articles extends \yii\base\Module
 	 */
 	public function registerTranslations()
     {
-		if (empty(Yii::$app->i18n->translations['articles']))
+		if (!isset(Yii::$app->i18n->translations['articles*'])) 
 		{
-			Yii::$app->i18n->translations['articles'] = [
+			Yii::$app->i18n->translations['articles*'] = [
 				'class' => 'yii\i18n\PhpMessageSource',
 				'basePath' => __DIR__ . '/messages',
-				//'forceTranslation' => true,
 			];
 		}
     }
