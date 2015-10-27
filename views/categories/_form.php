@@ -60,22 +60,22 @@ $imagetype = Yii::$app->controller->module->imageType;
 				<ul class="nav nav-tabs" id="myTab">
 					<li class="active">
 						<a data-toggle="tab" href="#item">
-							<?= Yii::t('articles.message', 'Category') ?>
+							<?= Yii::t('articles', 'Category') ?>
 						</a>
 					</li>
 					<li class="">
 						<a data-toggle="tab" href="#seo">
-							<?= Yii::t('articles.message', 'SEO') ?>
+							<?= Yii::t('articles', 'SEO') ?>
 						</a>
 					</li>
                     <li class="">
 						<a data-toggle="tab" href="#image">
-							<?= Yii::t('articles.message', 'Image') ?>
+							<?= Yii::t('articles', 'Image') ?>
 						</a>
 					</li>
 					<li class="">
 						<a data-toggle="tab" href="#params">
-							<?= Yii::t('articles.message', 'Options') ?>
+							<?= Yii::t('articles', 'Options') ?>
 						</a>
 					</li>
                 </ul>
@@ -153,8 +153,8 @@ $imagetype = Yii::$app->controller->module->imageType;
 						
 							<?= $form->field($model, 'published')->widget(Select2::classname(), [
                                     'data' => [
-										1 => Yii::t('articles.message', 'Published'),
-										0 => Yii::t('articles.message', 'Unpublished'),
+										1 => Yii::t('articles', 'Published'),
+										0 => Yii::t('articles', 'Unpublished'),
 									],
                                     'pluginOptions' => [
                                         'allowClear' => true
@@ -167,7 +167,7 @@ $imagetype = Yii::$app->controller->module->imageType;
                                 ]); ?>
                                 
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => [ "0" => Yii::t('articles.message', 'In Development') ],
+                                    'data' => [ "0" => Yii::t('articles', 'In Development') ],
 									'options' => [
 										'disabled' => 'disabled'
 									],
@@ -183,7 +183,7 @@ $imagetype = Yii::$app->controller->module->imageType;
                             
                             <?php if ($model->isNewRecord): ?>
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
-                                    'data' => [ "0" =>  Yii::t('articles.message', 'In Development') ],
+                                    'data' => [ "0" =>  Yii::t('articles', 'In Development') ],
 									'options' => [
 										'disabled' => 'disabled'
 									],
@@ -198,7 +198,7 @@ $imagetype = Yii::$app->controller->module->imageType;
                                 ]); ?>
                             <?php else : ?>
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
-                                    'data' => [ "0" =>  Yii::t('articles.message', 'In Development') ],
+                                    'data' => [ "0" =>  Yii::t('articles', 'In Development') ],
 									'options' => [
 										'disabled' => 'disabled'
 									],
@@ -288,7 +288,7 @@ $imagetype = Yii::$app->controller->module->imageType;
 					<div id="image" class="tab-pane fade">
                     
                     	<p class="bg-info">
-							<?= Yii::t('articles.message', 'Allowed Extensions')?>: <?= $imagetype ?>
+							<?= Yii::t('articles', 'Allowed Extensions')?>: <?= $imagetype ?>
 						</p>
                     
                     	<div class="col-lg-6">
@@ -300,7 +300,7 @@ $imagetype = Yii::$app->controller->module->imageType;
                                     'pluginOptions' => [
                                         'previewFileType' => 'image',
                                         'showUpload'      => false,
-                                        'browseLabel'     => Yii::t('articles.message', 'Browse &hellip;'),
+                                        'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
                                     ],
                             ]); ?> 
                             
@@ -311,7 +311,7 @@ $imagetype = Yii::$app->controller->module->imageType;
                             	<div class="caption">
                             		<p></p>
                             	    <p>
-										<?= Html::a(Yii::t('articles.message', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
+										<?= Html::a(Yii::t('articles', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
                                                 'class' => 'btn btn-danger',
                                                 'data' => [
                                                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -353,32 +353,32 @@ $imagetype = Yii::$app->controller->module->imageType;
 						<!-- Categories View -->
 						<div class="col-md-4">
                             
-							<h4><?= Yii::t('articles.message', 'Categories View')?></h4>
+							<h4><?= Yii::t('articles', 'Categories View')?></h4>
 							
 							<?php 
 								
 								// Categories Image Width
 								echo '<div class="form-group field-categories-categoriesImageWidth">';
-								echo '<label class="control-label">'.Yii::t('articles.message', 'Image Width').'</label>';
+								echo '<label class="control-label">'.Yii::t('articles', 'Image Width').'</label>';
 								echo Select2::widget([
 									'name' => 'categoriesImageWidth',
 									'data' => [ 
-										'small'  => Yii::t('articles.message', 'Small'), 
-										'medium' => Yii::t('articles.message', 'Medium'), 
-										'large'  => Yii::t('articles.message', 'Large'), 
-										'extra'  => Yii::t('articles.message', 'Extra')
+										'small'  => Yii::t('articles', 'Small'), 
+										'medium' => Yii::t('articles', 'Medium'), 
+										'large'  => Yii::t('articles', 'Large'), 
+										'extra'  => Yii::t('articles', 'Extra')
 									],
 								]);
 								echo '</div>';
 								
 								// Show Categories Item Data
 								echo '<div class="form-group field-categories-categoriesViewData">';
-								echo '<label class="control-label">'.Yii::t('articles.message', 'Show Item Data').'</label>';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Item Data').'</label>';
 								echo Select2::widget([
 									'name' => 'categoriesViewData',
 									'data' => [ 
-										1 => Yii::t('articles.message','Yes'), 
-										0 => Yii::t('articles.message','No') 
+										1 => Yii::t('articles','Yes'), 
+										0 => Yii::t('articles','No') 
 									],
 								]);
 								echo '</div>';
@@ -390,32 +390,32 @@ $imagetype = Yii::$app->controller->module->imageType;
 						<!-- Category View -->
 						<div class="col-md-4">
 							
-							<h4><?= Yii::t('articles.message', 'Category View')?></h4>
+							<h4><?= Yii::t('articles', 'Category View')?></h4>
 							
 							<?php 
 							
 								// Category Image Width
 								echo '<div class="form-group field-categories-categoryImageWidth">';
-								echo '<label class="control-label">'.Yii::t('articles.message', 'Image Width').'</label>';
+								echo '<label class="control-label">'.Yii::t('articles', 'Image Width').'</label>';
 								echo Select2::widget([
 									'name' => 'categoryImageWidth',
 									'data' => [ 
-										'small'  => Yii::t('articles.message', 'Small'), 
-										'medium' => Yii::t('articles.message', 'Medium'), 
-										'large'  => Yii::t('articles.message', 'Large'), 
-										'extra'  => Yii::t('articles.message', 'Extra')
+										'small'  => Yii::t('articles', 'Small'), 
+										'medium' => Yii::t('articles', 'Medium'), 
+										'large'  => Yii::t('articles', 'Large'), 
+										'extra'  => Yii::t('articles', 'Extra')
 									],
 								]);
 								echo '</div>';
 								
 								// Show Item Data
 								echo '<div class="form-group field-categories-categoryViewData">';
-								echo '<label class="control-label">'.Yii::t('articles.message', 'Show Item Data').'</label>';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Item Data').'</label>';
 								echo Select2::widget([
 									'name' => 'categoryViewData',
 									'data' => [ 
-										1 => Yii::t('articles.message','Yes'), 
-										0 => Yii::t('articles.message','No') 
+										1 => Yii::t('articles','Yes'), 
+										0 => Yii::t('articles','No') 
 									],
 								]);
 								echo '</div>';
@@ -426,32 +426,32 @@ $imagetype = Yii::$app->controller->module->imageType;
 						<!-- Item View -->
 						<div class="col-md-4">
 							
-							<h4><?= Yii::t('articles.message', 'Item View')?></h4>
+							<h4><?= Yii::t('articles', 'Item View')?></h4>
 							
 							<?php 
 							
 								// Item Image Width
 								echo '<div class="form-group field-categories-itemImageWidth">';
-								echo '<label class="control-label">'.Yii::t('articles.message', 'Image Width').'</label>';
+								echo '<label class="control-label">'.Yii::t('articles', 'Image Width').'</label>';
 								echo Select2::widget([
 									'name' => 'itemImageWidth',
 									'data' => [ 
-										'small'  => Yii::t('articles.message', 'Small'), 
-										'medium' => Yii::t('articles.message', 'Medium'), 
-										'large'  => Yii::t('articles.message', 'Large'), 
-										'extra'  => Yii::t('articles.message', 'Extra')
+										'small'  => Yii::t('articles', 'Small'), 
+										'medium' => Yii::t('articles', 'Medium'), 
+										'large'  => Yii::t('articles', 'Large'), 
+										'extra'  => Yii::t('articles', 'Extra')
 									],
 								]);
 								echo '</div>';
 								
 								// Show Item Data
 								echo '<div class="form-group field-categories-itemViewData">';
-								echo '<label class="control-label">'.Yii::t('articles.message', 'Show Item Data').'</label>';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Item Data').'</label>';
 								echo Select2::widget([
 									'name' => 'itemViewData',
 									'data' => [ 
-										1 => Yii::t('articles.message','Yes'), 
-										0 => Yii::t('articles.message','No') 
+										1 => Yii::t('articles','Yes'), 
+										0 => Yii::t('articles','No') 
 									],
 								]);
 								echo '</div>';
@@ -470,7 +470,7 @@ $imagetype = Yii::$app->controller->module->imageType;
 	</div> <!-- row -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles.message', 'Save & Exit') : Yii::t('articles.message', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

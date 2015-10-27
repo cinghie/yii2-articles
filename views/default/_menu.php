@@ -17,25 +17,25 @@ use yii\helpers\Html;
 <div class="yii2artcles-admin-menu">
 	
     <!-- Dashboard -->
-    <?= Html::a(Yii::t('articles.message', 'Dashboard'), ['/articles/default'], [
+    <?= Html::a(Yii::t('articles', 'Dashboard'), ['/articles/default'], [
     	'class' => 'btn btn-default',
 		'role'  => 'button'
 	]) ?>
     
     <!-- Categories -->
-    <?= Html::a(Yii::t('articles.message', 'Categories'), ['/articles/categories'], [
+    <?= Html::a(Yii::t('articles', 'Categories'), ['/articles/categories'], [
     	'class' => 'btn btn-default',
 		'role'  => 'button'
 	]) ?>
     
     <!-- Items -->
-    <?= Html::a(Yii::t('articles.message', 'Items'), ['/articles/items'], [
+    <?= Html::a(Yii::t('articles', 'Items'), ['/articles/items'], [
     	'class' => 'btn btn-default',
 		'role'  => 'button'
 	]) ?>
      
     <!-- Attachments -->
-    <?= Html::a(Yii::t('articles.message', 'Attachments'), ['/articles/attachments'], [
+    <?= Html::a(Yii::t('articles', 'Attachments'), ['/articles/attachments'], [
     	'class' => 'btn btn-default',
 		'role'  => 'button'
 	]) ?>

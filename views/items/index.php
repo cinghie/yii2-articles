@@ -19,7 +19,7 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title
-$this->title = Yii::t('articles.message', 'Items');
+$this->title = Yii::t('articles', 'Items');
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
@@ -34,7 +34,7 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('articles.message', 'Create Item', [
+        <?= Html::a(Yii::t('articles', 'Create Item', [
   'modelClass' => 'Items',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

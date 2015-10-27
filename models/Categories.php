@@ -48,24 +48,24 @@ class Categories extends Articles
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('articles.message', 'ID'),
-            'name' => Yii::t('articles.message', 'Name'),
-            'alias' => Yii::t('articles.message', 'Alias'),
-            'description' => Yii::t('articles.message', 'Description'),
-            'parentid' => Yii::t('articles.message', 'Parent'),
-            'published' => Yii::t('articles.message', 'Published'),
-            'access' => Yii::t('articles.message', 'Access'),
-            'ordering' => Yii::t('articles.message', 'Ordering'),
-            'image' => Yii::t('articles.message', 'Image'),
-            'image_caption' => Yii::t('articles.message', 'Image Caption'),
-            'image_credits' => Yii::t('articles.message', 'Image Credits'),
-            'params' => Yii::t('articles.message', 'Params'),
-            'metadesc' => Yii::t('articles.message', 'Metadesc'),
-            'metakey' => Yii::t('articles.message', 'Metakey'),
-            'robots' => Yii::t('articles.message', 'Robots'),
-            'author' => Yii::t('articles.message', 'Author'),
-            'copyright' => Yii::t('articles.message', 'Copyright'),
-            'language' => Yii::t('articles.message', 'Language'),
+            'id' => Yii::t('articles', 'ID'),
+            'name' => Yii::t('articles', 'Name'),
+            'alias' => Yii::t('articles', 'Alias'),
+            'description' => Yii::t('articles', 'Description'),
+            'parentid' => Yii::t('articles', 'Parent'),
+            'published' => Yii::t('articles', 'Published'),
+            'access' => Yii::t('articles', 'Access'),
+            'ordering' => Yii::t('articles', 'Ordering'),
+            'image' => Yii::t('articles', 'Image'),
+            'image_caption' => Yii::t('articles', 'Image Caption'),
+            'image_credits' => Yii::t('articles', 'Image Credits'),
+            'params' => Yii::t('articles', 'Params'),
+            'metadesc' => Yii::t('articles', 'Metadesc'),
+            'metakey' => Yii::t('articles', 'Metakey'),
+            'robots' => Yii::t('articles', 'Robots'),
+            'author' => Yii::t('articles', 'Author'),
+            'copyright' => Yii::t('articles', 'Copyright'),
+            'language' => Yii::t('articles', 'Language'),
         ];
     }
 	
@@ -157,7 +157,7 @@ class Categories extends Articles
 		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1 AND id !='.$id;
 		$categories = Categories::findBySql($sql)->asArray()->all();
 		
-		$array[0] = Yii::t('articles.message', 'No Parent'); 
+		$array[0] = Yii::t('articles', 'No Parent'); 
 		
 		foreach($categories as $category)
 		{

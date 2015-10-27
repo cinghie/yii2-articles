@@ -19,7 +19,7 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title
-$this->title = Yii::t('articles.message', 'Categories');
+$this->title = Yii::t('articles', 'Categories');
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
@@ -79,10 +79,10 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 				'heading'    => '<h3 class="panel-title"><i class="glyphicon glyphicon-globe"></i></h3>',
 				'type'       => 'success',
 				'before'     => Html::a(
-					'<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles.message', 'Create Category'), ['create'], ['class' => 'btn btn-success']
+					'<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'Create Category'), ['create'], ['class' => 'btn btn-success']
 				),				
 				'after'      => Html::a(
-					'<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles.message', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+					'<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
 				),
 				'showFooter' => false
 			],

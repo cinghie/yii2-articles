@@ -48,35 +48,35 @@ class Items extends Articles
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('articles.message', 'ID'),
-            'title' => Yii::t('articles.message', 'Title'),
-            'catid' => Yii::t('articles.message', 'Catid'),
-            'userid' => Yii::t('articles.message', 'Userid'),
-            'published' => Yii::t('articles.message', 'Published'),
-            'introtext' => Yii::t('articles.message', 'Introtext'),
-            'fulltext' => Yii::t('articles.message', 'Fulltext'),
-            'image' => Yii::t('articles.message', 'Image'),
-            'image_caption' => Yii::t('articles.message', 'Image Caption'),
-            'image_credits' => Yii::t('articles.message', 'Image Credits'),
-            'video' => Yii::t('articles.message', 'Video ID'),
-			'video_type' => Yii::t('articles.message', 'Video Type'),
-            'video_caption' => Yii::t('articles.message', 'Video Caption'),
-            'video_credits' => Yii::t('articles.message', 'Video Credits'),
-            'created' => Yii::t('articles.message', 'Created'),
-            'created_by' => Yii::t('articles.message', 'Created By'),
-            'modified' => Yii::t('articles.message', 'Modified'),
-            'modified_by' => Yii::t('articles.message', 'Modified By'),
-            'access' => Yii::t('articles.message', 'Access'),
-            'ordering' => Yii::t('articles.message', 'Ordering'),
-            'hits' => Yii::t('articles.message', 'Hits'),
-            'alias' => Yii::t('articles.message', 'Alias'),
-            'metadesc' => Yii::t('articles.message', 'Metadesc'),
-            'metakey' => Yii::t('articles.message', 'Metakey'),
-            'robots' => Yii::t('articles.message', 'Robots'),
-            'author' => Yii::t('articles.message', 'Author'),
-            'copyright' => Yii::t('articles.message', 'Copyright'),
-            'params' => Yii::t('articles.message', 'Params'),
-            'language' => Yii::t('articles.message', 'Language'),
+            'id' => Yii::t('articles', 'ID'),
+            'title' => Yii::t('articles', 'Title'),
+            'catid' => Yii::t('articles', 'Catid'),
+            'userid' => Yii::t('articles', 'Userid'),
+            'published' => Yii::t('articles', 'Published'),
+            'introtext' => Yii::t('articles', 'Introtext'),
+            'fulltext' => Yii::t('articles', 'Fulltext'),
+            'image' => Yii::t('articles', 'Image'),
+            'image_caption' => Yii::t('articles', 'Image Caption'),
+            'image_credits' => Yii::t('articles', 'Image Credits'),
+            'video' => Yii::t('articles', 'Video ID'),
+			'video_type' => Yii::t('articles', 'Video Type'),
+            'video_caption' => Yii::t('articles', 'Video Caption'),
+            'video_credits' => Yii::t('articles', 'Video Credits'),
+            'created' => Yii::t('articles', 'Created'),
+            'created_by' => Yii::t('articles', 'Created By'),
+            'modified' => Yii::t('articles', 'Modified'),
+            'modified_by' => Yii::t('articles', 'Modified By'),
+            'access' => Yii::t('articles', 'Access'),
+            'ordering' => Yii::t('articles', 'Ordering'),
+            'hits' => Yii::t('articles', 'Hits'),
+            'alias' => Yii::t('articles', 'Alias'),
+            'metadesc' => Yii::t('articles', 'Metadesc'),
+            'metakey' => Yii::t('articles', 'Metakey'),
+            'robots' => Yii::t('articles', 'Robots'),
+            'author' => Yii::t('articles', 'Author'),
+            'copyright' => Yii::t('articles', 'Copyright'),
+            'params' => Yii::t('articles', 'Params'),
+            'language' => Yii::t('articles', 'Language'),
         ];
     }
 	
@@ -139,7 +139,7 @@ class Items extends Articles
 		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1 AND id !='.$id;
 		$categories = Categories::findBySql($sql)->asArray()->all();
 		
-		$array[0] = \Yii::t('articles.message', 'No Category'); 
+		$array[0] = \Yii::t('articles', 'No Category'); 
 		
 		foreach($categories as $category)
 		{

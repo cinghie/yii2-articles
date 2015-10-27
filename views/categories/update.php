@@ -25,7 +25,7 @@ $script  = "
 $this->registerJs($script);
 
 // Set Title
-$this->title = Yii::t('articles.message', 'Update ', [
+$this->title = Yii::t('articles', 'Update ', [
   'modelClass' => 'Categories',
 ]) . ' ' . $model->name;
 

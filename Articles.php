@@ -12,6 +12,8 @@
 
 namespace cinghie\articles;
 
+use Yii;
+
 class Articles extends \yii\base\Module
 {
 
@@ -48,19 +50,28 @@ class Articles extends \yii\base\Module
 		'extra'  => ['quality' => 100, 'width' => 600, 'height' => 400],
 	];
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         parent::init();
 		$this->registerTranslations();
     }
-	
+
+	/**
+	 * Translating module message
+	 */
 	public function registerTranslations()
     {
-        // Translating module messages
-		\Yii::$app->getI18n()->translations['articles.*'] = [
-			'class' => 'yii\i18n\PhpMessageSource',
-			'basePath' => __DIR__.'/messages',
-		];
+		if (empty(Yii::$app->i18n->translations['articles']))
+		{
+			Yii::$app->i18n->translations['articles'] = [
+				'class' => 'yii\i18n\PhpMessageSource',
+				'basePath' => __DIR__ . '/messages',
+				//'forceTranslation' => true,
+			];
+		}
     }
 
 }

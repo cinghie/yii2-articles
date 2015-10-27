@@ -68,19 +68,19 @@ $select2videotype = $model->getVideoTypeSelect2();
                 
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active">
-                    	<a data-toggle="tab" href="#item"><?= Yii::t('articles.message', 'Article') ?></a>
+                    	<a data-toggle="tab" href="#item"><?= Yii::t('articles', 'Article') ?></a>
                     </li>
                     <li class="">
-                    	<a data-toggle="tab" href="#seo"><?= Yii::t('articles.message', 'SEO') ?></a>
+                    	<a data-toggle="tab" href="#seo"><?= Yii::t('articles', 'SEO') ?></a>
                     </li>
                     <li class="">
-                    	<a data-toggle="tab" href="#image"><?= Yii::t('articles.message', 'Image') ?></a>
+                    	<a data-toggle="tab" href="#image"><?= Yii::t('articles', 'Image') ?></a>
                     </li>
                     <li class="">
-                    	<a data-toggle="tab" href="#video"><?= Yii::t('articles.message', 'Video') ?></a>
+                    	<a data-toggle="tab" href="#video"><?= Yii::t('articles', 'Video') ?></a>
                     </li>
                     <li class="">
-                    	<a data-toggle="tab" href="#params"><?= Yii::t('articles.message', 'Options') ?></a>
+                    	<a data-toggle="tab" href="#params"><?= Yii::t('articles', 'Options') ?></a>
                     </li>
                 </ul>
                 
@@ -115,8 +115,8 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'published')->widget(Select2::classname(), [
                                     'data' => [
-										1 => Yii::t('articles.message', 'Published'),
-										0 => Yii::t('articles.message', 'Unpublished'),
+										1 => Yii::t('articles', 'Published'),
+										0 => Yii::t('articles', 'Unpublished'),
 									],
                                     'pluginOptions' => [
                                         'allowClear' => true
@@ -129,7 +129,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             ]); ?>
                             
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => ["0" => Yii::t('articles.message', 'In Development') ],
+                                    'data' => ["0" => Yii::t('articles', 'In Development') ],
 									'options' => [
 										'disabled' => 'disabled'
 									],
@@ -202,7 +202,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
                                     'data' => [ 
-										"0" =>  Yii::t('articles.message', 'In Development') 
+										"0" =>  Yii::t('articles', 'In Development') 
 									],
 									'options' => [
 										'disabled' => 'disabled',
@@ -252,7 +252,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'created_by')->widget(Select2::classname(), [
 								'data' => [ 
-									0 =>  Yii::t('articles.message', 'In Development') 
+									0 =>  Yii::t('articles', 'In Development') 
 								],
 								'options' => [
 									'disabled' => 'disabled'
@@ -269,7 +269,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'modified_by')->widget(Select2::classname(), [
 								'data' => [ 
-									0 =>  Yii::t('articles.message', 'In Development') 
+									0 =>  Yii::t('articles', 'In Development') 
 								],
 								'options' => [
 									'disabled' => 'disabled'
@@ -480,7 +480,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                     <div id="image" class="tab-pane fade">
                     
                     	<p class="bg-info">
-							<?= Yii::t('articles.message', 'Allowed Extensions')?>: <?= $imagetype ?>
+							<?= Yii::t('articles', 'Allowed Extensions')?>: <?= $imagetype ?>
                         </p>
                         
                         <div class="col-lg-6">
@@ -492,7 +492,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     'pluginOptions' => [
                                         'previewFileType' => 'image',
                                         'showUpload'      => false,
-                                        'browseLabel'     => Yii::t('articles.message', 'Browse &hellip;'),
+                                        'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
                                     ],
                             ]); ?> 
                             
@@ -503,7 +503,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             	<div class="caption">
                             		<p></p>
                             	    <p>
-										<?= Html::a(Yii::t('articles.message', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
+										<?= Html::a(Yii::t('articles', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
                                                 'class' => 'btn btn-danger',
                                                 'data' => [
                                                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -600,7 +600,7 @@ $select2videotype = $model->getVideoTypeSelect2();
     </div> <!-- end row -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles.message', 'Save & Exit') : Yii::t('articles.message', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

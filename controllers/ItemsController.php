@@ -117,21 +117,21 @@ class ItemsController extends Controller
                 }
 				
 				// Set Success Message
-				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Item has been created!'));
+				Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
 				
 				return $this->redirect(['view', 'id' => $model->id]);
 			
 			} else {
 				
 				// Set Error Message
-				Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Item could not be saved!'));
+				Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 				
 				return $this->render('create', ['model' => $model,]);
             }
 		
 		} else {
 			
-			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Item could not be saved!'));
+			Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
             
 			return $this->render('create', ['model' => $model,]);
         }
@@ -180,14 +180,14 @@ class ItemsController extends Controller
                 }
 				
 				// Set Success Message
-				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Item has been updated!'));
+				Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
 				
 				return $this->redirect(['view', 'id' => $model->id]);
 			
 			} else {
 				
 				// Set Error Message
-				Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Item could not be saved!'));
+				Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 				
 				return $this->render('update', ['model' => $model,]);
             }
@@ -215,7 +215,7 @@ class ItemsController extends Controller
             if (!$model->deleteImage()) {
                 Yii::$app->session->setFlash('error', 'Error deleting image');
             } else {
-				Yii::$app->session->setFlash('success', Yii::t('articles.message', 'Category has been deleted!'));
+				Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
 			}
         } else {
 			Yii::$app->session->setFlash('error', 'Error deleting item');
@@ -238,9 +238,9 @@ class ItemsController extends Controller
 		{
 			$model->image = "";
 			$model->save();
-			Yii::$app->session->setFlash('success', Yii::t('articles.message', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
+			Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
 		} else {
-			Yii::$app->session->setFlash('error', Yii::t('articles.message', 'Error removing image. Please try again later or contact the system admin.'));
+			Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
 		}
 		
 		return $this->redirect([
