@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.7
+* @version 0.3.1
 */
 
 use yii\helpers\Html;
@@ -56,7 +56,16 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 					}
 				],
 				'access',
-				/*'ordering',*/
+				[
+					'attribute' => 'image',
+					'format' => 'html',
+					'hAlign' => 'center',
+					'value' => function ($model, $key, $index, $column) {
+						return Html::img($model->getImageThumbUrl("small"),
+							['width' => '36px']);
+					},
+					'width' => '5%',
+				],
 				[
 					'attribute' => 'language',
 					'width' => '7%',

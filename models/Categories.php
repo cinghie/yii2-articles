@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.2.7
+* @version 0.3.1
 */
 
 namespace cinghie\articles\models;
@@ -116,6 +116,17 @@ class Categories extends Articles
         // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
+    }
+	
+	/**
+     * fetch stored image url
+     * @return string
+     */
+    public function getImageThumbUrl($size)
+    {
+        // return a default image placeholder if your source avatar is not found
+        $file = isset($this->image) ? $this->image : 'default.jpg';
+        return Yii::getAlias(Yii::$app->controller->module->categoryImageURL)."thumb/".$size."/".$file;
     }
 	
 	/**
