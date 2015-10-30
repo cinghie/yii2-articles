@@ -32,7 +32,7 @@ class CategoriesController extends Controller
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
-					['allow' => true, 'actions' => ['index','create','update','delete'], 'roles' => ['@']],
+					['allow' => true, 'actions' => ['index','create','update','delete','deleteimage'], 'roles' => ['@']],
 					['allow' => true, 'actions' => ['view'], 'roles' => ['?', '@']],
 				],
 				'denyCallback' => function ($rule, $action) {
