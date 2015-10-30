@@ -47,25 +47,23 @@ Recommended Configuration for Advanced Template
 
         // Yii2 Articles
         'articles' => [
+            // Select Path To Upload Category Image
+            'categoryImagePath' => '@frontend/web/img/articles/categories/',
+            // Select URL To Upload Category Image
+            'categoryImageURL'  => '/frontend/web/img/articles/categories/',
+            // Select Path To Upload Category Thumb
+            'categoryThumbPath' => '@frontend/web/img/articles/categories/thumb/',
+            // Select URL To Upload Category Image
+            'categoryThumbURL'  => '/frontend/web/img/articles/categories/thumb/',
 
-				// Select Path To Upload Category Image
-				'categoryImagePath' => '@frontend/web/img/articles/categories/',
-				// Select URL To Upload Category Image
-				'categoryImageURL'  => '@frontend/web/img/articles/categories/',
-				// Select Path To Upload Category Thumb
-				'categoryThumbPath' => '@frontend/web/img/articles/categories/thumb/',
-				// Select URL To Upload Category Image
-				'categoryThumbURL'  => '@frontend/web/img/articles/categories/thumb/',
-
-				// Select Path To Upload Item Image
-				'itemImagePath' => '@frontend/web/img/articles/items/',
-				// Select URL To Upload Item Image
-				'itemImageURL'  => '@frontend/web/img/articles/items/',
-				// Select Path To Upload Item Thumb
-				'itemThumbPath' => '@frontend/web/img/articles/items/thumb/',
-				// Select URL To Upload Item Thumb
-				'itemThumbURL'  => '@frontend/web/img/articles/items/thumb/',
-
+            // Select Path To Upload Item Image
+            'itemImagePath' => '@frontend/web/img/articles/items/',
+            // Select URL To Upload Item Image
+            'itemImageURL'  => '/frontend/web/img/articles/items/',
+            // Select Path To Upload Item Thumb
+            'itemThumbPath' => '@frontend/web/img/articles/items/thumb/',
+            // Select URL To Upload Item Thumb
+            'itemThumbURL'  => '/frontend/web/img/articles/items/thumb/',
         ],
 
 ]					
@@ -75,25 +73,23 @@ Recommended Configuration for Advanced Template
 
         // Yii2 Articles
         'articles' => [
+            // Select Path To Upload Category Image
+            'categoryImagePath' => '@webroot/img/articles/categories/',
+            // Select URL To Upload Category Image
+            'categoryImageURL'  => '@web/img/articles/categories/',
+            // Select Path To Upload Category Thumb
+            'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
+            // Select URL To Upload Category Image
+            'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
 
-				// Select Path To Upload Category Image
-				'categoryImagePath' => '@webroot/img/articles/categories/',
-				// Select URL To Upload Category Image
-				'categoryImageURL'  => '@web/img/articles/categories/',
-				// Select Path To Upload Category Thumb
-				'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
-				// Select URL To Upload Category Image
-				'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
-
-				// Select Path To Upload Item Image
-				'itemImagePath' => '@webroot/img/articles/items/',
-				// Select URL To Upload Item Image
-				'itemImageURL'  => '@web/img/articles/items/',
-				// Select Path To Upload Item Thumb
-				'itemThumbPath' => '@webroot/img/articles/items/thumb/',
-				// Select URL To Upload Item Thumb
-				'itemThumbURL'  => '@web/img/articles/items/thumb/',
-
+            // Select Path To Upload Item Image
+            'itemImagePath' => '@webroot/img/articles/items/',
+            // Select URL To Upload Item Image
+            'itemImageURL'  => '@web/img/articles/items/',
+            // Select Path To Upload Item Thumb
+            'itemThumbPath' => '@webroot/img/articles/items/thumb/',
+            // Select URL To Upload Item Thumb
+            'itemThumbURL'  => '@web/img/articles/items/thumb/',
         ],
 
 ]	
