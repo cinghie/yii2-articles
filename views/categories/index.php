@@ -49,11 +49,9 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 					'hAlign' => 'center',
 				],
 				'name',
-				[ 
+				[
 					'attribute' => 'parentid',
-					'value'     => function($model, $key, $index, $column) {
-						return $model->getParentName();
-					}
+					'value'     => 'parent.name'
 				],
 				'access',
 				[
@@ -61,10 +59,12 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 					'format' => 'html',
 					'hAlign' => 'center',
 					'value' => function ($model, $key, $index, $column) {
-						return Html::img($model->getImageThumbUrl("small"),
-							['width' => '36px']);
+						if ($model->image) {
+							return Html::img($model->getImageThumbUrl("small"),
+								['width' => '36px']);
+						}
 					},
-					'width' => '5%',
+					'width' => '8%',
 				],
 				[
 					'attribute' => 'language',

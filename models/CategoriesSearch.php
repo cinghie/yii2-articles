@@ -28,8 +28,8 @@ class CategoriesSearch extends Categories
     public function rules()
     {
         return [
-            [['id', 'parentid', 'published', 'access', 'ordering'], 'integer'],
-            [['name', 'alias', 'description', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'language'], 'safe'],
+            [['id', 'published', 'access', 'ordering'], 'integer'],
+            [['name', 'parentid', 'alias', 'description', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'language'], 'safe'],
         ];
     }
 
@@ -53,6 +53,8 @@ class CategoriesSearch extends Categories
     {
         $query = Categories::find();
 
+        $query->joinWith('parent');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -67,13 +69,13 @@ class CategoriesSearch extends Categories
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'parentid' => $this->parentid,
             'published' => $this->published,
             'access' => $this->access,
             'ordering' => $this->ordering,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+              ->andFilterWhere(['like', 'parent.name', $this->parentid])
               ->andFilterWhere(['like', 'alias', $this->alias])
               ->andFilterWhere(['like', 'description', $this->description])
               ->andFilterWhere(['like', 'image', $this->image])

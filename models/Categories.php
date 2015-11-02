@@ -23,7 +23,7 @@ class Categories extends Articles
     {
         return '{{%article_categories}}';
     }
-	
+
     /**
      * @inheritdoc
      */
@@ -72,7 +72,7 @@ class Categories extends Articles
 	// Return Parent ID
     public function getParent()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'parentid']);
+        return $this->hasOne(SELF::className(), ['id' => 'parentid'])->from(self::tableName() . ' AS parent');
     }
 	
 	// Return Parent Name
