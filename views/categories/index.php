@@ -43,11 +43,6 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 				[
 					'class' => '\kartik\grid\CheckboxColumn'
 				],
-				[
-					'attribute' => 'id',
-					'width' => '8%',
-					'hAlign' => 'center',
-				],
 				'name',
 				[
 					'attribute' => 'parentid',
@@ -77,6 +72,11 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 					'trueLabel' => '1',
 					'falseLabel' => '0',
 					'hAlign' => 'center'
+				],
+				[
+					'attribute' => 'id',
+					'width' => '8%',
+					'hAlign' => 'center',
 				],
 				[
 					'class' => '\kartik\grid\ActionColumn',
