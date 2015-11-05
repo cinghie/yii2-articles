@@ -56,13 +56,19 @@ class ItemsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ItemsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // Check RBAC Permission
+        if(Yii::$app->user->can('index-articles'))
+        {
+            $searchModel = new ItemsSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new ForbiddenHttpException;
+        }
     }
 
     /**
