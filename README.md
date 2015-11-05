@@ -114,6 +114,49 @@ Set on your configuration file, in modules section
 
 [Advanced Template recommended configuration](docs/advanced-template-recommended-configuration.md)
 
+## Users Auth
+
+|        | create | publish | update | delete | admin | view |
+|:------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
+|  admin |   yes  |   all   |   all  |   all  |  yes  |  yes |
+| editor |   yes  |   his   |   all  |   his  |  yes  |  yes |
+| author |   yes  |    no   |   his  |   no   |   no  |  yes |
+
+The migrations add to the database three types of users:
+
+<ol> 
+  <li>Admin: 
+  	<ul>
+  		<li>Can Create Articles</li>
+  		<li>Can Publish all Articles</li>
+  		<li>Can Update all Articles</li>
+  		<li>Can Delete all Articles</li>
+  		<li>Can Admin Articles</li>
+  		<li>Can View Articles</li>
+  	</ul>
+  </li>
+  <li>Editor: 
+  	<ul>
+  		<li>Can Create Articles</li>
+  		<li>Can Publish his Articles</li>
+  		<li>Can Update all Articles</li>
+  		<li>Can Delete his Articles</li>
+  		<li>Can Admin Articles</li>
+  		<li>Can View Articles</li>
+  	</ul>
+  </li>
+  <li>Author: 
+  	<ul>
+  		<li>Can Create Articles</li>
+  		<li>Can't Publish his Articles</li>
+  		<li>Can Update his Articles</li>
+  		<li>Can't Delete Articles</li>
+  		<li>Can't Admin Articles</li>
+  		<li>Can View Articles</li>
+  	</ul>
+  </li>
+</ol>  
+
 ## LINKS
 <ul> 
   <li>Admin Panel: PathToApp/index.php?r=articles</li>
