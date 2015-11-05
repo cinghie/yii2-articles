@@ -12,7 +12,7 @@
 
 use yii\db\Migration;
 
-class m151105_204428_insert_auth_articles extends Migration
+class m151105_204428_insert_article_auth extends Migration
 {
     public function safeUp()
     {
