@@ -260,7 +260,7 @@ class CategoriesController extends Controller
 
             if ($model->delete())
             {
-                if (!$model->deleteImage()) {
+                if (!$model->deleteImage() && !empty($model->image)) {
                     Yii::$app->session->setFlash('error', 'Error deleting image');
                 } else {
                     Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
