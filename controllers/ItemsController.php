@@ -261,7 +261,7 @@ class ItemsController extends Controller
 	public function actionDeleteimage($id) 
 	{
         // Check RBAC Permission
-        if(Yii::$app->user->can('update-articles'))
+        if(Yii::$app->user->can('update-articles') || Yii::$app->user->can('delete-articles'))
         {
             $model = $this->findModel($id);
 
