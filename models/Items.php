@@ -113,7 +113,7 @@ class Items extends Articles
 		$imageXL = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."extra/").$this->image;
 		
 		// check if image exists on server
-        if (empty($image) || !file_exists($image)) {
+        if (empty($this->image) || !file_exists($image)) {
             return false;
         }
 		
