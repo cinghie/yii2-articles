@@ -19,6 +19,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 
 /**
  * CategoriesController implements the CRUD actions for Categories model.
@@ -55,13 +56,19 @@ class CategoriesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel  = new CategoriesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		// Check RBAC Permission
+		if(Yii::$app->user->can('index-categories'))
+		{
+			$searchModel  = new CategoriesSearch();
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel'  => $searchModel,
-            'dataProvider' => $dataProvider
-        ]);
+			return $this->render('index', [
+				'searchModel'  => $searchModel,
+				'dataProvider' => $dataProvider
+			]);
+		} else {
+			throw new ForbiddenHttpException;
+		}
     }
 
     /**
@@ -71,9 +78,15 @@ class CategoriesController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        // Check RBAC Permission
+        if(Yii::$app->user->can('view-categories'))
+        {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            throw new ForbiddenHttpException;
+        }
     }
 
     /**
@@ -83,66 +96,69 @@ class CategoriesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Categories();
+        // Check RBAC Permission
+        if(Yii::$app->user->can('create-categories')) {
+            $model = new Categories();
 
-        if ( $model->load(Yii::$app->request->post()) ) {
-			
-			// If alias is not set, generate it
-			if ($_POST['Categories']['alias']=="") 
-			{
-				$model->alias = $model->generateAlias($model->name);
-			}
-			
-			// Genarate Json Params 
-			$params = array( 
-				'categoriesImageWidth' => $_POST['categoriesImageWidth'], 
-				'categoriesViewData'   => $_POST['categoriesViewData'],
-				'categoryImageWidth'   => $_POST['categoryImageWidth'], 
-				'categoryViewData'     => $_POST['categoryViewData'], 
-				'itemImageWidth'       => $_POST['itemImageWidth'], 
-				'itemViewData'         => $_POST['itemViewData']
-			 );
-			$params = $model->generateJsonParams($params);
-			$model->params = $params;
-			
-			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
-			$thumbPath   = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
-			$imgNameType = Yii::$app->controller->module->imageNameType;
-			$imgOptions  = Yii::$app->controller->module->thumbOptions;
-			$imgName     = $model->name;
-			$fileField   = "image";
+            if ($model->load(Yii::$app->request->post())) {
 
-			// Create UploadFile Instance
-			$image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
-
-			if ($model->save()) {
-
-				// upload only if valid uploaded file instance found
-                if ($image !== false)
-				{
-					// save thumbs to thumbPaths
-					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                // If alias is not set, generate it
+                if ($_POST['Categories']['alias'] == "") {
+                    $model->alias = $model->generateAlias($model->name);
                 }
 
-				// Set Success Message
-				Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
+                // Genarate Json Params
+                $params = array(
+                    'categoriesImageWidth' => $_POST['categoriesImageWidth'],
+                    'categoriesViewData' => $_POST['categoriesViewData'],
+                    'categoryImageWidth' => $_POST['categoryImageWidth'],
+                    'categoryViewData' => $_POST['categoryViewData'],
+                    'itemImageWidth' => $_POST['itemImageWidth'],
+                    'itemViewData' => $_POST['itemViewData']
+                );
+                $params = $model->generateJsonParams($params);
+                $model->params = $params;
 
-				return $this->redirect(['index']);
+                // Upload Image and Thumb if is not Null
+                $imagePath = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
+                $thumbPath = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
+                $imgNameType = Yii::$app->controller->module->imageNameType;
+                $imgOptions = Yii::$app->controller->module->thumbOptions;
+                $imgName = $model->name;
+                $fileField = "image";
 
-			} else {
+                // Create UploadFile Instance
+                $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
 
-				// Set Error Message
-				Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
+                if ($model->save()) {
 
-				return $this->render('create', ['model' => $model,]);
+                    // upload only if valid uploaded file instance found
+                    if ($image !== false) {
+                        // save thumbs to thumbPaths
+                        $thumb = $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
+                    }
+
+                    // Set Success Message
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
+
+                    return $this->redirect(['index']);
+
+                } else {
+
+                    // Set Error Message
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
+
+                    return $this->render('create', ['model' => $model,]);
+                }
+
+            } else {
+
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
+
+                return $this->render('create', ['model' => $model,]);
             }
-
         } else {
-
-			Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
-
-			return $this->render('create', ['model' => $model,]);
+            throw new ForbiddenHttpException;
         }
     }
 
@@ -154,71 +170,78 @@ class CategoriesController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model    = $this->findModel($id);
-		$oldImage = $model->image;
+        // Check RBAC Permission
+        if(Yii::$app->user->can('update-categories'))
+        {
+            $model    = $this->findModel($id);
+            $oldImage = $model->image;
 
-        if ($model->load(Yii::$app->request->post())) {
+            if ($model->load(Yii::$app->request->post())) {
 
-			// If alias is not set, generate it
-			if ($_POST['Categories']['alias']=="")
-			{
-				$model->alias = $model->generateAlias($model->name);
-			}
-
-			// Genarate Json Params
-			$params = array(
-				'categoriesImageWidth' => $_POST['categoriesImageWidth'],
-				'categoriesViewData'   => $_POST['categoriesViewData'],
-				'categoryImageWidth'   => $_POST['categoryImageWidth'],
-				'categoryViewData'     => $_POST['categoryViewData'],
-				'itemImageWidth'       => $_POST['itemImageWidth'],
-				'itemViewData'         => $_POST['itemViewData']
-			 );
-			$params = $model->generateJsonParams($params);
-			$model->params = $params;
-
-			// Upload Image and Thumb if is not Null
-			$imagePath   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
-			$thumbPath   = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
-			$imgNameType = Yii::$app->controller->module->imageNameType;
-			$imgOptions  = Yii::$app->controller->module->thumbOptions;
-			$imgName     = $model->name;
-			$fileField   = "image";
-			
-			// Create UploadFile Instance
-			$image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);		
-			
-			// revert back if no valid file instance uploaded
-            if ($image === false) {
-                $model->image = $oldImage;
-            }
-				
-			if ($model->save()) {
-				
-				// upload only if valid uploaded file instance found
-                if ($image !== false) 
-				{
-					// save thumbs to thumbPaths
-					$thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                // If alias is not set, generate it
+                if ($_POST['Categories']['alias']=="")
+                {
+                    $model->alias = $model->generateAlias($model->name);
                 }
-				
-				// Set Success Message
-				Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
-				
-				return $this->redirect(['index']);
-				
-			} else {
 
-				return $this->render('update', [
-					'model' => $model,
-				]);
-            }			
-            
+                // Genarate Json Params
+                $params = array(
+                    'categoriesImageWidth' => $_POST['categoriesImageWidth'],
+                    'categoriesViewData'   => $_POST['categoriesViewData'],
+                    'categoryImageWidth'   => $_POST['categoryImageWidth'],
+                    'categoryViewData'     => $_POST['categoryViewData'],
+                    'itemImageWidth'       => $_POST['itemImageWidth'],
+                    'itemViewData'         => $_POST['itemViewData']
+                 );
+                $params = $model->generateJsonParams($params);
+                $model->params = $params;
+
+                // Upload Image and Thumb if is not Null
+                $imagePath   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
+                $thumbPath   = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
+                $imgNameType = Yii::$app->controller->module->imageNameType;
+                $imgOptions  = Yii::$app->controller->module->thumbOptions;
+                $imgName     = $model->name;
+                $fileField   = "image";
+
+                // Create UploadFile Instance
+                $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+
+                // revert back if no valid file instance uploaded
+                if ($image === false) {
+                    $model->image = $oldImage;
+                }
+
+                if ($model->save()) {
+
+                    // upload only if valid uploaded file instance found
+                    if ($image !== false)
+                    {
+                        // save thumbs to thumbPaths
+                        $thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                    }
+
+                    // Set Success Message
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
+
+                    return $this->redirect(['index']);
+
+                } else {
+
+                    return $this->render('update', [
+                        'model' => $model,
+                    ]);
+                }
+
+            } else {
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+
         } else {
-			
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            throw new ForbiddenHttpException;
         }
     }
 
@@ -230,39 +253,52 @@ class CategoriesController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-		
-		if ($model->delete()) 
-		{
-            if (!$model->deleteImage()) {
-                Yii::$app->session->setFlash('error', 'Error deleting image');
+        // Check RBAC Permission
+        if(Yii::$app->user->can('delete-categories'))
+        {
+            $model = $this->findModel($id);
+
+            if ($model->delete())
+            {
+                if (!$model->deleteImage()) {
+                    Yii::$app->session->setFlash('error', 'Error deleting image');
+                } else {
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
+                }
             } else {
-				Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
-			}
+                Yii::$app->session->setFlash('error', 'Error deleting item');
+            }
+
+            return $this->redirect(['index']);
+
         } else {
-			Yii::$app->session->setFlash('error', 'Error deleting item');
-		}
-		
-        return $this->redirect(['index']);
+            throw new ForbiddenHttpException;
+        }
     }
 	
 	/* Delete the Image from the Categories model */
 	public function actionDeleteimage($id) 
 	{
-		$model = $this->findModel($id);
-		
-		if ($model->deleteImage()) 
-		{
-			$model->image = "";
-			$model->save();
-			Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
-		} else {
-			Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
-		}
-		
-		return $this->redirect([
-				'update', 'id' => $model->id,
-		]);
+        // Check RBAC Permission
+        if(Yii::$app->user->can('update-categories') || Yii::$app->user->can('delete-categories'))
+        {
+            $model = $this->findModel($id);
+
+            if ($model->deleteImage())
+            {
+                $model->image = "";
+                $model->save();
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
+            } else {
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
+            }
+
+            return $this->redirect([
+                    'update', 'id' => $model->id,
+            ]);
+        } else {
+            throw new ForbiddenHttpException;
+        }
 	}
 
     /**
