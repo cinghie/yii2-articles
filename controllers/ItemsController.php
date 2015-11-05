@@ -238,12 +238,12 @@ class ItemsController extends Controller
 
             if ($model->delete()) {
                 if (!$model->deleteImage() && !empty($model->image)) {
-                    Yii::$app->session->setFlash('error', 'Error deleting image');
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
                 } else {
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
                 }
             } else {
-                Yii::$app->session->setFlash('error', 'Error deleting item');
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
             }
 
             return $this->redirect(['index']);
