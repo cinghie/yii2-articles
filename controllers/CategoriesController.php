@@ -153,8 +153,6 @@ class CategoriesController extends Controller
 
             } else {
 
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
-
                 return $this->render('create', ['model' => $model,]);
             }
         } else {

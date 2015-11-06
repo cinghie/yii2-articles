@@ -147,8 +147,6 @@ class ItemsController extends Controller
 
             } else {
 
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
-
                 return $this->render('create', ['model' => $model,]);
             }
         } else {
