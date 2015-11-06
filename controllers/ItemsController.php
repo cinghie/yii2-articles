@@ -173,6 +173,9 @@ class ItemsController extends Controller
                 // Set Modified as actual date
                 $model->modified = date("Y-m-d H:i:s");
 
+                // Set Modified by User
+                $model->modified_by = Yii::$app->user->identity->id;
+
                 // If alias is not set, generate it
                 if ($_POST['Items']['alias'] == "") {
                     $model->alias = $model->generateAlias($model->title);

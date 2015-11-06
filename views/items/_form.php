@@ -40,10 +40,16 @@ if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
 $select2categories = $model->getCategoriesSelect2($id);
 
 // Get Username
-if (!$model->isNewRecord && $model->modified_by) { 
-	$modified_by = $model->modified_by; 
+if (!$model->isNewRecord) {
+	$modified_by = $model->modified_by;
+    $modified_by_username = $model->getUsernameByUserID($model->modified_by);
+    $created_by  = $model->created_by;
+    $created_by_username = $model->getUsernameByUserID($model->created_by);
 } else { 
-	$modified_by = 0; 
+	$modified_by = 0;
+    $modified_by_username = Yii::t('articles', 'Nobody');
+    $created_by  = $userid ;
+    $created_by_username = $username;
 }
 
 // Get info by Configuration
@@ -253,17 +259,11 @@ $select2videotype = $model->getVideoTypeSelect2();
                                         ]
                                 ]); ?>
                             
-                            <?php endif ?>                            
-                            
+                            <?php endif ?>
+
                             <?= $form->field($model, 'created_by')->widget(Select2::classname(), [
-								'data' => [ 
-									$userid =>  $username
-								],
-								'options' => [
-									'disabled' => 'disabled'
-								],
-								'pluginOptions' => [
-									'allowClear' => true
+								'data' => [
+                                    $created_by => $created_by_username
 								],
 								'addon' => [
 									'prepend' => [
@@ -273,14 +273,8 @@ $select2videotype = $model->getVideoTypeSelect2();
 							]); ?>
                             
                             <?= $form->field($model, 'modified_by')->widget(Select2::classname(), [
-								'data' => [ 
-									0 =>  Yii::t('articles', 'In Development') 
-								],
-								'options' => [
-									'disabled' => 'disabled'
-								],
-								'pluginOptions' => [
-									'allowClear' => true
+								'data' => [
+                                    $modified_by => $modified_by_username
 								],
 								'addon' => [
 									'prepend' => [

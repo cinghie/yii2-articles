@@ -50,6 +50,8 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
             'access',
 			'created_by',
 			'created',
+            'modified_by',
+            'modified',
             'language',
             'ordering',
 			'id',

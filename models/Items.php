@@ -188,7 +188,7 @@ class Items extends Articles
     }
 
     // Return Category
-    public function getCat()
+    public function getCategory()
     {
         return $this->hasOne(ArticleCategories::className(), ['id' => 'catid']);
     }
