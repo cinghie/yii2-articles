@@ -172,7 +172,7 @@ The migrations add to the database three types of users:
 ## CHANGELOG
 
 <ul>
-  <li>Version 0.3.1 - Adding image to categories view</li>
+  <li>Version 0.4.0 - Adding image to categories view</li>
   <li>Version 0.3.0 - Deny to not logged to index, create, update, delete; only view permitted</li>
   <li>Version 0.2.7 - Update Articles Params</li>
   <li>Version 0.2.6 - Update Migrations</li>
