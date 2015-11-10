@@ -116,37 +116,60 @@ Set on your configuration file, in modules section
 
 ## Users Auth
 
-|        | create | publish | update | delete | admin | view |
-|:------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
-|  admin |   yes  |   all   |   all  |   all  |  yes  |  yes |
-| editor |   yes  |   his   |   all  |   his  |  yes  |  yes |
-| author |   yes  |    no   |   his  |   no   |   no  |  yes |
+|           | create | publish | update | delete | admin | view |
+|:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
+|   admin   |   yes  |   all   |   all  |   all  |  yes  |  yes |
+|   editor  |   yes  |   all   |   all  |   his  |  yes  |  yes |
+| publisher |   yes  |   his   |   all  |   his  |  yes  |  yes |
+|   author  |   yes  |    no   |   his  |   no   |   no  |  yes |
 
 The migrations add to the database three types of users:
 
 <ol> 
   <li>Admin: 
   	<ul>
+  	    <li>Can Create Categories</li>
+  	    <li>Can Publish Categories</li>
+  	    <li>Can Delete Categories</li>
   		<li>Can Create Articles</li>
   		<li>Can Publish all Articles</li>
   		<li>Can Update all Articles</li>
   		<li>Can Delete all Articles</li>
-  		<li>Can Admin Articles</li>
-  		<li>Can View Articles</li>
+  		<li>Can Admin all Articles</li>
+  		<li>Can View all Articles</li>
   	</ul>
   </li>
   <li>Editor: 
   	<ul>
+  	    <li>Can Create Categories</li>
+        <li>Can't Publish Categories</li>
+        <li>Can't Delete Categories</li>
   		<li>Can Create Articles</li>
   		<li>Can Publish his Articles</li>
   		<li>Can Update all Articles</li>
   		<li>Can Delete his Articles</li>
   		<li>Can Admin Articles</li>
-  		<li>Can View Articles</li>
+  		<li>Can View all Articles</li>
   	</ul>
   </li>
+  <li>Publisher: 
+  	<ul>
+        <li>Can't Create Categories</li>
+        <li>Can't Publish Categories</li>
+        <li>Can't Delete Categories</li>  	    
+  		<li>Can Create Articles</li>
+  		<li>Can Publish his Articles</li>
+  		<li>Can Update his Articles</li>
+  		<li>Can Delete his Articles</li>
+  		<li>Can Admin his Articles</li>
+  		<li>Can View all Articles</li>
+  	</ul>
+  </li>  
   <li>Author: 
   	<ul>
+        <li>Can't Create Categories</li>
+        <li>Can't Publish Categories</li>
+        <li>Can't Delete Categories</li>    	
   		<li>Can Create Articles</li>
   		<li>Can't Publish his Articles</li>
   		<li>Can Update his Articles</li>
