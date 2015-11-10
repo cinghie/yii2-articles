@@ -116,13 +116,23 @@ Set on your configuration file, in modules section
 
 ## Users Auth
 
-|                           Articles                            |
-|           | create | publish | update | delete | admin | view |
+### Articles Permissions
+
+|           | create | publish | update | delete | index | view |
 |:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
 |   admin   |   yes  |   all   |   all  |   all  |  yes  |  yes |
 |   editor  |   yes  |   all   |   all  |   his  |  yes  |  yes |
 | publisher |   yes  |   his   |   all  |   his  |  yes  |  yes |
 |   author  |   yes  |    no   |   his  |   no   |   no  |  yes |
+
+### Categories Permissions
+
+|           | create | publish | update | delete | index | view |
+|:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
+|   admin   |   yes  |   yes   |   all  |   all  |  yes  |  yes |
+|   editor  |   yes  |    no   |   his  |   his  |  yes  |  yes |
+| publisher |    no  |    no   |    no  |    no  |  yes  |  yes |
+|   author  |    no  |    no   |    no  |    no  |  yes  |  yes |
 
 The migrations add to the database three types of users:
 
@@ -136,7 +146,7 @@ The migrations add to the database three types of users:
   		<li>Can Publish all Articles</li>
   		<li>Can Update all Articles</li>
   		<li>Can Delete all Articles</li>
-  		<li>Can Admin all Articles</li>
+  		<li>Can Index all Articles</li>
   		<li>Can View all Articles</li>
   	</ul>
   </li>
@@ -149,7 +159,7 @@ The migrations add to the database three types of users:
   		<li>Can Publish his Articles</li>
   		<li>Can Update all Articles</li>
   		<li>Can Delete his Articles</li>
-  		<li>Can Admin Articles</li>
+  		<li>Can Index Articles</li>
   		<li>Can View all Articles</li>
   	</ul>
   </li>
@@ -162,7 +172,7 @@ The migrations add to the database three types of users:
   		<li>Can Publish his Articles</li>
   		<li>Can Update his Articles</li>
   		<li>Can Delete his Articles</li>
-  		<li>Can Admin his Articles</li>
+  		<li>Can Index his Articles</li>
   		<li>Can View all Articles</li>
   	</ul>
   </li>  
@@ -175,7 +185,7 @@ The migrations add to the database three types of users:
   		<li>Can't Publish his Articles</li>
   		<li>Can Update his Articles</li>
   		<li>Can't Delete Articles</li>
-  		<li>Can't Admin Articles</li>
+  		<li>Can't Index Articles</li>
   		<li>Can View Articles</li>
   	</ul>
   </li>
