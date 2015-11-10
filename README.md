@@ -122,8 +122,8 @@ Set on your configuration file, in modules section
 |:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
 |   admin   |   yes  |   all   |   all  |   all  |  yes  |  yes |
 |   editor  |   yes  |   all   |   all  |   his  |  yes  |  yes |
-| publisher |   yes  |   his   |   all  |   his  |  yes  |  yes |
-|   author  |   yes  |    no   |   his  |   no   |   no  |  yes |
+| publisher |   yes  |   his   |   his  |    no  |  his  |  yes |
+|   author  |   yes  |    no   |   his  |    no  |  his  |  yes |
 
 ### Categories Permissions
 
