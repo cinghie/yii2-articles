@@ -116,8 +116,7 @@ Set on your configuration file, in modules section
 
 ## Users Auth
 
-|                       Articles                                |
-|:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
+|                           Articles                            |
 |           | create | publish | update | delete | admin | view |
 |:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
 |   admin   |   yes  |   all   |   all  |   all  |  yes  |  yes |
