@@ -134,7 +134,9 @@ Set on your configuration file, in modules section
 | publisher |    no  |    no   |    no  |    no  |  yes  |  yes |
 |   author  |    no  |    no   |    no  |    no  |  yes  |  yes |
 
-The migrations add to the database three types of users:
+### Users Types
+
+The migrations add to the database 4 types of users:
 
 <ol> 
   <li>Admin: 
