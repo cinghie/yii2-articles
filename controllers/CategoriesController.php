@@ -33,8 +33,16 @@ class CategoriesController extends Controller
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
-					['allow' => true, 'actions' => ['index','create','update','delete','deleteimage'], 'roles' => ['@']],
-					['allow' => true, 'actions' => ['view'], 'roles' => ['?', '@']],
+					[
+                        'allow' => true,
+                        'actions' => ['index','create','update','delete','deleteimage'],
+                        'roles' => ['@']
+                    ],
+					[
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['?', '@']
+                    ],
 				],
 				'denyCallback' => function () {
 					throw new \Exception('You are not allowed to access this page');
@@ -100,7 +108,8 @@ class CategoriesController extends Controller
     public function actionCreate()
     {
         // Check RBAC Permission
-        if($this->userCanCreate()) {
+        if($this->userCanCreate())
+        {
             $model = new Categories();
 
             if ($model->load(Yii::$app->request->post())) {
@@ -331,7 +340,7 @@ class CategoriesController extends Controller
      */
     protected function userCanIndex()
     {
-        if( Yii::$app->user->can('index-categories') || 1 )
+        if( Yii::$app->user->can('index-categories'))
             return true;
         else
             return false;
@@ -375,8 +384,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can delete Categories
-     * if user can update-all-categories or the user logged is the creator of article return tre
-     * else false
      * @return bool
      */
     protected function userCanDelete()
