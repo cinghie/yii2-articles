@@ -36,7 +36,7 @@ class CategoriesController extends Controller
 					['allow' => true, 'actions' => ['index','create','update','delete','deleteimage'], 'roles' => ['@']],
 					['allow' => true, 'actions' => ['view'], 'roles' => ['?', '@']],
 				],
-				'denyCallback' => function ($rule, $action) {
+				'denyCallback' => function () {
 					throw new \Exception('You are not allowed to access this page');
 				}
 			],
@@ -53,11 +53,12 @@ class CategoriesController extends Controller
     /**
      * Lists all Categories models.
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
 		// Check RBAC Permission
-		if(Yii::$app->user->can('index-categories'))
+		if($this->userCanIndex())
 		{
 			$searchModel  = new CategoriesSearch();
 			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -75,11 +76,12 @@ class CategoriesController extends Controller
      * Displays a single Categories model.
      * @param string $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionView($id)
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('view-categories'))
+        if($this->userCanView())
         {
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -93,11 +95,12 @@ class CategoriesController extends Controller
      * Creates a new Categories model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('create-categories')) {
+        if($this->userCanCreate()) {
             $model = new Categories();
 
             if ($model->load(Yii::$app->request->post())) {
@@ -135,7 +138,7 @@ class CategoriesController extends Controller
                     // upload only if valid uploaded file instance found
                     if ($image !== false) {
                         // save thumbs to thumbPaths
-                        $thumb = $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
+                        $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
                     }
 
                     // Set Success Message
@@ -165,11 +168,12 @@ class CategoriesController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('update-categories'))
+        if($this->userCanUpdate())
         {
             $model    = $this->findModel($id);
             $oldImage = $model->image;
@@ -216,7 +220,7 @@ class CategoriesController extends Controller
                     if ($image !== false)
                     {
                         // save thumbs to thumbPaths
-                        $thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                        $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                     }
 
                     // Set Success Message
@@ -248,11 +252,12 @@ class CategoriesController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('delete-categories'))
+        if($this->userCanDelete())
         {
             $model = $this->findModel($id);
 
@@ -273,12 +278,17 @@ class CategoriesController extends Controller
             throw new ForbiddenHttpException;
         }
     }
-	
-	/* Delete the Image from the Categories model */
+
+    /**
+     * Delete the Image from the Categories model
+     * @param int $id
+     * @return Categories update view
+     * @throws ForbiddenHttpException
+     */
 	public function actionDeleteimage($id) 
 	{
         // Check RBAC Permission
-        if(Yii::$app->user->can('update-categories') || Yii::$app->user->can('delete-categories'))
+        if($this->userCanUpdate())
         {
             $model = $this->findModel($id);
 
@@ -314,5 +324,67 @@ class CategoriesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-	
+
+    /**
+     * Check if user can Index Categories
+     * @return bool
+     */
+    protected function userCanIndex()
+    {
+        if( Yii::$app->user->can('index-categories') || 1 )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can view Categories
+     * @return bool
+     */
+    protected function userCanView()
+    {
+        if( Yii::$app->user->can('view-categories') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can create Categories
+     * @return bool
+     */
+    protected function userCanCreate()
+    {
+        if( Yii::$app->user->can('create-categories') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can update Categories
+     * @return bool
+     */
+    protected function userCanUpdate()
+    {
+        if( Yii::$app->user->can('update-categories') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can delete Categories
+     * if user can update-all-categories or the user logged is the creator of article return tre
+     * else false
+     * @return bool
+     */
+    protected function userCanDelete()
+    {
+        if( Yii::$app->user->can('delete-categories') )
+            return true;
+        else
+            return false;
+    }
+
 }

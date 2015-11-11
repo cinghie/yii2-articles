@@ -129,8 +129,8 @@ Set on your configuration file, in modules section
 
 |           | create | publish | update | delete | index | view |
 |:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
-|   admin   |   yes  |   yes   |   all  |   all  |  yes  |  yes |
-|   editor  |   yes  |    no   |   his  |   his  |  yes  |  yes |
+|   admin   |   yes  |   yes   |   yes  |   all  |  yes  |  yes |
+|   editor  |   yes  |    no   |   yes  |    no  |  yes  |  yes |
 | publisher |    no  |    no   |    no  |    no  |  yes  |  yes |
 |   author  |    no  |    no   |    no  |    no  |  yes  |  yes |
 
@@ -144,6 +144,8 @@ The migrations add to the database 4 types of users:
   	    <li>Can Create Categories</li>
   	    <li>Can Publish Categories</li>
   	    <li>Can Delete Categories</li>
+  	    <li>Can Update Categories</li>
+  	    <li>Can Index Categories</li>
   		<li>Can Create Articles</li>
   		<li>Can Publish all Articles</li>
   		<li>Can Update all Articles</li>
@@ -157,6 +159,8 @@ The migrations add to the database 4 types of users:
   	    <li>Can Create Categories</li>
         <li>Can't Publish Categories</li>
         <li>Can't Delete Categories</li>
+        <li>Can Update Categories</li>
+        <li>Can Index Categories</li>
   		<li>Can Create Articles</li>
   		<li>Can Publish his Articles</li>
   		<li>Can Update all Articles</li>
@@ -169,7 +173,9 @@ The migrations add to the database 4 types of users:
   	<ul>
         <li>Can't Create Categories</li>
         <li>Can't Publish Categories</li>
-        <li>Can't Delete Categories</li>  	    
+        <li>Can't Delete Categories</li>  
+        <li>Can't Update Categories</li>
+        <li>Can Index Categories</li>
   		<li>Can Create Articles</li>
   		<li>Can Publish his Articles</li>
   		<li>Can Update his Articles</li>
@@ -182,7 +188,9 @@ The migrations add to the database 4 types of users:
   	<ul>
         <li>Can't Create Categories</li>
         <li>Can't Publish Categories</li>
-        <li>Can't Delete Categories</li>    	
+        <li>Can't Delete Categories</li>
+        <li>Can't Update Categories</li>
+        <li>Can Index Categories</li>
   		<li>Can Create Articles</li>
   		<li>Can't Publish his Articles</li>
   		<li>Can Update his Articles</li>
@@ -208,6 +216,7 @@ The migrations add to the database 4 types of users:
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.4.1 - Update RBAC functions</li>
   <li>Version 0.4.0 - Adding first RBAC functions</li>
   <li>Version 0.3.1 - Adding image to categories view</li>
   <li>Version 0.3.0 - Deny to not logged to index, create, update, delete; only view permitted</li>

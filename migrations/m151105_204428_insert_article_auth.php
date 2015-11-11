@@ -25,8 +25,7 @@ class m151105_204428_insert_article_auth extends Migration
         $this->insert('{{%auth_item}}',['name' => 'create-categories', 'type' => '1', 'description' => 'Can create categories','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'delete-all-articles', 'type' => '1', 'description' => 'Can delete all articles','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'delete-his-articles', 'type' => '1', 'description' => 'Can delete his articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'delete-all-categories', 'type' => '1', 'description' => 'Can delete all categories','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'delete-his-categories', 'type' => '1', 'description' => 'Can delete his categories','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'delete-categories', 'type' => '1', 'description' => 'Can delete all categories','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'index-all-articles', 'type' => '1', 'description' => 'Can view all articles admin grid','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'index-his-articles', 'type' => '1', 'description' => 'Can view his articles admin grid','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'index-categories', 'type' => '1', 'description' => 'Can view categories admin grid','created_at' => time(),'updated_at' => time()]);
@@ -35,8 +34,7 @@ class m151105_204428_insert_article_auth extends Migration
         $this->insert('{{%auth_item}}',['name' => 'publish-categories', 'type' => '1', 'description' => 'Can publish categories','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'update-all-articles', 'type' => '1', 'description' => 'Can update all articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'update-his-articles', 'type' => '1', 'description' => 'Can update his articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'update-all-categories', 'type' => '1', 'description' => 'Can update all categories','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'update-his-categories', 'type' => '1', 'description' => 'Can update his categories','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'update-categories', 'type' => '1', 'description' => 'Can update all categories','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'view-articles', 'type' => '1', 'description' => 'Can view articles','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'view-categories', 'type' => '1', 'description' => 'Can view categories','created_at' => time(),'updated_at' => time()]);
 
@@ -50,10 +48,10 @@ class m151105_204428_insert_article_auth extends Migration
 
         // Auth Item Child Admin Categories
         $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'create-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'delete-all-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'delete-categories']);
         $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'publish-categories']);
         $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'index-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'update-all-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'update-categories']);
         $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'view-categories']);
 
         // Auth Item Child Editor Articles
@@ -66,9 +64,8 @@ class m151105_204428_insert_article_auth extends Migration
 
         // Auth Item Child Editor Categories
         $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'create-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'delete-his-categories']);
         $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'index-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'update-his-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'update-categories']);
         $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'view-categories']);
 
 		// Auth Item Child Publisher Articles
@@ -102,8 +99,7 @@ class m151105_204428_insert_article_auth extends Migration
         $this->delete('{{%auth_item}}', ['name' => 'create-categories']);
         $this->delete('{{%auth_item}}', ['name' => 'delete-all-articles']);
 		$this->delete('{{%auth_item}}', ['name' => 'delete-his-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'delete-all-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'delete-his-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'delete-categories']);
         $this->delete('{{%auth_item}}', ['name' => 'index-all-articles']);
 		$this->delete('{{%auth_item}}', ['name' => 'index-his-articles']);
         $this->delete('{{%auth_item}}', ['name' => 'index-categories']);
@@ -112,8 +108,7 @@ class m151105_204428_insert_article_auth extends Migration
         $this->delete('{{%auth_item}}', ['name' => 'publish-categories']);
         $this->delete('{{%auth_item}}', ['name' => 'update-all-articles']);
 		$this->delete('{{%auth_item}}', ['name' => 'update-his-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'update-all-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'update-his-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'update-categories']);
         $this->delete('{{%auth_item}}', ['name' => 'view-articles']);
         $this->delete('{{%auth_item}}', ['name' => 'view-categories']);
 
@@ -127,8 +122,7 @@ class m151105_204428_insert_article_auth extends Migration
 		$this->delete('{{%auth_item_child}}', ['parent' => 'create-categories']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'delete-all-articles']);
 		$this->delete('{{%auth_item_child}}', ['parent' => 'delete-his-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'delete-all-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'delete-his-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'delete-categories']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'index-all-articles']);
 		$this->delete('{{%auth_item_child}}', ['parent' => 'index-his-articles']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'index-categories']);
@@ -137,8 +131,7 @@ class m151105_204428_insert_article_auth extends Migration
         $this->delete('{{%auth_item_child}}', ['parent' => 'publish-categories']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'update-all-articles']);
 		$this->delete('{{%auth_item_child}}', ['parent' => 'update-his-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'update-all-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'update-his-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'update-categories']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'view-articles']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'view-categories']);
     }
