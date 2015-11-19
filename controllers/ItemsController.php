@@ -33,10 +33,18 @@ class ItemsController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index','create','update','delete','deleteimage'], 'roles' => ['@']],
-                    ['allow' => true, 'actions' => ['view'], 'roles' => ['?', '@']],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','create','update','delete','deleteimage'],
+                        'roles' => ['@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['?', '@']
+                    ],
                 ],
-                'denyCallback' => function ($rule, $action) {
+                'denyCallback' => function () {
                     throw new \Exception('You are not allowed to access this page');
                 }
             ],
@@ -53,11 +61,12 @@ class ItemsController extends Controller
     /**
      * Lists all Items models.
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('index-articles'))
+        if($this->userCanIndex())
         {
             $searchModel = new ItemsSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -75,11 +84,12 @@ class ItemsController extends Controller
      * Displays a single Items model.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionView($id)
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('view-articles'))
+        if($this->userCanView())
         {
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -93,11 +103,12 @@ class ItemsController extends Controller
      * Creates a new Items model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('create-articles'))
+        if($this->userCanCreate())
         {
             $model = new Items();
 
@@ -129,7 +140,7 @@ class ItemsController extends Controller
                     if ($image !== false)
                     {
                         // save thumbs to thumbPaths
-                        $thumb = $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+                        $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                     }
 
                     // Set Success Message
@@ -160,11 +171,12 @@ class ItemsController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('update-articles'))
+        if($this->userCanUpdate())
         {
             $model = $this->findModel($id);
 
@@ -229,11 +241,12 @@ class ItemsController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {
         // Check RBAC Permission
-        if(Yii::$app->user->can('delete-articles'))
+        if($this->userCanDelete())
         {
             $model = $this->findModel($id);
 
@@ -258,11 +271,12 @@ class ItemsController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      */
 	public function actionDeleteimage($id) 
 	{
         // Check RBAC Permission
-        if(Yii::$app->user->can('update-articles') || Yii::$app->user->can('delete-articles'))
+        if($this->userCanUpdate())
         {
             $model = $this->findModel($id);
 
@@ -296,6 +310,66 @@ class ItemsController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * Check if user can Index Articles
+     * @return bool
+     */
+    protected function userCanIndex()
+    {
+        if( Yii::$app->user->can('index-all-articles') || Yii::$app->user->can('index-his-articles'))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can view Articles
+     * @return bool
+     */
+    protected function userCanView()
+    {
+        if( Yii::$app->user->can('view-articles') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can create Articles
+     * @return bool
+     */
+    protected function userCanCreate()
+    {
+        if( Yii::$app->user->can('create-articles') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can update Articles
+     * @return bool
+     */
+    protected function userCanUpdate()
+    {
+        if( Yii::$app->user->can('update-articles') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can delete Articles
+     * @return bool
+     */
+    protected function userCanDelete()
+    {
+        if( Yii::$app->user->can('delete-all-articles') )
+            return true;
+        else
+            return false;
     }
 
 }
