@@ -11,7 +11,7 @@
 */
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use cinghie\articles\assets\ArticlesAsset;
 
 // Load Articles Assets
@@ -33,50 +33,101 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('articles', 'Create Item', [
-  'modelClass' => 'Items',
-]), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            [ 'class' => 'yii\grid\SerialColumn' ],
-            'title',
-            'catid',
-			'published',
-            'access',
-			'created_by',
-			'created',
-            'modified_by',
-            'modified',
-            'language',
-            'ordering',
-			'id',
-            //'userid',
-            // 'introtext:ntext',
-            // 'fulltext:ntext',
-            //'alias',            
-            // 'hits',
-            // 'image:ntext',
-            // 'image_caption',
-            // 'image_credits',
-            // 'video:ntext',
-            // 'video_caption',
-            // 'video_credits',
-            // 'modified',
-            // 'modified_by',
-            // 'params:ntext',
-            // 'metadesc:ntext',
-            // 'metakey:ntext',
-            // 'robots',
-            // 'author',
-            // 'copyright',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <!-- Categories Grid -->
+    <div class="categories-grid">
+        <?= GridView::widget([
+            'dataProvider'=> $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                [
+                    'class' => '\kartik\grid\CheckboxColumn'
+                ],
+                [
+                    'attribute' => 'title',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'attribute' => 'catid',
+                    'hAlign' => 'center',
+                    'value' => 'category.name'
+                ],
+                [
+                    'attribute' => 'access',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'attribute' => 'created_by',
+                    'hAlign' => 'center',
+                    'value' => 'createdby.username'
+                ],
+                [
+                    'attribute' => 'created',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'attribute' => 'modified_by',
+                    'hAlign' => 'center',
+                    'value' => 'modifiedby.username'
+                ],
+                [
+                    'attribute' => 'modified',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'attribute' => 'language',
+                    'width' => '6%',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'class' => '\kartik\grid\BooleanColumn',
+                    'attribute' => 'published',
+                    'trueLabel' => '1',
+                    'falseLabel' => '0',
+                    'hAlign' => 'center'
+                ],
+                [
+                    'attribute' => 'id',
+                    'width' => '6%',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'class' => '\kartik\grid\ActionColumn',
+                ]
+                // 'ordering',
+                // 'userid',
+                // 'introtext:ntext',
+                // 'fulltext:ntext',
+                // 'alias',
+                // 'hits',
+                // 'image:ntext',
+                // 'image_caption',
+                // 'image_credits',
+                // 'video:ntext',
+                // 'video_caption',
+                // 'video_credits',
+                // 'modified',
+                // 'modified_by',
+                // 'params:ntext',
+                // 'metadesc:ntext',
+                // 'metakey:ntext',
+                // 'robots',
+                // 'author',
+                // 'copyright',
+            ],
+            'responsive' => true,
+            'hover' => true,
+			'panel' => [
+                'heading'    => '<h3 class="panel-title"><i class="glyphicon glyphicon-globe"></i></h3>',
+                'type'       => 'success',
+                'before'     => Html::a(
+                    '<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'Create Articles'), ['create'], ['class' => 'btn btn-success']
+                ),
+                'after'      => Html::a(
+                    '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+                ),
+                'showFooter' => false
+            ],
+        ]); ?>
+    </div>
 
 </div>

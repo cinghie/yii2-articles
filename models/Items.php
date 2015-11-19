@@ -13,6 +13,7 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use dektrium\user\models\User;
 
 class Items extends Articles
 {
@@ -184,19 +185,31 @@ class Items extends Articles
 	// Return Attachment
     public function getArticleAttachments()
     {
-        return $this->hasMany(ArticleAttachments::className(), ['itemid' => 'id']);
+        return $this->hasMany(Attachments::className(), ['itemid' => 'id']);
     }
 
     // Return Category
     public function getCategory()
     {
-        return $this->hasOne(ArticleCategories::className(), ['id' => 'catid']);
+        return $this->hasOne(Categories::className(), ['id' => 'catid'])->from(Categories::tableName() . ' AS category');
     }
 	
 	// Return User
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'userid']);
+        return $this->hasOne(User::className(), ['id' => 'userid'])->from(User::tableName() . ' AS user');
+    }
+
+    // Return Created_By
+    public function getCreatedby()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by'])->from(User::tableName() . ' AS createdby');
+    }
+
+    // Return Modified_By
+    public function getModifiedby()
+    {
+        return $this->hasOne(User::className(), ['id' => 'modified_by'])->from(User::tableName() . ' AS modifiedby');
     }
 	
 }

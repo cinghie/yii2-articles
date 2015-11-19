@@ -15,7 +15,7 @@ namespace cinghie\articles\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use cinghie\articles\models\Items;
+use yii\web\ForbiddenHttpException;
 
 class ItemsSearch extends Items
 {
@@ -25,8 +25,8 @@ class ItemsSearch extends Items
     public function rules()
     {
         return [
-            [['id', 'catid', 'userid', 'published', 'access', 'ordering', 'hits', 'created_by', 'modified_by'], 'integer'],
-            [['title', 'alias', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
+            [['id', 'userid', 'published', 'access', 'ordering', 'hits'], 'integer'],
+            [['title', 'alias', 'catid', 'created_by', 'modified_by', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
         ];
     }
 
@@ -41,20 +41,31 @@ class ItemsSearch extends Items
 
     /**
      * Creates data provider instance with search query applied
-     *
      * @param array $params
-     *
      * @return ActiveDataProvider
+     * @throws ForbiddenHttpException
      */
     public function search($params)
     {
-        $query = Items::find();
+        if(Yii::$app->user->can('index-his-articles'))
+        {
+            $query = Items::find()->where(['created_by' => Yii::$app->user->identity->id]);
+        } elseif(Yii::$app->user->can('index-all-articles')) {
+            $query = Items::find();
+        } else {
+            throw new ForbiddenHttpException;
+        }
+
+        $query->joinWith('category');
+        $query->joinWith('createdby');
+        $query->joinWith('modifiedby');
+        $query->joinWith('user');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
                 'defaultOrder' => [
-                    'created' => SORT_DESC
+                    'id' => SORT_DESC
                 ],
             ],
         ]);
@@ -69,20 +80,20 @@ class ItemsSearch extends Items
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'catid' => $this->catid,
             'userid' => $this->userid,
             'published' => $this->published,
             'access' => $this->access,
             'ordering' => $this->ordering,
             'hits' => $this->hits,
             'created' => $this->created,
-            'created_by' => $this->created_by,
             'modified' => $this->modified,
-            'modified_by' => $this->modified_by,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'alias', $this->alias])
+              ->andFilterWhere(['like', 'category.name', $this->catid])
+              ->andFilterWhere(['like', 'createdby.username', $this->created_by])
+              ->andFilterWhere(['like', 'modifiedby.username', $this->modified_by])
               ->andFilterWhere(['like', 'introtext', $this->introtext])
               ->andFilterWhere(['like', 'fulltext', $this->fulltext])
               ->andFilterWhere(['like', 'language', $this->language])
