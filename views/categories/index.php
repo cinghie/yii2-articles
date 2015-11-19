@@ -75,7 +75,7 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 				],
 				[
 					'attribute' => 'id',
-					'width' => '8%',
+					'width' => '6%',
 					'hAlign' => 'center',
 				],
 				[
