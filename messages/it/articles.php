@@ -106,5 +106,6 @@ return array(
 	'Video Credits' => 'Crediti Video',
 	'Itemid' => 'Contenuto',
 	'Filename' => 'Nome File',
-	'Title Attribute' => 'Titolo Attributo'
+	'Title Attribute' => 'Titolo Attributo',
+	'Nobody' => 'Nessuno',
 );
