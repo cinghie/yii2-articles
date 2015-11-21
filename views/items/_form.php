@@ -58,7 +58,8 @@ $language         = substr(Yii::$app->language,0,2);
 $languages        = Yii::$app->controller->module->languages;
 $imagetype        = Yii::$app->controller->module->imageType;
 
-$select2users     = $model->getUsersSelect2();
+$select2published = $model->getPublishSelect2();
+$select2users     = $model->getUsersSelect2($userid,$username);
 $select2videotype = $model->getVideoTypeSelect2();
 
 ?>
@@ -125,10 +126,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 							]); ?>
                             
                             <?= $form->field($model, 'published')->widget(Select2::classname(), [
-                                    'data' => [
-										1 => Yii::t('articles', 'Published'),
-										0 => Yii::t('articles', 'Unpublished'),
-									],
+                                    'data' => $select2published,
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],

@@ -133,6 +133,17 @@ class Items extends Articles
 		}
 		
 	}
+
+    // Return array for Publish Status
+    public function getPublishSelect2()
+    {
+        if ( Yii::$app->user->can('publish-all-articles') || Yii::$app->user->can('publish-his-articles') )
+        {
+            return [ 1 => Yii::t('articles', 'Published'), 0 => Yii::t('articles', 'Unpublished') ];
+        } else {
+            return [ 0 => Yii::t('articles', 'Unpublished') ];
+        }
+    }
 	
 	// Return array for Category Select2
 	public function getCategoriesSelect2($id)
@@ -159,12 +170,14 @@ class Items extends Articles
 		return $username['username'];
 	}
 	
-	// Return array for User Select2
-	public function getUsersSelect2()
+	// Return array for User Select2 with current user selected
+	public function getUsersSelect2($userid,$username)
 	{
-		$sql   = 'SELECT id,username FROM {{%user}}';
+		$sql   = 'SELECT id,username FROM {{%user}} WHERE id != '.$userid;
 		$users = Items::findBySql($sql)->asArray()->all();
-		
+
+        $array[$userid] = $username;
+
 		foreach($users as $user)
 		{
 			$array[$user['id']] = $user['username'];
