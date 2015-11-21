@@ -120,7 +120,7 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
                 'heading'    => '<h3 class="panel-title"><i class="glyphicon glyphicon-globe"></i></h3>',
                 'type'       => 'success',
                 'before'     => Html::a(
-                    '<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'Create Articles'), ['create'], ['class' => 'btn btn-success']
+                    '<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'Create Item'), ['create'], ['class' => 'btn btn-success']
                 ),
                 'after'      => Html::a(
                     '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
