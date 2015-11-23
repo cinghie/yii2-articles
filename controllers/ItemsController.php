@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.4.0
+* @version 0.4.1
 */
 
 namespace cinghie\articles\controllers;
@@ -176,7 +176,7 @@ class ItemsController extends Controller
     public function actionUpdate($id)
     {
         // Check RBAC Permission
-        if($this->userCanUpdate())
+        if($this->userCanUpdate($id))
         {
             $model = $this->findModel($id);
 
@@ -246,7 +246,7 @@ class ItemsController extends Controller
     public function actionDelete($id)
     {
         // Check RBAC Permission
-        if($this->userCanDelete())
+        if($this->userCanDelete($id))
         {
             $model = $this->findModel($id);
 
@@ -276,7 +276,7 @@ class ItemsController extends Controller
 	public function actionDeleteimage($id) 
 	{
         // Check RBAC Permission
-        if($this->userCanUpdate())
+        if($this->userCanUpdate($id))
         {
             $model = $this->findModel($id);
 
@@ -352,9 +352,11 @@ class ItemsController extends Controller
      * Check if user can update Articles
      * @return bool
      */
-    protected function userCanUpdate()
+    protected function userCanUpdate($id)
     {
-        if( Yii::$app->user->can('update-articles') )
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('update-all-articles') || ( Yii::$app->user->can('update-his-articles') && ($model->isUserAuthor()) ) )
             return true;
         else
             return false;
@@ -364,9 +366,11 @@ class ItemsController extends Controller
      * Check if user can delete Articles
      * @return bool
      */
-    protected function userCanDelete()
+    protected function userCanDelete($id)
     {
-        if( Yii::$app->user->can('delete-all-articles') )
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('delete-all-articles') || ( Yii::$app->user->can('delete-his-articles') && ($model->isUserAuthor()) ) )
             return true;
         else
             return false;

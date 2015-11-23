@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.4.0
+* @version 0.4.1
 */
 
 namespace cinghie\articles\models;
@@ -80,7 +80,22 @@ class Items extends Articles
             'language' => Yii::t('articles', 'Language'),
         ];
     }
-	
+
+    /**
+     * check if current user is the author from the article id
+     * @return bool
+     */
+    public function isUserAuthor()
+    {
+        if ( Yii::$app->user->identity->id == $this->created_by )
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 	/**
      * fetch stored file name with complete path 
      * @return string
@@ -114,7 +129,8 @@ class Items extends Articles
 		$imageXL = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."extra/").$this->image;
 		
 		// check if image exists on server
-        if (empty($this->image) || !file_exists($image)) {
+        if ( empty($this->image) || !file_exists($image) )
+        {
             return false;
         }
 		
