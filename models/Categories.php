@@ -72,7 +72,7 @@ class Categories extends Articles
 	// Return Parent ID
     public function getParent()
     {
-        return $this->hasOne(SELF::className(), ['id' => 'parentid'])->from(self::tableName() . ' AS parent');
+        return $this->hasOne(self::className(), ['id' => 'parentid'])->from(self::tableName() . ' AS parent');
     }
 	
 	// Return Parent Name
