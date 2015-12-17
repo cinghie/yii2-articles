@@ -32,7 +32,7 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Get info For the Select2 Categories 
 if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
-$select2categories = $model->getCategoriesSelect2($id);
+$select2categories = $model->getCategoriesSelect2();
 
 // Get info by Module Configuration
 $editor    = Yii::$app->controller->module->editor;
@@ -464,14 +464,18 @@ $imagetype = Yii::$app->controller->module->imageType;
 				</div> <!-- tab-content -->
 			
 			</div> <!-- bs-example -->
+
+			<div class="col-lg-12">
+
+				<div class="form-group">
+					<?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+				</div>
+
+			</div>
 	
 		</div> <!-- col-lg-12 -->
 	
 	</div> <!-- row -->
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 

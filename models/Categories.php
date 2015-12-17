@@ -163,9 +163,9 @@ class Categories extends Articles
 	}
 		
 	// Return array for Category Select2
-	public function getCategoriesSelect2($id)
+	public function getCategoriesSelect2()
 	{
-		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1 AND id !='.$id;
+		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1';
 		$categories = Categories::findBySql($sql)->asArray()->all();
 		
 		$array[0] = Yii::t('articles', 'No Parent'); 

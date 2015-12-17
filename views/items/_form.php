@@ -37,7 +37,7 @@ $username = $user->username;
 
 // Get info For the Select2 Categories 
 if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
-$select2categories = $model->getCategoriesSelect2($id);
+$select2categories = $model->getCategoriesSelect2();
 
 // Get Username
 if (!$model->isNewRecord) {
@@ -111,19 +111,20 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 								]
 							])->textInput(['maxlength' => true]) ?>
-                                
+
                             
                             <?= $form->field($model, 'catid')->widget(Select2::classname(), [
-								'data' => $select2categories,
-								'pluginOptions' => [
-									'allowClear' => true
-								],
-								'addon' => [
-									'prepend' => [
-										'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
-									]
-								],
-							]); ?>
+                                    'data' => $select2categories,
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => [
+                                        'prepend' => [
+                                            'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
+                                        ]
+                                    ],
+                            ]); ?>
+
                             
                             <?= $form->field($model, 'published')->widget(Select2::classname(), [
                                     'data' => $select2published,
@@ -591,14 +592,18 @@ $select2videotype = $model->getVideoTypeSelect2();
                     </div> <!-- #params -->
             
             </div> <!-- end bs-example-tabs -->
+
+            <div class="col-lg-12">
+
+                <div class="form-group">
+                    <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                </div>
+
+            </div>
             
         </div> <!-- col-lg-12 -->
     
     </div> <!-- end row -->
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 
