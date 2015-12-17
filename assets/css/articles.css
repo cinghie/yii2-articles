@@ -48,6 +48,7 @@ p.bg-info {
 div#params h4 {
 	background-color: #5CB85C;
 	color: #FFFFFF!important;
+	margin: 0 0 15px;
 	padding: 10px;
 	text-align: center;
 }
