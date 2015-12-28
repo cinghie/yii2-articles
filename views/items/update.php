@@ -13,9 +13,8 @@
 use yii\helpers\Html;
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Items',
-]) . ' ' . $model->title;
+$this->title = Yii::t('articles', 'Update {modelClass}: ', ['modelClass' => 'Items',]) . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu

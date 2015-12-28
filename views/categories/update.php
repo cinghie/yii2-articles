@@ -25,9 +25,8 @@ $script  = "
 $this->registerJs($script);
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Update ', [
-  'modelClass' => 'Categories',
-]) . ' ' . $model->name;
+$this->title = Yii::t('articles', 'Update ', ['modelClass' => 'Categories',]) . ' ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu
