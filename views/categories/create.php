@@ -12,8 +12,9 @@
 
 use yii\helpers\Html;
 
-// Set Title
+// Set Title and Breadcrumbs
 $this->title = Yii::t('app', 'Create Categories');
+$this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');

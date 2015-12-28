@@ -18,6 +18,10 @@ use cinghie\articles\assets\ArticlesAsset;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
+// Set Title and Breadcrumbs
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = $this->title;
+
 /* Render MetaData */
 $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_data.php',[ 'model' => $model,]);
 

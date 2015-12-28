@@ -18,8 +18,9 @@ use cinghie\articles\assets\ArticlesAsset;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
-// Set Title
+// Set Title and Breadcrumbs
 $this->title = Yii::t('articles', 'Attachments');
+$this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');

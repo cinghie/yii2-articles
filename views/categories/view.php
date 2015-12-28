@@ -13,8 +13,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-// Set Title
+// Set Title and Breadcrumbs
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="categories-view">
