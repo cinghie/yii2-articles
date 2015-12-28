@@ -42,6 +42,8 @@ class Articles extends \yii\base\Module
 	public $imageNameType 	  = "categoryname";
 	
 	public $imageType    	  = "image/jpg,image/jpeg,image/gif,image/png";
+
+	public $showTitles        = false;
 	
 	public $thumbOptions =	[ 
 		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],

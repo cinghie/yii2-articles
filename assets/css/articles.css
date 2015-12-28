@@ -31,6 +31,21 @@ span.select2.select2-container.select2-container--krajee {
 	width: 100%;
 }
 
+/* Dashboard View */
+
+.yii2articles-admin-menu {
+	padding: 0 0 25px 0;
+}
+.yii2articles-admin-menu .btn-default {
+	background-color: #3c8dbc;
+	border-color: #eee;
+	color: #fff;
+}
+.yii2articles-admin-menu .btn-default:hover {
+    background-color: #00a65a;
+    border-color: #008d4c;
+}
+
 /* Categories View */
 
 div.categories .categories-grid {

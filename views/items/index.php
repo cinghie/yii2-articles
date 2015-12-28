@@ -28,9 +28,11 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 ?>
 <div class="items-index">
 
-    <div class="page-header">
-    	<h1><?= Html::encode($this->title) ?></h1>
-    </div>
+    <?php if(Yii::$app->getModule('articles')->showTitles): ?>
+        <div class="page-header">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+    <?php endif ?>
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -118,10 +120,10 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
             'responsive' => true,
             'hover' => true,
 			'panel' => [
-                'heading'    => '<h3 class="panel-title"><i class="glyphicon glyphicon-globe"></i></h3>',
+                'heading'    => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
                 'type'       => 'success',
                 'before'     => Html::a(
-                    '<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'Create Item'), ['create'], ['class' => 'btn btn-success']
+                    '<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'), ['create'], ['class' => 'btn btn-success']
                 ),
                 'after'      => Html::a(
                     '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']

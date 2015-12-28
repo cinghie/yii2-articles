@@ -27,14 +27,17 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 
 ?>
 <div class="attachments-index">
-	
-    <div class="page-header">
-   		<h1><?= Html::encode($this->title) ?></h1>
-    </div>
+
+    <?php if(Yii::$app->getModule('articles')->showTitles): ?>
+        <div class="page-header">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+    <?php endif ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('articles', 'Create Attachment'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('articles', 'New'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

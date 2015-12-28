@@ -13,6 +13,9 @@
 return array(
 	'Yes'=>'Si',
 	'No'=>'No',
+	'New'=>'Nuovo',
+	'Update'=>'Modifica',
+	'Delete'=>'Cancella',
 	'Dashboard'=>'Pannello di Controllo',
 	'Article'=>'Articolo',
 	'Articles'=>'Articoli',

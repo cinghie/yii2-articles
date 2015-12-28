@@ -90,6 +90,9 @@ Recommended Configuration for Advanced Template
             'itemThumbPath' => '@webroot/img/articles/items/thumb/',
             // Select URL To Upload Item Thumb
             'itemThumbURL'  => '@web/img/articles/items/thumb/',
+			
+			// Disable Titles in the views, 
+            'showTitles' => false,
         ],
 
 ]	

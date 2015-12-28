@@ -1,3 +1,9 @@
+<?php
+
+$this->title = Yii::t('articles', 'Dashboard');
+$this->params['breadcrumbs'][] = $this->title;
+
+?>
 <?= $this->render('_menu') ?>
 <div class="articles-default-index">
     <h1><?= $this->context->action->uniqueId ?></h1>

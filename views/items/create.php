@@ -23,9 +23,11 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 ?>
 <div class="items-create">
 
-    <div class="page-header">
-    	<h1><?= Html::encode($this->title) ?></h1>
-    </div>
+    <?php if(Yii::$app->getModule('articles')->showTitles): ?>
+        <div class="page-header">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+    <?php endif ?>
 
     <?= $this->render('_form', [
         'model' => $model,
