@@ -10,9 +10,11 @@
 * @version 0.4.1
 */
 
-use yii\helpers\Html;
-use kartik\grid\GridView;
 use cinghie\articles\assets\ArticlesAsset;
+use kartik\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -24,6 +26,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu
 echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
+
+// Register action buttons js
+$this->registerJs('
+    $(document).ready(function()
+    {
+        $("a.btn-update").click(function() {
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else if(selectedId.length>1){
+                alert("'.Yii::t("articles", "Select only 1 item").'");
+            } else {
+                var url = "'.Url::to(['/articles/items/update']).'&id="+selectedId[0];
+                window.location.href= url;
+            }
+        });
+    });
+');
 
 ?>
 
@@ -38,7 +59,10 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     
     <!-- Categories Grid -->
-    <div class="categories-grid"> 
+    <div class="categories-grid">
+
+		<?php Pjax::begin() ?>
+
         <?= GridView::widget([
             'dataProvider'=> $dataProvider,
             'filterModel' => $searchModel,
@@ -46,12 +70,19 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 				[
 					'class' => '\kartik\grid\CheckboxColumn'
 				],
-				'name',
+				[
+					'attribute' => 'name',
+					'hAlign' => 'center',
+				],
 				[
 					'attribute' => 'parentid',
-					'value'     => 'parent.name'
+					'hAlign' => 'center',
+					'value' => 'parent.name'
 				],
-				'access',
+				[
+					'attribute' => 'access',
+					'hAlign' => 'center',
+				],
 				[
 					'attribute' => 'image',
 					'format' => 'html',
@@ -66,23 +97,20 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 				],
 				[
 					'attribute' => 'language',
-					'width' => '7%',
 					'hAlign' => 'center',
+					'width' => '7%',
 				],
 				[ 
 					'class' => '\kartik\grid\BooleanColumn',
 					'attribute' => 'published',
+					'hAlign' => 'center',
 					'trueLabel' => '1',
-					'falseLabel' => '0',
-					'hAlign' => 'center'
+					'falseLabel' => '0'
 				],
 				[
 					'attribute' => 'id',
-					'width' => '6%',
 					'hAlign' => 'center',
-				],
-				[
-					'class' => '\kartik\grid\ActionColumn',
+					'width' => '5%',
 				]
 			],
             'responsive' => true,
@@ -99,6 +127,9 @@ echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_m
 				'showFooter' => false
 			],
         ]); ?>
+
+		<?php Pjax::end() ?>
+
 	</div>
 
 </div>
