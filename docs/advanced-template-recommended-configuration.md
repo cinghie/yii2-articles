@@ -64,6 +64,9 @@ Recommended Configuration for Advanced Template
             'itemThumbPath' => '@frontend/web/img/articles/items/thumb/',
             // Select URL To Upload Item Thumb
             'itemThumbURL'  => '/frontend/web/img/articles/items/thumb/',
+			
+			// Show Titles in the views,
+            'showTitles' => false,
         ],
 
 ]					
@@ -91,8 +94,8 @@ Recommended Configuration for Advanced Template
             // Select URL To Upload Item Thumb
             'itemThumbURL'  => '@web/img/articles/items/thumb/',
 			
-			// Disable Titles in the views, 
-            'showTitles' => false,
+			// Show Titles in the views, 
+            'showTitles' => true,
         ],
 
 ]	
