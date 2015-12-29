@@ -95,7 +95,6 @@ class Items extends Articles
         }
     }
 
-
 	/**
      * fetch stored file name with complete path 
      * @return string
