@@ -185,8 +185,7 @@ class Items extends Articles
     // Return array for Publish Status
     public function getPublishSelect2()
     {
-        if ( Yii::$app->user->can('articles-publish-all-items') || Yii::$app->user->can('articles-publish-his-items') )
-        {
+        if ( Yii::$app->user->can('articles-publish-all-items') || Yii::$app->user->can('articles-publish-his-items') ) {
             return [ 1 => Yii::t('articles', 'Published'), 0 => Yii::t('articles', 'Unpublished') ];
         } else {
             return [ 0 => Yii::t('articles', 'Unpublished') ];
@@ -201,34 +200,8 @@ class Items extends Articles
 		
 		$array[0] = \Yii::t('articles', 'No Category');
 		
-		foreach($categories as $category)
-		{
+		foreach($categories as $category) {
 			$array[$category['id']] = $category['name'];
-		}
-		
-		return $array;
-	}
-	
-	// Return Username by UserID
-	public function getUsernameByUserID($id)
-	{
-		$sql      = 'SELECT username FROM {{%user}} WHERE id='.$id;
-		$username = Items::findBySql($sql)->asArray()->one();
-		
-		return $username['username'];
-	}
-	
-	// Return array for User Select2 with current user selected
-	public function getUsersSelect2($userid,$username)
-	{
-		$sql   = 'SELECT id,username FROM {{%user}} WHERE id != '.$userid;
-		$users = Items::findBySql($sql)->asArray()->all();
-
-        $array[$userid] = $username;
-
-		foreach($users as $user)
-		{
-			$array[$user['id']] = $user['username'];
 		}
 		
 		return $array;

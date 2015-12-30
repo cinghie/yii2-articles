@@ -132,18 +132,42 @@ class Articles extends \yii\db\ActiveRecord
 		return json_encode($params);
 	}
 
+	// Return array for User Select2 with current user selected
+	public function getUsersSelect2($userid,$username)
+	{
+		$sql   = 'SELECT id,username FROM {{%user}} WHERE id != '.$userid;
+		$users = Items::findBySql($sql)->asArray()->all();
+
+		$array[$userid] = ucwords($username);
+
+		foreach($users as $user) {
+			$array[$user['id']] = ucwords($user['username']);
+		}
+
+		return $array;
+	}
+
+	// Return Username by UserID
+	public function getUsernameByUserID($id)
+	{
+		$sql      = 'SELECT username FROM {{%user}} WHERE id='.$id;
+		$username = Items::findBySql($sql)->asArray()->one();
+
+		return $username['username'];
+	}
+
 	/**
 	 * Return an array with the user roles
 	 * @return array
 	 */
 	public function getRoles()
 	{
-		$sql = 'SELECT name FROM {{%auth_item}} WHERE type = 1';
+		$sql = 'SELECT name FROM {{%auth_item}} WHERE type = 1 ORDER BY name ASC';
 		$roles = Categories::findBySql($sql)->asArray()->all();
-		$array = array();
+		$array = ['Public' => 'Public'];
 
 		foreach($roles as $role) {
-			$array[$role['name']] = $role['name'];
+			$array[ucwords($role['name'])] = ucwords($role['name']);
 		}
 
 		return $array;
