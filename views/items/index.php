@@ -63,7 +63,7 @@ $this->registerJs('
                 }
             }
         });
-         $("a.btn-preview").click(function() {
+        $("a.btn-preview").click(function() {
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
@@ -74,7 +74,7 @@ $this->registerJs('
                 var url = "'.Url::to(['/articles/items/view']).'&id="+selectedId[0];
                 window.location.href= url;
             }
-         });
+        });
     });
 ');
 

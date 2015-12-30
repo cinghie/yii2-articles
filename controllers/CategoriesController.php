@@ -35,7 +35,7 @@ class CategoriesController extends Controller
 				'rules' => [
 					[
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deleteimage'],
+                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple'],
                         'roles' => ['@']
                     ],
 					[
@@ -53,6 +53,7 @@ class CategoriesController extends Controller
                 'actions' => [
                     'delete' => ['post'],
 					'deleteImage' => ['post'],
+                    'deletemultiple' => ['post'],
                 ],
             ],
         ];
@@ -286,6 +287,46 @@ class CategoriesController extends Controller
         } else {
             throw new ForbiddenHttpException;
         }
+    }
+
+    /**
+     * Deletes selected User models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return mixed
+     */
+    public function actionDeletemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            // Check RBAC Permission
+            if($this->userCanDelete($id))
+            {
+                $model = $this->findModel($id);
+
+                if ($model->delete()) {
+                    if (!$model->deleteImage() && !empty($model->image)) {
+                        Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
+                    } else {
+                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
+                }
+
+            } else {
+                throw new ForbiddenHttpException;
+            }
+        }
+
+        // Set Success Message
+        Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
 
     /**

@@ -39,7 +39,39 @@ $this->registerJs('
             } else if(selectedId.length>1){
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
-                var url = "'.Url::to(['/articles/items/update']).'&id="+selectedId[0];
+                var url = "'.Url::to(['/articles/categories/update']).'&id="+selectedId[0];
+                window.location.href= url;
+            }
+        });
+        $("a.btn-delete").click(function() {
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else {
+                var choose = confirm("'.Yii::t("articles", "Do you want delete selected items?").'");
+
+                if (choose == true) {
+                    $.ajax({
+                        type: \'POST\',
+                        url : "'.Url::to(['/articles/categories/deletemultiple']).'&id="+selectedId,
+                        data : {ids: selectedId},
+                        success : function() {
+                            $.pjax.reload({container:"#w1"});
+                        }
+                    });
+                }
+            }
+        });
+        $("a.btn-preview").click(function() {
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else if(selectedId.length>1){
+                alert("'.Yii::t("articles", "Select only 1 item").'");
+            } else {
+                var url = "'.Url::to(['/articles/categories/view']).'&id="+selectedId[0];
                 window.location.href= url;
             }
         });
@@ -72,12 +104,28 @@ $this->registerJs('
 				],
 				[
 					'attribute' => 'name',
+					'format' => 'html',
 					'hAlign' => 'center',
+                    'value' => function ($model) {
+                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id]));
+                        return Html::a($model->name,$url);
+                    }
 				],
 				[
 					'attribute' => 'parentid',
+                    'format' => 'html',
 					'hAlign' => 'center',
-					'value' => 'parent.name'
+					'value' => 'parent.name',
+                    'value' => function ($data) {
+                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->parentid]));
+                        $cat = isset($data->parent->name) ? $data->parent->name : "";
+
+                        if($cat!="") {
+                            return Html::a($cat,$url);
+                        } else {
+                            return Yii::t('articles', 'Nobody');
+                        }
+                    }
 				],
 				[
 					'attribute' => 'access',
@@ -118,11 +166,21 @@ $this->registerJs('
 			'panel' => [
 				'heading'    => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
 				'type'       => 'success',
-				'before'     => Html::a(
-					'<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'), ['create'], ['class' => 'btn btn-success']
-				),				
-				'after'      => Html::a(
-					'<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+                'before'     => '<span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
+                        ['create'], ['class' => 'btn btn-success']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
+                        '#', ['class' => 'btn btn-update btn-warning']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
+                        '#', ['class' => 'btn btn-delete btn-danger']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicons-eye-open"></i> '.Yii::t('articles', 'Preview'),
+                        '#', ['class' => 'btn btn-preview btn-info']
+                    ).'</span>',
+				'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> '.
+                    Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
 				),
 				'showFooter' => false
 			],
