@@ -35,7 +35,7 @@ class ItemsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple'],
+                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple','changestate'],
                         'roles' => ['@']
                     ],
                     [
@@ -51,6 +51,7 @@ class ItemsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'changestate' => ['post'],
                     'delete' => ['post'],
 					'deleteImage' => ['post'],
                     'deletemultiple' => ['post'],
@@ -336,6 +337,26 @@ class ItemsController extends Controller
             throw new ForbiddenHttpException;
         }
 	}
+
+    /**
+     * Change article state: published or unpublished
+     * @param int $id
+     * @return Response
+     */
+    public function actionChangestate($id)
+    {
+        $model = $this->findModel($id);
+
+        if($model->published) {
+            $model->unpublish();
+            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article unpublished'));
+        } else {
+            $model->publish();
+            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
+        }
+
+        return $this->redirect(['index']);
+    }
 
     /**
      * Finds the Items model based on its primary key value.

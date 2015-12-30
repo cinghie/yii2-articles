@@ -95,6 +95,28 @@ class Items extends Articles
         }
     }
 
+    /**
+     * Publish the article by setting 'published' field to 1
+     * @return bool
+     */
+    public function publish()
+    {
+        return (bool)$this->updateAttributes([
+            'published' => 1
+        ]);
+    }
+
+    /**
+     * Unpublish the article by setting 'published' field to 0
+     * @return bool
+     */
+    public function unpublish()
+    {
+        return (bool)$this->updateAttributes([
+            'published' => 0
+        ]);
+    }
+
 	/**
      * fetch stored file name with complete path 
      * @return string

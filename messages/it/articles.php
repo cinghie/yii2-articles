@@ -115,4 +115,8 @@ return array(
 	'Do you want delete selected items?' => 'Vuoi cancellare gli elementi selezionati?',
 	'Select only 1 item' => 'Seleziona solo 1 elemento!',
 	'Select at least one item' => 'Seleziona almeno 1 elemento!',
+	'Article unpublished' => 'Articolo non pubblicato',
+	'Article published' => 'Articolo pubblicato',
+	'Category unpublished' => 'Articolo non pubblicato',
+	'Category published' => 'Articolo pubblicato',
 );

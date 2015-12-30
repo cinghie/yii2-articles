@@ -189,12 +189,21 @@ $this->registerJs('
                     'width' => '5%',
                 ],
                 [
-                    'class' => '\kartik\grid\BooleanColumn',
                     'attribute' => 'published',
-                    'trueLabel' => '1',
-                    'falseLabel' => '0',
+                    'format' => 'raw',
                     'hAlign' => 'center',
                     'width' => '6%',
+                    'value' => function ($model) {
+                        if($model->published) {
+                            return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
+                                'data-method' => 'post',
+                            ]);
+                        } else {
+                            return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
+                                'data-method' => 'post',
+                            ]);
+                        }
+                    }
                 ],
                 [
                     'attribute' => 'id',
