@@ -114,6 +114,17 @@ class Items extends Articles
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias(Yii::$app->controller->module->itemImageURL).$file;
     }
+
+    /**
+     * fetch stored image url
+     * @return string
+     */
+    public function getImageThumbUrl($size)
+    {
+        // return a default image placeholder if your source avatar is not found
+        $file = isset($this->image) ? $this->image : 'default.jpg';
+        return Yii::getAlias(Yii::$app->controller->module->itemImageURL)."thumb/".$size."/".$file;
+    }
 	
 	/**
     * Delete Image

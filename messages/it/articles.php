@@ -111,6 +111,7 @@ return array(
 	'Filename' => 'Nome File',
 	'Title Attribute' => 'Titolo Attributo',
 	'Nobody' => 'Nessuno',
+	'Preview' => 'Anteprima',
 	'Do you want delete selected items?' => 'Vuoi cancellare gli elementi selezionati?',
 	'Select only 1 item' => 'Seleziona solo 1 elemento!',
 	'Select at least one item' => 'Seleziona almeno 1 elemento!',

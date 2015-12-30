@@ -63,6 +63,18 @@ $this->registerJs('
                 }
             }
         });
+         $("a.btn-preview").click(function() {
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else if(selectedId.length>1){
+                alert("'.Yii::t("articles", "Select only 1 item").'");
+            } else {
+                var url = "'.Url::to(['/articles/items/view']).'&id="+selectedId[0];
+                window.location.href= url;
+            }
+         });
     });
 ');
 
@@ -159,16 +171,30 @@ $this->registerJs('
                     'hAlign' => 'center',
                 ],
                 [
-                    'attribute' => 'language',
-                    'width' => '6%',
+                    'attribute' => 'image',
+                    'format' => 'html',
                     'hAlign' => 'center',
+                    'value' => function ($model) {
+                        if ($model->image) {
+                            return Html::img($model->getImageThumbUrl("small"), ['width' => '36px']);
+                        } else {
+                            return Yii::t('articles', 'Nobody');
+                        }
+                    },
+                    'width' => '6%',
+                ],
+                [
+                    'attribute' => 'language',
+                    'hAlign' => 'center',
+                    'width' => '5%',
                 ],
                 [
                     'class' => '\kartik\grid\BooleanColumn',
                     'attribute' => 'published',
                     'trueLabel' => '1',
                     'falseLabel' => '0',
-                    'hAlign' => 'center'
+                    'hAlign' => 'center',
+                    'width' => '6%',
                 ],
                 [
                     'attribute' => 'id',
@@ -190,8 +216,11 @@ $this->registerJs('
                     ).'</span><span style="margin-right: 5px;">'.
                     Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
                         '#', ['class' => 'btn btn-delete btn-danger']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicons-eye-open"></i> '.Yii::t('articles', 'Preview'),
+                        '#', ['class' => 'btn btn-preview btn-info']
                     ).'</span>',
-                'after'      => Html::a(
+                'after' => Html::a(
                     '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
                 ),
                 'showFooter' => false
