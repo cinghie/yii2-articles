@@ -367,17 +367,23 @@ class CategoriesController extends Controller
      */
     public function actionChangestate($id)
     {
-        $model = $this->findModel($id);
+        // Check RBAC Permission
+        if($this->userCanPublish())
+        {
+            $model = $this->findModel($id);
 
-        if($model->published) {
-            $model->unpublish();
-            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category unpublished'));
+            if ($model->published) {
+                $model->unpublish();
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category unpublished'));
+            } else {
+                $model->publish();
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category published'));
+            }
+
+            return $this->redirect(['index']);
         } else {
-            $model->publish();
-            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category published'));
+            throw new ForbiddenHttpException;
         }
-
-        return $this->redirect(['index']);
     }
 
     /**
@@ -439,6 +445,18 @@ class CategoriesController extends Controller
     protected function userCanUpdate()
     {
         if( Yii::$app->user->can('articles-update-categories') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can publish Categories
+     * @return bool
+     */
+    protected function userCanPublish()
+    {
+        if( Yii::$app->user->can('articles-publish-categories') )
             return true;
         else
             return false;

@@ -346,7 +346,7 @@ class ItemsController extends Controller
     public function actionChangestate($id)
     {
 		// Check RBAC Permission
-        if($this->userCanUpdate($id))
+        if($this->userCanPublish($id))
         {
 			$model = $this->findModel($id);
 
@@ -359,7 +359,9 @@ class ItemsController extends Controller
 			}
 
 			return $this->redirect(['index']);	
-		}	
+		} else {
+            throw new ForbiddenHttpException;
+        }
     }
 
     /**
@@ -423,6 +425,20 @@ class ItemsController extends Controller
         $model = $this->findModel($id);
 
         if( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can publish Articles
+     * @return bool
+     */
+    protected function userCanPublish($id)
+    {
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) )
             return true;
         else
             return false;
