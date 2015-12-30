@@ -102,7 +102,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                     
                     <div id="item" class="tab-pane fade active in">
                     
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                     
                             <?= $form->field($model, 'title', [
 								'addon' => [
@@ -229,7 +229,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                         
                         </div> <!-- end col-lg-4 -->
                         
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                                                        
                             <?php if ($model->isNewRecord): ?>
                         
