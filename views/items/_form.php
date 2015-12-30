@@ -58,6 +58,7 @@ $language         = substr(Yii::$app->language,0,2);
 $languages        = Yii::$app->controller->module->languages;
 $imagetype        = Yii::$app->controller->module->imageType;
 
+$roles            = $model->getRoles();
 $select2published = $model->getPublishSelect2();
 $select2users     = $model->getUsersSelect2($userid,$username);
 $select2videotype = $model->getVideoTypeSelect2();
@@ -139,10 +140,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             ]); ?>
                             
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => ["0" => Yii::t('articles', 'In Development') ],
-									'options' => [
-										'disabled' => 'disabled'
-									],
+                                    'data' => $roles,
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],

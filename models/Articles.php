@@ -132,4 +132,21 @@ class Articles extends \yii\db\ActiveRecord
 		return json_encode($params);
 	}
 
+	/**
+	 * Return an array with the user roles
+	 * @return array
+	 */
+	public function getRoles()
+	{
+		$sql = 'SELECT name FROM {{%auth_item}} WHERE type = 1';
+		$roles = Categories::findBySql($sql)->asArray()->all();
+		$array = array();
+
+		foreach($roles as $role) {
+			$array[$role['name']] = $role['name'];
+		}
+
+		return $array;
+	}
+
 }
