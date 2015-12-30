@@ -32,10 +32,11 @@ class Items extends Articles
     {
         return [
             [['title', 'catid', 'userid', 'created', 'modified', 'language'], 'required'],
-            [['catid', 'userid', 'published', 'created_by', 'modified_by', 'access', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
+            [['catid', 'userid', 'published', 'created_by', 'modified_by', 'ordering', 'hits'], 'integer'],
+            [['introtext', 'fulltext', 'access', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
 			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
-			[['video', 'author', 'copyright'], 'string', 'max' => 50],
+            [['access'], 'string', 'max' => 64],
+            [['video', 'author', 'copyright'], 'string', 'max' => 50],
 			[['robots','video_type'], 'string', 'max' => 20],
 			[['language'], 'string', 'max' => 7],
             [['created', 'modified','image'], 'safe'],
@@ -232,6 +233,12 @@ class Items extends Articles
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'userid'])->from(User::tableName() . ' AS user');
+    }
+
+    // Return Access
+    public function getAccess()
+    {
+        return $this->hasOne(User::className(), ['name' => 'access'])->from('{%auth_item}' . ' AS role');
     }
 
     // Return Created_By
