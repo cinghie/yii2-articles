@@ -31,9 +31,10 @@ class Categories extends Articles
     {	
         return [
             [['name', 'language'], 'required'],
-			[['parentid', 'published', 'access', 'ordering'], 'integer'],
+			[['parentid', 'published', 'ordering'], 'integer'],
 			[['name', 'alias', 'image_caption', 'image_credits'], 'string', 'max' => 255],
             [['description', 'image', 'params', 'metadesc', 'metakey'], 'string'],
+            [['access'], 'string', 'max' => 64],
 			[['author', 'copyright'], 'string', 'max' => 50],
 			[['language'], 'string', 'max' => 7],
 			[['robots'], 'string', 'max' => 20],

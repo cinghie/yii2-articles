@@ -39,7 +39,7 @@ $editor    = Yii::$app->controller->module->editor;
 $language  = substr(Yii::$app->language,0,2);
 $languages = Yii::$app->controller->module->languages;
 $imagetype = Yii::$app->controller->module->imageType;
-
+$roles     = $model->getRoles();
 ?>
 
 <div class="categories-form">
@@ -167,10 +167,7 @@ $imagetype = Yii::$app->controller->module->imageType;
                                 ]); ?>
                                 
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => [ "0" => Yii::t('articles', 'In Development') ],
-									'options' => [
-										'disabled' => 'disabled'
-									],
+                                    'data' => $roles,
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],

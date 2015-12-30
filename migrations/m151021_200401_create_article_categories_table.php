@@ -25,7 +25,7 @@ class m151021_200401_create_article_categories_table extends Migration
             'description' => 'text',
             'parentid' => 'int(11) DEFAULT 0',
             'published' => 'smallint(6) NOT NULL DEFAULT 0',
-            'access' => 'int(11) NOT NULL DEFAULT 0',
+            'access' => 'varchar(64) NOT NULL',
             'language' => 'char(7) NOT NULL',
             'ordering' => 'int(11) NOT NULL DEFAULT 0',
             'image' => 'text',
