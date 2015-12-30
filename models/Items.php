@@ -235,12 +235,6 @@ class Items extends Articles
         return $this->hasOne(User::className(), ['id' => 'userid'])->from(User::tableName() . ' AS user');
     }
 
-    // Return Access
-    public function getAccess()
-    {
-        return $this->hasOne(User::className(), ['name' => 'access'])->from('{%auth_item}' . ' AS role');
-    }
-
     // Return Created_By
     public function getCreatedby()
     {
