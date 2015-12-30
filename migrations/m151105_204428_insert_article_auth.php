@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-articles
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-articles
- * @version 0.4.1
+ * @version 0.5.0
  */
 
 use yii\db\Migration;
@@ -16,124 +16,130 @@ class m151105_204428_insert_article_auth extends Migration
 {
     public function safeUp()
     {
-        // Auth Item
+        // Auth Item Roles
         $this->insert('{{%auth_item}}',['name' => 'admin','type' => '1','description' => 'Can create, publish all, update all, delete all, view and admin grid articles','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'editor','type' => '1','description' => 'Can create, publish all articles, update all articles, delete his articles, view and admin grid articles','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'publisher','type' => '1','description' => 'Can create, publish his articles, update all articles, view and admin grid his articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'author','type' => '1','description' => 'Can create and update his articles and view','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'create-articles', 'type' => '1', 'description' => 'Can create articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'create-categories', 'type' => '1', 'description' => 'Can create categories','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'delete-all-articles', 'type' => '1', 'description' => 'Can delete all articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'delete-his-articles', 'type' => '1', 'description' => 'Can delete his articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'delete-categories', 'type' => '1', 'description' => 'Can delete all categories','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'index-all-articles', 'type' => '1', 'description' => 'Can view all articles admin grid','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'index-his-articles', 'type' => '1', 'description' => 'Can view his articles admin grid','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'index-categories', 'type' => '1', 'description' => 'Can view categories admin grid','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'publish-all-articles', 'type' => '1', 'description' => 'Can publish all articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'publish-his-articles', 'type' => '1', 'description' => 'Can publish his articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'publish-categories', 'type' => '1', 'description' => 'Can publish categories','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'update-all-articles', 'type' => '1', 'description' => 'Can update all articles','created_at' => time(),'updated_at' => time()]);
-		$this->insert('{{%auth_item}}',['name' => 'update-his-articles', 'type' => '1', 'description' => 'Can update his articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'update-categories', 'type' => '1', 'description' => 'Can update all categories','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'view-articles', 'type' => '1', 'description' => 'Can view articles','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'view-categories', 'type' => '1', 'description' => 'Can view categories','created_at' => time(),'updated_at' => time()]);
-
+        
+		// Auth Item Permissions
+		$this->insert('{{%auth_item}}',['name' => 'articles-create-items', 'type' => '1', 'description' => 'Can create articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-create-categories', 'type' => '1', 'description' => 'Can create categories','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-delete-all-items', 'type' => '1', 'description' => 'Can delete all articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-delete-his-items', 'type' => '1', 'description' => 'Can delete his articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-delete-categories', 'type' => '1', 'description' => 'Can delete all categories','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-index-all-items', 'type' => '1', 'description' => 'Can view all articles admin grid','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-index-his-items', 'type' => '1', 'description' => 'Can view his articles admin grid','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-index-categories', 'type' => '1', 'description' => 'Can view categories admin grid','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-publish-all-items', 'type' => '1', 'description' => 'Can publish all articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-publish-his-items', 'type' => '1', 'description' => 'Can publish his articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-publish-categories', 'type' => '1', 'description' => 'Can publish categories','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-update-all-items', 'type' => '1', 'description' => 'Can update all articles','created_at' => time(),'updated_at' => time()]);
+		$this->insert('{{%auth_item}}',['name' => 'articles-update-his-items', 'type' => '1', 'description' => 'Can update his articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-update-categories', 'type' => '1', 'description' => 'Can update all categories','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-view-items', 'type' => '1', 'description' => 'Can view articles','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-view-categories', 'type' => '1', 'description' => 'Can view categories','created_at' => time(),'updated_at' => time()]);	
+		
         // Auth Item Child Admin Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'create-articles']);
-		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'delete-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'index-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'publish-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'update-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'view-articles']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-create-items']);
+		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-delete-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-index-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-publish-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-update-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-view-items']);
 
         // Auth Item Child Admin Categories
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'create-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'delete-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'publish-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'index-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'update-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'view-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-create-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-delete-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-publish-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-index-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-update-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-view-categories']);
 
         // Auth Item Child Editor Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'create-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'delete-his-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'index-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'publish-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'update-all-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'view-articles']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-create-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-delete-his-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-index-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-publish-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-update-all-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-view-items']);
 
         // Auth Item Child Editor Categories
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'create-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'index-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'update-categories']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'view-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-create-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-index-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-update-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-view-categories']);
 
 		// Auth Item Child Publisher Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'create-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'index-his-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'publish-his-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'update-his-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'view-articles']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-create-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-index-his-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-publish-his-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-update-his-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-view-items']);
 
         // Auth Item Child Publisher Categories
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'view-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-view-categories']);
 
         // Auth Item Child Author Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'create-articles']);
-		$this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'index-his-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'update-his-articles']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'view-articles']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-create-items']);
+		$this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-index-his-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-update-his-items']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-view-items']);
 
         // Auth Item Child Author Categories
-        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'view-categories']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-view-categories']);
     }
 
     public function safeDown()
     {
-        // Auth Item
+        // Auth Item Roles
         $this->delete('{{%auth_item}}', ['name' => 'admin']);
         $this->delete('{{%auth_item}}', ['name' => 'editor']);
         $this->delete('{{%auth_item}}', ['name' => 'publisher']);
         $this->delete('{{%auth_item}}', ['name' => 'author']);
-        $this->delete('{{%auth_item}}', ['name' => 'create-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'create-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'delete-all-articles']);
-		$this->delete('{{%auth_item}}', ['name' => 'delete-his-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'delete-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'index-all-articles']);
-		$this->delete('{{%auth_item}}', ['name' => 'index-his-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'index-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'publish-all-articles']);
-		$this->delete('{{%auth_item}}', ['name' => 'publish-his-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'publish-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'update-all-articles']);
-		$this->delete('{{%auth_item}}', ['name' => 'update-his-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'update-categories']);
-        $this->delete('{{%auth_item}}', ['name' => 'view-articles']);
-        $this->delete('{{%auth_item}}', ['name' => 'view-categories']);
+		
+		// Auth Item Permissions
+        $this->delete('{{%auth_item}}', ['name' => 'articles-create-items']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-create-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-delete-all-items']);
+		$this->delete('{{%auth_item}}', ['name' => 'articles-delete-his-items']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-delete-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-index-all-items']);
+		$this->delete('{{%auth_item}}', ['name' => 'articles-index-his-items']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-index-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-publish-all-items']);
+		$this->delete('{{%auth_item}}', ['name' => 'articles-publish-his-items']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-publish-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-update-all-items']);
+		$this->delete('{{%auth_item}}', ['name' => 'articles-update-his-items']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-update-categories']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-view-items']);
+        $this->delete('{{%auth_item}}', ['name' => 'articles-view-categories']);
 
-        // Auth Item Child
+        // Auth Item Child Roles
         $this->delete('{{%auth_item_child}}', ['parent' => 'admin']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'editor']);
 		$this->delete('{{%auth_item_child}}', ['parent' => 'publisher']);
         $this->delete('{{%auth_item_child}}', ['parent' => 'author']);
+		
+		// Auth Item Child Permissions
         $this->delete('{{%auth_item_child}}', ['parent' => 'create-all-articles']);
 		$this->delete('{{%auth_item_child}}', ['parent' => 'create-his-articles']);
-		$this->delete('{{%auth_item_child}}', ['parent' => 'create-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'delete-all-articles']);
-		$this->delete('{{%auth_item_child}}', ['parent' => 'delete-his-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'delete-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'index-all-articles']);
-		$this->delete('{{%auth_item_child}}', ['parent' => 'index-his-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'index-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'publish-all-articles']);
-		$this->delete('{{%auth_item_child}}', ['parent' => 'publish-his-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'publish-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'update-all-articles']);
-		$this->delete('{{%auth_item_child}}', ['parent' => 'update-his-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'update-categories']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'view-articles']);
-        $this->delete('{{%auth_item_child}}', ['parent' => 'view-categories']);
+		$this->delete('{{%auth_item_child}}', ['parent' => 'articles-create-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-delete-all-items']);
+		$this->delete('{{%auth_item_child}}', ['parent' => 'articles-delete-his-items']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-delete-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-index-all-items']);
+		$this->delete('{{%auth_item_child}}', ['parent' => 'articles-index-his-items']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-index-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-publish-all-items']);
+		$this->delete('{{%auth_item_child}}', ['parent' => 'articles-publish-his-items']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-publish-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-update-all-items']);
+		$this->delete('{{%auth_item_child}}', ['parent' => 'articles-update-his-items']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-update-categories']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-view-items']);
+        $this->delete('{{%auth_item_child}}', ['parent' => 'articles-view-categories']);
     }
 
 }

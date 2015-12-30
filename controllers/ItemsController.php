@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.4.1
+* @version 0.5.0
 */
 
 namespace cinghie\articles\controllers;
@@ -345,17 +345,21 @@ class ItemsController extends Controller
      */
     public function actionChangestate($id)
     {
-        $model = $this->findModel($id);
+		// Check RBAC Permission
+        if($this->userCanUpdate($id))
+        {
+			$model = $this->findModel($id);
 
-        if($model->published) {
-            $model->unpublish();
-            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article unpublished'));
-        } else {
-            $model->publish();
-            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
-        }
+			if($model->published) {
+				$model->unpublish();
+				Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article unpublished'));
+			} else {
+				$model->publish();
+				Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
+			}
 
-        return $this->redirect(['index']);
+			return $this->redirect(['index']);	
+		}	
     }
 
     /**
@@ -380,7 +384,7 @@ class ItemsController extends Controller
      */
     protected function userCanIndex()
     {
-        if( Yii::$app->user->can('index-all-articles') || Yii::$app->user->can('index-his-articles'))
+        if( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'))
             return true;
         else
             return false;
@@ -392,7 +396,7 @@ class ItemsController extends Controller
      */
     protected function userCanView()
     {
-        if( Yii::$app->user->can('view-articles') )
+        if( Yii::$app->user->can('articles-view-items') )
             return true;
         else
             return false;
@@ -404,7 +408,7 @@ class ItemsController extends Controller
      */
     protected function userCanCreate()
     {
-        if( Yii::$app->user->can('create-articles') )
+        if( Yii::$app->user->can('articles-create-items') )
             return true;
         else
             return false;
@@ -418,7 +422,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('update-all-articles') || ( Yii::$app->user->can('update-his-articles') && ($model->isUserAuthor()) ) )
+        if( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) )
             return true;
         else
             return false;
@@ -432,7 +436,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('delete-all-articles') || ( Yii::$app->user->can('delete-his-articles') && ($model->isUserAuthor()) ) )
+        if( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) )
             return true;
         else
             return false;

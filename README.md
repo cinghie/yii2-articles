@@ -216,6 +216,7 @@ The migrations add to the database 4 types of users:
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.5.0 - Update Articles index, Categories index, Refactor RBAC functions</li>
   <li>Version 0.4.1 - Update RBAC functions</li>
   <li>Version 0.4.0 - Adding first RBAC functions</li>
   <li>Version 0.3.1 - Adding image to categories view</li>

@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.4.1
+* @version 0.5.0
 */
 
 namespace cinghie\articles\models;
@@ -185,7 +185,7 @@ class Items extends Articles
     // Return array for Publish Status
     public function getPublishSelect2()
     {
-        if ( Yii::$app->user->can('publish-all-articles') || Yii::$app->user->can('publish-his-articles') )
+        if ( Yii::$app->user->can('articles-publish-all-items') || Yii::$app->user->can('articles-publish-his-items') )
         {
             return [ 1 => Yii::t('articles', 'Published'), 0 => Yii::t('articles', 'Unpublished') ];
         } else {

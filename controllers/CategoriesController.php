@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.4.1
+* @version 0.5.0
 */
 
 namespace cinghie\articles\controllers;
@@ -402,7 +402,7 @@ class CategoriesController extends Controller
      */
     protected function userCanIndex()
     {
-        if( Yii::$app->user->can('index-categories'))
+        if( Yii::$app->user->can('articles-index-categories'))
             return true;
         else
             return false;
@@ -414,7 +414,7 @@ class CategoriesController extends Controller
      */
     protected function userCanView()
     {
-        if( Yii::$app->user->can('view-categories') )
+        if( Yii::$app->user->can('articles-view-categories') )
             return true;
         else
             return false;
@@ -426,7 +426,7 @@ class CategoriesController extends Controller
      */
     protected function userCanCreate()
     {
-        if( Yii::$app->user->can('create-categories') )
+        if( Yii::$app->user->can('articles-create-categories') )
             return true;
         else
             return false;
@@ -438,7 +438,7 @@ class CategoriesController extends Controller
      */
     protected function userCanUpdate()
     {
-        if( Yii::$app->user->can('update-categories') )
+        if( Yii::$app->user->can('articles-update-categories') )
             return true;
         else
             return false;
@@ -450,7 +450,7 @@ class CategoriesController extends Controller
      */
     protected function userCanDelete()
     {
-        if( Yii::$app->user->can('delete-categories') )
+        if( Yii::$app->user->can('articles-delete-categories') )
             return true;
         else
             return false;
