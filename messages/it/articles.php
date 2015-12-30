@@ -117,6 +117,6 @@ return array(
 	'Select at least one item' => 'Seleziona almeno 1 elemento!',
 	'Article unpublished' => 'Articolo non pubblicato',
 	'Article published' => 'Articolo pubblicato',
-	'Category unpublished' => 'Articolo non pubblicato',
-	'Category published' => 'Articolo pubblicato',
+	'Category unpublished' => 'Categoria non pubblicata',
+	'Category published' => 'Categoria pubblicata',
 );
