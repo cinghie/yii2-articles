@@ -57,6 +57,6 @@ class Attachments extends Articles
      */
     public function getItem()
     {
-        return $this->hasOne(ArticleItems::className(), ['id' => 'itemid']);
+        return $this->hasOne(Items::className(), ['id' => 'itemid']);
     }
 }

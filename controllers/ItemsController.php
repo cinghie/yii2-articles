@@ -133,8 +133,12 @@ class ItemsController extends Controller
                 $imgName     = $model->title;
                 $fileField   = "image";
 
+                // Upload Attachments if is not Null
+                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
+
                 // Create UploadFile Instance
-                $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+                $image  = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+                $attach = $model->uploadFile($imgName,$imgNameType,$attachPath,'attach');
 
                 if ($model->save()) {
 
@@ -269,7 +273,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Deletes selected User models.
+     * Deletes selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
      * @return mixed
@@ -352,7 +356,7 @@ class ItemsController extends Controller
 
 			if($model->published) {
 				$model->unpublish();
-				Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article unpublished'));
+				Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Article unpublished'));
 			} else {
 				$model->publish();
 				Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));

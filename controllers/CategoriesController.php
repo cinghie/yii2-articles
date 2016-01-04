@@ -291,7 +291,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Deletes selected User models.
+     * Deletes selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
      * @return mixed

@@ -28,6 +28,7 @@ return array(
 	'Latest Items'=>'Ultimi Contenuti',
 	'Attachment'=>'Allegato',
 	'Attachments'=>'Allegati',
+	'No Attachment'=>'Nessun Allegato',
 	'Latest Attachments'=>'Ultimi Allegati',
 	'Create Category'=>'Crea Categoria',
 	'Update Category'=>'Aggiorna Categoria',
@@ -119,4 +120,5 @@ return array(
 	'Article published' => 'Articolo pubblicato',
 	'Category unpublished' => 'Categoria non pubblicata',
 	'Category published' => 'Categoria pubblicata',
+
 );

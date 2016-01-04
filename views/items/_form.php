@@ -62,6 +62,7 @@ $roles            = $model->getRoles();
 $select2published = $model->getPublishSelect2();
 $select2users     = $model->getUsersSelect2($userid,$username);
 $select2videotype = $model->getVideoTypeSelect2();
+$attachments      = $model->getAttachments()->asArray()->all();
 
 ?>
 
@@ -92,6 +93,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                     <li class="">
                     	<a data-toggle="tab" href="#video"><?= Yii::t('articles', 'Video') ?></a>
                     </li>
+					<li class="">
+						<a data-toggle="tab" href="#attach"><?= Yii::t('articles', 'Attachments') ?></a>
+					</li>
                     <li class="">
                     	<a data-toggle="tab" href="#params"><?= Yii::t('articles', 'Options') ?></a>
                     </li>
@@ -582,6 +586,49 @@ $select2videotype = $model->getVideoTypeSelect2();
                         </div> <!-- end col-lg-6 -->
                     
                     </div> <!-- end video -->
+
+					<div id="attach" class="tab-pane fade">
+
+                        <div class="col-lg-6">
+
+                            <div class="form-group field-items-files">
+
+                                <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachment') ?></label>
+                                <?= FileInput::widget([
+                                    'name' => 'attachments',
+                                    'options' => [ 'multiple' => true ],
+                                    'pluginOptions' => [ 'previewFileType' => 'any' ]
+                                ]); ?>
+
+                            </div> <!-- end col-lg-6 -->
+
+                        </div> <!-- end col-lg-6 -->
+
+                        <div class="col-lg-6">
+
+                            <?php if(!$model->isNewRecord): ?>
+
+                                <div class="form-group field-items-files">
+                                    <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachments') ?></label>
+                                    <?php foreach($attachments as $attach): ?>
+                                        <div class="alert alert-info" role="alert">
+                                            <?= $attach['filename'] ?>
+                                        </div>
+                                    <?php endforeach ?>
+                                </div>
+
+                            <?php else: ?>
+
+                                <div class="form-group field-items-files">
+                                    <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachments') ?></label>
+                                    <div class="alert alert-warning" role="alert"><?= Yii::t('articles', 'No Attachment') ?></div>
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div> <!-- end col-lg-6 -->
+
+					</div> <!-- end attach -->
                     
                     <div id="params" class="tab-pane fade">
                     	

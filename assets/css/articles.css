@@ -108,6 +108,11 @@ div.category-items .category-item {
 	padding: 10px;
 }
 
+/* Item Form */
+.items-form .file-input .btn .glyphicon {
+	margin-right: 6px;
+}
+
 /* Item View */
 
 .item-view figcaption {

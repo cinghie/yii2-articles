@@ -43,6 +43,8 @@ class Articles extends \yii\base\Module
 	
 	public $imageType    	  = "image/jpg,image/jpeg,image/gif,image/png";
 
+	public $attachPath        = "@webroot/attachments/";
+
 	public $showTitles        = true;
 	
 	public $thumbOptions =	[ 

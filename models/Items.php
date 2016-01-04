@@ -218,9 +218,9 @@ class Items extends Articles
 	}
 	
 	// Return Attachment
-    public function getArticleAttachments()
+    public function getAttachments()
     {
-        return $this->hasMany(Attachments::className(), ['itemid' => 'id']);
+        return $this->hasMany(Attachments::className(), ['itemid' => 'id'])->from(Attachments::tableName() . ' AS attach');
     }
 
     // Return Category
