@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-articles
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-articles
- * @version 0.5.1
+ * @version 0.6.0
  */
 
 use yii\db\Migration;

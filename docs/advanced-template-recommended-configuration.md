@@ -2,6 +2,22 @@ Recommended Configuration for Advanced Template
 ====================================================
 
 ## Common Configuration
+
+```
+'components' =>  [
+		// Url Manager
+        'urlManager' => [
+            // Disable index.php
+            'showScriptName' => false,
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+            // Disable site/ from the URL
+            'rules' => [
+                '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
+                '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
+            ],
+        ],
+],
 'modules' =>  [
 
         // Yii2 Articles
@@ -43,8 +59,11 @@ Recommended Configuration for Advanced Template
         ],
 
 ]	
+```
 
 ## Backend Configuration
+
+```
 'modules' =>  [
 
         // Yii2 Articles
@@ -77,8 +96,11 @@ Recommended Configuration for Advanced Template
         ],
 
 ]					
+```
 
 ## Frontend Configuration	
+
+```
 'modules' =>  [
 
         // Yii2 Articles
@@ -106,3 +128,4 @@ Recommended Configuration for Advanced Template
         ],
 
 ]	
+```

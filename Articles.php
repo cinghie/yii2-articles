@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.5.1
+* @version 0.6.0
 */
 
 namespace cinghie\articles;
@@ -72,6 +72,12 @@ class Articles extends \yii\base\Module
 		'medium' => ['quality' => 100, 'width' => 300, 'height' => 200],
 		'large'  => ['quality' => 100, 'width' => 400, 'height' => 300],
 		'extra'  => ['quality' => 100, 'width' => 600, 'height' => 400],
+	];
+
+	// Url Rules
+	public $urlRules = [
+		'<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
+		'<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
 	];
 
 	/**

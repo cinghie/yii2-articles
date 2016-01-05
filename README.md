@@ -124,6 +124,27 @@ Set on your configuration file, in modules section
 
 [Advanced Template recommended configuration](docs/advanced-template-recommended-configuration.md)
 
+## URL Rules
+
+```
+'components' => [
+
+        // Url Manager
+        'urlManager' => [
+            // Disable index.php
+            'showScriptName' => false,
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+            // Disable site/ from the URL
+            'rules' => [
+                '<alias:index|about|contact>' => 'site/<alias>',
+                '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
+                '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
+            ],
+        ],
+    ],
+```
+
 ## Users Auth
 
 ### Articles Permissions
@@ -226,7 +247,9 @@ The migrations add to the database 4 types of users:
 ## CHANGELOG
 
 <ul>
-  <li>Version 0.5.1 - Adding Access to Categories and Articles</li>
+  <li>Version 0.6.0 - Adding Url Rules</li>
+  <li>Version 0.5.2 - Adding Attachments</li>
+  <li>Version 0.6.0 - Adding Access to Categories and Articles</li>
   <li>Version 0.5.0 - Update Articles index, Categories index, Refactor RBAC functions</li>
   <li>Version 0.4.1 - Update RBAC functions</li>
   <li>Version 0.4.0 - Adding first RBAC functions</li>

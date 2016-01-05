@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
-* @version 0.5.1
+* @version 0.6.0
 */
 
 use cinghie\articles\assets\ArticlesAsset;
@@ -107,7 +107,7 @@ $this->registerJs('
 					'format' => 'html',
 					'hAlign' => 'center',
                     'value' => function ($model) {
-                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id]));
+                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id, 'alias' => $model->alias]));
                         return Html::a($model->name,$url);
                     }
 				],
