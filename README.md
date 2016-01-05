@@ -84,6 +84,13 @@ Set on your configuration file, in modules section
         // Select URL To Upload Item Thumb
         'itemThumbURL'  => '@web/img/articles/items/thumb/',
 		
+		// Select Path To Upload Attachments
+        'attachPath' => '@webroot/attachments/',
+		// Select URL To Upload Attachment
+        'attachURL' => '@web/img/articles/items/',
+		// Select Image Types allowed
+		'attachType' => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
+		
 		// Select Image Name: categoryname, original, casual
 		'imageNameType' => 'categoryname',
 		// Select Image Types allowed
@@ -95,6 +102,9 @@ Set on your configuration file, in modules section
 			'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
 			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
 		],
+
+        // Show Titles in the views
+        'showTitles' => true,
 	],	
 	
 	// Module Kartik-v Grid

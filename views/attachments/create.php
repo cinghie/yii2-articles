@@ -13,7 +13,8 @@
 use yii\helpers\Html;
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Create Attachments');
+$this->title = Yii::t('articles', 'Create Attachment');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Attachments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu

@@ -10,27 +10,106 @@
 * @version 0.5.1
 */
 
+use cinghie\articles\assets\ArticlesAsset;
+use kartik\widgets\ActiveForm;
+use kartik\widgets\FileInput;
+use kartik\widgets\Select2;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
+// Load Articles Assets
+ArticlesAsset::register($this);
+$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+
+// Load info
+$attachType       = Yii::$app->controller->module->attachType;
+$select2articles = $model->getArticlesSelect2();
+
+if ($model->isNewRecord) {
+    $hits = "0";
+} else {
+    $hits = $model->hits;
+}
 
 ?>
 
 <div class="attachments-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => [
+            'enctype'=>'multipart/form-data'
+        ],
+    ]); ?>
 
-    <?= $form->field($model, 'itemid')->textInput() ?>
+    <div class="row">
 
-    <?= $form->field($model, 'filename')->textInput(['maxlength' => true]) ?>
+        <div class="col-lg-12">
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+            <div class="col-lg-12">
 
-    <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 6]) ?>
+                <p class="bg-info">
+                    <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $attachType ?>
+                </p>
 
-    <?= $form->field($model, 'hits')->textInput() ?>
+            </div>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <div class="col-lg-5">
+
+                <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+                <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
+                    'options' => [
+                        'accept' => $attachType
+                    ],
+                    'pluginOptions' => [
+                        'previewFileType' => 'image',
+                        'showUpload'      => false,
+                        'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
+                    ],
+                ]); ?>
+
+                <?= $form->field($model, 'itemid')->widget(Select2::classname(), [
+                    'data' => $select2articles,
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                    'addon' => [
+                        'prepend' => [
+                            'content'=>'<i class="fa fa-file-text-o"></i>'
+                        ]
+                    ],
+                ]); ?>
+
+            </div>
+
+            <div class="col-lg-7">
+
+                <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 4]) ?>
+
+                <?= $form->field($model, 'hits')->widget(Select2::classname(), [
+                    'data' => [
+                        $hits => $hits
+                    ],
+                    'options' => [ 'disabled' => 'disabled' ],
+                    'pluginOptions' => [ 'allowClear' => true ],
+                    'addon' => [
+                        'prepend' => [
+                            'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
+                        ]
+                    ],
+                ]); ?>
+
+            </div>
+
+            <div class="col-lg-12">
+
+                <div class="form-group">
+                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
     <?php ActiveForm::end(); ?>

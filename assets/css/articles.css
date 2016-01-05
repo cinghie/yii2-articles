@@ -119,3 +119,8 @@ div.category-items .category-item {
 	margin-bottom: 25px;
 	text-align: center;
 }
+
+/* Attachment Form */
+.attachments-form .file-input .btn .glyphicon {
+	margin-right: 6px;
+}

@@ -21,6 +21,8 @@ Recommended Configuration for Advanced Template
 				'imageNameType' => 'categoryname',
 				// Select Image Types allowed
 				'imageType'     => 'jpg,jpeg,gif,png',
+				// Select Image Types allowed
+				'attachType'    => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
 				// Thumbnails Options
 				'thumbOptions'  => [ 
 					'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
@@ -65,6 +67,11 @@ Recommended Configuration for Advanced Template
             // Select URL To Upload Item Thumb
             'itemThumbURL'  => '/frontend/web/img/articles/items/thumb/',
 			
+			// Select Path To Upload Attachments
+            'attachPath' => '@frontend/web/attachments/',
+            // Select URL To Upload Attachment
+            'attachURL' => '/yii2gogocms/frontend/web/attachments/',
+				
 			// Show Titles in the views,
             'showTitles' => false,
         ],

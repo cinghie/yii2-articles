@@ -30,7 +30,7 @@ class Attachments extends Articles
     public function rules()
     {
         return [
-            [['itemid', 'filename', 'title', 'titleAttribute', 'hits'], 'required'],
+            [['itemid', 'title', 'titleAttribute'], 'required'],
             [['itemid', 'hits'], 'integer'],
             [['titleAttribute'], 'string'],
             [['filename', 'title'], 'string', 'max' => 255]
@@ -43,13 +43,57 @@ class Attachments extends Articles
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'itemid' => Yii::t('app', 'Itemid'),
-            'filename' => Yii::t('app', 'Filename'),
-            'title' => Yii::t('app', 'Title'),
-            'titleAttribute' => Yii::t('app', 'Title Attribute'),
-            'hits' => Yii::t('app', 'Hits'),
+            'id' => Yii::t('articles', 'ID'),
+            'itemid' => Yii::t('articles', 'Article'),
+            'filename' => Yii::t('articles', 'Filename'),
+            'title' => Yii::t('articles', 'Title'),
+            'titleAttribute' => Yii::t('articles', 'Title Attribute'),
+            'hits' => Yii::t('articles', 'Hits'),
         ];
+    }
+
+    /**
+     * check if current user is the author from the article id
+     * @return bool
+     */
+    public function isUserAuthor()
+    {
+        if ( Yii::$app->user->identity->id == $this->getUserAuthor() )
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * return user of the author from the article
+     * @return bool
+     */
+    public function getUserAuthor()
+    {
+        return $this->getItem()->one()->created_by;
+    }
+
+    /**
+     * Delete File attached
+     * @return mixed the uploaded image instance
+     */
+    public function deleteFile()
+    {
+        $file = Yii::getAlias(Yii::$app->controller->module->attachPath).$this->filename;
+
+        // check if image exists on server
+        if ( empty($this->filename) || !file_exists($file) ) {
+            return false;
+        }
+
+        // check if uploaded file can be deleted on server
+        if (unlink($file)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

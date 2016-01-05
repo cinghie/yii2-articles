@@ -120,5 +120,4 @@ return array(
 	'Article published' => 'Articolo pubblicato',
 	'Category unpublished' => 'Categoria non pubblicata',
 	'Category published' => 'Categoria pubblicata',
-
 );

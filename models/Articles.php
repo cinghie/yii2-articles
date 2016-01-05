@@ -147,6 +147,19 @@ class Articles extends \yii\db\ActiveRecord
 		return $array;
 	}
 
+	// Return array for User Select2 with current user selected
+	public function getArticlesSelect2()
+	{
+		$sql   = 'SELECT id,title FROM {{%article_items}}';
+		$items = Items::findBySql($sql)->asArray()->all();
+
+		foreach($items as $item) {
+			$array[$item['id']] = $item['title'];
+		}
+
+		return $array;
+	}
+
 	// Return Username by UserID
 	public function getUsernameByUserID($id)
 	{

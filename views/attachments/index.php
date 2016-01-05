@@ -1,14 +1,14 @@
 <?php
 
 /**
-* @copyright Copyright &copy; Gogodigital Srls
-* @company Gogodigital Srls - Wide ICT Solutions 
-* @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
-* @license GNU GENERAL PUBLIC LICENSE VERSION 3
-* @package yii2-articles
-* @version 0.5.1
-*/
+ * @copyright Copyright &copy; Gogodigital Srls
+ * @company Gogodigital Srls - Wide ICT Solutions
+ * @website http://www.gogodigital.it
+ * @github https://github.com/cinghie/yii2-articles
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ * @package yii2-articles
+ * @version 0.5.1
+ */
 
 use cinghie\articles\assets\ArticlesAsset;
 use kartik\grid\GridView;
@@ -32,7 +32,7 @@ $this->registerJs('
     $(document).ready(function()
     {
         $("a.btn-update").click(function() {
-            var selectedId = $("#w0").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -43,8 +43,28 @@ $this->registerJs('
                 window.location.href= url;
             }
         });
+        $("a.btn-delete").click(function() {
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else {
+                var choose = confirm("'.Yii::t("articles", "Do you want delete selected items?").'");
+
+                if (choose == true) {
+                    $.ajax({
+                        type: \'POST\',
+                        url : "'.Url::to(['/articles/attachments/deletemultiple']).'&id="+selectedId,
+                        data : {ids: selectedId},
+                        success : function() {
+                            $.pjax.reload({container:"#w1"});
+                        }
+                    });
+                }
+            }
+        });
         $("a.btn-preview").click(function() {
-            var selectedId = $("#w0").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -68,6 +88,8 @@ $this->registerJs('
     <?php endif ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php Pjax::begin() ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -119,7 +141,7 @@ $this->registerJs('
         'responsive' => true,
         'hover' => true,
         'panel' => [
-            'heading'    => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
+            'heading'    => '<h3 class="panel-title"><i class="fa fa-paperclip"></i></h3>',
             'type'       => 'success',
             'before'     => '<span style="margin-right: 5px;">'.
                 Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
@@ -140,5 +162,7 @@ $this->registerJs('
             'showFooter' => false
         ],
     ]); ?>
+
+    <?php Pjax::end() ?>
 
 </div>

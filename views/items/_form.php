@@ -15,10 +15,8 @@ use cinghie\articles\assets\ArticlesAsset;
 
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
-use kartik\widgets\ActiveField;
 use kartik\widgets\DateTimePicker;
 use kartik\widgets\FileInput;
-use kartik\widgets\InputWidget;
 use kartik\widgets\Select2;
 
 // Load Editors Libraries
@@ -58,6 +56,7 @@ $language         = substr(Yii::$app->language,0,2);
 $languages        = Yii::$app->controller->module->languages;
 $imagetype        = Yii::$app->controller->module->imageType;
 
+// Get info by Model
 $roles            = $model->getRoles();
 $select2published = $model->getPublishSelect2();
 $select2users     = $model->getUsersSelect2($userid,$username);
@@ -589,22 +588,7 @@ $attachments      = $model->getAttachments()->asArray()->all();
 
 					<div id="attach" class="tab-pane fade">
 
-                        <div class="col-lg-6">
-
-                            <div class="form-group field-items-files">
-
-                                <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachment') ?></label>
-                                <?= FileInput::widget([
-                                    'name' => 'attachments',
-                                    'options' => [ 'multiple' => true ],
-                                    'pluginOptions' => [ 'previewFileType' => 'any' ]
-                                ]); ?>
-
-                            </div> <!-- end col-lg-6 -->
-
-                        </div> <!-- end col-lg-6 -->
-
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
 
                             <?php if(!$model->isNewRecord): ?>
 
@@ -626,7 +610,7 @@ $attachments      = $model->getAttachments()->asArray()->all();
 
                             <?php endif; ?>
 
-                        </div> <!-- end col-lg-6 -->
+                        </div> <!-- end col-lg-12 -->
 
 					</div> <!-- end attach -->
                     

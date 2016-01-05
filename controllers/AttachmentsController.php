@@ -18,6 +18,7 @@ use cinghie\articles\models\AttachmentsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 class AttachmentsController extends Controller
@@ -29,8 +30,16 @@ class AttachmentsController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index','create','update','delete'], 'roles' => ['@']],
-                    ['allow' => true, 'actions' => ['view'], 'roles' => ['?', '@']],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','create','update','delete','deletemultiple'],
+                        'roles' => ['@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['?', '@']
+                    ],
                 ],
                 'denyCallback' => function ($rule, $action) {
                     throw new \Exception('You are not allowed to access this page');
@@ -39,7 +48,8 @@ class AttachmentsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    //'delete' => ['post'],
+                    'deletemultiple' => ['post'],
                 ],
             ],
         ];
@@ -51,13 +61,19 @@ class AttachmentsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AttachmentsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // Check RBAC Permission
+        if($this->userCanIndex())
+        {
+            $searchModel = new AttachmentsSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            throw new ForbiddenHttpException;
+        }
     }
 
     /**
@@ -67,9 +83,13 @@ class AttachmentsController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        // Check RBAC Permission
+        if($this->userCanView())
+        {
+            return $this->render('view', ['model' => $this->findModel($id),]);
+        } else {
+            throw new ForbiddenHttpException;
+        }
     }
 
     /**
@@ -79,14 +99,47 @@ class AttachmentsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Attachments();
+        // Check RBAC Permission
+        if($this->userCanCreate())
+        {
+            $model = new Attachments();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            if ( $model->load(Yii::$app->request->post()) )
+            {
+                // Upload Attachments if is not Null
+                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
+                $attachName  = $model->title;
+                $attachType  = "original";
+                $attachField = "filename";
+
+                // Create UploadFile Instance
+                $attach = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+                $model->filename = $attach->name;
+
+                if ( $model->save() )
+                {
+                    // upload only if valid uploaded file instance found
+                    if ($attach !== false)
+                    {
+                        // Set Success Message
+                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
+                    }
+
+                    return $this->redirect(['index']);
+
+                } else {
+
+                    // Set Error Message
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
+
+                    return $this->render('create', ['model' => $model,]);
+                }
+
+            } else {
+                return $this->render('create', ['model' => $model,]);
+            }
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            throw new ForbiddenHttpException;
         }
     }
 
@@ -98,14 +151,20 @@ class AttachmentsController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        // Check RBAC Permission
+        if($this->userCanUpdate($id))
+        {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['index']);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            throw new ForbiddenHttpException;
         }
     }
 
@@ -117,9 +176,65 @@ class AttachmentsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        // Check RBAC Permission
+        if($this->userCanDelete($id))
+        {
+            $model = $this->findModel($id);
 
-        return $this->redirect(['index']);
+            if ($model->delete()) {
+                if (!$model->deleteFile() && !empty($model->filename)) {
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment (controller delete)'));
+                } else {
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
+                }
+            } else {
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+            }
+
+            return $this->redirect(['index']);
+        } else {
+            throw new ForbiddenHttpException;
+        }
+    }
+
+    /**
+     * Deletes selected Attachments models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return mixed
+     */
+    public function actionDeletemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            // Check RBAC Permission
+            if($this->userCanDelete($id))
+            {
+                $model = $this->findModel($id);
+
+                if ($model->delete()) {
+                    if (!$model->deleteFile() && !empty($model->filename)) {
+                        Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+                    } else {
+                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+                }
+
+            } else {
+                throw new ForbiddenHttpException;
+            }
+        }
+
+        // Set Success Message
+        Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
 
     /**
@@ -137,4 +252,83 @@ class AttachmentsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * Check if user can Index Articles
+     * @return bool
+     */
+    protected function userCanIndex()
+    {
+        if( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can view Articles
+     * @return bool
+     */
+    protected function userCanView()
+    {
+        if( Yii::$app->user->can('articles-view-items') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can create Articles
+     * @return bool
+     */
+    protected function userCanCreate()
+    {
+        if( Yii::$app->user->can('articles-create-items') )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can update Articles
+     * @return bool
+     */
+    protected function userCanUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can publish Articles
+     * @return bool
+     */
+    protected function userCanPublish($id)
+    {
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check if user can delete Articles
+     * @return bool
+     */
+    protected function userCanDelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) )
+            return true;
+        else
+            return false;
+    }
+
 }

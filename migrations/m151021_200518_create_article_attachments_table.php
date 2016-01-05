@@ -24,7 +24,7 @@ class m151021_200518_create_article_attachments_table extends Migration
             'filename' => Schema::TYPE_STRING . ' NOT NULL',
             'title' => Schema::TYPE_STRING . ' NOT NULL',
             'titleAttribute' => Schema::TYPE_TEXT,
-            'hits' => 'int(11) NOT NULL',
+            'hits' => 'int(10) unsigned NOT NULL DEFAULT 0',
         ], $this->tableOptions);
     }
 

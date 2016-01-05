@@ -133,12 +133,8 @@ class ItemsController extends Controller
                 $imgName     = $model->title;
                 $fileField   = "image";
 
-                // Upload Attachments if is not Null
-                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
-
                 // Create UploadFile Instance
                 $image  = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
-                $attach = $model->uploadFile($imgName,$imgNameType,$attachPath,'attach');
 
                 if ($model->save()) {
 
