@@ -137,7 +137,6 @@ Set on your configuration file, in modules section
             'enablePrettyUrl' => true,
             // Disable site/ from the URL
             'rules' => [
-                '<alias:index|about|contact>' => 'site/<alias>',
                 '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
                 '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
             ],
