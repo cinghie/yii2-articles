@@ -137,7 +137,7 @@ $attachments      = $model->getAttachments()->asArray()->all();
                                     ],
                                     'addon' => [
 										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-question-sign"></i>'
+											'content'=>'<i class="glyphicon glyphicon-check"></i>'
 										]
 									],
                             ]); ?>

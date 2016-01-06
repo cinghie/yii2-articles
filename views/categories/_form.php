@@ -161,7 +161,7 @@ $roles     = $model->getRoles();
                                     ],
                                     'addon' => [
 										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-question-sign"></i>'
+											'content'=>'<i class="glyphicon glyphicon-check"></i>'
 										]
 									],
                                 ]); ?>

@@ -374,7 +374,7 @@ class CategoriesController extends Controller
 
             if ($model->published) {
                 $model->unpublish();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category unpublished'));
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Category unpublished'));
             } else {
                 $model->publish();
                 Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category published'));
