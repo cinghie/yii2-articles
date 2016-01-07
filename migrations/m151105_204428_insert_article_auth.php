@@ -21,7 +21,9 @@ class m151105_204428_insert_article_auth extends Migration
         $this->insert('{{%auth_item}}',['name' => 'editor','type' => '1','description' => 'Can create, publish all articles, update all articles, delete his articles, view and admin grid articles','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'publisher','type' => '1','description' => 'Can create, publish his articles, update all articles, view and admin grid his articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'author','type' => '1','description' => 'Can create and update his articles and view','created_at' => time(),'updated_at' => time()]);
-        
+        $this->insert('{{%auth_item}}',['name' => 'registered','type' => '1','description' => 'User Logged','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'public','type' => '1','description' => 'User not Logged','created_at' => time(),'updated_at' => time()]);
+
 		// Auth Item Permissions
 		$this->insert('{{%auth_item}}',['name' => 'articles-create-items', 'type' => '2', 'description' => 'Can create articles','created_at' => time(),'updated_at' => time()]);
         $this->insert('{{%auth_item}}',['name' => 'articles-create-categories', 'type' => '2', 'description' => 'Can create categories','created_at' => time(),'updated_at' => time()]);
