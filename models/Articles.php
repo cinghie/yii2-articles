@@ -175,7 +175,7 @@ class Articles extends \yii\db\ActiveRecord
 	 */
 	public function getRoles()
 	{
-		$sql = 'SELECT name FROM {{%auth_item}} WHERE type = 1 ORDER BY name ASC';
+		$sql   = 'SELECT name FROM {{%auth_item}} WHERE type = 1 ORDER BY name ASC';
 		$roles = Categories::findBySql($sql)->asArray()->all();
 		$array = ['Public' => 'Public'];
 
