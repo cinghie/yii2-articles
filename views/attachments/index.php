@@ -94,6 +94,9 @@ $this->registerJs('
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjaxSettings'=>[
+            'neverTimeout' => true,
+        ],
         'columns' => [
             [
                 'class' => '\kartik\grid\CheckboxColumn'
