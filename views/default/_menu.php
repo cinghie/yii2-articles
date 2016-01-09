@@ -10,42 +10,31 @@
 * @version 0.6.0
 */
 
-use yii\helpers\Html;
+use yii\bootstrap\Nav;
 
 ?>
 
-<div class="yii2articles-admin-menu">
-
-	<div class="row">
-
-		<div class="col-md-12">
-
-			<!-- Dashboard -->
-			<?= Html::a('<i class="fa fa-bar-chart-o"></i> '.Yii::t('articles', 'Dashboard'), ['/articles/default'], [
-				'class' => 'btn btn-default',
-				'role'  => 'button'
-			]) ?>
-
-            <!-- Items -->
-            <?= Html::a('<i class="fa fa-file-text-o"></i> '.Yii::t('articles', 'Articles'), ['/articles/items'], [
-                'class' => 'btn btn-default',
-                'role'  => 'button'
-            ]) ?>
-
-			<!-- Categories -->
-			<?= Html::a('<i class="fa fa-folder-open"></i> '.Yii::t('articles', 'Categories'), ['/articles/categories'], [
-				'class' => 'btn btn-default',
-				'role'  => 'button'
-			]) ?>
-
-			<!-- Attachments -->
-			<?= Html::a('<i class="fa fa-paperclip"></i> '.Yii::t('articles', 'Attachments'), ['/articles/attachments'], [
-				'class' => 'btn btn-default',
-				'role'  => 'button'
-			]) ?>
-
-		</div>
-
-	</div>
-
-</div>
+<?= Nav::widget([
+	'options' => [
+		'class' => 'nav-tabs',
+		'style' => 'margin-bottom: 15px',
+	],
+	'items' => [
+		[
+			'label'   => Yii::t('articles', 'Dashboard'),
+			'url'     => ['/articles/default/index'],
+		],
+		[
+			'label'   => Yii::t('articles', 'Articles'),
+			'url'     => ['/articles/items/index'],
+		],
+		[
+			'label'   => Yii::t('articles', 'Categories'),
+			'url'     => ['/articles/categories/index'],
+		],
+		[
+			'label'   => Yii::t('articles', 'Attachments'),
+			'url'     => ['/articles/attachments/index'],
+		],
+	],
+]) ?>
