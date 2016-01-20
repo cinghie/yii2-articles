@@ -17,7 +17,15 @@ use yii\helpers\Url;
 $this->title = Html::encode($model->title);
 
 // Set Link Canonical
-$this->registerLinkTag(['rel' => 'canonical', 'href' =>Url::to(['articles/items/view', 'id' => $model->id, 'alias' => $model->alias, 'cat' => $model->category->alias])]);
+$this->registerLinkTag([
+	'rel' => 'canonical',
+	'href' =>Url::to([
+		'articles/items/view',
+		'id' => $model->id,
+		'alias' => $model->alias,
+		'cat' => isset($data->category->alias) ? $data->category->alias : null
+	])
+]);
 
 // Add Meta Description
 if ($model->metadesc) {

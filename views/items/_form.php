@@ -53,15 +53,15 @@ if (!$model->isNewRecord) {
 // Get info by Configuration
 $editor           = Yii::$app->controller->module->editor;
 $language         = substr(Yii::$app->language,0,2);
-$languages        = Yii::$app->controller->module->languages;
 $imagetype        = Yii::$app->controller->module->imageType;
 
 // Get info by Model
+$attachments      = $model->getAttachments()->asArray()->all();
 $roles            = $model->getRoles();
+$select2languages = $model->getLanguagesSelect2();
 $select2published = $model->getPublishSelect2();
 $select2users     = $model->getUsersSelect2($userid,$username);
 $select2videotype = $model->getVideoTypeSelect2();
-$attachments      = $model->getAttachments()->asArray()->all();
 
 ?>
 
@@ -188,7 +188,7 @@ $attachments      = $model->getAttachments()->asArray()->all();
                             <?php endif; ?>
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
-                                    'data' => $languages,
+                                    'data' => $select2languages,
                                     'pluginOptions' => [
                                         'allowClear' => true
                                     ],

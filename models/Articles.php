@@ -132,7 +132,10 @@ class Articles extends \yii\db\ActiveRecord
 		return json_encode($params);
 	}
 
-	// Return array for User Select2 with current user selected
+	/**
+	 * Return array for User Select2 with current user selected
+	 * @return array
+	 */
 	public function getUsersSelect2($userid,$username)
 	{
 		$sql   = 'SELECT id,username FROM {{%user}} WHERE id != '.$userid;
@@ -147,7 +150,10 @@ class Articles extends \yii\db\ActiveRecord
 		return $array;
 	}
 
-	// Return array for User Select2 with current user selected
+	/**
+	 * Return array for User Select2 with current user selected
+	 * @return string
+	 */
 	public function getArticlesSelect2()
 	{
 		$sql   = 'SELECT id,title FROM {{%article_items}}';
@@ -160,7 +166,10 @@ class Articles extends \yii\db\ActiveRecord
 		return $array;
 	}
 
-	// Return Username by UserID
+	/**
+	 * Return Username by UserID
+	 * @return string
+	 */
 	public function getUsernameByUserID($id)
 	{
 		$sql      = 'SELECT username FROM {{%user}} WHERE id='.$id;
@@ -184,6 +193,22 @@ class Articles extends \yii\db\ActiveRecord
 		}
 
 		return $array;
+	}
+
+	/**
+	 * Return languages Select
+	 * @return array
+	 */
+	public function getLanguagesSelect2()
+	{
+		$languages = Yii::$app->urlManager->languages;
+		$languagesSelect = array('All' => Yii::t('essentials', 'All'));
+
+		foreach($languages as $language) {
+			$languagesSelect[$language] = ucwords($language);
+		}
+
+		return $languagesSelect;
 	}
 
 }

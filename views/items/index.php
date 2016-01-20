@@ -32,19 +32,19 @@ $this->registerJs('
     $(document).ready(function()
     {
         $("a.btn-update").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
             } else if(selectedId.length>1){
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
-                var url = "'.Url::to(['/articles/items/update']).'&id="+selectedId[0];
+                var url = "'.Url::to(['/articles/items/update']).'?id="+selectedId[0];
                 window.location.href= url;
             }
         });
         $("a.btn-delete").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -54,24 +54,24 @@ $this->registerJs('
                 if (choose == true) {
                     $.ajax({
                         type: \'POST\',
-                        url : "'.Url::to(['/articles/items/deletemultiple']).'&id="+selectedId,
+                        url : "'.Url::to(['/articles/items/deletemultiple']).'?id="+selectedId,
                         data : {ids: selectedId},
                         success : function() {
-                            $.pjax.reload({container:"#w1"});
+                            $.pjax.reload({container:"#w2"});
                         }
                     });
                 }
             }
         });
         $("a.btn-preview").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
             } else if(selectedId.length>1){
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
-                var url = "'.Url::to(['/articles/items/view']).'&id="+selectedId[0];
+                var url = "'.Url::to(['/articles/items/view']).'?id="+selectedId[0];
                 window.location.href= url;
             }
         });
@@ -110,7 +110,11 @@ $this->registerJs('
                     'format' => 'html',
                     'hAlign' => 'center',
                     'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['items/update', 'id' => $data->id, 'alias' => $data->alias, 'cat' => $data->category->alias]));
+                        $url = urldecode(Url::toRoute(['items/update',
+                            'id' => $data->id,
+                            'alias' => $data->alias,
+                            'cat' => isset($data->category->alias) ? $data->category->alias : null
+                        ]));
                         return Html::a($data->title,$url);
                     }
                 ],
@@ -229,7 +233,7 @@ $this->registerJs('
                     Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
                         '#', ['class' => 'btn btn-delete btn-danger']
                     ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicons-eye-open"></i> '.Yii::t('articles', 'Preview'),
+                    Html::a('<i class="fa fa-external-link"></i> '.Yii::t('articles', 'Preview'),
                         '#', ['class' => 'btn btn-preview btn-info']
                     ).'</span>',
                 'after' => Html::a(

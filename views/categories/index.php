@@ -32,19 +32,19 @@ $this->registerJs('
     $(document).ready(function()
     {
         $("a.btn-update").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
             } else if(selectedId.length>1){
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
-                var url = "'.Url::to(['/articles/categories/update']).'&id="+selectedId[0];
+                var url = "'.Url::to(['/articles/categories/update']).'?id="+selectedId[0];
                 window.location.href= url;
             }
         });
         $("a.btn-delete").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -54,7 +54,7 @@ $this->registerJs('
                 if (choose == true) {
                     $.ajax({
                         type: \'POST\',
-                        url : "'.Url::to(['/articles/categories/deletemultiple']).'&id="+selectedId,
+                        url : "'.Url::to(['/articles/categories/deletemultiple']).'?id="+selectedId,
                         data : {ids: selectedId},
                         success : function() {
                             $.pjax.reload({container:"#w1"});
@@ -64,14 +64,14 @@ $this->registerJs('
             }
         });
         $("a.btn-preview").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
             } else if(selectedId.length>1){
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
-                var url = "'.Url::to(['/articles/categories/view']).'&id="+selectedId[0];
+                var url = "'.Url::to(['/articles/categories/view']).'?id="+selectedId[0];
                 window.location.href= url;
             }
         });
