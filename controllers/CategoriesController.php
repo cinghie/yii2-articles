@@ -35,7 +35,7 @@ class CategoriesController extends Controller
 				'rules' => [
 					[
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple','changestate'],
+                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple','changestate','activemultiple','deactivemultiple'],
                         'roles' => ['@']
                     ],
 					[
@@ -383,6 +383,56 @@ class CategoriesController extends Controller
             return $this->redirect(['index']);
         } else {
             throw new ForbiddenHttpException;
+        }
+    }
+
+    /**
+     * Active selected Categories models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return mixed
+     */
+    public function actionActivemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
+
+            if(!$model->state) {
+                $model->publish();
+                Yii::$app->getSession()->setFlash('success', Yii::t('essentials', 'Rest API actived'));
+            }
+        }
+    }
+
+    /**
+     * Active selected Categories models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return mixed
+     */
+    public function actionDeactivemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
+
+            if($model->state) {
+                $model->unpublish();
+                Yii::$app->getSession()->setFlash('warning', Yii::t('essentials', 'Rest API inactived'));
+            }
         }
     }
 

@@ -35,7 +35,7 @@ class ItemsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple','changestate'],
+                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple','changestate','activemultiple','deactivemultiple'],
                         'roles' => ['@']
                     ],
                     [
@@ -365,6 +365,56 @@ class ItemsController extends Controller
     }
 
     /**
+     * Active selected Items models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return mixed
+     */
+    public function actionActivemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
+
+            if(!$model->state) {
+                $model->publish();
+                Yii::$app->getSession()->setFlash('success', Yii::t('essentials', 'Rest API actived'));
+            }
+        }
+    }
+
+    /**
+     * Active selected Items models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @return mixed
+     */
+    public function actionDeactivemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
+
+            if($model->state) {
+                $model->unpublish();
+                Yii::$app->getSession()->setFlash('warning', Yii::t('essentials', 'Rest API inactived'));
+            }
+        }
+    }
+
+    /**
      * Finds the Items model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -381,7 +431,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can Index Articles
+     * Check if user can Index Items
      * @return bool
      */
     protected function userCanIndex()
@@ -393,7 +443,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can view Articles
+     * Check if user can view Items
      * @return bool
      */
     protected function userCanView($id)
@@ -407,7 +457,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can create Articles
+     * Check if user can create Items
      * @return bool
      */
     protected function userCanCreate()
@@ -419,7 +469,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can update Articles
+     * Check if user can update Items
      * @return bool
      */
     protected function userCanUpdate($id)
@@ -433,7 +483,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can publish Articles
+     * Check if user can publish Items
      * @return bool
      */
     protected function userCanPublish($id)
@@ -447,7 +497,7 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can delete Articles
+     * Check if user can delete Items
      * @return bool
      */
     protected function userCanDelete($id)

@@ -43,6 +43,38 @@ $this->registerJs('
                 window.location.href= url;
             }
         });
+        $("a.btn-active").click(function() {
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else {
+                $.ajax({
+                    type: \'POST\',
+                    url : "'.Url::to(['/articles/categories/activemultiple']).'?id="+selectedId,
+                    data : {ids: selectedId},
+                    success : function() {
+                        $.pjax.reload({container:"#w2"});
+                    }
+                });
+            }
+        });
+        $("a.btn-deactive").click(function() {
+            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+
+            if(selectedId.length == 0) {
+                alert("'.Yii::t("articles", "Select at least one item").'");
+            } else {
+                $.ajax({
+                    type: \'POST\',
+                    url : "'.Url::to(['/articles/categories/deactivemultiple']).'?id="+selectedId,
+                    data : {ids: selectedId},
+                    success : function() {
+                        $.pjax.reload({container:"#w2"});
+                    }
+                });
+            }
+        });
         $("a.btn-delete").click(function() {
             var selectedId = $("#w2").yiiGridView("getSelectedRows");
 
@@ -72,7 +104,7 @@ $this->registerJs('
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
                 var url = "'.Url::to(['/articles/categories/view']).'?id="+selectedId[0];
-                window.location.href= url;
+                window.open(url,"_blank");
             }
         });
     });
@@ -191,6 +223,12 @@ $this->registerJs('
                     ).'</span><span style="margin-right: 5px;">'.
                     Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
                         '#', ['class' => 'btn btn-preview btn-info']
+                    ).'</span><span style="float: right; margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('essentials', 'Deactive'),
+                        '#', ['class' => 'btn btn-deactive btn-danger']
+                    ).'</span><span style="float: right; margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('essentials', 'Active'),
+                        ['#'], ['class' => 'btn btn-active btn-success']
                     ).'</span>',
 				'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> '.
                     Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
