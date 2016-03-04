@@ -246,9 +246,10 @@ The migrations add to the database 4 types of users:
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.6.1 - Fixed #4 #5 and adding active/deactive buttons</li>
   <li>Version 0.6.0 - Adding Url Rules</li>
   <li>Version 0.5.2 - Adding Attachments</li>
-  <li>Version 0.6.0 - Adding Access to Categories and Articles</li>
+  <li>Version 0.6.1 - Adding Access to Categories and Articles</li>
   <li>Version 0.5.0 - Update Articles index, Categories index, Refactor RBAC functions</li>
   <li>Version 0.4.1 - Update RBAC functions</li>
   <li>Version 0.4.0 - Adding first RBAC functions</li>
