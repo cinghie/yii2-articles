@@ -226,8 +226,11 @@ class Articles extends \yii\db\ActiveRecord
 		$languages = Yii::$app->urlManager->languages;
 		$languagesSelect = array('All' => Yii::t('essentials', 'All'));
 
-		foreach($languages as $language) {
-			$languagesSelect[$language] = ucwords($language);
+		if($languages)
+		{
+			foreach($languages as $language) {
+				$languagesSelect[$language] = ucwords($language);
+			}
 		}
 
 		return $languagesSelect;
