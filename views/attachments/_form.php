@@ -69,9 +69,6 @@ if ($model->isNewRecord) {
 
                 <?= $form->field($model, 'itemid')->widget(Select2::classname(), [
                     'data' => $select2articles,
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],
                     'addon' => [
                         'prepend' => [
                             'content'=>'<i class="fa fa-file-text-o"></i>'
@@ -90,7 +87,6 @@ if ($model->isNewRecord) {
                         $hits => $hits
                     ],
                     'options' => [ 'disabled' => 'disabled' ],
-                    'pluginOptions' => [ 'allowClear' => true ],
                     'addon' => [
                         'prepend' => [
                             'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'

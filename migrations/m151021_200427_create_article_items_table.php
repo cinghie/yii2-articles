@@ -26,7 +26,7 @@ class m151021_200427_create_article_items_table extends Migration
             'userid' => 'int(11) NOT NULL',
             'introtext' => 'text',
             'fulltext' => 'text',
-            'published' => 'smallint(6) NOT NULL DEFAULT 0',
+            'state' => 'tinyint(1) NOT NULL DEFAULT 0',
             'access' => 'varchar(64) NOT NULL',
             'language' => 'char(7) NOT NULL',
             'ordering' => 'int(11) NOT NULL DEFAULT 0',

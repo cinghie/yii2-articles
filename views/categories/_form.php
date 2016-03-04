@@ -141,9 +141,6 @@ $roles     = $model->getRoles();
 						
 							<?= $form->field($model, 'parentid')->widget(Select2::classname(), [
 								'data' => $select2categories,
-								'pluginOptions' => [
-									'allowClear' => true
-								],
 								'addon' => [
 									'prepend' => [
 										'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
@@ -151,14 +148,11 @@ $roles     = $model->getRoles();
 								],
 							]); ?>
 						
-							<?= $form->field($model, 'published')->widget(Select2::classname(), [
+							<?= $form->field($model, 'state')->widget(Select2::classname(), [
                                     'data' => [
 										1 => Yii::t('articles', 'Published'),
 										0 => Yii::t('articles', 'Unpublished'),
 									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-check"></i>'
@@ -168,9 +162,6 @@ $roles     = $model->getRoles();
                                 
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
                                     'data' => $roles,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-log-in"></i>'
@@ -184,9 +175,6 @@ $roles     = $model->getRoles();
 									'options' => [
 										'disabled' => 'disabled'
 									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-sort"></i>'
@@ -198,10 +186,7 @@ $roles     = $model->getRoles();
                                     'data' => [ "0" =>  Yii::t('articles', 'In Development') ],
 									'options' => [
 										'disabled' => 'disabled'
-									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
+									],                                 
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-sort"></i>'
@@ -212,9 +197,6 @@ $roles     = $model->getRoles();
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
                                     'data' => $languages,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-globe"></i>'
@@ -235,9 +217,6 @@ $roles     = $model->getRoles();
 							
                             <?= $form->field($model, 'robots')->widget(Select2::classname(), [
                                     'data' => [ "index, follow" => "index, follow", "no index, no follow" => "no index, no follow", "no index, follow" => "no index, follow", "index, no follow" => "index, no follow" ],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-globe"></i>']],
                                 ]); ?>   
                             

@@ -133,6 +133,28 @@ class Articles extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * Active the item setting state = 1
+	 * @return bool
+	 */
+	public function publish()
+	{
+		return (bool)$this->updateAttributes([
+			'state' => 1
+		]);
+	}
+
+	/**
+	 * Inactive the item setting state = 0
+	 * @return bool
+	 */
+	public function unpublish()
+	{
+		return (bool)$this->updateAttributes([
+			'state' => 0
+		]);
+	}
+
+	/**
 	 * Return array for User Select2 with current user selected
 	 * @return array
 	 */
@@ -186,7 +208,7 @@ class Articles extends \yii\db\ActiveRecord
 	{
 		$sql   = 'SELECT name FROM {{%auth_item}} WHERE type = 1 ORDER BY name ASC';
 		$roles = Categories::findBySql($sql)->asArray()->all();
-		$array = ['Public' => 'Public'];
+		$array = ['public' => 'Public'];
 
 		foreach($roles as $role) {
 			$array[ucwords($role['name'])] = ucwords($role['name']);

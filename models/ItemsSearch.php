@@ -25,7 +25,7 @@ class ItemsSearch extends Items
     public function rules()
     {
         return [
-            [['id', 'userid', 'published', 'access', 'ordering', 'hits'], 'integer'],
+            [['id', 'userid', 'state', 'access', 'ordering', 'hits'], 'integer'],
             [['title', 'alias', 'catid', 'created_by', 'modified_by', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
         ];
     }
@@ -81,7 +81,7 @@ class ItemsSearch extends Items
         $query->andFilterWhere([
             'id' => $this->id,
             'userid' => $this->userid,
-            'published' => $this->published,
+            'state' => $this->state,
             'access' => $this->access,
             'ordering' => $this->ordering,
             'hits' => $this->hits,

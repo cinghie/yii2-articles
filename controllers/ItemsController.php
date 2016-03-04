@@ -91,7 +91,7 @@ class ItemsController extends Controller
     public function actionView($id)
     {
         // Check RBAC Permission
-        if($this->userCanView())
+        if($this->userCanView($id))
         {
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -350,7 +350,7 @@ class ItemsController extends Controller
         {
 			$model = $this->findModel($id);
 
-			if($model->published) {
+			if($model->state) {
 				$model->unpublish();
 				Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Article unpublished'));
 			} else {
@@ -396,9 +396,11 @@ class ItemsController extends Controller
      * Check if user can view Articles
      * @return bool
      */
-    protected function userCanView()
+    protected function userCanView($id)
     {
-        if( Yii::$app->user->can('articles-view-items') )
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('articles-view-items') || $model->access == "Public" )
             return true;
         else
             return false;

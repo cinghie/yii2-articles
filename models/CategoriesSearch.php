@@ -28,7 +28,7 @@ class CategoriesSearch extends Categories
     public function rules()
     {
         return [
-            [['id', 'published', 'access', 'ordering'], 'integer'],
+            [['id', 'state', 'access', 'ordering'], 'integer'],
             [['name', 'parentid', 'alias', 'description', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'language'], 'safe'],
         ];
     }
@@ -74,7 +74,7 @@ class CategoriesSearch extends Categories
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'published' => $this->published,
+            'state' => $this->state,
             'access' => $this->access,
             'ordering' => $this->ordering,
         ]);

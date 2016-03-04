@@ -31,7 +31,7 @@ class Categories extends Articles
     {	
         return [
             [['name', 'language'], 'required'],
-			[['parentid', 'published', 'ordering'], 'integer'],
+			[['parentid', 'state', 'ordering'], 'integer'],
 			[['name', 'alias', 'image_caption', 'image_credits'], 'string', 'max' => 255],
             [['description', 'image', 'params', 'metadesc', 'metakey'], 'string'],
             [['access'], 'string', 'max' => 64],
@@ -54,7 +54,7 @@ class Categories extends Articles
             'alias' => Yii::t('articles', 'Alias'),
             'description' => Yii::t('articles', 'Description'),
             'parentid' => Yii::t('articles', 'Parent'),
-            'published' => Yii::t('articles', 'Published'),
+            'state' => Yii::t('articles', 'State'),
             'access' => Yii::t('articles', 'Access'),
             'ordering' => Yii::t('articles', 'Ordering'),
             'image' => Yii::t('articles', 'Image'),
@@ -97,28 +97,6 @@ class Categories extends Articles
     public function getArticleItems()
     {
         return $this->hasMany(ArticleItems::className(), ['catid' => 'id']);
-    }
-
-    /**
-     * Publish the article by setting 'published' field to 1
-     * @return bool
-     */
-    public function publish()
-    {
-        return (bool)$this->updateAttributes([
-            'published' => 1
-        ]);
-    }
-
-    /**
-     * Unpublish the article by setting 'published' field to 0
-     * @return bool
-     */
-    public function unpublish()
-    {
-        return (bool)$this->updateAttributes([
-            'published' => 0
-        ]);
     }
 	
 	/**
@@ -188,7 +166,7 @@ class Categories extends Articles
 	// Return array for Category Select2
 	public function getCategoriesSelect2()
 	{
-		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1';
+		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE state = 1';
 		$categories = Categories::findBySql($sql)->asArray()->all();
 		
 		$array[0] = Yii::t('articles', 'No Parent'); 

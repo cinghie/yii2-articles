@@ -91,7 +91,7 @@ class CategoriesController extends Controller
     public function actionView($id)
     {
         // Check RBAC Permission
-        if($this->userCanView())
+        if($this->userCanView($id))
         {
             return $this->render('view', [
                 'model' => $this->findModel($id),
@@ -372,7 +372,7 @@ class CategoriesController extends Controller
         {
             $model = $this->findModel($id);
 
-            if ($model->published) {
+            if ($model->state) {
                 $model->unpublish();
                 Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Category unpublished'));
             } else {
@@ -418,9 +418,11 @@ class CategoriesController extends Controller
      * Check if user can view Categories
      * @return bool
      */
-    protected function userCanView()
+    protected function userCanView($id)
     {
-        if( Yii::$app->user->can('articles-view-categories') )
+        $model = $this->findModel($id);
+
+        if( Yii::$app->user->can('articles-view-categories') || $model->access == "Public" )
             return true;
         else
             return false;

@@ -69,7 +69,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
             'alias',
             'catid',
             'userid',
-            'published',
+            'state',
             'access',
             'language',
             'ordering',

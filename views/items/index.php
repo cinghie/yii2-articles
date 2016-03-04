@@ -72,7 +72,7 @@ $this->registerJs('
                 alert("'.Yii::t("articles", "Select only 1 item").'");
             } else {
                 var url = "'.Url::to(['/articles/items/view']).'?id="+selectedId[0];
-                window.location.href= url;
+                window.open(url,"_blank");
             }
         });
     });
@@ -196,12 +196,12 @@ $this->registerJs('
                     'width' => '5%',
                 ],
                 [
-                    'attribute' => 'published',
+                    'attribute' => 'state',
                     'format' => 'raw',
                     'hAlign' => 'center',
-                    'width' => '6%',
+                    'width' => '5%',
                     'value' => function ($model) {
-                        if($model->published) {
+                        if($model->state) {
                             return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
                                 'data-method' => 'post',
                             ]);
@@ -233,7 +233,7 @@ $this->registerJs('
                     Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
                         '#', ['class' => 'btn btn-delete btn-danger']
                     ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="fa fa-external-link"></i> '.Yii::t('articles', 'Preview'),
+                    Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
                         '#', ['class' => 'btn btn-preview btn-info']
                     ).'</span>',
                 'after' => Html::a(

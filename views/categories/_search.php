@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'parentid') ?>
 
-    <?php // echo $form->field($model, 'published') ?>
+    <?php // echo $form->field($model, 'state') ?>
 
     <?php // echo $form->field($model, 'access') ?>
 

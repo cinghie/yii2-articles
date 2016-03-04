@@ -152,12 +152,12 @@ $this->registerJs('
 					'width' => '6%',
 				],
 				[
-					'attribute' => 'published',
+					'attribute' => 'state',
                     'format' => 'raw',
 					'hAlign' => 'center',
                     'width' => '6%',
                     'value' => function ($model) {
-                        if($model->published) {
+                        if($model->state) {
                             return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
                                 'data-method' => 'post',
                             ]);
@@ -189,7 +189,7 @@ $this->registerJs('
                     Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
                         '#', ['class' => 'btn btn-delete btn-danger']
                     ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicons-eye-open"></i> '.Yii::t('articles', 'Preview'),
+                    Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
                         '#', ['class' => 'btn btn-preview btn-info']
                     ).'</span>',
 				'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> '.

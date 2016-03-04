@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'alias',
             'description:ntext',
             'parentid',
-            'published',
+            'state',
             'access',
             'ordering',
             'image',

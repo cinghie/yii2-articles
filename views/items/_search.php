@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'fulltext') ?>
 
-    <?php // echo $form->field($model, 'published') ?>
+    <?php // echo $form->field($model, 'state') ?>
 
     <?php // echo $form->field($model, 'access') ?>
 

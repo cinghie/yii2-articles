@@ -32,7 +32,7 @@ class Items extends Articles
     {
         return [
             [['title', 'catid', 'userid', 'created', 'modified', 'language'], 'required'],
-            [['catid', 'userid', 'published', 'created_by', 'modified_by', 'ordering', 'hits'], 'integer'],
+            [['catid', 'userid', 'state', 'created_by', 'modified_by', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'access', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
 			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
             [['access'], 'string', 'max' => 64],
@@ -54,7 +54,7 @@ class Items extends Articles
             'title' => Yii::t('articles', 'Title'),
             'catid' => Yii::t('articles', 'Catid'),
             'userid' => Yii::t('articles', 'Userid'),
-            'published' => Yii::t('articles', 'Published'),
+            'state' => Yii::t('articles', 'State'),
             'introtext' => Yii::t('articles', 'Introtext'),
             'fulltext' => Yii::t('articles', 'Fulltext'),
             'image' => Yii::t('articles', 'Image'),
@@ -94,28 +94,6 @@ class Items extends Articles
         } else {
             return false;
         }
-    }
-
-    /**
-     * Publish the article by setting 'published' field to 1
-     * @return bool
-     */
-    public function publish()
-    {
-        return (bool)$this->updateAttributes([
-            'published' => 1
-        ]);
-    }
-
-    /**
-     * Unpublish the article by setting 'published' field to 0
-     * @return bool
-     */
-    public function unpublish()
-    {
-        return (bool)$this->updateAttributes([
-            'published' => 0
-        ]);
     }
 
 	/**
@@ -196,7 +174,7 @@ class Items extends Articles
 	// Return array for Category Select2
 	public function getCategoriesSelect2()
 	{
-		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE published = 1';
+		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE state = 1';
 		$categories = Categories::findBySql($sql)->asArray()->all();
 		
 		$array[0] = \Yii::t('articles', 'No Category');

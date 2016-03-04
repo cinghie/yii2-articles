@@ -119,9 +119,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'catid')->widget(Select2::classname(), [
                                     'data' => $select2categories,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
                                         'prepend' => [
                                             'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
@@ -130,11 +127,8 @@ $select2videotype = $model->getVideoTypeSelect2();
                             ]); ?>
 
                             
-                            <?= $form->field($model, 'published')->widget(Select2::classname(), [
+                            <?= $form->field($model, 'state')->widget(Select2::classname(), [
                                     'data' => $select2published,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-check"></i>'
@@ -144,9 +138,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
                                     'data' => $roles,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-log-in"></i>'
@@ -189,9 +180,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'language')->widget(Select2::classname(), [
                                     'data' => $select2languages,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-globe"></i>'
@@ -201,9 +189,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                             
                             <?= $form->field($model, 'userid')->widget(Select2::classname(), [
 									'data' => $select2users,
-									'pluginOptions' => [
-										'allowClear' => true
-									],
 									'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-user"></i>'
@@ -218,9 +203,6 @@ $select2videotype = $model->getVideoTypeSelect2();
 									'options' => [
 										'disabled' => 'disabled',
 									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-sort"></i>'
@@ -292,9 +274,6 @@ $select2videotype = $model->getVideoTypeSelect2();
 									'options' => [
 										'disabled' => 'disabled'
 									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
@@ -311,9 +290,6 @@ $select2videotype = $model->getVideoTypeSelect2();
 									'options' => [
 										'disabled' => 'disabled'
 									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
@@ -354,6 +330,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             	<?= $form->field($model, 'introtext')->widget(yii\imperavi\Widget::className(), [
 									'options' => [
 										'css' => 'wym.css',
+										'minHeight' => 250,
 									],
 									'plugins' => [
 										'fullscreen',
@@ -393,10 +370,9 @@ $select2videotype = $model->getVideoTypeSelect2();
 								); ?>
                             <?php elseif ($editor=="imperavi"): ?>
                             	<?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
-								
-									// Some options, see http://imperavi.com/redactor/docs/
 									'options' => [
 										'css' => 'wym.css',
+										'minHeight' => 250,
 									],
 								]); ?>
                             <?php else: ?>
@@ -426,9 +402,6 @@ $select2videotype = $model->getVideoTypeSelect2();
 										"no index, follow"    => "no index, follow", 
 										"index, no follow"    => "index, no follow" 
 									],
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-globe"></i>'
@@ -552,9 +525,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                         
                         	<?= $form->field($model, 'video_type')->widget(Select2::classname(), [
                                     'data' => $select2videotype,
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-film"></i>'
