@@ -53,7 +53,7 @@ class Articles extends \yii\db\ActiveRecord
 			}
 			
 			// file extension
-			$fileExt = end((explode(".", $file->name)));
+			$fileExt = $file->extension;
 			// purge filename
 			$fileName = $this->generateFileName($name);
 			// set field to filename.extensions
@@ -223,7 +223,7 @@ class Articles extends \yii\db\ActiveRecord
 	 */
 	public function getLanguagesSelect2()
 	{
-		$languages = Yii::$app->urlManager->languages;
+		$languages = Yii::$app->controller->module->languages;
 		$languagesSelect = array('All' => Yii::t('essentials', 'All'));
 
 		if($languages)

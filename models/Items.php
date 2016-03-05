@@ -14,6 +14,7 @@ namespace cinghie\articles\models;
 
 use Yii;
 use dektrium\user\models\User;
+use yii\helpers\VarDumper;
 
 class Items extends Articles
 {
@@ -210,19 +211,25 @@ class Items extends Articles
 	// Return User
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'userid'])->from(User::tableName() . ' AS user');
+        $userClass = Yii::$app->controller->module->userClass;
+        $user = Yii::$container->get($userClass);
+        return $this->hasOne($userClass, ['id' => 'userid'])->from($user::tableName() . ' AS user');
     }
 
     // Return Created_By
     public function getCreatedby()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by'])->from(User::tableName() . ' AS createdby');
+        $userClass = Yii::$app->controller->module->userClass;
+        $user = Yii::$container->get($userClass);
+        return $this->hasOne($userClass, ['id' => 'created_by'])->from($user::tableName() . ' AS createdby');
     }
 
     // Return Modified_By
     public function getModifiedby()
     {
-        return $this->hasOne(User::className(), ['id' => 'modified_by'])->from(User::tableName() . ' AS modifiedby');
+        $userClass = Yii::$app->controller->module->userClass;
+        $user = Yii::$container->get($userClass);
+        return $this->hasOne($userClass, ['id' => 'modified_by'])->from($user::tableName() . ' AS modifiedby');
     }
 	
 }

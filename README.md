@@ -57,6 +57,8 @@ Set on your configuration file, in modules section
 	'articles' => [
 		'class' => 'cinghie\articles\Articles',
 		
+		'userClass' => 'dektrium\user\models\User',
+		
 		// Select Languages allowed
 		'languages' => [ 
 			"it-IT" => "it-IT", 
