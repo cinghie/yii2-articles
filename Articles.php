@@ -80,6 +80,8 @@ class Articles extends \yii\base\Module
 		'<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
 	];
 
+	public $userClass = 'dektrium\user\models\User';
+
 	/**
 	 * @inheritdoc
 	 */
@@ -87,6 +89,7 @@ class Articles extends \yii\base\Module
     {
         parent::init();
 		$this->registerTranslations();
+		Yii::$container->set($this->userClass);
     }
 
 	/**
@@ -97,6 +100,13 @@ class Articles extends \yii\base\Module
 		if (!isset(Yii::$app->i18n->translations['articles*'])) 
 		{
 			Yii::$app->i18n->translations['articles*'] = [
+				'class' => 'yii\i18n\PhpMessageSource',
+				'basePath' => __DIR__ . '/messages',
+			];
+		}
+		if (!isset(Yii::$app->i18n->translations['essentials*']))
+		{
+			Yii::$app->i18n->translations['essentials*'] = [
 				'class' => 'yii\i18n\PhpMessageSource',
 				'basePath' => __DIR__ . '/messages',
 			];

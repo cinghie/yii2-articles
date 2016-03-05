@@ -122,14 +122,14 @@ class CategoriesController extends Controller
                 }
 
                 // Genarate Json Params
-                $params = array(
+                $params = [
                     'categoriesImageWidth' => $_POST['categoriesImageWidth'],
                     'categoriesViewData' => $_POST['categoriesViewData'],
                     'categoryImageWidth' => $_POST['categoryImageWidth'],
                     'categoryViewData' => $_POST['categoryViewData'],
                     'itemImageWidth' => $_POST['itemImageWidth'],
                     'itemViewData' => $_POST['itemViewData']
-                );
+                ];
                 $params = $model->generateJsonParams($params);
                 $model->params = $params;
 
@@ -198,14 +198,14 @@ class CategoriesController extends Controller
                 }
 
                 // Genarate Json Params
-                $params = array(
+                $params = [
                     'categoriesImageWidth' => $_POST['categoriesImageWidth'],
                     'categoriesViewData'   => $_POST['categoriesViewData'],
                     'categoryImageWidth'   => $_POST['categoryImageWidth'],
                     'categoryViewData'     => $_POST['categoryViewData'],
                     'itemImageWidth'       => $_POST['itemImageWidth'],
                     'itemViewData'         => $_POST['itemViewData']
-                 );
+                 ];
                 $params = $model->generateJsonParams($params);
                 $model->params = $params;
 
@@ -294,7 +294,9 @@ class CategoriesController extends Controller
      * Deletes selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDeletemultiple()
     {
@@ -362,8 +364,11 @@ class CategoriesController extends Controller
 
     /**
      * Change category state: published or unpublished
-     * @param int $id
-     * @return Response
+     *
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionChangestate($id)
     {
@@ -458,10 +463,7 @@ class CategoriesController extends Controller
      */
     protected function userCanIndex()
     {
-        if( Yii::$app->user->can('articles-index-categories'))
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-index-categories'));
     }
 
     /**
@@ -472,10 +474,7 @@ class CategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-view-categories') || $model->access == "Public" )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-view-categories') || $model->access == "Public" );
     }
 
     /**
@@ -484,10 +483,7 @@ class CategoriesController extends Controller
      */
     protected function userCanCreate()
     {
-        if( Yii::$app->user->can('articles-create-categories') )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-create-categories') );
     }
 
     /**
@@ -496,10 +492,7 @@ class CategoriesController extends Controller
      */
     protected function userCanUpdate()
     {
-        if( Yii::$app->user->can('articles-update-categories') )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-update-categories') );
     }
 
     /**
@@ -508,10 +501,7 @@ class CategoriesController extends Controller
      */
     protected function userCanPublish()
     {
-        if( Yii::$app->user->can('articles-publish-categories') )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-publish-categories') );
     }
 
     /**
@@ -520,10 +510,7 @@ class CategoriesController extends Controller
      */
     protected function userCanDelete()
     {
-        if( Yii::$app->user->can('articles-delete-categories') )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-delete-categories') );
     }
 
 }

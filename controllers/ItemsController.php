@@ -15,6 +15,7 @@ namespace cinghie\articles\controllers;
 use Yii;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
+use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -117,7 +118,7 @@ class ItemsController extends Controller
             if ( $model->load(Yii::$app->request->post()) )
             {
                 // Set Modified as actual date
-                $model->modified = "0000-00-00 00:00:00";
+                $model->modified = new Expression('NOW()');
 
                 // If alias is not set, generate it
                 if ($_POST['Items']['alias']=="")
@@ -272,7 +273,9 @@ class ItemsController extends Controller
      * Deletes selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDeletemultiple()
     {
@@ -340,8 +343,10 @@ class ItemsController extends Controller
 
     /**
      * Change article state: published or unpublished
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionChangestate($id)
     {
@@ -436,10 +441,7 @@ class ItemsController extends Controller
      */
     protected function userCanIndex()
     {
-        if( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'))
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'));
     }
 
     /**
@@ -450,10 +452,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-view-items') || $model->access == "Public" )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-view-items') || $model->access == "Public" );
     }
 
     /**
@@ -462,10 +461,7 @@ class ItemsController extends Controller
      */
     protected function userCanCreate()
     {
-        if( Yii::$app->user->can('articles-create-items') )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-create-items') );
     }
 
     /**
@@ -476,10 +472,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) );
     }
 
     /**
@@ -490,10 +483,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) );
     }
 
     /**
@@ -504,10 +494,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) );
     }
 
 }

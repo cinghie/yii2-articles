@@ -23,6 +23,8 @@ Recommended Configuration for Advanced Template
         // Yii2 Articles
         'articles' => [
             'class' => 'cinghie\articles\Articles',
+            
+            'userClass' => 'dektrium\user\models\User',
 
 				// Select Languages allowed
 				'languages' => [ 
