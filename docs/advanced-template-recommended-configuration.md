@@ -23,29 +23,30 @@ Recommended Configuration for Advanced Template
         // Yii2 Articles
         'articles' => [
             'class' => 'cinghie\articles\Articles',
+            'userClass' => 'dektrium\user\models\User',
 
-				// Select Languages allowed
-				'languages' => [ 
-					"it-IT" => "it-IT", 
-					"en-GB" => "en-GB" 
-				],          
+			// Select Languages allowed
+			'languages' => [ 
+				"it-IT" => "it-IT", 
+				"en-GB" => "en-GB" 
+			],          
 
-				// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
-				'editor' => 'ckeditor',
+			// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
+			'editor' => 'ckeditor',
 
-				// Select Image Name: categoryname, original, casual
-				'imageNameType' => 'categoryname',
-				// Select Image Types allowed
-				'imageType'     => 'jpg,jpeg,gif,png',
-				// Select Image Types allowed
-				'attachType'    => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
-				// Thumbnails Options
-				'thumbOptions'  => [ 
-					'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
-					'medium' => ['quality' => 100, 'width' => 200, 'height' => 150],
-					'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
-					'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
-				],
+			// Select Image Name: categoryname, original, casual
+			'imageNameType' => 'categoryname',
+			// Select Image Types allowed
+			'imageType'     => 'jpg,jpeg,gif,png',
+			// Select Image Types allowed
+			'attachType'    => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
+			// Thumbnails Options
+			'thumbOptions'  => [ 
+				'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
+				'medium' => ['quality' => 100, 'width' => 200, 'height' => 150],
+				'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
+				'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
+			],
         ],
 		
 		// Module Kartik-v Grid

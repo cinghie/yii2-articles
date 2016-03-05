@@ -18,7 +18,11 @@ class Articles extends \yii\base\Module
 {
 
     public $controllerNamespace = 'cinghie\articles\controllers';
-	
+
+	// Select User Class
+	public $userClass         = 'dektrium\user\models\User';
+
+	// Select Article Languages
 	public $languages         = [ "en-GB" => "en-GB" ];
 
 	// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
@@ -87,6 +91,7 @@ class Articles extends \yii\base\Module
     {
         parent::init();
 		$this->registerTranslations();
+        Yii::$container->set($this->userClass);
     }
 
 	/**
@@ -101,6 +106,13 @@ class Articles extends \yii\base\Module
 				'basePath' => __DIR__ . '/messages',
 			];
 		}
+        if (!isset(Yii::$app->i18n->translations['essentials*']))
+        {
+            Yii::$app->i18n->translations['essentials*'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => __DIR__ . '/messages',
+            ];
+        }
     }
 
 }
