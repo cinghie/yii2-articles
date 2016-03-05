@@ -56,8 +56,10 @@ class AttachmentsController extends Controller
     }
 
     /**
-     * Lists all Attachments models.
-     * @return mixed
+     * Lists all Attachments models
+     *
+     * @return string
+     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
@@ -78,8 +80,11 @@ class AttachmentsController extends Controller
 
     /**
      * Displays a single Attachments model.
-     * @param integer $id
-     * @return mixed
+     *
+     * @param $id
+     * @return string
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -95,7 +100,9 @@ class AttachmentsController extends Controller
     /**
      * Creates a new Attachments model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     *
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
@@ -146,8 +153,11 @@ class AttachmentsController extends Controller
     /**
      * Updates an existing Attachments model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     *
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -171,8 +181,12 @@ class AttachmentsController extends Controller
     /**
      * Deletes an existing Attachments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     *
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDelete($id)
     {
@@ -201,7 +215,9 @@ class AttachmentsController extends Controller
      * Deletes selected Attachments models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDeletemultiple()
     {
@@ -240,6 +256,7 @@ class AttachmentsController extends Controller
     /**
      * Finds the Attachments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Attachments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -255,80 +272,74 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can Index Articles
+     *
      * @return bool
      */
     protected function userCanIndex()
     {
-        if( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'))
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'));
     }
 
     /**
      * Check if user can view Articles
+     *
+     * @param $id
      * @return bool
      */
-    protected function userCanView()
+    protected function userCanView($id)
     {
-        if( Yii::$app->user->can('articles-view-items') )
-            return true;
-        else
-            return false;
+        $model = $this->findModel($id);
+
+        return ( Yii::$app->user->can('articles-view-items') || $model->access == "public"  );
     }
 
     /**
      * Check if user can create Articles
+     *
      * @return bool
      */
     protected function userCanCreate()
     {
-        if( Yii::$app->user->can('articles-create-items') )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-create-items') );
     }
 
     /**
      * Check if user can update Articles
+     *
+     * @param $id
      * @return bool
      */
     protected function userCanUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) );
     }
 
     /**
      * Check if user can publish Articles
+     *
+     * @param $id
      * @return bool
      */
     protected function userCanPublish($id)
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) );
     }
 
     /**
      * Check if user can delete Articles
+     *
+     * @param $id
      * @return bool
      */
     protected function userCanDelete($id)
     {
         $model = $this->findModel($id);
 
-        if( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) )
-            return true;
-        else
-            return false;
+        return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) );
     }
 
 }
