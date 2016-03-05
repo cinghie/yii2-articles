@@ -159,7 +159,7 @@ class m151105_204428_insert_article_auth extends Migration
                 'name' => $columns['name'],
             ])
             ->exists();
-        
+
         if (!$item) {
             return parent::insert($table, $columns);
         }
