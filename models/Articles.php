@@ -224,7 +224,7 @@ class Articles extends \yii\db\ActiveRecord
 	public function getLanguagesSelect2()
 	{
 		$languages = Yii::$app->controller->module->languages;
-		$languagesSelect = array('All' => Yii::t('essentials', 'All'));
+		$languagesSelect = array('All' => Yii::t('articles', 'All'));
 
 		if($languages)
 		{

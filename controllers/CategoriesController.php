@@ -418,7 +418,7 @@ class CategoriesController extends Controller
 
             if(!$model->state) {
                 $model->publish();
-                Yii::$app->getSession()->setFlash('success', Yii::t('essentials', 'Rest API actived'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Categories actived'));
             }
         }
     }
@@ -443,7 +443,7 @@ class CategoriesController extends Controller
 
             if($model->state) {
                 $model->unpublish();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('essentials', 'Rest API inactived'));
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Categories inactived'));
             }
         }
     }

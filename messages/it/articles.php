@@ -11,6 +11,7 @@
  */
 
 return array(
+	'All' => 'Tutte',
 	'Yes'=>'Si',
 	'No'=>'No',
 	'New'=>'Nuovo',
