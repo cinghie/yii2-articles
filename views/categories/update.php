@@ -32,7 +32,7 @@ $script  = "
 $this->registerJs($script);
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Update') . ' ' . $model->name;
+$this->title = Yii::t('articles', 'Update Categories') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

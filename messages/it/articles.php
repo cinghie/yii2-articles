@@ -65,6 +65,8 @@ return array(
 	'Allowed Extensions'=>'Estensioni Permesse',
 	'Save & Exit'=>'Salva & Esci',
 	'Update'=>'Modifica',
+	'Update Items' => 'Modifica Articolo',
+	'Update Categories' => 'Modifica Categoria',
 	'Reset Grid'=>'Reset',
 	'Name'=>'Nome',
 	'Description'=>'Descrizione',
