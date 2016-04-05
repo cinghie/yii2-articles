@@ -60,32 +60,3 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
         </div>
     <?php endif; ?>
 </article>
-
-<div class="items-view">
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'alias',
-            'catid',
-            'userid',
-            'state',
-            'access',
-            'language',
-            'ordering',
-            'hits',
-            'image:ntext',
-            'image_caption',
-            'image_credits',
-            'video:ntext',
-            'video_caption',
-            'video_credits',
-            'created',
-            'created_by',
-            'modified',
-            'modified_by',
-            'params:ntext',
-        ],
-    ]) ?>
-
-</div>
