@@ -89,7 +89,6 @@ return array(
 	'Category View'=>'Vista Categoria',
 	'Item View'=>'Vista Articolo',
 	'Image Width (px)'=>'Larghezza Immagine',
-	'Show Item Data'=>'Mostra Data Articoli',
 	'Title' => 'Titolo',
 	'Catid' => 'Categoria',
 	'Created' => 'Data Creazione',
@@ -128,4 +127,6 @@ return array(
 	'Medium' => 'Media',
 	'Large'  => 'Grande',
 	'Extra'  => 'Molto Grande',
+	'Show Created Data'=>'Mostra Data Creazione',
+	'Show Modified Data'=>'Mostra Data Modifica',
 );

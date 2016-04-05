@@ -127,11 +127,14 @@ class CategoriesController extends Controller
                 // Genarate Json Params
                 $params = [
                     'categoriesImageWidth' => $_POST['categoriesImageWidth'],
-                    'categoriesViewData' => $_POST['categoriesViewData'],
+                    'categoriesViewCreatedData' => $_POST['categoriesViewCreatedData'],
+                    'categoriesViewModifiedData' => $_POST['categoriesViewModifiedData'],
                     'categoryImageWidth' => $_POST['categoryImageWidth'],
-                    'categoryViewData' => $_POST['categoryViewData'],
+                    'categoryViewCreatedData' => $_POST['categoryViewCreatedData'],
+                    'categoryViewModifiedData' => $_POST['categoryViewModifiedData'],
                     'itemImageWidth' => $_POST['itemImageWidth'],
-                    'itemViewData' => $_POST['itemViewData']
+                    'itemViewCreatedData' => $_POST['itemViewCreatedData'],
+                    'itemViewModifiedData' => $_POST['itemViewModifiedData']
                 ];
                 $params = $model->generateJsonParams($params);
                 $model->params = $params;
@@ -204,11 +207,14 @@ class CategoriesController extends Controller
                 // Genarate Json Params
                 $params = [
                     'categoriesImageWidth' => $_POST['categoriesImageWidth'],
-                    'categoriesViewData'   => $_POST['categoriesViewData'],
-                    'categoryImageWidth'   => $_POST['categoryImageWidth'],
-                    'categoryViewData'     => $_POST['categoryViewData'],
-                    'itemImageWidth'       => $_POST['itemImageWidth'],
-                    'itemViewData'         => $_POST['itemViewData']
+                    'categoriesViewCreatedData' => $_POST['categoriesViewCreatedData'],
+                    'categoriesViewModifiedData' => $_POST['categoriesViewModifiedData'],
+                    'categoryImageWidth' => $_POST['categoryImageWidth'],
+                    'categoryViewCreatedData' => $_POST['categoryViewCreatedData'],
+                    'categoryViewModifiedData' => $_POST['categoryViewModifiedData'],
+                    'itemImageWidth' => $_POST['itemImageWidth'],
+                    'itemViewCreatedData' => $_POST['itemViewCreatedData'],
+                    'itemViewModifiedData' => $_POST['itemViewModifiedData']
                 ];
                 $params = $model->generateJsonParams($params);
                 $model->params = $params;

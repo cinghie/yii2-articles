@@ -346,15 +346,27 @@ $roles     = $model->getRoles();
 									],
 								]);
 								echo '</div>';
-								
-								// Show Categories Item Data
-								echo '<div class="form-group field-categories-categoriesViewData">';
-								echo '<label class="control-label">'.Yii::t('articles', 'Show Item Data').'</label>';
+
+								// Show Item Data
+								echo '<div class="form-group field-categories-categoriesViewCreatedData">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Created Data').'</label>';
 								echo Select2::widget([
-									'name' => 'categoriesViewData',
-									'data' => [ 
-										1 => Yii::t('articles','Yes'), 
-										0 => Yii::t('articles','No') 
+									'name' => 'categoriesViewCreatedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
+									],
+								]);
+								echo '</div>';
+
+								// Show Item Data
+								echo '<div class="form-group field-categories-categoriesViewModifiedData">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Modified Data').'</label>';
+								echo Select2::widget([
+									'name' => 'categoriesViewModifiedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
 									],
 								]);
 								echo '</div>';
@@ -383,15 +395,27 @@ $roles     = $model->getRoles();
 									],
 								]);
 								echo '</div>';
-								
+
 								// Show Item Data
-								echo '<div class="form-group field-categories-categoryViewData">';
-								echo '<label class="control-label">'.Yii::t('articles', 'Show Item Data').'</label>';
+								echo '<div class="form-group field-categories-categoryViewCreatedData">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Created Data').'</label>';
 								echo Select2::widget([
-									'name' => 'categoryViewData',
-									'data' => [ 
-										1 => Yii::t('articles','Yes'), 
-										0 => Yii::t('articles','No') 
+									'name' => 'categoryViewCreatedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
+									],
+								]);
+								echo '</div>';
+
+								// Show Item Data
+								echo '<div class="form-group field-categories-categoryViewModifiedData">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Modified Data').'</label>';
+								echo Select2::widget([
+									'name' => 'categoryViewModifiedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
 									],
 								]);
 								echo '</div>';
@@ -421,16 +445,29 @@ $roles     = $model->getRoles();
 								echo '</div>';
 								
 								// Show Item Data
-								echo '<div class="form-group field-categories-itemViewData">';
-								echo '<label class="control-label">'.Yii::t('articles', 'Show Item Data').'</label>';
+								echo '<div class="form-group field-categories-itemViewCreatedData">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Created Data').'</label>';
 								echo Select2::widget([
-									'name' => 'itemViewData',
-									'data' => [ 
-										1 => Yii::t('articles','Yes'), 
-										0 => Yii::t('articles','No') 
+									'name' => 'itemViewCreatedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
 									],
 								]);
 								echo '</div>';
+
+								// Show Item Data
+								echo '<div class="form-group field-categories-itemViewModifiedData">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Modified Data').'</label>';
+								echo Select2::widget([
+									'name' => 'itemViewModifiedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
+									],
+								]);
+								echo '</div>';
+
 							?>
 							
 						</div> <!-- col-md-4 -->

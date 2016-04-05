@@ -16,11 +16,14 @@ use yii\helpers\Html;
 $options = json_decode($model->params);
 $script  = "
 	jQuery('div.field-categories-categoriesImageWidth select').val('".$options->categoriesImageWidth."');
+	jQuery('div.field-categories-categoriesViewCreatedData select').val('".$options->categoriesViewCreatedData."');
+	jQuery('div.field-categories-categoriesViewModifiedData select').val('".$options->categoriesViewModifiedData."');
 	jQuery('div.field-categories-categoryImageWidth select').val('".$options->categoryImageWidth."');
+	jQuery('div.field-categories-categoryViewCreatedData select').val('".$options->categoryViewCreatedData."');
+	jQuery('div.field-categories-categoryViewModifiedData select').val('".$options->categoryViewModifiedData."');
 	jQuery('div.field-categories-itemImageWidth select').val('".$options->itemImageWidth."');
-	jQuery('div.field-categories-categoriesViewData select').val('".$options->categoriesViewData."');
-	jQuery('div.field-categories-categoryViewData select').val('".$options->categoryViewData."');
-	jQuery('div.field-categories-itemViewData select').val('".$options->itemViewData."');
+	jQuery('div.field-categories-itemViewCreatedData select').val('".$options->itemViewCreatedData."');
+	jQuery('div.field-categories-itemViewModifiedData select').val('".$options->itemViewModifiedData."');
 ";
 $this->registerJs($script);
 
