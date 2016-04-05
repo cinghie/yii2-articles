@@ -48,7 +48,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
             </figure>
         <?php endif; ?>
     </header>
-    <?php if ($model->introtext): ?>
+    <?php if ($model->introtext && $model->getOption($model->category->params,"itemViewShowIntroText") == "Yes"): ?>
         <div class="intro-text">
             <?= $model->introtext ?>
         </div>
@@ -60,3 +60,45 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
         </div>
     <?php endif; ?>
 </article>
+
+<?php if($model->getOption($model->category->params,"itemViewDebug") == "Yes"): ?>
+
+<div class="items-view-debug">
+
+    <h2>Item Debug</h2>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'title',
+            'alias',
+            'catid',
+            'userid',
+            'state',
+            'access',
+            'language',
+            'ordering',
+            'hits',
+            'image:ntext',
+            'image_caption',
+            'image_credits',
+            'video:ntext',
+            'video_caption',
+            'video_credits',
+            'created',
+            'created_by',
+            'modified',
+            'modified_by',
+            'params:ntext',
+            'metadesc:ntext',
+            'metakey:ntext',
+            'robots',
+            'author',
+            'copyright',
+        ],
+    ]) ?>
+
+</div>
+
+<?php endif; ?>

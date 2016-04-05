@@ -236,4 +236,15 @@ class Articles extends \yii\db\ActiveRecord
 		return $languagesSelect;
 	}
 
+	/**
+	 * Return param
+	 * @return $param
+	 */
+	public function getOption($params,$param)
+	{
+		$params = json_decode($params);
+
+		return $params->$param;
+	}
+
 }
