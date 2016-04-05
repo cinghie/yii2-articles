@@ -123,4 +123,9 @@ return array(
 	'Article published' => 'Articolo pubblicato',
 	'Category unpublished' => 'Categoria non pubblicata',
 	'Category published' => 'Categoria pubblicata',
+	'Image Width' => 'Grandezza Immagine',
+	'Small'  => 'Piccola',
+	'Medium' => 'Media',
+	'Large'  => 'Grande',
+	'Extra'  => 'Molto Grande',
 );
