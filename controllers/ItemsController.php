@@ -93,10 +93,12 @@ class ItemsController extends Controller
     public function actionView($id)
     {
         // Check RBAC Permission
-        if($this->userCanView($id))
+        if($this->userCanView($id) && $this->checkArticleLanguage($id))
         {
+            $model = $this->findModel($id);
+
             return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
             ]);
         } else {
             throw new ForbiddenHttpException;
@@ -513,6 +515,24 @@ class ItemsController extends Controller
         $model = $this->findModel($id);
 
         return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) );
+    }
+
+    /**
+     * Check article language
+     *
+     * @param $id
+     * @return bool
+     */
+    protected function checkArticleLanguage($id)
+    {
+        $model = $this->findModel($id);
+
+        if(Yii::$app->language == $model->getLang() || $model->getLangTag() == "All")
+        {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
