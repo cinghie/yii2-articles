@@ -74,6 +74,7 @@ return array(
 	'No Parent'=>'Nessun Genitore',
 	'State'=>'Stato',
 	'Active'=>'Attivo',
+	'Deactive'=>'Disattiva',
 	'Inactive'=>'Non Attivo',
 	'Unpublished'=>'Non Pubblicato',
 	'Trashed'=>'Cestinato',
