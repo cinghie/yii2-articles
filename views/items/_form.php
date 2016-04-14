@@ -300,8 +300,46 @@ $select2videotype = $model->getVideoTypeSelect2();
                             <?php endif ?>
                         
                         </div> <!-- end col-lg-3 -->
+
+						<div class="col-lg-8">
+
+							<?php if ($editor=="ckeditor"): ?>
+								<?= $form->field($model, 'fulltext')->widget(CKEditor::className(),
+									[
+										'options' => ['rows' => 6],
+										'preset' => 'advanced'
+									]); ?>
+							<?php elseif ($editor=="tinymce"): ?>
+								<?= $form->field($model, 'fulltext')->widget(TinyMce::className(), [
+									'options' => ['rows' => 12],
+									'clientOptions' => [
+										'plugins' => [
+											"advlist autolink lists link charmap print preview anchor",
+											"searchreplace visualblocks code fullscreen",
+											"insertdatetime media table contextmenu paste"
+										],
+										'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+									]
+								]); ?>
+							<?php elseif ($editor=="markdown"): ?>
+								<?= $form->field($model, 'fulltext')->widget(
+									MarkdownEditor::classname(),
+									['height' => 150, 'encodeLabels' => true]
+								); ?>
+							<?php elseif ($editor=="imperavi"): ?>
+								<?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
+									'options' => [
+										'css' => 'wym.css',
+										'minHeight' => 250,
+									],
+								]); ?>
+							<?php else: ?>
+								<?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
+							<?php endif ?>
+
+						</div> <!-- end col-lg-8 -->
                         
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                         
                         	<?php if ($editor=="ckeditor"): ?>
                             	<?= $form->field($model, 'introtext')->widget(CKEditor::className(), 
@@ -341,45 +379,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             	<?= $form->field($model, 'introtext')->textarea(['rows' => 12]); ?>
                             <?php endif ?>
                         
-                        </div> <!-- end col-lg-6 -->
-                        
-                        <div class="col-lg-6">
-                        
-                        	<?php if ($editor=="ckeditor"): ?>
-                            	<?= $form->field($model, 'fulltext')->widget(CKEditor::className(), 
-									[
-										'options' => ['rows' => 6],
-										'preset' => 'advanced'
-								]); ?>
-                            <?php elseif ($editor=="tinymce"): ?>
-                            	<?= $form->field($model, 'fulltext')->widget(TinyMce::className(), [
-										'options' => ['rows' => 12],
-										'clientOptions' => [
-											'plugins' => [
-												"advlist autolink lists link charmap print preview anchor",
-												"searchreplace visualblocks code fullscreen",
-												"insertdatetime media table contextmenu paste"
-											],			
-											'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-										]
-								]); ?>
-                            <?php elseif ($editor=="markdown"): ?>
-                            	<?= $form->field($model, 'fulltext')->widget(
-										MarkdownEditor::classname(),
-										['height' => 150, 'encodeLabels' => true]
-								); ?>
-                            <?php elseif ($editor=="imperavi"): ?>
-                            	<?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
-									'options' => [
-										'css' => 'wym.css',
-										'minHeight' => 250,
-									],
-								]); ?>
-                            <?php else: ?>
-                            	<?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
-                            <?php endif ?>
-                        
-                        </div> <!-- end col-lg-6 -->
+                        </div> <!-- end col-lg-4 -->
                     
                     </div> <!-- end #item -->
                     

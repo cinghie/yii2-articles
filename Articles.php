@@ -26,7 +26,7 @@ class Articles extends \yii\base\Module
 	public $languages         = [ "en-GB" => "en-GB" ];
 
 	// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
-	public $editor 	          = "ckeditor";
+	public $editor 	          = "imperavi";
 
 	// Select Path To Upload Category Image
 	public $categoryImagePath = "@webroot/img/articles/categories/";
