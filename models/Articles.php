@@ -111,8 +111,8 @@ class Articles extends \yii\db\ActiveRecord
 	public function generateAlias($name)
     {
         // remove any '-' from the string they will be used as concatonater
-        $str = str_replace('-', ' ', $name);
-        $str = str_replace('_', ' ', $name);
+		$str = str_replace('-', ' ', $name);
+        $str = str_replace('_', ' ', $str);
 		
 		// remove any duplicate whitespace, and ensure all characters are alphanumeric
 		$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
@@ -122,7 +122,25 @@ class Articles extends \yii\db\ActiveRecord
 		
         return $str;
     }
-	
+
+	/*
+	 * Get lang code like en
+	 * @return string lang
+	 */
+	public function getLang()
+	{
+		return substr($this->language,0,2);
+	}
+
+	/*
+	 * Get lang tag like en-GB
+	 * @return string lang
+	 */
+	public function getLangTag()
+	{
+		return $this->language;
+	}
+
 	/**
 	* Generate JSON for Params
 	* @return string json encoded

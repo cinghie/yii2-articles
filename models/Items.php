@@ -81,16 +81,6 @@ class Items extends Articles
         ];
     }
 
-    public function getLang()
-    {
-        return substr($this->language,0,2);
-    }
-
-    public function getLangTag()
-    {
-        return $this->language;
-    }
-
     /**
      * check if current user is the author from the article id
      * @return bool

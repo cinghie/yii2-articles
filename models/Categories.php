@@ -96,7 +96,7 @@ class Categories extends Articles
      */
     public function getArticleItems()
     {
-        return $this->hasMany(ArticleItems::className(), ['catid' => 'id']);
+        return $this->hasMany(Items::className(), ['catid' => 'id']);
     }
 	
 	/**
@@ -118,9 +118,10 @@ class Categories extends Articles
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
     }
-	
-	/**
+
+    /**
      * fetch stored image url
+     * @param $size
      * @return string
      */
     public function getImageThumbUrl($size)
@@ -162,6 +163,22 @@ class Categories extends Articles
 		}
 		
 	}
+
+    /**
+     * Get Items by Category ID
+     * @param $catid
+     * @return Items
+     */
+    public function getItemsByCategory($catid)
+    {
+        $sql   = 'SELECT * FROM {{%article_items}}
+                  WHERE state = 1
+                  AND (language = "All" OR SUBSTRING(language,1,2) = "'.Yii::$app->language.'")
+                  AND catid='.$catid;
+        $items = Items::findBySql($sql)->asArray()->all();
+
+        return $items;
+    }
 		
 	// Return array for Category Select2
 	public function getCategoriesSelect2()
