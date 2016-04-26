@@ -102,7 +102,7 @@ class Items extends Articles
      */
     public function getItemUrl()
     {
-        return Url::to(['/articles/items/view', 'id' => $this->id]);
+        return Url::to(['/articles/items/view', 'id' => $this->id, 'alias' => $this->alias, 'cat' => $this->category->alias]);
     }
 
 	/**
