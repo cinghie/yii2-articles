@@ -13,6 +13,7 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use yii\helpers\Url;
 
 class Items extends Articles
 {
@@ -93,6 +94,15 @@ class Items extends Articles
         } else {
             return false;
         }
+    }
+
+    /**
+     * return item url
+     * @return string
+     */
+    public function getItemUrl()
+    {
+        return Url::to(['/articles/items/view', 'id' => $this->id]);
     }
 
 	/**

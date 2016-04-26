@@ -47,7 +47,7 @@ class ItemWidget extends Widget
         $item = Items::find()->where(['id' => $this->id])->orderBy($this->orderby)->one();
 
         return '<div class="articleWidget articleWidget-'.$this->id.' '.$this->classes.'">
-                <h3>'.Html::encode($item->title).'</h3>
+                <h3><a href="'.$item->getItemUrl().'" title="'.Html::encode($item->title).'">'.Html::encode($item->title).'</a></h3>
                 <div class="widgetText">'.HtmlPurifier::process($item->introtext).'</div>
             </div>';
     }
