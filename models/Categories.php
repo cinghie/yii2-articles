@@ -174,7 +174,8 @@ class Categories extends Articles
         $sql   = 'SELECT * FROM {{%article_items}}
                   WHERE state = 1
                   AND (language = "All" OR SUBSTRING(language,1,2) = "'.Yii::$app->language.'")
-                  AND catid='.$catid;
+                  AND catid='.$catid.'
+                  ORDER BY title';
         $items = Items::findBySql($sql)->asArray()->all();
 
         return $items;

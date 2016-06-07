@@ -124,7 +124,8 @@ $roles     = $model->getRoles();
                             <?php elseif ($editor=="imperavi"): ?>
                             	<?= $form->field($model, 'description')->widget(yii\imperavi\Widget::className(), [
 									'options' => [
-										'css'  => 'wym.css',
+										'css' => 'wym.css',
+										'minHeight' => 250,
 									],
 									'plugins' => [
 										'fullscreen',

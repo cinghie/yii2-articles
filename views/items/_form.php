@@ -332,6 +332,10 @@ $select2videotype = $model->getVideoTypeSelect2();
 										'css' => 'wym.css',
 										'minHeight' => 250,
 									],
+                                    'plugins' => [
+                                        'fullscreen',
+                                        'clips'
+                                    ]
 								]); ?>
 							<?php else: ?>
 								<?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
@@ -370,10 +374,10 @@ $select2videotype = $model->getVideoTypeSelect2();
 										'css' => 'wym.css',
 										'minHeight' => 250,
 									],
-									'plugins' => [
-										'fullscreen',
-										'clips'
-									]
+                                    'plugins' => [
+                                        'fullscreen',
+                                        'clips'
+                                    ]
 								]); ?>
                             <?php else: ?>
                             	<?= $form->field($model, 'introtext')->textarea(['rows' => 12]); ?>

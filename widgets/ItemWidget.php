@@ -44,7 +44,7 @@ class ItemWidget extends Widget
 
     public function run()
     {
-        $item = Items::find()->where(['id' => $this->id])->orderBy($this->orderby)->one();
+        $item = Items::find()->where(['id' => $this->id])->one();
 
         return '<div class="articleWidget articleWidget-'.$this->id.' '.$this->classes.'">
                 <h3><a href="'.$item->getItemUrl().'" title="'.Html::encode($item->title).'">'.Html::encode($item->title).'</a></h3>
