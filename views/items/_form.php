@@ -105,114 +105,182 @@ $select2videotype = $model->getVideoTypeSelect2();
                     <div class="separator"></div>
                     
                     <div id="item" class="tab-pane fade active in">
-                    
-                        <div class="col-lg-4">
-                    
-                            <?= $form->field($model, 'title', [
-								'addon' => [
-									'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-plus"></i>'
-										]
-								]
-							])->textInput(['maxlength' => true]) ?>
 
-                            
-                            <?= $form->field($model, 'catid')->widget(Select2::classname(), [
-                                    'data' => $select2categories,
+                        <div class="col-lg-8">
+                    
+                            <div class="col-lg-6">
+
+                                <?= $form->field($model, 'title', [
                                     'addon' => [
                                         'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
+                                                'content'=>'<i class="glyphicon glyphicon-plus"></i>'
+                                            ]
+                                    ]
+                                ])->textInput(['maxlength' => true]) ?>
+
+                            </div> <!-- end col-lg-6 -->
+                        
+                            <div class="col-lg-6">
+
+                                <?= $form->field($model, 'language')->widget(Select2::classname(), [
+                                        'data' => $select2languages,
+                                        'addon' => [
+                                            'prepend' => [
+                                                'content'=>'<i class="glyphicon glyphicon-globe"></i>'
+                                            ]
+                                        ],
+                                ]); ?>
+
+                            </div> <!-- end col-lg-6 -->
+
+                            <div class="col-lg-12">
+
+                                <?php if ($editor=="ckeditor"): ?>
+                                    <?= $form->field($model, 'introtext')->widget(CKEditor::className(),
+                                        [
+                                            'options' => ['rows' => 4],
+                                            'preset' => 'advanced'
+                                        ]); ?>
+                                <?php elseif ($editor=="tinymce"): ?>
+                                    <?= $form->field($model, 'introtext')->widget(TinyMce::className(), [
+                                        'options' => ['rows' => 12],
+                                        'clientOptions' => [
+                                            'plugins' => [
+                                                "advlist autolink lists link charmap print preview anchor",
+                                                "searchreplace visualblocks code fullscreen",
+                                                "insertdatetime media table contextmenu paste"
+                                            ],
+                                            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
                                         ]
-                                    ],
+                                    ]); ?>
+                                <?php elseif ($editor=="markdown"): ?>
+                                    <?= $form->field($model, 'introtext')->widget(
+                                        MarkdownEditor::classname(),
+                                        ['height' => 150, 'encodeLabels' => true]
+                                    ); ?>
+                                <?php elseif ($editor=="imperavi"): ?>
+                                    <?= $form->field($model, 'introtext')->widget(yii\imperavi\Widget::className(), [
+                                        'options' => [
+                                            'css' => 'wym.css',
+                                            'minHeight' => 250,
+                                        ],
+                                        'plugins' => [
+                                            'fullscreen',
+                                            'clips'
+                                        ]
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?= $form->field($model, 'introtext')->textarea(['rows' => 12]); ?>
+                                <?php endif ?>
+
+                                <?php if ($editor=="ckeditor"): ?>
+                                    <?= $form->field($model, 'fulltext')->widget(CKEditor::className(),
+                                        [
+                                            'options' => ['rows' => 6],
+                                            'preset' => 'advanced'
+                                        ]); ?>
+                                <?php elseif ($editor=="tinymce"): ?>
+                                    <?= $form->field($model, 'fulltext')->widget(TinyMce::className(), [
+                                        'options' => ['rows' => 12],
+                                        'clientOptions' => [
+                                            'plugins' => [
+                                                "advlist autolink lists link charmap print preview anchor",
+                                                "searchreplace visualblocks code fullscreen",
+                                                "insertdatetime media table contextmenu paste"
+                                            ],
+                                            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+                                        ]
+                                    ]); ?>
+                                <?php elseif ($editor=="markdown"): ?>
+                                    <?= $form->field($model, 'fulltext')->widget(
+                                        MarkdownEditor::classname(),
+                                        ['height' => 150, 'encodeLabels' => true]
+                                    ); ?>
+                                <?php elseif ($editor=="imperavi"): ?>
+                                    <?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
+                                        'options' => [
+                                            'css' => 'wym.css',
+                                            'minHeight' => 300,
+                                        ],
+                                        'plugins' => [
+                                            'fullscreen',
+                                            'clips'
+                                        ]
+                                    ]); ?>
+                                <?php else: ?>
+                                    <?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
+                                <?php endif ?>
+
+                            </div> <!-- end col-lg-12 -->
+
+                        </div> <!-- end col-lg-8 -->
+                        
+                        <div class="col-lg-4">
+
+                            <?= $form->field($model, 'catid')->widget(Select2::classname(), [
+                                'data' => $select2categories,
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
+                                    ]
+                                ],
                             ]); ?>
 
-                            
                             <?= $form->field($model, 'state')->widget(Select2::classname(), [
-                                    'data' => $select2published,
-                                    'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-check"></i>'
-										]
-									],
+                                'data' => $select2published,
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-check"></i>'
+                                    ]
+                                ],
                             ]); ?>
-                            
+
                             <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => $roles,
-                                    'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-log-in"></i>'
-										]
-									],
+                                'data' => $roles,
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-log-in"></i>'
+                                    ]
+                                ],
                             ]); ?>
-                        
-                        </div> <!-- end col-lg-5 -->
-                        
-                        <div class="col-lg-4">
-                        
-                        	<?php if ($model->isNewRecord): ?>
-                        
-								<?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
-                                        'options' => [
-                                            'value' => date("Y-m-d H:i:s"),    
-                                        ],
-                                        'pluginOptions' => [
-                                            'autoclose'      => true,
-                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
-                                            'todayHighlight' => true,
-                                        ]
-                                ]); ?>
-                                
-                            <?php else : ?>
-                            
-                            	<?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
-                                        'options' => [
-											'disabled' => 'disabled',
-                                            'value'    => $model->created,    
-                                        ],
-                                        'pluginOptions' => [
-                                            'autoclose'      => true,
-                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
-                                            'todayHighlight' => true,
-                                        ]
-                                ]); ?>
-                            
-                            <?php endif; ?>
-                            
-                            <?= $form->field($model, 'language')->widget(Select2::classname(), [
-                                    'data' => $select2languages,
-                                    'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-globe"></i>'
-										]
-									],
-                            ]); ?>   
-                            
+
                             <?= $form->field($model, 'userid')->widget(Select2::classname(), [
-									'data' => $select2users,
-									'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-user"></i>'
-										]
-									],
-							]); ?>
-                            
-                            <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
-                                    'data' => [ 
-										"0" =>  Yii::t('articles', 'In Development') 
-									],
-									'options' => [
-										'disabled' => 'disabled',
-									],
-                                    'addon' => [
-										'prepend' => [
-											'content'=>'<i class="glyphicon glyphicon-sort"></i>'
-										]
-									],
+                                'data' => $select2users,
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-user"></i>'
+                                    ]
+                                ],
                             ]); ?>
-                        
-                        </div> <!-- end col-lg-4 -->
-                        
-                        <div class="col-lg-4">
+
+                            <?php if ($model->isNewRecord): ?>
+
+                                <?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
+                                    'options' => [
+                                        'value' => date("Y-m-d H:i:s"),
+                                    ],
+                                    'pluginOptions' => [
+                                        'autoclose'      => true,
+                                        'format'         => 'yyyy-mm-dd hh:ii:ss',
+                                        'todayHighlight' => true,
+                                    ]
+                                ]); ?>
+
+                            <?php else : ?>
+
+                                <?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
+                                    'options' => [
+                                        'disabled' => 'disabled',
+                                        'value'    => $model->created,
+                                    ],
+                                    'pluginOptions' => [
+                                        'autoclose'      => true,
+                                        'format'         => 'yyyy-mm-dd hh:ii:ss',
+                                        'todayHighlight' => true,
+                                    ]
+                                ]); ?>
+
+                            <?php endif; ?>
                                                        
                             <?php if ($model->isNewRecord): ?>
                         
@@ -242,6 +310,20 @@ $select2videotype = $model->getVideoTypeSelect2();
                                 ]); ?>
                             
                             <?php endif ?>
+
+                            <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
+                                'data' => [
+                                    "0" =>  Yii::t('articles', 'In Development')
+                                ],
+                                'options' => [
+                                    'disabled' => 'disabled',
+                                ],
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-sort"></i>'
+                                    ]
+                                ],
+                            ]); ?>
 
                             <?= $form->field($model, 'created_by')->widget(Select2::classname(), [
 								'data' => [
@@ -301,90 +383,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                         
                         </div> <!-- end col-lg-3 -->
 
-						<div class="col-lg-8">
-
-							<?php if ($editor=="ckeditor"): ?>
-								<?= $form->field($model, 'fulltext')->widget(CKEditor::className(),
-									[
-										'options' => ['rows' => 6],
-										'preset' => 'advanced'
-									]); ?>
-							<?php elseif ($editor=="tinymce"): ?>
-								<?= $form->field($model, 'fulltext')->widget(TinyMce::className(), [
-									'options' => ['rows' => 12],
-									'clientOptions' => [
-										'plugins' => [
-											"advlist autolink lists link charmap print preview anchor",
-											"searchreplace visualblocks code fullscreen",
-											"insertdatetime media table contextmenu paste"
-										],
-										'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-									]
-								]); ?>
-							<?php elseif ($editor=="markdown"): ?>
-								<?= $form->field($model, 'fulltext')->widget(
-									MarkdownEditor::classname(),
-									['height' => 150, 'encodeLabels' => true]
-								); ?>
-							<?php elseif ($editor=="imperavi"): ?>
-								<?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
-									'options' => [
-										'css' => 'wym.css',
-										'minHeight' => 250,
-									],
-                                    'plugins' => [
-                                        'fullscreen',
-                                        'clips'
-                                    ]
-								]); ?>
-							<?php else: ?>
-								<?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
-							<?php endif ?>
-
-						</div> <!-- end col-lg-8 -->
-                        
-                        <div class="col-lg-4">
-                        
-                        	<?php if ($editor=="ckeditor"): ?>
-                            	<?= $form->field($model, 'introtext')->widget(CKEditor::className(), 
-									[
-										'options' => ['rows' => 4],
-										'preset' => 'advanced'
-								]); ?>
-                            <?php elseif ($editor=="tinymce"): ?>
-                            	<?= $form->field($model, 'introtext')->widget(TinyMce::className(), [
-										'options' => ['rows' => 12],
-										'clientOptions' => [
-											'plugins' => [
-												"advlist autolink lists link charmap print preview anchor",
-												"searchreplace visualblocks code fullscreen",
-												"insertdatetime media table contextmenu paste"
-											],			
-											'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-										]
-								]); ?>
-                            <?php elseif ($editor=="markdown"): ?>
-                            	<?= $form->field($model, 'introtext')->widget(
-										MarkdownEditor::classname(),
-										['height' => 150, 'encodeLabels' => true]
-								); ?>
-                            <?php elseif ($editor=="imperavi"): ?>
-                            	<?= $form->field($model, 'introtext')->widget(yii\imperavi\Widget::className(), [
-									'options' => [
-										'css' => 'wym.css',
-										'minHeight' => 250,
-									],
-                                    'plugins' => [
-                                        'fullscreen',
-                                        'clips'
-                                    ]
-								]); ?>
-                            <?php else: ?>
-                            	<?= $form->field($model, 'introtext')->textarea(['rows' => 12]); ?>
-                            <?php endif ?>
-                        
-                        </div> <!-- end col-lg-4 -->
-                    
                     </div> <!-- end #item -->
                     
                     <div id="seo" class="tab-pane fade">
