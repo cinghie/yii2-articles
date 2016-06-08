@@ -37,6 +37,7 @@ class Categories extends Articles
             [['access'], 'string', 'max' => 64],
 			[['author', 'copyright'], 'string', 'max' => 50],
 			[['language'], 'string', 'max' => 7],
+            [['theme'], 'string', 'max' => 12],
 			[['robots'], 'string', 'max' => 20],
 			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,],
 			[['image'], 'safe']
@@ -56,6 +57,7 @@ class Categories extends Articles
             'parentid' => Yii::t('articles', 'Parent'),
             'state' => Yii::t('articles', 'State'),
             'access' => Yii::t('articles', 'Access'),
+            'theme' => Yii::t('articles', 'Theme'),
             'ordering' => Yii::t('articles', 'Ordering'),
             'image' => Yii::t('articles', 'Image'),
             'image_caption' => Yii::t('articles', 'Image Caption'),
