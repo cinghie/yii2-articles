@@ -115,30 +115,36 @@ class CategoriesController extends Controller
         // Check RBAC Permission
         if($this->userCanCreate())
         {
+            $post  = Yii::$app->request->post();
             $model = new Categories();
 
-            if ($model->load(Yii::$app->request->post())) {
+            if ($model->load($post)) {
+
+                // If user can publish, set state = 1
+                if($model->state = 1 && $this->userCanPublish()) {
+                    $model->state = 1;
+                }
 
                 // If alias is not set, generate it
-                if ($_POST['Categories']['alias'] == "") {
+                if ($post['Categories']['alias'] == "") {
                     $model->alias = $model->generateAlias($model->name);
                 }
 
                 // Genarate Json Params
                 $params = [
-                    'categoriesImageWidth' => $_POST['categoriesImageWidth'],
-                    'categoriesViewCreatedData' => $_POST['categoriesViewCreatedData'],
-                    'categoriesViewModifiedData' => $_POST['categoriesViewModifiedData'],
-                    'categoriesViewDebug' => $_POST['categoriesViewDebug'],
-                    'categoryImageWidth' => $_POST['categoryImageWidth'],
-                    'categoryViewCreatedData' => $_POST['categoryViewCreatedData'],
-                    'categoryViewModifiedData' => $_POST['categoryViewModifiedData'],
-                    'categoryViewDebug' => $_POST['categoryViewDebug'],
-                    'itemImageWidth' => $_POST['itemImageWidth'],
-                    'itemViewShowIntroText' => $_POST['itemViewShowIntroText'],
-                    'itemViewCreatedData' => $_POST['itemViewCreatedData'],
-                    'itemViewModifiedData' => $_POST['itemViewModifiedData'],
-                    'itemViewDebug' => $_POST['itemViewDebug']
+                    'categoriesImageWidth' => $post['categoriesImageWidth'],
+                    'categoriesViewCreatedData' => $post['categoriesViewCreatedData'],
+                    'categoriesViewModifiedData' => $post['categoriesViewModifiedData'],
+                    'categoriesViewDebug' => $post['categoriesViewDebug'],
+                    'categoryImageWidth' => $post['categoryImageWidth'],
+                    'categoryViewCreatedData' => $post['categoryViewCreatedData'],
+                    'categoryViewModifiedData' => $post['categoryViewModifiedData'],
+                    'categoryViewDebug' => $post['categoryViewDebug'],
+                    'itemImageWidth' => $post['itemImageWidth'],
+                    'itemViewShowIntroText' => $post['itemViewShowIntroText'],
+                    'itemViewCreatedData' => $post['itemViewCreatedData'],
+                    'itemViewModifiedData' => $post['itemViewModifiedData'],
+                    'itemViewDebug' => $post['itemViewDebug']
                 ];
                 $params = $model->generateJsonParams($params);
                 $model->params = $params;
@@ -197,32 +203,32 @@ class CategoriesController extends Controller
         // Check RBAC Permission
         if($this->userCanUpdate())
         {
+            $post     = Yii::$app->request->post();
             $model    = $this->findModel($id);
             $oldImage = $model->image;
 
-            if ($model->load(Yii::$app->request->post())) {
+            if ($model->load($post)) {
 
                 // If alias is not set, generate it
-                if ($_POST['Categories']['alias']=="")
-                {
+                if ($post['Categories']['alias'] == "") {
                     $model->alias = $model->generateAlias($model->name);
                 }
 
                 // Genarate Json Params
                 $params = [
-                    'categoriesImageWidth' => $_POST['categoriesImageWidth'],
-                    'categoriesViewCreatedData' => $_POST['categoriesViewCreatedData'],
-                    'categoriesViewModifiedData' => $_POST['categoriesViewModifiedData'],
-                    'categoriesViewDebug' => $_POST['categoriesViewDebug'],
-                    'categoryImageWidth' => $_POST['categoryImageWidth'],
-                    'categoryViewCreatedData' => $_POST['categoryViewCreatedData'],
-                    'categoryViewModifiedData' => $_POST['categoryViewModifiedData'],
-                    'categoryViewDebug' => $_POST['categoryViewDebug'],
-                    'itemImageWidth' => $_POST['itemImageWidth'],
-                    'itemViewShowIntroText' => $_POST['itemViewShowIntroText'],
-                    'itemViewCreatedData' => $_POST['itemViewCreatedData'],
-                    'itemViewModifiedData' => $_POST['itemViewModifiedData'],
-                    'itemViewDebug' => $_POST['itemViewDebug']
+                    'categoriesImageWidth' => $post['categoriesImageWidth'],
+                    'categoriesViewCreatedData' => $post['categoriesViewCreatedData'],
+                    'categoriesViewModifiedData' => $post['categoriesViewModifiedData'],
+                    'categoriesViewDebug' => $post['categoriesViewDebug'],
+                    'categoryImageWidth' => $post['categoryImageWidth'],
+                    'categoryViewCreatedData' => $post['categoryViewCreatedData'],
+                    'categoryViewModifiedData' => $post['categoryViewModifiedData'],
+                    'categoryViewDebug' => $post['categoryViewDebug'],
+                    'itemImageWidth' => $post['itemImageWidth'],
+                    'itemViewShowIntroText' => $post['itemViewShowIntroText'],
+                    'itemViewCreatedData' => $post['itemViewCreatedData'],
+                    'itemViewModifiedData' => $post['itemViewModifiedData'],
+                    'itemViewDebug' => $post['itemViewDebug']
                 ];
                 $params = $model->generateJsonParams($params);
                 $model->params = $params;
