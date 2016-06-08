@@ -11,50 +11,60 @@
 */
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\helpers\HtmlPurifier;
+use cinghie\articles\assets\ArticlesAsset;
+
+// Load Articles Assets
+ArticlesAsset::register($this);
+$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title and Breadcrumbs
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="categories-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!-- main -->
+<main class="categories-view categories-<?php echo $model->theme ?>" role="main">
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <!-- header -->
+    <header class="page-header">
+        <h1 class="page-title"><?= Html::encode($this->title) ?></h1>
+        <div class="page-description"><?= HtmlPurifier::process($model->description) ?></div>
+    </header>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'alias',
-            'description:ntext',
-            'parentid',
-            'state',
-            'access',
-            'ordering',
-            'image',
-            'image_caption:ntext',
-            'image_credits',
-            'params:ntext',
-            'metadesc:ntext',
-            'metakey:ntext',
-            'robots',
-            'author',
-            'copyright',
-            'language',
-        ],
-    ]) ?>
+    <!-- section -->
+    <section class="blog">
+        <?php foreach($model->getItemsByCategory($model->id) as $article): ?>
 
-</div>
+            <article class="row blog-post">
+
+                <div class="col-md-3 post-thumb">
+                    <a href="http://demo.neontheme.com/frontend/blog-post/">
+                        <?= Html::img($model->getImageThumbUrl("small"), ['class'=> 'img-rounded', 'width' => '100%']) ?>
+                        <img src="http://demo.neontheme.com/assets/frontend/images/blog-thumb-1.png" class="img-rounded">
+                        <span class="hover-zoom"></span>
+                    </a>
+                </div>
+
+                <div class="col-md-9 post-details">
+                    <h2><?= Html::encode($article['title']) ?></h2>
+                    <div class="post-meta">
+                        <div class="meta-info">
+                            <i class="glyphicon glyphicon-calendar"></i> <?= $article['created'] ?>
+                        </div>
+                        <div class="meta-info">
+                            <i class="glyphicon glyphicon-user"></i> <?= $article['created_by'] ?>
+                        </div>
+                    </div>
+                    <div class="article-description">
+                        <?= HtmlPurifier::process($article['introtext']) ?>
+                    </div>
+                </div>
+
+            </article>
+
+        <?php endforeach ?>
+    </section>
+
+</main>

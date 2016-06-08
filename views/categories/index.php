@@ -165,6 +165,9 @@ $this->registerJs('
 				[
 					'attribute' => 'access',
 					'hAlign' => 'center',
+				],[
+					'attribute' => 'theme',
+					'hAlign' => 'center',
 				],
 				[
 					'attribute' => 'image',

@@ -29,12 +29,6 @@ span.select2.select2-container.select2-container--krajee {
     border-color: #008d4c;
 }
 
-/* Categories View */
-
-div.categories .categories-grid {
-	padding: 0 10px;
-}
-
 /* Category Form*/
 
 div.separator {
@@ -51,44 +45,50 @@ div#params h4 {
 	text-align: center;
 }
 
-/* Category View */
+/* Categories View */
 
-div.category-actions {
-	margin-bottom: 20px;
+.page-header {
+    margin: 25px 0 20px;
 }
-div.category-view {
-	background: none repeat scroll 0 0 #F8F8F8;
-    border: 1px solid #E5E5E5;
-	margin-bottom: 20px;
-	padding: 12px;
+.page-header h1 {
+    text-align: center;
 }
-div.category-view img {
-	padding: 4px;
+.blog {
+    padding: 20px 0;
 }
-div.category-view .caption {
-	background-color: rgba(0, 0, 0, 0.75);
-	color: #EFEFEF;
-	font-size: 90%;
-	font-style:italic;
-	margin: -20px 0 0 0;
-	text-align: center;
-	opacity:0.75; /* transparency */  
-    filter:alpha(opacity=60); /* IE transparency */
+.blog .blog-post {
+    border-bottom: 1px solid #f2f2f2;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
 }
-div.category-view .credits {
-  	display: inline-block;
-  	color: #999;
-	font-size: 75%;
+.blog .blog-post::after {
+    clear: both;
 }
-div.category-view .credits small:before {
-  content: '\2014 \00A0';
+.blog .blog-post .post-thumb {
+    text-align: center;
 }
-div.category-view .description {
-    padding: 0 2px 0 0;
+.blog .blog-post .post-details h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
 }
-div.category-items .category-item {
-	border-bottom: 1px solid #EEEEEE;
-	padding: 10px;
+.blog .blog-post .post-details .post-meta {
+    margin-bottom: 10px;
+}
+.blog .blog-post .post-details .post-meta .meta-info {
+    display: inline-block;
+    color: #999999;
+    font-size: 12px;
+}
+.blog .blog-post .post-details .post-meta .meta-info + .meta-info {
+    margin-left: 15px;
+}
+.blog .blog-post .post-details .post-meta .meta-info + .meta-info::before {
+    background: #f2f2f2 none repeat scroll 0 0;
+    content: "";
+    display: inline-block;
+    height: 12px;
+    margin-right: 10px;
+    width: 1px;
 }
 
 /* Item Form */
@@ -96,14 +96,9 @@ div.category-items .category-item {
 	margin-right: 6px;
 }
 
-/* Item View */
+/* Items View */
 
-.item-view figcaption {
-	margin-bottom: 25px;
-	text-align: center;
-}
+
 
 /* Attachment Form */
-.attachments-form .file-input .btn .glyphicon {
-	margin-right: 6px;
-}
+
