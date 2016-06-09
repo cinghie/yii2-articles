@@ -8,6 +8,10 @@
 * @version 0.6.2
 */
 
+hr {
+    border-color: #999999;
+}
+
 /* Select2 */
 
 span.select2.select2-container.select2-container--krajee {
@@ -53,13 +57,16 @@ div#params h4 {
 .page-header h1 {
     text-align: center;
 }
+
+/* Categories View - Default */
+
 .blog {
-    padding: 20px 0;
+    padding: 5px 0;
 }
 .blog .blog-post {
     border-bottom: 1px solid #f2f2f2;
     margin-bottom: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 .blog .blog-post::after {
     clear: both;
@@ -67,9 +74,48 @@ div#params h4 {
 .blog .blog-post .post-thumb {
     text-align: center;
 }
+.blog .blog-post .post-thumb a {
+    display: block;
+    position: relative;
+}
+.blog .blog-post .post-thumb a::after {
+    background: rgba(48, 54, 65, 0.5) none repeat scroll 0 0 padding-box;
+    border-radius: 4px;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.5s ease 0s;
+    z-index: 5;
+}
+.blog .blog-post .post-thumb a:hover::after {
+    opacity: 1;
+}
+.blog .blog-post .post-details {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
 .blog .blog-post .post-details h2 {
+    font-size: 22px;
     margin-top: 0;
     margin-bottom: 10px;
+    transition: all 350ms;
+}
+.blog .blog-post .post-details p:before {
+    -moz-opacity: 0.5;
+    -webkit-opacity: 0.5;
+    content: '\2014 \00A0';
+    display: block;
+    filter: alpha(opacity=50);
+    line-height: 1;
+    margin-bottom: 5px;
+    opacity: 0.5;
+    zoom: 1;
 }
 .blog .blog-post .post-details .post-meta {
     margin-bottom: 10px;
@@ -78,6 +124,9 @@ div#params h4 {
     display: inline-block;
     color: #999999;
     font-size: 12px;
+}
+.blog .blog-post .post-details .post-meta .meta-info i {
+    margin-right: 5px;
 }
 .blog .blog-post .post-details .post-meta .meta-info + .meta-info {
     margin-left: 15px;
@@ -91,7 +140,15 @@ div#params h4 {
     width: 1px;
 }
 
+@media screen and (max-width: 767px) {
+    section.blog .blog-post .post-thumb {
+        margin-bottom: 30px;
+        width: 100%;
+    }
+}
+
 /* Item Form */
+
 .items-form .file-input .btn .glyphicon {
 	margin-right: 6px;
 }
