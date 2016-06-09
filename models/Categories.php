@@ -183,7 +183,9 @@ class Categories extends Articles
     public function getItemsByCategory($catid,$order = 'title')
     {
         $items = Items::find()
-            ->where(['catid' => $catid, 'state' => 1])
+            ->where(['catid' => $catid])
+            ->andWhere(['state' => 1])
+            ->andWhere(['or',['language' => 'All'],['SUBSTRING(language,1,2)' => Yii::$app->language]])
             ->orderBy($order)
             ->all();
 
