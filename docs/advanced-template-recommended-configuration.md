@@ -24,16 +24,15 @@ Recommended Configuration for Advanced Template
         'articles' => [
             'class' => 'cinghie\articles\Articles',
             'userClass' => 'dektrium\user\models\User',
-
 			// Select Languages allowed
 			'languages' => [ 
 				"it-IT" => "it-IT", 
 				"en-GB" => "en-GB" 
 			],          
-
+            // Select Date Format
+            'dateFormat' => 'd F Y',
 			// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 			'editor' => 'ckeditor',
-
 			// Select Image Name: categoryname, original, casual
 			'imageNameType' => 'categoryname',
 			// Select Image Types allowed

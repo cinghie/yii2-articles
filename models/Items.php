@@ -239,5 +239,13 @@ class Items extends Articles
         $user = Yii::$container->get($userClass);
         return $this->hasOne($userClass, ['id' => 'modified_by'])->from($user::tableName() . ' AS modifiedby');
     }
+
+    /*
+     * return a date formatted with default format
+     * @return string
+     */
+    public function getDateFormatted($date){
+        return Yii::$app->formatter->asDatetime($date, "php:".Yii::$app->controller->module->dateFormat);
+    }
 	
 }

@@ -64,6 +64,9 @@ Set on your configuration file, in modules section
 			"en-GB" => "en-GB" 
 		],			
 		
+		// Select Date Format
+        'dateFormat' => 'd F Y';
+		
 		// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 		'editor' => 'ckeditor',
 		

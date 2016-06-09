@@ -19,11 +19,14 @@ class Articles extends \yii\base\Module
 
     public $controllerNamespace = 'cinghie\articles\controllers';
 
-	// Select User Class
+		// Select User Class
 	public $userClass         = 'dektrium\user\models\User';
 
 	// Select Article Languages
 	public $languages         = [ "en-GB" => "en-GB" ];
+
+    // Select Date Format
+    public $dateFormat        = "d F Y";
 
 	// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 	public $editor 	          = "imperavi";
