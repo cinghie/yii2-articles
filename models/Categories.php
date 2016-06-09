@@ -71,14 +71,20 @@ class Categories extends Articles
             'language' => Yii::t('articles', 'Language'),
         ];
     }
-	
-	// Return Parent ID
+
+    /**
+     * Return Parent Category
+     * @return Categories
+     */
     public function getParent()
     {
         return $this->hasOne(self::className(), ['id' => 'parentid'])->from(self::tableName() . ' AS parent');
     }
-	
-	// Return Parent Name
+
+    /**
+     * Return Parent Name
+     * @return string
+     */
 	public function getParentName()
 	{
         $model = $this->parent;
@@ -86,7 +92,8 @@ class Categories extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Return all Categories by parent Category
+     * @return Categories
      */
     public function getCategories()
     {
@@ -94,7 +101,8 @@ class Categories extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Return all Items by Category
+     * @return Items
      */
     public function getArticleItems()
     {
@@ -168,27 +176,30 @@ class Categories extends Articles
 
     /**
      * Get Items by Category ID
-     * @param $catid
+     * @param integer $catid
+     * @param string $order
      * @return Items
      */
-    public function getItemsByCategory($catid)
+    public function getItemsByCategory($catid,$order = 'title')
     {
-        $sql   = 'SELECT * FROM {{%article_items}}
-                  WHERE state = 1
-                  AND (language = "All" OR SUBSTRING(language,1,2) = "'.Yii::$app->language.'")
-                  AND catid='.$catid.'
-                  ORDER BY title';
-        $items = Items::findBySql($sql)->asArray()->all();
+        $items = Items::find()
+            ->where(['catid' => $catid, 'state' => 1])
+            ->orderBy($order)
+            ->all();
 
         return $items;
     }
-		
-	// Return array for Category Select2
+
+    /**
+     * Return array for Category Select2
+     * @return array
+     */
 	public function getCategoriesSelect2()
 	{
-		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE state = 1';
-		$categories = Categories::findBySql($sql)->asArray()->all();
-		
+        $categories = Categories::find()
+            ->orderBy('name')
+            ->all();
+
 		$array[0] = Yii::t('articles', 'No Parent'); 
 		
 		foreach($categories as $category)
