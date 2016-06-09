@@ -22,6 +22,8 @@ $script  = "
 	jQuery('div.field-categories-categoryImageWidth select').val('".$options->categoryImageWidth."');
 	jQuery('div.field-categories-categoryViewCreatedData select').val('".$options->categoryViewCreatedData."');
 	jQuery('div.field-categories-categoryViewModifiedData select').val('".$options->categoryViewModifiedData."');
+	jQuery('div.field-categories-categoryViewUser select').val('".$options->categoryViewUser."');
+	jQuery('div.field-categories-categoryViewHits select').val('".$options->categoryViewHits."');
 	jQuery('div.field-categories-categoryViewDebug select').val('".$options->categoryViewDebug."');
 	jQuery('div.field-categories-itemImageWidth select').val('".$options->itemImageWidth."');
 	jQuery('div.field-categories-itemViewShowIntroText select').val('".$options->itemViewShowIntroText."');

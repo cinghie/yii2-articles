@@ -209,5 +209,16 @@ class Categories extends Articles
 		
 		return $array;
 	}
+
+    /**
+     * Return array with Categories Themes
+     * @return array
+     */
+    public function getThemesSelect2()
+    {
+        $array = ['default' => 'default'];
+
+        return $array;
+    }
 	
 }
