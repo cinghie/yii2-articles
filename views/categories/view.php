@@ -10,6 +10,7 @@
 * @version 0.6.2
 */
 
+use yii\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
 
 // Load Articles Assets
@@ -17,13 +18,19 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title and Breadcrumbs
-$this->title = $model->name;
+$this->title = Html::encode($model->name);
 $this->params['breadcrumbs'][] = $this->title;
+
+/* Render MetaData */
+$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_data.php',[ 'model' => $model,]);
+$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_facebook.php',[ 'model' => $model,]);
+$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 'model' => $model,]);
 
 // Decode Params
 $params = json_decode($model->params);
 
 // Render Theme
-echo($this->render('themes/default',['model'=>$model,'params'=>$params]));
+$themePath = 'themes/'.$model->theme;
+echo($this->render($themePath,['model'=>$model,'params'=>$params]));
 
 ?>

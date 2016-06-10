@@ -134,6 +134,7 @@ return array(
 	'Show Modified Data'=>'Mostra Data Modifica',
 	'Show Debug' => 'Mostra Debug',
 	'Show IntroText' => 'Mostra Testo Introduttivo',
+	'Show FullText' => 'Mostra Testo Completo',
     'Show Hits' => 'Mostra Visualizzazioni',
 	'Show User' => 'Mostra Utente',
 	'Theme' => 'Tema'

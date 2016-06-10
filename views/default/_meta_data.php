@@ -13,9 +13,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-// Set Title
-$this->title = Html::encode($model->title);
-
 // Set Link Canonical
 $this->registerLinkTag([
 	'rel' => 'canonical',

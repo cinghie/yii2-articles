@@ -19,7 +19,7 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title and Breadcrumbs
-$this->title = $model->title;
+$this->title = Html::encode($model->title);
 $this->params['breadcrumbs'][] = $this->title;
 
 /* Render MetaData */

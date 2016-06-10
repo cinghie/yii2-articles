@@ -356,11 +356,37 @@ $themes    = $model->getThemesSelect2();
 
                                 echo '<hr>';
 
+                                // Show Intro Text
+                                echo '<div class="form-group field-categories-categoriesIntroText">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show IntroText').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'categoriesIntroText',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
+                                // Show Intro Text
+                                echo '<div class="form-group field-categories-categoriesFullText">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show FullText').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'categoriesFullText',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
+                                echo '<hr>';
+
 								// Show Categories Data Created
-								echo '<div class="form-group field-categories-categoriesViewCreatedData">';
+								echo '<div class="form-group field-categories-categoriesCreatedData">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Created Data').'</label>';
 								echo Select2::widget([
-									'name' => 'categoriesViewCreatedData',
+									'name' => 'categoriesCreatedData',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -369,10 +395,34 @@ $themes    = $model->getThemesSelect2();
 								echo '</div>';
 
 								// Categories Data Modified
-								echo '<div class="form-group field-categories-categoriesViewModifiedData">';
+								echo '<div class="form-group field-categories-categoriesModifiedData">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Modified Data').'</label>';
 								echo Select2::widget([
-									'name' => 'categoriesViewModifiedData',
+									'name' => 'categoriesModifiedData',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
+									],
+								]);
+								echo '</div>';
+
+								// Category User
+								echo '<div class="form-group field-categories-categoriesUser">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show User').'</label>';
+								echo Select2::widget([
+									'name' => 'categoriesUser',
+									'data' => [
+										'No' => Yii::t('articles','No'),
+										'Yes' => Yii::t('articles','Yes')
+									],
+								]);
+								echo '</div>';
+
+								// Category Hits
+								echo '<div class="form-group field-categories-categoriesHits">';
+								echo '<label class="control-label">'.Yii::t('articles', 'Show Hits').'</label>';
+								echo Select2::widget([
+									'name' => 'categoriesHits',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -383,10 +433,10 @@ $themes    = $model->getThemesSelect2();
                                 echo '<hr>';
 
 								// Categories Item Debug
-								echo '<div class="form-group field-categories-categoriesViewDebug">';
+								echo '<div class="form-group field-categories-categoriesDebug">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Debug').'</label>';
 								echo Select2::widget([
-									'name' => 'categoriesViewDebug',
+									'name' => 'categoriesDebug',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -421,11 +471,37 @@ $themes    = $model->getThemesSelect2();
 
                                 echo '<hr>';
 
+                                // Show Intro Text
+                                echo '<div class="form-group field-categories-categoryIntroText">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show IntroText').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'categoryIntroText',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
+                                // Show Intro Text
+                                echo '<div class="form-group field-categories-categoryFullText">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show FullText').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'categoryFullText',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
+                                echo '<hr>';
+
 								// Category Data Created
-								echo '<div class="form-group field-categories-categoryViewCreatedData">';
+								echo '<div class="form-group field-categories-categoryCreatedData">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Created Data').'</label>';
 								echo Select2::widget([
-									'name' => 'categoryViewCreatedData',
+									'name' => 'categoryCreatedData',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -434,10 +510,10 @@ $themes    = $model->getThemesSelect2();
 								echo '</div>';
 
 								// Category Data Modified
-								echo '<div class="form-group field-categories-categoryViewModifiedData">';
+								echo '<div class="form-group field-categories-categoryModifiedData">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Modified Data').'</label>';
 								echo Select2::widget([
-									'name' => 'categoryViewModifiedData',
+									'name' => 'categoryModifiedData',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -446,10 +522,10 @@ $themes    = $model->getThemesSelect2();
 								echo '</div>';
 
                                 // Category User
-                                echo '<div class="form-group field-categories-categoryViewUser">';
+                                echo '<div class="form-group field-categories-categoryUser">';
                                 echo '<label class="control-label">'.Yii::t('articles', 'Show User').'</label>';
                                 echo Select2::widget([
-                                    'name' => 'categoryViewUser',
+                                    'name' => 'categoryUser',
                                     'data' => [
                                         'No' => Yii::t('articles','No'),
                                         'Yes' => Yii::t('articles','Yes')
@@ -458,10 +534,10 @@ $themes    = $model->getThemesSelect2();
                                 echo '</div>';
 
                                 // Category Hits
-                                echo '<div class="form-group field-categories-categoryViewHits">';
+                                echo '<div class="form-group field-categories-categoryHits">';
                                 echo '<label class="control-label">'.Yii::t('articles', 'Show Hits').'</label>';
                                 echo Select2::widget([
-                                    'name' => 'categoryViewHits',
+                                    'name' => 'categoryHits',
                                     'data' => [
                                         'No' => Yii::t('articles','No'),
                                         'Yes' => Yii::t('articles','Yes')
@@ -472,10 +548,10 @@ $themes    = $model->getThemesSelect2();
                                 echo '<hr>';
 
 								// Category Item Debug
-								echo '<div class="form-group field-categories-categoryViewDebug">';
+								echo '<div class="form-group field-categories-categoryDebug">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Debug').'</label>';
 								echo Select2::widget([
-									'name' => 'categoryViewDebug',
+									'name' => 'categoryDebug',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -511,10 +587,10 @@ $themes    = $model->getThemesSelect2();
                                 echo '<hr>';
 
 								// Show Intro Text
-								echo '<div class="form-group field-categories-itemViewShowIntroText">';
+								echo '<div class="form-group field-categories-itemIntroText">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show IntroText').'</label>';
 								echo Select2::widget([
-									'name' => 'itemViewShowIntroText',
+									'name' => 'itemIntroText',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -522,11 +598,25 @@ $themes    = $model->getThemesSelect2();
 								]);
 								echo '</div>';
 
+                                // Show Intro Text
+                                echo '<div class="form-group field-categories-itemFullText">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show FullText').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'itemFullText',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
+                                echo '<hr>';
+
 								// Show Data Created
-								echo '<div class="form-group field-categories-itemViewCreatedData">';
+								echo '<div class="form-group field-categories-itemCreatedData">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Created Data').'</label>';
 								echo Select2::widget([
-									'name' => 'itemViewCreatedData',
+									'name' => 'itemCreatedData',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -535,10 +625,10 @@ $themes    = $model->getThemesSelect2();
 								echo '</div>';
 
 								// Show Data Modified
-								echo '<div class="form-group field-categories-itemViewModifiedData">';
+								echo '<div class="form-group field-categories-itemModifiedData">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Modified Data').'</label>';
 								echo Select2::widget([
-									'name' => 'itemViewModifiedData',
+									'name' => 'itemModifiedData',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
@@ -546,13 +636,37 @@ $themes    = $model->getThemesSelect2();
 								]);
 								echo '</div>';
 
+                                // Item User
+                                echo '<div class="form-group field-categories-itemUser">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show User').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'itemUser',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
+                                // Category Hits
+                                echo '<div class="form-group field-categories-itemHits">';
+                                echo '<label class="control-label">'.Yii::t('articles', 'Show Hits').'</label>';
+                                echo Select2::widget([
+                                    'name' => 'itemHits',
+                                    'data' => [
+                                        'No' => Yii::t('articles','No'),
+                                        'Yes' => Yii::t('articles','Yes')
+                                    ],
+                                ]);
+                                echo '</div>';
+
                                 echo '<hr>';
 
 								// Show Debug
-								echo '<div class="form-group field-categories-itemViewDebug">';
+								echo '<div class="form-group field-categories-itemDebug">';
 								echo '<label class="control-label">'.Yii::t('articles', 'Show Debug').'</label>';
 								echo Select2::widget([
-									'name' => 'itemViewDebug',
+									'name' => 'itemDebug',
 									'data' => [
 										'No' => Yii::t('articles','No'),
 										'Yes' => Yii::t('articles','Yes')
