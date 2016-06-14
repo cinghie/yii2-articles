@@ -15,17 +15,13 @@ use yii\helpers\HtmlPurifier;
 
 ?>
 
-<!-- main -->
-<main class="categories-view <?php echo $model->theme ?>" role="main">
-    <!-- header -->
+<main class="<?php echo $model->theme ?> categories-view" role="main">
     <header class="page-header">
         <h1 class="page-title"><?= Html::encode($this->title) ?></h1>
         <div class="page-description"><?= HtmlPurifier::process($model->description) ?></div>
     </header>
-    <!-- section -->
     <section class="blog-items">
         <?php foreach($model->getItemsByCategory($model->id,"created DESC") as $article): ?>
-            <!-- article -->
             <article class="row blog-post">
                 <div class="col-md-3 post-thumb">
                     <a href="<?= $article->itemUrl ?>" title="<?= Html::encode($article->title) ?>">

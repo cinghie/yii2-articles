@@ -15,8 +15,7 @@ use yii\helpers\HtmlPurifier;
 
 ?>
 
-<!-- main -->
-<main class="categories-view <?php echo $model->theme ?>" role="main">
+<main class="<?php echo $model->theme ?> categories-view" role="main">
     <header class="page-header">
         <h1 class="page-title"><?= Html::encode($this->title) ?></h1>
         <div class="page-description"><?= HtmlPurifier::process($model->description) ?></div>
