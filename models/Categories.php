@@ -218,7 +218,7 @@ class Categories extends Articles
      */
     public function getThemesSelect2()
     {
-        $array = ['default' => 'default'];
+        $array = ['blog' => 'blog','portfolio' => 'portfolio'];
 
         return $array;
     }

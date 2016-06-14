@@ -58,7 +58,7 @@ div#params h4 {
     text-align: center;
 }
 
-/* Categories View - Default */
+/* Categories View - Blog */
 
 .blog {
     padding: 5px 0;
@@ -77,6 +77,13 @@ div#params h4 {
 .blog .blog-post .post-thumb a {
     display: block;
     position: relative;
+}
+.blog .blog-post .post-thumb a img {
+    display: block;
+    height: auto;
+    max-height: 185px;
+    max-width: 100%;
+    width: 100%;
 }
 .blog .blog-post .post-thumb a::after {
     background: rgba(48, 54, 65, 0.5) none repeat scroll 0 0 padding-box;
@@ -106,7 +113,7 @@ div#params h4 {
     margin-bottom: 10px;
     transition: all 350ms;
 }
-.blog .blog-post .post-details p:before {
+.blog .blog-post .post-details div.article-introtext:before {
     -moz-opacity: 0.5;
     -webkit-opacity: 0.5;
     content: '\2014 \00A0';
@@ -145,6 +152,69 @@ div#params h4 {
         margin-bottom: 30px;
         width: 100%;
     }
+}
+
+/* Categories View - Portfolio */
+
+.isotope {
+    transition-property: height, width;
+}
+.isotope, .isotope .isotope-item {
+    transition-duration: 0.8s;
+}
+.isotope .isotope-item {
+    transition-property: transform, opacity;
+}
+.isotope, .isotope .isotope-item {
+    transition-duration: 0.8s;
+}
+.isotope-item {
+    z-index: 2;
+}
+.portfolio #portfolio-items {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+}
+.portfolio .portfolio-item {
+    margin: 10px 5px;
+}
+.portfolio .portfolio-item h2 {
+    display: block;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.portfolio .portfolio-item .image::after {
+    background: rgba(48, 54, 65, 0.5) none repeat scroll 0 0 padding-box;
+    border-radius: 4px;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.5s ease 0s;
+    z-index: 5;
+}
+.portfolio .portfolio-item .image {
+    display: block;
+    margin: 15px 0;
+    overflow: hidden;
+    position: relative;
+}
+.portfolio .portfolio-item .image:hover::after {
+    opacity: 1;
+}
+.portfolio .portfolio-item .image img {
+    display: block;
+    height: auto;
+    max-height: 220px;
+    max-width: 100%;
+    width: 100%;
 }
 
 /* Item Form */

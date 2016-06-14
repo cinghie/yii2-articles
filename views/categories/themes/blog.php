@@ -16,14 +16,14 @@ use yii\helpers\HtmlPurifier;
 ?>
 
 <!-- main -->
-<main class="categories-view categories-<?php echo $model->theme ?>" role="main">
+<main class="categories-view <?php echo $model->theme ?>" role="main">
     <!-- header -->
     <header class="page-header">
         <h1 class="page-title"><?= Html::encode($this->title) ?></h1>
         <div class="page-description"><?= HtmlPurifier::process($model->description) ?></div>
     </header>
     <!-- section -->
-    <section class="blog">
+    <section class="blog-items">
         <?php foreach($model->getItemsByCategory($model->id,"created DESC") as $article): ?>
             <!-- article -->
             <article class="row blog-post">
@@ -44,24 +44,33 @@ use yii\helpers\HtmlPurifier;
                         </a>
                     </h2>
                     <div class="post-meta">
-                        <?php if($params->categoryViewCreatedData == "Yes"): ?>
+                        <?php if($params->categoryCreatedData == "Yes"): ?>
                         <div class="meta-info meta-info-created">
                             <i class="glyphicon glyphicon-calendar"></i> <?= $article->getDateFormatted($article->created) ?>
                         </div>
                         <?php endif ?>
-                        <?php if($params->categoryViewUser == "Yes"): ?>
+                        <?php if($params->categoryUser == "Yes"): ?>
                         <div class="meta-info meta-info-user">
                             <i class="glyphicon glyphicon-user"></i> <?= $article->createdby->username ?>
                         </div>
                         <?php endif ?>
-                        <?php if($params->categoryViewHits == "Yes"): ?>
+                        <?php if($params->categoryHits == "Yes"): ?>
                         <div class="meta-info meta-info-hits">
                             <i class="glyphicon glyphicon-eye-open"></i> <?= $article->hits ?>
                         </div>
                         <?php endif ?>
                     </div>
                     <div class="article-description">
-                        <?= HtmlPurifier::process($article->introtext) ?>
+                        <div class="article-introtext">
+                            <?php if($params->categoryIntroText == "Yes"): ?>
+                                <?= HtmlPurifier::process($article->introtext) ?>
+                            <?php endif ?>
+                        </div>
+                        <div class="article-fulltext">
+                            <?php if($params->categoryFullText == "Yes"): ?>
+                                <?= HtmlPurifier::process($article->fulltext) ?>
+                            <?php endif ?>
+                        </div>
                     </div>
                 </div>
             </article>

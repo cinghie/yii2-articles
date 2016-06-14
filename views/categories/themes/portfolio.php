@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @copyright Copyright &copy; Gogodigital Srls
+ * @company Gogodigital Srls - Wide ICT Solutions
+ * @website http://www.gogodigital.it
+ * @github https://github.com/cinghie/yii2-articles
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ * @package yii2-articles
+ * @version 0.6.2
+ */
+
+use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
+
+?>
+
+<!-- main -->
+<main class="categories-view <?php echo $model->theme ?>" role="main">
+    <header class="page-header">
+        <h1 class="page-title"><?= Html::encode($this->title) ?></h1>
+        <div class="page-description"><?= HtmlPurifier::process($model->description) ?></div>
+    </header>
+    <section id="portfolio-items" class="row isotope">
+        <?php foreach($model->getItemsByCategory($model->id,"created DESC") as $article): ?>
+            <article class="portfolio-item">
+                <div class="item col-md-4 col-sm-6 col-xs-12 filter-design isotope-item">
+                    <div class="portfolio-item">
+                        <h2>
+                            <a href="<?= $article->itemUrl ?>" title="<?= Html::encode($article->title) ?>">
+                                <?= Html::encode($article->title) ?>
+                            </a>
+                        </h2>
+                        <a class="image" href="<?= $article->itemUrl ?>" title="<?= Html::encode($article->title) ?>">
+                            <?= Html::img($article->getImageThumbUrl($params->categoryImageWidth), [
+                                'alt' => Html::encode($article->title),
+                                'class' => 'img-rounded',
+                                'title' => Html::encode($article->title),
+                                'width' => '100%']) ?>
+                            <span class="hover-zoom"></span>
+                        </a>
+                        <div class="article-description">
+                            <div class="article-introtext">
+                                <?php if($params->categoryIntroText == "Yes"): ?>
+                                    <?= HtmlPurifier::process($article->introtext) ?>
+                                <?php endif ?>
+                            </div>
+                            <div class="article-fulltext">
+                                <?php if($params->categoryFullText == "Yes"): ?>
+                                    <?= HtmlPurifier::process($article->fulltext) ?>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        <?php endforeach ?>
+    </section>
+</main>
