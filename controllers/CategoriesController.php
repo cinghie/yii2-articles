@@ -89,15 +89,23 @@ class CategoriesController extends Controller
      * @param string $id
      * @return mixed
      * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
         // Check RBAC Permission
         if($this->userCanView($id))
         {
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
+            $model = $this->findModel($id);
+
+            if($model->state) {
+                return $this->render('view', [
+                    'model' => $model,
+                ]);
+            } else {
+                throw new NotFoundHttpException;
+            }
+
         } else {
             throw new ForbiddenHttpException;
         }
