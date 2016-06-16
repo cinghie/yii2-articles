@@ -27,7 +27,7 @@ class m151021_200401_create_article_categories_table extends Migration
             'state' => $this->boolean()->notNull()->defaultValue(0),
             'access' => $this->string(64)->notNull(),
             'language' => $this->char(7)->notNull(),
-            'theme' => $this->string(12)->notNull()->defaultValue('default'),
+            'theme' => $this->string(12)->notNull()->defaultValue('blog'),
             'ordering' => $this->integer(11)->notNull()->defaultValue(0),
             'image' => $this->text(),
             'image_caption' => $this->string(255),
