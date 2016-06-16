@@ -20,8 +20,7 @@ class Items extends Articles
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%article_items}}';
     }
 
@@ -88,8 +87,7 @@ class Items extends Articles
      */
     public function isUserAuthor()
     {
-        if ( Yii::$app->user->identity->id == $this->created_by )
-        {
+        if ( Yii::$app->user->identity->id == $this->created_by ) {
             return true;
         } else {
             return false;
@@ -100,8 +98,7 @@ class Items extends Articles
      * return item url
      * @return string
      */
-    public function getItemUrl()
-    {
+    public function getItemUrl() {
         return Url::to(['/articles/items/view', 'id' => $this->id, 'alias' => $this->alias, 'cat' => $this->category->alias]);
     }
 
@@ -109,8 +106,7 @@ class Items extends Articles
      * fetch stored file name with complete path 
      * @return string
      */
-    public function getFilePath() 
-    {
+    public function getFilePath() {
         return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image : null;
     }
 	
@@ -127,6 +123,7 @@ class Items extends Articles
 
     /**
      * fetch stored image url
+     * @param $size
      * @return string
      */
     public function getImageThumbUrl($size)
@@ -149,13 +146,12 @@ class Items extends Articles
 		$imageXL = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."extra/").$this->image;
 		
 		// check if image exists on server
-        if ( empty($this->image) || !file_exists($image) )
-        {
+        if ( empty($this->image) || !file_exists($image) ) {
             return false;
         }
 		
 		// check if uploaded file can be deleted on server
-		if (unlink($image)) 
+		if (unlink($image))
 		{
 			unlink($imageS);
 			unlink($imageM);
@@ -170,7 +166,10 @@ class Items extends Articles
 		
 	}
 
-    // Return array for Publish Status
+    /**
+     * Return array for Publish Status
+     * @return array
+     */
     public function getPublishSelect2()
     {
         if ( Yii::$app->user->can('articles-publish-all-items') || Yii::$app->user->can('articles-publish-his-items') ) {
@@ -180,13 +179,18 @@ class Items extends Articles
         }
     }
 	
-	// Return array for Category Select2
+	/**
+     * Return array for Category Select2
+     * @return array
+     **/
 	public function getCategoriesSelect2()
 	{
-		$sql = 'SELECT id,name FROM {{%article_categories}} WHERE state = 1';
-		$categories = Categories::findBySql($sql)->asArray()->all();
-		
-		$array[0] = \Yii::t('articles', 'No Category');
+        $categories = Categories::find()
+            ->select(['id','name'])
+            ->where(['state' => 1])
+            ->all();
+
+		$array[0] = Yii::t('articles', 'No Category');
 		
 		foreach($categories as $category) {
 			$array[$category['id']] = $category['name'];
@@ -194,57 +198,69 @@ class Items extends Articles
 		
 		return $array;
 	}
-	
-	// Return array for Video Type
+
+    /*
+     * Return array for Video Type
+     * @return array
+     */
 	public function getVideoTypeSelect2()
 	{
 		$videotype = [ "youtube" => "YouTube", "vimeo" => "Vimeo", "dailymotion" => "Dailymotion" ];
 
 		return $videotype;
-		
 	}
-	
-	// Return Attachment
-    public function getAttachments()
-    {
+
+    /**
+     * Return Attachments
+     * @return Attachments
+     */
+    public function getAttachments() {
         return $this->hasMany(Attachments::className(), ['itemid' => 'id'])->from(Attachments::tableName() . ' AS attach');
     }
 
-    // Return Category
-    public function getCategory()
-    {
+    /**
+     * Return Categories
+     * @return Categories
+     */
+    public function getCategory() {
         return $this->hasOne(Categories::className(), ['id' => 'catid'])->from(Categories::tableName() . ' AS category');
     }
-	
-	// Return User
-    public function getUser()
-    {
+
+    /**
+     * Return User
+     * @return $this
+     */
+    public function getUser() {
         $userClass = Yii::$app->controller->module->userClass;
         $user = Yii::$container->get($userClass);
         return $this->hasOne($userClass, ['id' => 'userid'])->from($user::tableName() . ' AS user');
     }
 
-    // Return Created_By
-    public function getCreatedby()
-    {
+    /**
+     * Return Created_By
+     * @return $this
+     */
+    public function getCreatedby() {
         $userClass = Yii::$app->controller->module->userClass;
         $user = Yii::$container->get($userClass);
         return $this->hasOne($userClass, ['id' => 'created_by'])->from($user::tableName() . ' AS createdby');
     }
 
-    // Return Modified_By
-    public function getModifiedby()
-    {
+    /**
+     * Return Modified_By
+     * @return $this
+     */
+    public function getModifiedby() {
         $userClass = Yii::$app->controller->module->userClass;
         $user = Yii::$container->get($userClass);
         return $this->hasOne($userClass, ['id' => 'modified_by'])->from($user::tableName() . ' AS modifiedby');
     }
 
     /*
-     * return a date formatted with default format
+     * Return a date formatted with default format
      * @return string
      */
-    public function getDateFormatted($date){
+    public function getDateFormatted($date) {
         return Yii::$app->formatter->asDatetime($date, "php:".Yii::$app->controller->module->dateFormat);
     }
 	

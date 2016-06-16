@@ -64,7 +64,6 @@ return array(
 	'Browse &hellip;'=>'Sfoglia',
 	'Allowed Extensions'=>'Estensioni Permesse',
 	'Save & Exit'=>'Salva & Esci',
-	'Update'=>'Modifica',
 	'Update Items' => 'Modifica Articolo',
 	'Update Categories' => 'Modifica Categoria',
 	'Reset Grid'=>'Reset',
@@ -96,7 +95,6 @@ return array(
 	'Catid' => 'Categoria',
 	'Created' => 'Data Creazione',
 	'Modified' => 'Data Modifica',
-	'Catid' => 'Categoria',
 	'Userid' => 'Utente',
 	'Created By' => 'Creato Da',
 	'Modified By' => 'Modificato Da',
@@ -106,7 +104,6 @@ return array(
 	'Alias' => 'Alias',
 	'Author' => 'Autore',
 	'Copyright' => 'Copyright',
-	'Hits' => 'Visualizzazioni',
 	'Meta Description' => 'Meta Descrizione',
 	'Meta Keywords' => 'Meta Parole Chiave',
 	'Video ID' => 'ID Video',
@@ -137,5 +134,6 @@ return array(
 	'Show FullText' => 'Mostra Testo Completo',
     'Show Hits' => 'Mostra Visualizzazioni',
 	'Show User' => 'Mostra Utente',
-	'Theme' => 'Tema'
+	'Theme' => 'Tema',
+	'No Category' => 'Nessuna Categoria'
 );

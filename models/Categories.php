@@ -19,8 +19,7 @@ class Categories extends Articles
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%article_categories}}';
     }
 
