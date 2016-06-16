@@ -13,16 +13,21 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use dektrium\user\models\User;
+use yii\db\ActiveRecord;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 
-class Articles extends \yii\db\ActiveRecord
+class Articles extends ActiveRecord
 {
-	
-	/**
-    * Upload file
-    * @return mixed the uploaded image instance
-    */
+    /**
+     * Upload file
+     * @param $fileName
+     * @param $fileNameType
+     * @param $filePath
+     * @param $fileField
+     * @return mixed the uploaded image instance
+     */
     public function uploadFile($fileName,$fileNameType,$filePath,$fileField) 
 	{
         // get the uploaded file instance. for multiple file uploads
@@ -65,14 +70,17 @@ class Articles extends \yii\db\ActiveRecord
 	 
 			// the uploaded file instance
 			return $file;
-		
 		}
     }
 
-	/**
-    * createThumbImages files
-    * @return mixed the uploaded image instance
-    */
+    /**
+     * createThumbImages files
+     * @param $image
+     * @param $imagePath
+     * @param $imgOptions
+     * @param $thumbPath
+     * @return mixed the uploaded image instance
+     */
 	public function createThumbImages($image,$imagePath,$imgOptions,$thumbPath)
 	{	
 		$imageName = $image->name;
@@ -88,11 +96,12 @@ class Articles extends \yii\db\ActiveRecord
 		Image::thumbnail($imageLink, $imgOptions['extra']['width'], $imgOptions['extra']['height'])
 			->save($thumbPath."extra/".$imageName, ['quality' => $imgOptions['extra']['quality']]);		
 	}
-	
-	/**
-	* Generate fileName
-	* @return string fileName
-	*/ 
+
+    /**
+     * Generate fileName
+     * @param $name
+     * @return string fileName
+     */
 	public function generateFileName($name)
     {	
 		// remove any duplicate whitespace, and ensure all characters are alphanumeric
@@ -105,9 +114,10 @@ class Articles extends \yii\db\ActiveRecord
     }
 	
 	/**
-	* Generate URL alias
-	* @return string alias
-	*/ 
+	 * Generate URL alias
+     * @param $name
+	 * @return string alias
+	 */
 	public function generateAlias($name)
     {
         // remove any '-' from the string they will be used as concatonater
@@ -127,8 +137,7 @@ class Articles extends \yii\db\ActiveRecord
 	 * Get lang code like en
 	 * @return string lang
 	 */
-	public function getLang()
-	{
+	public function getLang() {
 		return substr($this->language,0,2);
 	}
 
@@ -136,17 +145,16 @@ class Articles extends \yii\db\ActiveRecord
 	 * Get lang tag like en-GB
 	 * @return string lang
 	 */
-	public function getLangTag()
-	{
+	public function getLangTag() {
 		return $this->language;
 	}
 
 	/**
-	* Generate JSON for Params
-	* @return string json encoded
-	*/ 
-	public function generateJsonParams($params)
-	{
+	 * Generate JSON for Params
+     * @param $params
+	 * @return string json encoded
+	 */
+	public function generateJsonParams($params) {
 		return json_encode($params);
 	}
 
@@ -174,12 +182,17 @@ class Articles extends \yii\db\ActiveRecord
 
 	/**
 	 * Return array for User Select2 with current user selected
+     * @param $userid
+     * @param $username
 	 * @return array
 	 */
 	public function getUsersSelect2($userid,$username)
 	{
-		$sql   = 'SELECT id,username FROM {{%user}} WHERE id != '.$userid;
-		$users = Items::findBySql($sql)->asArray()->all();
+        $users = User::find()
+            ->select(['id','username'])
+            ->where(['blocked_at' => null, 'unconfirmed_email' => null])
+            ->andWhere(['!=', 'id', $userid])
+            ->all();
 
 		$array[$userid] = ucwords($username);
 
@@ -191,13 +204,16 @@ class Articles extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * Return array for User Select2 with current user selected
-	 * @return string
+	 * Return array with all Items
+	 * @return array
 	 */
-	public function getArticlesSelect2()
+	public function getItemsSelect2()
 	{
-		$sql   = 'SELECT id,title FROM {{%article_items}}';
-		$items = Items::findBySql($sql)->asArray()->all();
+        $array = array();
+
+        $items = Items::find()
+            ->select(['id','title'])
+            ->all();
 
 		foreach($items as $item) {
 			$array[$item['id']] = $item['title'];
@@ -207,36 +223,23 @@ class Articles extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * Return Username by UserID
-	 * @return string
-	 */
-	public function getUsernameByUserID($id)
-	{
-		$sql      = 'SELECT username FROM {{%user}} WHERE id='.$id;
-		$username = Items::findBySql($sql)->asArray()->one();
-
-		return $username['username'];
-	}
-
-	/**
 	 * Return an array with the user roles
 	 * @return array
 	 */
 	public function getRoles()
 	{
-		$sql   = 'SELECT name FROM {{%auth_item}} WHERE type = 1 ORDER BY name ASC';
-		$roles = Categories::findBySql($sql)->asArray()->all();
+		$roles = Yii::$app->authManager->getRoles();
 		$array = ['public' => 'Public'];
 
 		foreach($roles as $role) {
-			$array[ucwords($role['name'])] = ucwords($role['name']);
+			$array[ucwords($role->name)] = ucwords($role->name);
 		}
 
 		return $array;
 	}
 
 	/**
-	 * Return languages Select
+	 * Return an array with languages
 	 * @return array
 	 */
 	public function getLanguagesSelect2()
@@ -256,6 +259,8 @@ class Articles extends \yii\db\ActiveRecord
 
 	/**
 	 * Return param
+     * @param $params
+     * @param $param
 	 * @return $param
 	 */
 	public function getOption($params,$param)

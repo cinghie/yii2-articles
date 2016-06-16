@@ -22,7 +22,7 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Load info
 $attachType       = Yii::$app->controller->module->attachType;
-$select2articles = $model->getArticlesSelect2();
+$select2articles = $model->getItemsSelect2();
 
 if ($model->isNewRecord) {
     $hits = "0";
