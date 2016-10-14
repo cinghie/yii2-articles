@@ -48,7 +48,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
             </figure>
         <?php endif; ?>
     </header>
-    <?php if ($model->introtext && $model->getOption($model->category->params,"itemViewShowIntroText") == "Yes"): ?>
+    <?php if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
         <div class="intro-text">
             <?= $model->introtext ?>
         </div>
@@ -61,7 +61,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
     <?php endif; ?>
 </article>
 
-<?php if($model->getOption($model->category->params,"itemViewDebug") == "Yes"): ?>
+<?php if($model->getOption($model->category->params,"itemDebug") == "Yes"): ?>
 
 <div class="items-view-debug">
 
