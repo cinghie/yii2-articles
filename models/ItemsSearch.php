@@ -47,12 +47,16 @@ class ItemsSearch extends Items
      */
     public function search($params)
     {
-        if(Yii::$app->user->can('articles-index-his-items'))
+        if(Yii::$app->user->can('articles-index-all-items'))
         {
-            $query = Items::find()->where(['created_by' => Yii::$app->user->identity->id]);
-        } elseif(Yii::$app->user->can('articles-index-all-items')) {
             $query = Items::find();
-        } else {
+        }
+		elseif(Yii::$app->user->can('articles-index-his-items'))
+		{
+            $query = Items::find()->where(['created_by' => Yii::$app->user->identity->id]);
+        }
+		else
+		{
             throw new ForbiddenHttpException;
         }
 
