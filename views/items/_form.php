@@ -4,14 +4,14 @@
 * @copyright Copyright &copy; Gogodigital Srls
 * @company Gogodigital Srls - Wide ICT Solutions 
 * @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
+* @github https://github.com/computesta/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
 * @version 0.6.2
 */
 
 use yii\helpers\Html;
-use cinghie\articles\assets\ArticlesAsset;
+use computesta\articles\assets\ArticlesAsset;
 
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
@@ -26,7 +26,7 @@ use kartik\markdown\MarkdownEditor;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles['computesta\articles\assets\ArticlesAsset'];
 
 // Get current user
 $user     = Yii::$app->user->identity;

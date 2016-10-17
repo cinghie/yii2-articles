@@ -43,7 +43,7 @@ Copy img folder to your webroot
 Make sure that you have properly configured `db` application component
 and run the following command:
 ```
-$ php yii migrate/up --migrationPath=@vendor/cinghie/yii2-articles/migrations
+$ php yii migrate/up --migrationPath=@vendor/computesta/yii2-articles/migrations
 ```
 
 ### 3. Set configuration file

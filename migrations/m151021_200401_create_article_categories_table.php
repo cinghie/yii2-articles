@@ -4,13 +4,13 @@
  * @copyright Copyright &copy; Gogodigital Srls
  * @company Gogodigital Srls - Wide ICT Solutions 
  * @website http://www.gogodigital.it
- * @github https://github.com/cinghie/yii2-articles
+ * @github https://github.com/computesta/yii2-articles
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-articles
  * @version 0.6.2
  */
 
-use cinghie\articles\migrations\Migration;
+use computesta\articles\migrations\Migration;
 use yii\db\Schema;
 
 class m151021_200401_create_article_categories_table extends Migration
