@@ -89,7 +89,7 @@ class AttachmentsController extends Controller
     public function actionView($id)
     {
         // Check RBAC Permission
-        if($this->userCanView())
+        if($this->userCanView($id))
         {
             return $this->render('view', ['model' => $this->findModel($id),]);
         } else {
