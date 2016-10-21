@@ -40,7 +40,7 @@ $select2categories = $model->getCategoriesSelect2();
 // Get Username
 if (!$model->isNewRecord) {
 	$modified_by = $model->modified_by;
-    $modified_by_username = $model->modifiedby->username;
+    $modified_by_username = isset($model->modifiedby->username) ? $model->modifiedby->username : $username;
     $created_by  = $model->created_by;
     $created_by_username = $model->createdby->username;
 } else { 
