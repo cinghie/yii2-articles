@@ -26,7 +26,7 @@ class DefaultController extends Controller
                 'rules' => [
                     ['allow' => true, 'actions' => ['index'], 'roles' => ['@']],
                 ],
-                'denyCallback' => function ($rule, $action) {
+                'denyCallback' => function () {
                     throw new \Exception('You are not allowed to access this page');
                 }
             ],
