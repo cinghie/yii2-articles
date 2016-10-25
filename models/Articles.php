@@ -85,6 +85,9 @@ class Articles extends ActiveRecord
 	{	
 		$imageName = $image->name;
 		$imageLink = $imagePath.$image->name;
+
+        // Check thumbPath exist, else create
+        $this->createDirectory($thumbPath);
 		
 		// Save Image Thumbs
 		Image::thumbnail($imageLink, $imgOptions['small']['width'], $imgOptions['small']['height'])
@@ -269,5 +272,27 @@ class Articles extends ActiveRecord
 
 		return $params->$param;
 	}
+
+    /**
+     * Function for creating directory to save file
+     * @param string $path file to create
+     */
+    protected function createDirectory($path)
+    {
+        $sizes = array(
+            'small',
+            'medium',
+            'large',
+            'extra',
+        );
+
+        foreach($sizes as $size)
+        {
+            if(!file_exists($path.$size))
+            {
+                mkdir($path.$size, 0755, true);
+            }
+        }
+    }
 
 }
