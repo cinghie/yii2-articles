@@ -94,6 +94,7 @@ class Articles extends \yii\base\Module
     {
         parent::init();
 		$this->registerTranslations();
+        $this->setupImageDirectory();
         Yii::$container->set($this->userClass);
     }
 
@@ -109,6 +110,38 @@ class Articles extends \yii\base\Module
 				'basePath' => __DIR__ . '/messages',
 			];
 		}
+    }
+
+	/**
+	 * Setup image directory
+	 */
+    protected function setupImageDirectory()
+    {
+        // create image directory as described if it's not exist yet
+        if(!file_exists(Yii::getAlias($this->categoryImagePath)))
+        {
+            mkdir(Yii::getAlias($this->categoryImagePath), 0755, true);
+        }
+
+        if(!file_exists(Yii::getAlias($this->categoryThumbPath)))
+        {
+            mkdir(Yii::getAlias($this->categoryThumbPath), 0755, true);
+        }
+
+        if(!file_exists(Yii::getAlias($this->itemImagePath)))
+        {
+            mkdir(Yii::getAlias($this->itemImagePath), 0755, true);
+        }
+
+        if(!file_exists(Yii::getAlias($this->itemThumbPath)))
+        {
+            mkdir(Yii::getAlias($this->itemThumbPath), 0755, true);
+        }
+
+        if(!file_exists(Yii::getAlias($this->attachPath)))
+        {
+            mkdir(Yii::getAlias($this->attachPath), 0755, true);
+        }
     }
 
 }
