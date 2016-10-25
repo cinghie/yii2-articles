@@ -4,13 +4,13 @@
 * @copyright Copyright &copy; Gogodigital Srls
 * @company Gogodigital Srls - Wide ICT Solutions 
 * @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
+* @github https://github.com/computesta/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
 * @version 0.6.2
 */
 
-namespace cinghie\articles\models;
+namespace computesta\articles\models;
 
 use Yii;
 use dektrium\user\models\User;
@@ -85,6 +85,8 @@ class Articles extends ActiveRecord
 	{	
 		$imageName = $image->name;
 		$imageLink = $imagePath.$image->name;
+		
+		$this->createDirectory($thumbPath);
 		
 		// Save Image Thumbs
 		Image::thumbnail($imageLink, $imgOptions['small']['width'], $imgOptions['small']['height'])
@@ -269,5 +271,26 @@ class Articles extends ActiveRecord
 
 		return $params->$param;
 	}
-
+	
+	/**
+	 * Function for creating directory to save file
+	 * @param string $path file to create
+	 */
+	protected function createDirectory($path)
+	{
+		$sizes = array(
+			'small',
+			'medium',
+			'large',
+			'extra',
+		);
+		
+		foreach($sizes as $size)
+		{
+			if(!file_exists($path.$size))
+			{
+				mkdir($path.$size, 0755, true);
+			}
+		}
+	}
 }

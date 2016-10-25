@@ -22,13 +22,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require cinghie/yii2-articles "*"
+$ php composer.phar require computesta/yii2-articles "*"
 ```
 
 or add
 
 ```
-"cinghie/yii2-articles": "*"
+"computesta/yii2-articles": "*"
 ```
 
 Configuration
@@ -43,7 +43,7 @@ Copy img folder to your webroot
 Make sure that you have properly configured `db` application component
 and run the following command:
 ```
-$ php yii migrate/up --migrationPath=@vendor/cinghie/yii2-articles/migrations
+$ php yii migrate/up --migrationPath=@vendor/computesta/yii2-articles/migrations
 ```
 
 ### 3. Set configuration file
@@ -55,18 +55,16 @@ Set on your configuration file, in modules section
 
 	// Module Articles
 	'articles' => [
-		'class' => 'cinghie\articles\Articles',
-		'userClass' => 'dektrium\user\models\User',
+		'class' => 'computesta\articles\Articles',
+		'userClass' => 'dektrium\user\models\User', //you can use other user identity class, not always Yii2-user
 		
 		// Select Languages allowed
 		'languages' => [ 
-			"it-IT" => "it-IT", 
 			"en-GB" => "en-GB" 
 		],			
 		
 		// Select Date Format
         'dateFormat' => 'd F Y';
-		
 		// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 		'editor' => 'ckeditor',
 		

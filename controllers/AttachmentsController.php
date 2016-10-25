@@ -4,17 +4,17 @@
 * @copyright Copyright &copy; Gogodigital Srls
 * @company Gogodigital Srls - Wide ICT Solutions 
 * @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
+* @github https://github.com/computesta/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
 * @version 0.6.2
 */
 
-namespace cinghie\articles\controllers;
+namespace computesta\articles\controllers;
 
 use Yii;
-use cinghie\articles\models\Attachments;
-use cinghie\articles\models\AttachmentsSearch;
+use computesta\articles\models\Attachments;
+use computesta\articles\models\AttachmentsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -89,7 +89,7 @@ class AttachmentsController extends Controller
     public function actionView($id)
     {
         // Check RBAC Permission
-        if($this->userCanView())
+        if($this->userCanView($id))
         {
             return $this->render('view', ['model' => $this->findModel($id),]);
         } else {
@@ -166,8 +166,22 @@ class AttachmentsController extends Controller
         {
             $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+            if ($model->load(Yii::$app->request->post())) {
+				
+				// Upload Attachments if is not Null
+                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
+                $attachName  = $model->title;
+                $attachType  = "original";
+                $attachField = "filename";
+
+                // Create UploadFile Instance
+                $attach = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+                $model->filename = $attach->name;
+				
+				if($model->save())
+				{
+					return $this->redirect(['index']);
+				}
             } else {
                 return $this->render('update', [
                     'model' => $model,

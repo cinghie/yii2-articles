@@ -4,13 +4,13 @@
 * @copyright Copyright &copy; Gogodigital Srls
 * @company Gogodigital Srls - Wide ICT Solutions 
 * @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
+* @github https://github.com/computesta/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-articles
 * @version 0.6.2
 */
 
-namespace cinghie\articles\models;
+namespace computesta\articles\models;
 
 use Yii;
 use yii\base\Model;
@@ -47,12 +47,16 @@ class ItemsSearch extends Items
      */
     public function search($params)
     {
-        if(Yii::$app->user->can('articles-index-his-items'))
+        if(Yii::$app->user->can('articles-index-all-items'))
         {
-            $query = Items::find()->where(['created_by' => Yii::$app->user->identity->id]);
-        } elseif(Yii::$app->user->can('articles-index-all-items')) {
             $query = Items::find();
-        } else {
+        }
+		elseif(Yii::$app->user->can('articles-index-his-items'))
+		{
+            $query = Items::find()->where(['created_by' => Yii::$app->user->identity->id]);
+        }
+		else
+		{
             throw new ForbiddenHttpException;
         }
 
