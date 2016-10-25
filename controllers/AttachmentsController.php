@@ -165,9 +165,22 @@ class AttachmentsController extends Controller
         if($this->userCanUpdate($id))
         {
             $model = $this->findModel($id);
+            if ($model->load(Yii::$app->request->post())) {
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+                // Upload Attachments if is not Null
+                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
+                $attachName  = $model->title;
+                $attachType  = "original";
+                $attachField = "filename";
+                
+                // Create UploadFile Instance
+                $attach = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+                $model->filename = $attach->name;
+
+                if($model->save())
+                {
+                    return $this->redirect(['index']);
+                }
             } else {
                 return $this->render('update', [
                     'model' => $model,
