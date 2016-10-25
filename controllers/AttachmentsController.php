@@ -172,7 +172,7 @@ class AttachmentsController extends Controller
                 $attachName  = $model->title;
                 $attachType  = "original";
                 $attachField = "filename";
-                
+
                 // Create UploadFile Instance
                 $attach = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
                 $model->filename = $attach->name;

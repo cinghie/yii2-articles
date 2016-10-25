@@ -212,6 +212,10 @@ class ItemsController extends Controller
                 // Create UploadFile Instance
                 $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
 
+                if($model->image == false && $image === false) {
+                    unset($model->image);
+                }
+
                 if ($model->save()) {
 
                     // upload only if valid uploaded file instance found
