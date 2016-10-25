@@ -250,6 +250,7 @@ The migrations add to the database 4 types of users:
 ## CHANGELOG
 
 <ul>
+  <li>Version 0.6.3 - Implementing Pull Request #9</li>
   <li>Version 0.6.2 - Implementing Pull Request #6</li>
   <li>Version 0.6.1 - Fixed #4 #5 and adding active/deactive buttons</li>
   <li>Version 0.6.0 - Adding Url Rules</li>
