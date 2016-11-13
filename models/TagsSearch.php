@@ -1,26 +1,25 @@
 <?php
 
 /**
-* @copyright Copyright &copy; Gogodigital Srls
-* @company Gogodigital Srls - Wide ICT Solutions 
-* @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
-* @license GNU GENERAL PUBLIC LICENSE VERSION 3
-* @package yii2-articles
-* @version 0.6.3
-*/
+ * @copyright Copyright &copy; Gogodigital Srls
+ * @company Gogodigital Srls - Wide ICT Solutions
+ * @website http://www.gogodigital.it
+ * @github https://github.com/cinghie/yii2-articles
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ * @package yii2-articles
+ * @version 0.6.3
+ */
 
 namespace cinghie\articles\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use cinghie\articles\models\Attachments;
 
 /**
- * AttachmentsSearch represents the model behind the search form about `cinghie\articles\models\Attachments`.
+ * TagsSearch represents the model behind the search form of `cinghie\articles\models\Tags`.
  */
-class AttachmentsSearch extends Attachments
+class TagsSearch extends Tags
 {
     /**
      * @inheritdoc
@@ -28,8 +27,8 @@ class AttachmentsSearch extends Attachments
     public function rules()
     {
         return [
-            [['id', 'itemid', 'hits'], 'integer'],
-            [['filename', 'title', 'titleAttribute'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'alias', 'description'], 'safe'],
         ];
     }
 
@@ -51,15 +50,12 @@ class AttachmentsSearch extends Attachments
      */
     public function search($params)
     {
-        $query = Attachments::find();
+        $query = Tags::find();
+
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC
-                ],
-            ],
         ]);
 
         $this->load($params);
@@ -70,15 +66,14 @@ class AttachmentsSearch extends Attachments
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'itemid' => $this->itemid,
-            'hits' => $this->hits,
         ]);
 
-        $query->andFilterWhere(['like', 'filename', $this->filename])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'titleAttribute', $this->titleAttribute]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'alias', $this->alias])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

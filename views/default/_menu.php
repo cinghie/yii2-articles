@@ -36,5 +36,9 @@ use yii\bootstrap\Nav;
 			'label'   => Yii::t('articles', 'Attachments'),
 			'url'     => ['/articles/attachments/index'],
 		],
+		[
+			'label'   => Yii::t('articles', 'Tags'),
+			'url'     => ['/articles/tags/index'],
+		],
 	],
 ]) ?>
