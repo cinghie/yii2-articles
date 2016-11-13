@@ -64,7 +64,6 @@ class CategoriesController extends Controller
 
     /**
      * Lists all Categories models.
-     *
      * @return mixed
      * @throws ForbiddenHttpException
      */
@@ -87,7 +86,6 @@ class CategoriesController extends Controller
 
     /**
      * Displays a single Categories model.
-     *
      * @param string $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -116,7 +114,6 @@ class CategoriesController extends Controller
     /**
      * Creates a new Categories model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     *
      * @return mixed
      * @throws ForbiddenHttpException
      */
@@ -214,7 +211,6 @@ class CategoriesController extends Controller
     /**
      * Updates an existing Categories model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     *
      * @param string $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -317,7 +313,6 @@ class CategoriesController extends Controller
     /**
      * Deletes an existing Categories model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
      * @param string $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -350,7 +345,6 @@ class CategoriesController extends Controller
     /**
      * Deletes selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      * @throws \Exception
@@ -392,7 +386,6 @@ class CategoriesController extends Controller
 
     /**
      * Delete the Image from the Categories model
-     *
      * @param int $id
      * @return Categories update view
      * @throws ForbiddenHttpException
@@ -423,7 +416,6 @@ class CategoriesController extends Controller
 
     /**
      * Change category state: published or unpublished
-     *
      * @param $id
      * @return \yii\web\Response
      * @throws ForbiddenHttpException
@@ -453,7 +445,6 @@ class CategoriesController extends Controller
     /**
      * Active selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
      * @return mixed
      */
     public function actionActivemultiple()
@@ -478,7 +469,6 @@ class CategoriesController extends Controller
     /**
      * Active selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
      * @return mixed
      */
     public function actionDeactivemultiple()
@@ -503,7 +493,6 @@ class CategoriesController extends Controller
     /**
      * Finds the Categories model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     *
      * @param string $id
      * @return Categories the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -519,7 +508,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can Index Categories
-     *
      * @return bool
      */
     protected function userCanIndex()
@@ -529,7 +517,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can view Categories
-     *
      * @param $id
      * @return bool
      */
@@ -542,7 +529,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can create Categories
-     *
      * @return bool
      */
     protected function userCanCreate()
@@ -552,7 +538,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can update Categories
-     *
      * @return bool
      */
     protected function userCanUpdate()
@@ -562,7 +547,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can publish Categories
-     *
      * @return bool
      */
     protected function userCanPublish()
@@ -572,7 +556,6 @@ class CategoriesController extends Controller
 
     /**
      * Check if user can delete Categories
-     *
      * @return bool
      */
     protected function userCanDelete()

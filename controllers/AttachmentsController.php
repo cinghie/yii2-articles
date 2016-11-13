@@ -57,7 +57,6 @@ class AttachmentsController extends Controller
 
     /**
      * Lists all Attachments models
-     *
      * @return string
      * @throws ForbiddenHttpException
      */
@@ -80,7 +79,6 @@ class AttachmentsController extends Controller
 
     /**
      * Displays a single Attachments model.
-     *
      * @param $id
      * @return string
      * @throws ForbiddenHttpException
@@ -100,7 +98,6 @@ class AttachmentsController extends Controller
     /**
      * Creates a new Attachments model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     *
      * @return string|\yii\web\Response
      * @throws ForbiddenHttpException
      */
@@ -153,7 +150,6 @@ class AttachmentsController extends Controller
     /**
      * Updates an existing Attachments model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     *
      * @param $id
      * @return string|\yii\web\Response
      * @throws ForbiddenHttpException
@@ -194,7 +190,6 @@ class AttachmentsController extends Controller
     /**
      * Deletes an existing Attachments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
      * @param $id
      * @return \yii\web\Response
      * @throws ForbiddenHttpException
@@ -227,7 +222,6 @@ class AttachmentsController extends Controller
     /**
      * Deletes selected Attachments models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      * @throws \Exception
@@ -269,7 +263,6 @@ class AttachmentsController extends Controller
     /**
      * Finds the Attachments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     *
      * @param integer $id
      * @return Attachments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -285,7 +278,6 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can Index Articles
-     *
      * @return bool
      */
     protected function userCanIndex()
@@ -295,7 +287,6 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can view Articles
-     *
      * @param $id
      * @return bool
      */
@@ -308,7 +299,6 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can create Articles
-     *
      * @return bool
      */
     protected function userCanCreate()
@@ -318,7 +308,6 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can update Articles
-     *
      * @param $id
      * @return bool
      */
@@ -331,7 +320,6 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can publish Articles
-     *
      * @param $id
      * @return bool
      */
@@ -344,7 +332,6 @@ class AttachmentsController extends Controller
 
     /**
      * Check if user can delete Articles
-     *
      * @param $id
      * @return bool
      */
