@@ -51,9 +51,11 @@ class CategoriesController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'activemultiple' => ['post'],
+                    'deactivemultiple' => ['post'],
                     'changestate' => ['post'],
                     'delete' => ['post'],
-					'deleteImage' => ['post'],
+                    'deleteImage' => ['post'],
                     'deletemultiple' => ['post'],
                 ],
             ],
