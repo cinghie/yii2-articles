@@ -54,6 +54,8 @@ class TagsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'activemultiple' => ['post'],
+                    'deactivemultiple' => ['post'],
                     'changestate' => ['post'],
                     'delete' => ['post'],
                     'deletemultiple' => ['post'],
@@ -140,6 +142,115 @@ class TagsController extends Controller
     }
 
     /**
+     * Deletes selected Items models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     */
+    public function actionDeletemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id) {
+            // Check RBAC Permission
+            if ($this->userCanDelete())
+            {
+                $model = $this->findModel($id);
+
+                if ($model->delete()) {
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Tag has been deleted!'));
+                } else {
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting tags'));
+                }
+
+            } else {
+                throw new ForbiddenHttpException;
+            }
+        }
+    }
+
+    /**
+     * Change tags state: published or unpublished
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionChangestate($id)
+    {
+        // Check RBAC Permission
+        if($this->userCanPublish())
+        {
+            $model = $this->findModel($id);
+
+            if ($model->state) {
+                $model->unpublish();
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags unpublished'));
+            } else {
+                $model->publish();
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags published'));
+            }
+
+            return $this->redirect(['index']);
+        } else {
+            throw new ForbiddenHttpException;
+        }
+    }
+
+    /**
+     * Active selected Tags models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @return mixed
+     */
+    public function actionActivemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
+
+            if(!$model->state) {
+                $model->publish();
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags actived'));
+            }
+        }
+    }
+
+    /**
+     * Active selected Tags models.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @return mixed
+     */
+    public function actionDeactivemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
+
+            if($model->state) {
+                $model->unpublish();
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags inactived'));
+            }
+        }
+    }
+
+    /**
      * Finds the Tags model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -153,5 +264,53 @@ class TagsController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * Check if user can Index Tags
+     * @return bool
+     */
+    protected function userCanIndex()
+    {
+        return ( Yii::$app->user->can('articles-index-tags') );
+    }
+
+    /**
+     * Check if user can create Tags
+     * @return bool
+     */
+    protected function userCanCreate()
+    {
+        return ( Yii::$app->user->can('articles-create-tags') );
+    }
+
+    /**
+     * Check if user can update Tags
+     * @param $id
+     * @return bool
+     */
+    protected function userCanUpdate()
+    {
+        return ( Yii::$app->user->can('articles-update-tags') );
+    }
+
+    /**
+     * Check if user can publish Tags
+     * @param $id
+     * @return bool
+     */
+    protected function userCanPublish()
+    {
+        return ( Yii::$app->user->can('articles-publish-tags') );
+    }
+
+    /**
+     * Check if user can delete Tags
+     * @param $id
+     * @return bool
+     */
+    protected function userCanDelete()
+    {
+        return ( Yii::$app->user->can('articles-delete-tags') );
     }
 }
