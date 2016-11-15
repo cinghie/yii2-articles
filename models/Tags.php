@@ -19,9 +19,10 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $alias
+ * @property integer $state
  * @property string $description
  */
-class Tags extends \yii\db\ActiveRecord
+class Tags extends Articles
 {
     /**
      * @inheritdoc
@@ -39,6 +40,7 @@ class Tags extends \yii\db\ActiveRecord
         return [
             [['name', 'alias'], 'required'],
             [['description'], 'string'],
+            [['state'], 'integer'],
             [['name', 'alias'], 'string', 'max' => 255],
         ];
     }
@@ -52,6 +54,7 @@ class Tags extends \yii\db\ActiveRecord
             'id' => Yii::t('articles', 'ID'),
             'name' => Yii::t('articles', 'Name'),
             'alias' => Yii::t('articles', 'Alias'),
+            'state' => Yii::t('articles', 'State'),
             'description' => Yii::t('articles', 'Description'),
         ];
     }

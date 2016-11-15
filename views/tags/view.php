@@ -10,6 +10,7 @@
  * @version 0.6.3
  */
 
+use cinghie\articles\assets\ArticlesAsset;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -22,13 +23,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Tags'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 
 /* Render MetaData */
-$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_data.php',[ 'model' => $model,]);
+//$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_data.php',[ 'model' => $model,]);
 
 /* Facebook Open Graph */
-$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_facebook.php',[ 'model' => $model,]);
+//$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_facebook.php',[ 'model' => $model,]);
 
 /* Twitter Card */
-$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 'model' => $model,]);
+//$this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 'model' => $model,]);
 
 ?>
 <div class="tags-view">

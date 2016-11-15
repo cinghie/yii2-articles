@@ -13,7 +13,7 @@
 use yii\helpers\Html;
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Update Tags') . ': ' . $model->title;
+$this->title = Yii::t('articles', 'Update Tags') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Tags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('articles', 'Update');

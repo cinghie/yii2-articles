@@ -21,6 +21,7 @@ class m151105_204528_create_tags_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
             'alias' => $this->string(255)->notNull(),
+            'state' => $this->boolean()->notNull()->defaultValue(0),
             'description' => $this->text(),
         ], $this->tableOptions);
 
