@@ -30,6 +30,32 @@ class m151105_204528_create_tags_table extends Migration
             'tagid' => $this->integer(11)->notNull()->defaultValue(0),
             'itemid' => $this->integer(11)->notNull()->defaultValue(0),
         ], $this->tableOptions);
+
+        // Auth Item Permissions
+        $this->insert('{{%auth_item}}',['name' => 'articles-create-tags', 'type' => '2', 'description' => 'Can create tags','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-update-tags', 'type' => '2', 'description' => 'Can update tags','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-delete-tags', 'type' => '2', 'description' => 'Can delete tags','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-publish-tags', 'type' => '2', 'description' => 'Can publish tags','created_at' => time(),'updated_at' => time()]);
+
+        // Auth Item Child Admin Articles
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-create-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-delete-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-publish-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-update-tags']);
+
+        // Auth Item Child Admin Articles
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-create-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-delete-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-publish-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-update-tags']);
+
+        // Auth Item Child Admin Articles
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-create-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-publish-tags']);
+        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-update-tags']);
+
+        // Auth Item Child Admin Articles
+        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-create-tags']);
     }
 
     public function down()

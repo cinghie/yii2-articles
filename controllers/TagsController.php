@@ -326,15 +326,6 @@ class TagsController extends Controller
     }
 
     /**
-     * Check if user can Index Tags
-     * @return bool
-     */
-    protected function userCanIndex()
-    {
-        return ( Yii::$app->user->can('articles-index-tags') );
-    }
-
-    /**
      * Check if user can create Tags
      * @return bool
      */

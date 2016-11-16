@@ -168,6 +168,15 @@ Set on your configuration file, in modules section
 | publisher |    no  |    no   |    no  |    no  |  yes  |  yes |
 |   author  |    no  |    no   |    no  |    no  |  yes  |  yes |
 
+### Tags Permissions
+
+|           | create | publish | update | delete |
+|:---------:|:------:|:-------:|:------:|:------:|
+|   admin   |   yes  |   yes   |   yes  |   yes  |
+|   editor  |   yes  |   yes   |   yes  |   yes  |
+| publisher |   yes  |   yes   |   yes  |    no  |
+|   author  |   yes  |    no   |    no  |    no  |
+
 ### Users Types
 
 The migrations add to the database 4 types of users:
@@ -186,6 +195,10 @@ The migrations add to the database 4 types of users:
   		<li>Can Delete all Articles</li>
   		<li>Can Index all Articles</li>
   		<li>Can View all Articles</li>
+  		<li>Can Create Tags</li>
+        <li>Can Publish Tags</li>
+        <li>Can Delete Tags</li>
+        <li>Can Update Tags</li>	    
   	</ul>
   </li>
   <li>Editor: 
@@ -201,6 +214,10 @@ The migrations add to the database 4 types of users:
   		<li>Can Delete his Articles</li>
   		<li>Can Index Articles</li>
   		<li>Can View all Articles</li>
+  		<li>Can Create Tags</li>
+        <li>Can Publish Tags</li>
+        <li>Can Delete Tags</li>
+        <li>Can Update Tags</li>
   	</ul>
   </li>
   <li>Publisher: 
@@ -216,6 +233,9 @@ The migrations add to the database 4 types of users:
   		<li>Can Delete his Articles</li>
   		<li>Can Index his Articles</li>
   		<li>Can View all Articles</li>
+  		<li>Can Create Tags</li>
+        <li>Can Publish Tags</li>
+        <li>Can Update Tags</li>  		
   	</ul>
   </li>  
   <li>Author: 
@@ -231,6 +251,7 @@ The migrations add to the database 4 types of users:
   		<li>Can't Delete Articles</li>
   		<li>Can't Index Articles</li>
   		<li>Can View Articles</li>
+  		<li>Can Create Tags</li>
   	</ul>
   </li>
 </ol>  
