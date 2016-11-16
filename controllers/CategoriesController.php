@@ -2,7 +2,7 @@
 
 /**
 * @copyright Copyright &copy; Gogodigital Srls
-* @company Gogodigital Srls - Wide ICT Solutions 
+* @company Gogodigital Srls - Wide ICT Solutions
 * @website http://www.gogodigital.it
 * @github https://github.com/cinghie/yii2-articles
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
@@ -390,7 +390,7 @@ class CategoriesController extends Controller
      * @return Categories update view
      * @throws ForbiddenHttpException
      */
-	public function actionDeleteimage($id) 
+	public function actionDeleteimage($id)
 	{
         // Check RBAC Permission
         if($this->userCanUpdate())
@@ -446,23 +446,31 @@ class CategoriesController extends Controller
      * Active selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionActivemultiple()
     {
-        $ids = Yii::$app->request->post('ids');
-
-        if (!$ids) {
-            return;
-        }
-
-        foreach ($ids as $id)
+        // Check RBAC Permission
+        if($this->userCanPublish())
         {
-            $model = $this->findModel($id);
+            $ids = Yii::$app->request->post('ids');
 
-            if(!$model->state) {
-                $model->publish();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Categories actived'));
+            if (!$ids) {
+                return;
             }
+
+            foreach ($ids as $id)
+            {
+                $model = $this->findModel($id);
+
+                if(!$model->state) {
+                    $model->publish();
+                    Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Categories actived'));
+                }
+            }
+        } else {
+            throw new ForbiddenHttpException;
         }
     }
 
@@ -470,23 +478,31 @@ class CategoriesController extends Controller
      * Active selected Categories models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeactivemultiple()
     {
-        $ids = Yii::$app->request->post('ids');
-
-        if (!$ids) {
-            return;
-        }
-
-        foreach ($ids as $id)
+        // Check RBAC Permission
+        if($this->userCanPublish())
         {
-            $model = $this->findModel($id);
+            $ids = Yii::$app->request->post('ids');
 
-            if($model->state) {
-                $model->unpublish();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Categories inactived'));
+            if (!$ids) {
+                return;
             }
+
+            foreach ($ids as $id)
+            {
+                $model = $this->findModel($id);
+
+                if($model->state) {
+                    $model->unpublish();
+                    Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Categories inactived'));
+                }
+            }
+        } else {
+            throw new ForbiddenHttpException;
         }
     }
 

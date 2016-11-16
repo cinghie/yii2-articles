@@ -379,6 +379,8 @@ class ItemsController extends Controller
      * Active selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionActivemultiple()
     {
@@ -390,11 +392,17 @@ class ItemsController extends Controller
 
         foreach ($ids as $id)
         {
-            $model = $this->findModel($id);
+            // Check RBAC Permission
+            if($this->userCanPublish($id))
+            {
+                $model = $this->findModel($id);
 
-            if(!$model->state) {
-                $model->publish();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items actived'));
+                if (!$model->state) {
+                    $model->publish();
+                    Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items actived'));
+                } else {
+                    throw new ForbiddenHttpException;
+                }
             }
         }
     }
@@ -403,6 +411,8 @@ class ItemsController extends Controller
      * Active selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeactivemultiple()
     {
@@ -414,11 +424,17 @@ class ItemsController extends Controller
 
         foreach ($ids as $id)
         {
-            $model = $this->findModel($id);
+            // Check RBAC Permission
+            if($this->userCanPublish($id))
+            {
+                $model = $this->findModel($id);
 
-            if($model->state) {
-                $model->unpublish();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items inactived'));
+                if($model->state) {
+                    $model->unpublish();
+                    Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items inactived'));
+                }
+            } else {
+                throw new ForbiddenHttpException;
             }
         }
     }
@@ -515,8 +531,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->language == $model->getLang() || $model->getLangTag() == "All")
-        {
+        if(Yii::$app->language == $model->getLang() || $model->getLangTag() == "All") {
             return true;
         } else {
             return false;
