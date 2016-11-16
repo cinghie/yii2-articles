@@ -38,7 +38,7 @@ class Tags extends Articles
     public function rules()
     {
         return [
-            [['name', 'alias'], 'required'],
+            [['name'], 'required'],
             [['description'], 'string'],
             [['state'], 'integer'],
             [['name', 'alias'], 'string', 'max' => 255],
