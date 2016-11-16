@@ -266,6 +266,8 @@ The migrations add to the database 4 types of users:
   <li>Items with Pretty Urls: PathToApp/articles/items</li>
   <li>Attachments: PathToApp/index.php?r=articles/attachments</li>
   <li>Attachments with Pretty Urls: PathToApp/articles/attachments</li>
+  <li>Tags: PathToApp/index.php?r=articles/tags</li>
+  <li>Tags with Pretty Urls: PathToApp/articles/tags</li>
 </ul>
 
 ## CHANGELOG
