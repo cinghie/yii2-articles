@@ -32,7 +32,7 @@ $this->registerJs('
     $(document).ready(function()
     {
         $("a.btn-update").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -44,7 +44,7 @@ $this->registerJs('
             }
         });
         $("a.btn-delete").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -57,14 +57,14 @@ $this->registerJs('
                         url : "'.Url::to(['/articles/attachments/deletemultiple']).'?id="+selectedId,
                         data : {ids: selectedId},
                         success : function() {
-                            $.pjax.reload({container:"#w2"});
+                            $.pjax.reload({container:"#w1"});
                         }
                     });
                 }
             }
         });
         $("a.btn-preview").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");

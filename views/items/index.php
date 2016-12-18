@@ -32,7 +32,7 @@ $this->registerJs('
     $(document).ready(function()
     {
         $("a.btn-update").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -44,7 +44,7 @@ $this->registerJs('
             }
         });
         $("a.btn-active").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -54,13 +54,13 @@ $this->registerJs('
                     url : "'.Url::to(['/articles/items/activemultiple']).'?id="+selectedId,
                     data : {ids: selectedId},
                     success : function() {
-                        $.pjax.reload({container:"#w2"});
+                        $.pjax.reload({container:"#w1"});
                     }
                 });
             }
         });
         $("a.btn-deactive").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -70,13 +70,13 @@ $this->registerJs('
                     url : "'.Url::to(['/articles/items/deactivemultiple']).'?id="+selectedId,
                     data : {ids: selectedId},
                     success : function() {
-                        $.pjax.reload({container:"#w2"});
+                        $.pjax.reload({container:"#w1"});
                     }
                 });
             }
         });
         $("a.btn-delete").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -89,14 +89,14 @@ $this->registerJs('
                         url : "'.Url::to(['/articles/items/deletemultiple']).'?id="+selectedId,
                         data : {ids: selectedId},
                         success : function() {
-                            $.pjax.reload({container:"#w2"});
+                            $.pjax.reload({container:"#w1"});
                         }
                     });
                 }
             }
         });
         $("a.btn-preview").click(function() {
-            var selectedId = $("#w2").yiiGridView("getSelectedRows");
+            var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
                 alert("'.Yii::t("articles", "Select at least one item").'");
@@ -154,7 +154,6 @@ $this->registerJs('
                     'attribute' => 'catid',
                     'format' => 'html',
                     'hAlign' => 'center',
-                    'value' => 'category.name',
                     'value' => function ($data) {
                         $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->catid]));
                         $cat = isset($data->category->name) ? $data->category->name : "";
@@ -193,7 +192,6 @@ $this->registerJs('
                     'attribute' => 'modified_by',
                     'format' => 'html',
                     'hAlign' => 'center',
-                    'value' => 'modifiedby.username',
                     'value' => function ($data) {
                         $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->modified_by]));
                         $modifiedby = isset($data->modifiedby->username) ? $data->modifiedby->username : "";

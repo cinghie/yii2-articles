@@ -30,7 +30,6 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_facebook.php',[
 
 /* Twitter Card */
 $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 'model' => $model,]);
-
 ?>
 
 <article class="item-view">
