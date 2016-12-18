@@ -107,12 +107,12 @@ class TagsController extends Controller
             if ($model->load(Yii::$app->request->post()))
             {
                 // If alias is not set, generate it
-                if ($_POST['Items']['alias']=="") {
-                    $model->alias = $model->generateAlias($model->title);
+                if ($_POST['Tags']['alias']=="") {
+                    $model->alias = $model->generateAlias($model->name);
                 }
 
                 if($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index']);
                 } else {
                     return $this->render('create', [ 'model' => $model, ]);
                 }
@@ -144,12 +144,12 @@ class TagsController extends Controller
             if ($model->load(Yii::$app->request->post())) {
 
                 // If alias is not set, generate it
-                if ($_POST['Items']['alias']=="") {
-                    $model->alias = $model->generateAlias($model->title);
+                if ($_POST['Tags']['alias']=="") {
+                    $model->alias = $model->generateAlias($model->name);
                 }
 
                 if($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index']);
                 } else {
                     return $this->render('update', [ 'model' => $model, ]);
                 }
@@ -185,7 +185,7 @@ class TagsController extends Controller
     }
 
     /**
-     * Deletes selected Items models.
+     * Deletes selected Tags models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException

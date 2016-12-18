@@ -13,6 +13,7 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%article_tags}}".
@@ -57,6 +58,14 @@ class Tags extends Articles
             'state' => Yii::t('articles', 'State'),
             'description' => Yii::t('articles', 'Description'),
         ];
+    }
+
+    /**
+     * return Tag url
+     * @return string
+     */
+    public function getTagUrl() {
+        return Url::to(['/articles/tags/view', 'id' => $this->id, 'alias' => $this->alias]);
     }
 
     /**

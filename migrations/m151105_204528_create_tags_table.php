@@ -27,8 +27,8 @@ class m151105_204528_create_tags_table extends Migration
 
         $this->createTable('{{%article_tags_assign}}', [
             'id' => $this->primaryKey(),
-            'tagid' => $this->integer(11)->notNull()->defaultValue(0),
-            'itemid' => $this->integer(11)->notNull()->defaultValue(0),
+            'tag_id' => $this->integer(11)->notNull()->defaultValue(0),
+            'item_id' => $this->integer(11)->notNull()->defaultValue(0),
         ], $this->tableOptions);
 
         // Auth Item Permissions

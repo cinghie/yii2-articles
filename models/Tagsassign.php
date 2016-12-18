@@ -17,8 +17,8 @@ use Yii;
 /**
  * This is the model class for table "{{%article_tags_assign}}".
  * @property integer $id
- * @property integer $tagid
- * @property integer $itemid
+ * @property integer $tag_id
+ * @property integer $item_id
  */
 class Tagsassign extends \yii\db\ActiveRecord
 {
@@ -36,7 +36,7 @@ class Tagsassign extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tagid', 'itemid'], 'integer'],
+            [['id','tag_id', 'item_id'], 'integer'],
         ];
     }
 
@@ -47,8 +47,8 @@ class Tagsassign extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('articles', 'ID'),
-            'tagid' => Yii::t('articles', 'Tagid'),
-            'itemid' => Yii::t('articles', 'Itemid'),
+            'tag_id' => Yii::t('articles', 'Tagid'),
+            'item_id' => Yii::t('articles', 'Itemid'),
         ];
     }
 

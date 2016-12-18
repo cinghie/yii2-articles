@@ -18,11 +18,6 @@ namespace cinghie\articles\models;
  */
 class TagsAssignQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * @inheritdoc
      * @return Tagsassign[]|array

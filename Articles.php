@@ -85,6 +85,7 @@ class Articles extends \yii\base\Module
 	public $urlRules = [
 		'<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
 		'<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
+		'<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/tags/view',
 	];
 
 	/**

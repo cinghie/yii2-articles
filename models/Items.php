@@ -247,6 +247,16 @@ class Items extends Articles
     }
 
     /**
+     * Return Tags
+     * @return $this
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
+            ->viaTable(Tagsassign::className(), ['item_id' => 'id']);
+    }
+
+    /**
      * Return Modified_By
      * @return $this
      */

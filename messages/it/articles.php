@@ -17,7 +17,7 @@ return array(
 	'New'=>'Nuovo',
 	'Update'=>'Modifica',
 	'Delete'=>'Cancella',
-	'Dashboard'=>'Pannello di Controllo',
+	'Dashboard'=>'Dashboard',
 	'Article'=>'Articolo',
 	'Articles'=>'Articoli',
 	'Latest Articles'=>'Ultimi Articoli',
