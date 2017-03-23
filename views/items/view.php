@@ -47,7 +47,8 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
             </figure>
         <?php endif; ?>
     </header>
-    <?php if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
+    <?php //if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
+    <?php if ($model->introtext): ?>
         <div class="intro-text">
             <?= $model->introtext ?>
         </div>
@@ -60,7 +61,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
     <?php endif; ?>
 </article>
 
-<?php if($model->getOption($model->category->params,"itemDebug") == "Yes"): ?>
+<?php /* if($model->getOption($model->category->params,"itemDebug") == "Yes"): ?>
 
 <div class="items-view-debug">
 
@@ -100,4 +101,4 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 
 </div>
 
-<?php endif; ?>
+<?php endif; */ ?>
