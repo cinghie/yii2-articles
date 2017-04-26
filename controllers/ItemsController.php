@@ -121,7 +121,7 @@ class ItemsController extends Controller
             if ( $model->load(Yii::$app->request->post()) )
             {
                 // Set Modified as actual date
-                $model->modified = "0000-00-00 00:00:00";
+                $model->modified = "1970-01-01 00:00:01";
 
                 // If alias is not set, generate it
                 if ($_POST['Items']['alias']=="")
