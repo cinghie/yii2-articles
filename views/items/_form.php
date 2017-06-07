@@ -72,13 +72,13 @@ $select2videotype = $model->getVideoTypeSelect2();
 			'enctype'=>'multipart/form-data'
 		],
 	]); ?>
-    
+
     <div class="row">
-    
+
     	<div class="col-lg-12">
-    
+
             <div class="bs-example bs-example-tabs">
-                
+
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active">
                     	<a data-toggle="tab" href="#item"><?= Yii::t('articles', 'Article') ?></a>
@@ -99,15 +99,15 @@ $select2videotype = $model->getVideoTypeSelect2();
                     	<a data-toggle="tab" href="#params"><?= Yii::t('articles', 'Options') ?></a>
                     </li>
                 </ul>
-                
+
                 <div class="tab-content" id="myTabContent">
-                    
+
                     <div class="separator"></div>
-                    
+
                     <div id="item" class="tab-pane fade active in">
 
                         <div class="col-lg-8">
-                    
+
                             <div class="col-lg-6">
 
                                 <?= $form->field($model, 'title', [
@@ -119,7 +119,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                                 ])->textInput(['maxlength' => true]) ?>
 
                             </div> <!-- end col-lg-6 -->
-                        
+
                             <div class="col-lg-6">
 
                                 <?= $form->field($model, 'language')->widget(Select2::classname(), [
@@ -214,7 +214,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             </div> <!-- end col-lg-12 -->
 
                         </div> <!-- end col-lg-8 -->
-                        
+
                         <div class="col-lg-4">
 
                             <?= $form->field($model, 'catid')->widget(Select2::classname(), [
@@ -281,13 +281,13 @@ $select2videotype = $model->getVideoTypeSelect2();
                                 ]); ?>
 
                             <?php endif; ?>
-                                                       
+
                             <?php if ($model->isNewRecord): ?>
-                        
+
 								<?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
                                         'options' => [
 											'disabled' => 'disabled',
-                                            'value'    => date("Y-m-d H:i:s"),    
+                                            'value'    => date("Y-m-d H:i:s"),
                                         ],
                                         'pluginOptions' => [
                                             'autoclose'      => true,
@@ -295,20 +295,20 @@ $select2videotype = $model->getVideoTypeSelect2();
                                             'todayHighlight' => true,
                                         ]
                                 ]); ?>
-                                
+
                             <?php else: ?>
-                            
+
                             	<?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
                                         'options' => [
 											'disabled' => 'disabled',
-                                            'value'    => $model->modified,    
+                                            'value'    => $model->modified,
                                         ],
                                         'pluginOptions' => [
                                             'autoclose' => true,
                                             'format'    => 'yyyy-mm-dd hh:ii:ss',
                                         ]
                                 ]); ?>
-                            
+
                             <?php endif ?>
 
                             <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
@@ -335,7 +335,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 									]
 								],
 							]); ?>
-                            
+
                             <?= $form->field($model, 'modified_by')->widget(Select2::classname(), [
 								'data' => [
                                     $modified_by => $modified_by_username
@@ -346,12 +346,12 @@ $select2videotype = $model->getVideoTypeSelect2();
 									]
 								],
 							]); ?>
-                            
+
                             <?php if ($model->isNewRecord): ?>
-						
+
                             <?= $form->field($model, 'hits')->widget(Select2::classname(), [
                                     'data' => [
-										"0" => "0" 
+										"0" => "0"
 									],
 									'options' => [
 										'disabled' => 'disabled'
@@ -362,12 +362,12 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									],
                             ]); ?>
-                            
+
                             <?php else : ?>
-                            
+
                             <?= $form->field($model, 'hits')->widget(Select2::classname(), [
-                                    'data' => [ 
-										$model->hits => $model->hits 
+                                    'data' => [
+										$model->hits => $model->hits
 									],
 									'options' => [
 										'disabled' => 'disabled'
@@ -378,17 +378,17 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									],
                             ]); ?>
-                            
+
                             <?php endif ?>
-                        
+
                         </div> <!-- end col-lg-3 -->
 
                     </div> <!-- end #item -->
-                    
+
                     <div id="seo" class="tab-pane fade">
-                    
+
                     	<div class="col-lg-5">
-                            
+
                             <?= $form->field($model, 'alias', [
 							 		'addon' => [
 										'prepend' => [
@@ -396,21 +396,21 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 							] )->textInput(['maxlength' => 255]) ?>
-							
+
                             <?= $form->field($model, 'robots')->widget(Select2::classname(), [
-                                    'data' => [ 
-										"index, follow"       => "index, follow", 
-										"no index, no follow" => "no index, no follow", 
-										"no index, follow"    => "no index, follow", 
-										"index, no follow"    => "index, no follow" 
+                                    'data' => [
+										"index, follow"       => "index, follow",
+										"no index, no follow" => "no index, no follow",
+										"no index, follow"    => "no index, follow",
+										"index, no follow"    => "index, no follow"
 									],
                                     'addon' => [
 										'prepend' => [
 											'content'=>'<i class="glyphicon glyphicon-globe"></i>'
 										]
 									]
-                            ]); ?>   
-                            
+                            ]); ?>
+
 							<?= $form->field($model, 'author', [
 									'addon' => [
 										'prepend' => [
@@ -426,9 +426,9 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 							])->textInput(['maxlength' => true]) ?>
-						
+
                         </div> <!-- col-lg-5 -->
-                        
+
                         <div class="col-lg-7">
 
 							<?= $form->field($model, 'metadesc', [
@@ -438,7 +438,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 								])->textarea(['rows' => 4]) ?>
-                            
+
                             <?= $form->field($model, 'metakey', [
 									'addon' => [
 										'prepend' => [
@@ -446,19 +446,19 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 								])->textarea(['rows' => 4]) ?>
-                        
+
                         </div> <!-- col-lg-7 -->
-                    
+
                     </div> <!-- seo -->
-                    
+
                     <div id="image" class="tab-pane fade">
-                    
+
                     	<p class="bg-info">
 							<?= Yii::t('articles', 'Allowed Extensions')?>: <?= $imagetype ?>
                         </p>
-                        
+
                         <div class="col-lg-6">
-                        
+
                         	<?= $form->field($model, 'image')->widget(FileInput::classname(), [
                                 	'options' => [
                                     	'accept' => 'image/'.$imagetype
@@ -468,11 +468,11 @@ $select2videotype = $model->getVideoTypeSelect2();
                                         'showUpload'      => false,
                                         'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
                                     ],
-                            ]); ?> 
-                            
+                            ]); ?>
+
                             <?php if ( isset($model->image) && !empty($model->image) ): ?>
-                            
-                            <div class="thumbnail">                       	
+
+                            <div class="thumbnail">
                             	<img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $model->getImageUrl() ?>">
                             	<div class="caption">
                             		<p></p>
@@ -486,13 +486,13 @@ $select2videotype = $model->getVideoTypeSelect2();
                             	    </p>
                             	</div>
                             </div>
-                            
+
                             <?php endif ?>
-                        
+
                         </div> <!-- col-lg-6 -->
-                        
+
                         <div class="col-lg-6">
-                        
+
                         	<?= $form->field($model, 'image_caption', [
 									'addon' => [
 										'prepend' => [
@@ -500,7 +500,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									 ]
 							])->textarea(['maxlength' => true,'rows' => 6]) ?>
-                            
+
                             <?= $form->field($model, 'image_credits', [
 									'addon' => [
 										'prepend' => [
@@ -508,15 +508,15 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 							])->textInput(['maxlength' => true]) ?>
-                        
+
                         </div> <!-- col-lg-6 -->
-                    
+
                     </div> <!-- #image -->
-                    
+
                     <div id="video" class="tab-pane fade">
-                    
+
                     	<div class="col-lg-6">
-                        
+
                         	<?= $form->field($model, 'video', [
 									'addon' => [
 										'prepend' => [
@@ -524,7 +524,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 							])->textInput(['maxlength' => true]) ?>
-                        
+
                         	<?= $form->field($model, 'video_type')->widget(Select2::classname(), [
                                     'data' => $select2videotype,
                                     'addon' => [
@@ -532,12 +532,12 @@ $select2videotype = $model->getVideoTypeSelect2();
 											'content'=>'<i class="glyphicon glyphicon-film"></i>'
 										]
 									],
-                            ]); ?>   
-                            
+                            ]); ?>
+
                         </div> <!-- end col-lg-6 -->
-                        
+
                         <div class="col-lg-6">
-                            
+
                             <?= $form->field($model, 'video_caption', [
 									'addon' => [
 										'prepend' => [
@@ -545,7 +545,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									 ]
 							])->textarea(['maxlength' => 255,'rows' => 6]) ?>
-                            
+
                             <?= $form->field($model, 'video_credits', [
 									'addon' => [
 										'prepend' => [
@@ -553,9 +553,9 @@ $select2videotype = $model->getVideoTypeSelect2();
 										]
 									]
 							])->textInput(['maxlength' => 255]) ?>
-                            
+
                         </div> <!-- end col-lg-6 -->
-                    
+
                     </div> <!-- end video -->
 
 					<div id="attach" class="tab-pane fade">
@@ -585,13 +585,13 @@ $select2videotype = $model->getVideoTypeSelect2();
                         </div> <!-- end col-lg-12 -->
 
 					</div> <!-- end attach -->
-                    
+
                     <div id="params" class="tab-pane fade">
-                    	
+
                         <?= $form->field($model, 'params')->textarea(['rows' => 6]) ?>
-                    
+
                     </div> <!-- #params -->
-            
+
             </div> <!-- end bs-example-tabs -->
 
             <div class="col-lg-12">
@@ -601,9 +601,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                 </div>
 
             </div>
-            
+
         </div> <!-- col-lg-12 -->
-    
+
     </div> <!-- end row -->
 
     <?php ActiveForm::end(); ?>
