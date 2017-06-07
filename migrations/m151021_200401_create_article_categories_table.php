@@ -11,7 +11,6 @@
  */
 
 use cinghie\articles\migrations\Migration;
-use yii\db\Schema;
 
 class m151021_200401_create_article_categories_table extends Migration
 {

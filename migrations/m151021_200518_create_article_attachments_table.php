@@ -11,7 +11,6 @@
  */
 
 use cinghie\articles\migrations\Migration;
-use yii\db\Schema;
 
 class m151021_200518_create_article_attachments_table extends Migration
 {
@@ -24,6 +23,7 @@ class m151021_200518_create_article_attachments_table extends Migration
             'filename' => $this->string(255)->notNull(),
             'title' => $this->string(255)->notNull(),
             'titleAttribute' => $this->text(),
+            'mimetype' => $this->string(255)->notNull(),
             'hits' => $this->integer(11)->notNull()->defaultValue(0),
         ], $this->tableOptions);
     }

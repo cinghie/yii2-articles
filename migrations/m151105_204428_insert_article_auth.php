@@ -10,7 +10,7 @@
  * @version 0.6.3
  */
 
-use yii\db\Migration;
+use cinghie\articles\migrations\Migration;
 
 class m151105_204428_insert_article_auth extends Migration
 {

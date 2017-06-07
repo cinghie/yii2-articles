@@ -11,7 +11,6 @@
  */
 
 use cinghie\articles\migrations\Migration;
-use yii\db\Schema;
 
 class m151105_204528_create_tags_table extends Migration
 {
@@ -21,8 +20,8 @@ class m151105_204528_create_tags_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
             'alias' => $this->string(255)->notNull(),
-            'state' => $this->boolean()->notNull()->defaultValue(0),
             'description' => $this->text(),
+            'state' => $this->boolean()->notNull()->defaultValue(0),
         ], $this->tableOptions);
 
         $this->createTable('{{%article_tags_assign}}', [

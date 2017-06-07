@@ -11,7 +11,6 @@
  */
 
 use cinghie\articles\migrations\Migration;
-use yii\db\Schema;
 
 class m151021_200427_create_article_items_table extends Migration
 {
