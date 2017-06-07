@@ -20,7 +20,7 @@ class m151105_204538_update_article_attachments_table extends Migration
         $this->addColumn(
             '{{%article_attachments}}',
             'extension',
-            $this->string()->notNull()
+            $this->string(12)->notNull()
         );
 
         $this->addColumn(
@@ -32,8 +32,12 @@ class m151105_204538_update_article_attachments_table extends Migration
         $this->addColumn(
             '{{%article_attachments}}',
             'size',
-            $this->integer()->notNull()
+            $this->integer(32)->notNull()
         );
+
+        // Add Index and Foreign Key
+        $this->createIndex("index_article_attachments_itemid","{{%article_attachments}}", "itemid" );
+        $this->addForeignKey("fk_article_attachments_itemid", '{{%article_attachments}}', "itemid", '{{%article_items}}', "id");
     }
 
     public function down()
@@ -41,6 +45,8 @@ class m151105_204538_update_article_attachments_table extends Migration
         $this->dropColumn('{{%article_attachments}}','extension');
         $this->dropColumn('{{%article_attachments}}','mimetype');
         $this->dropColumn('{{%article_attachments}}','size');
+        $this->dropIndex('{{%index_article_attachments_itemid}}', '{{%article_attachments}}');
+        $this->dropForeignKey('{{%fk_article_attachments_itemid}}', '{{%article_attachments}}');
     }
 
 }
