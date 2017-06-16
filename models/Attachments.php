@@ -30,8 +30,8 @@ class Attachments extends Articles
     public function rules()
     {
         return [
-            [['itemid', 'title', 'titleAttribute'], 'required'],
-            [['itemid', 'hits'], 'integer'],
+            [['item_id', 'title', 'titleAttribute'], 'required'],
+            [['item_id', 'hits'], 'integer'],
             [['titleAttribute'], 'string'],
             [['filename', 'title'], 'string', 'max' => 255]
         ];
@@ -44,7 +44,7 @@ class Attachments extends Articles
     {
         return [
             'id' => Yii::t('articles', 'ID'),
-            'itemid' => Yii::t('articles', 'Article'),
+            'item_id' => Yii::t('articles', 'Article'),
             'filename' => Yii::t('articles', 'Filename'),
             'title' => Yii::t('articles', 'Title'),
             'titleAttribute' => Yii::t('articles', 'Title Attribute'),
@@ -101,6 +101,6 @@ class Attachments extends Articles
      */
     public function getItem()
     {
-        return $this->hasOne(Items::className(), ['id' => 'itemid']);
+        return $this->hasOne(Items::className(), ['id' => 'item_id']);
     }
 }

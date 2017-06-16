@@ -7,9 +7,6 @@ $this->title = Yii::t('articles', 'Create Category');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-// Render Yii2-Articles Menu
-echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
-
 ?>
 
 <div class="categories-create">

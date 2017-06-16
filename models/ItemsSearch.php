@@ -25,8 +25,8 @@ class ItemsSearch extends Items
     public function rules()
     {
         return [
-            [['id', 'userid', 'state', 'access', 'ordering', 'hits'], 'integer'],
-            [['title', 'alias', 'catid', 'created_by', 'modified_by', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
+            [['id', 'user_id', 'state', 'access', 'ordering', 'hits'], 'integer'],
+            [['title', 'alias', 'cat_id', 'created_by', 'modified_by', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
         ];
     }
 
@@ -79,7 +79,7 @@ class ItemsSearch extends Items
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'userid' => $this->userid,
+            'user_id' => $this->user_id,
             'state' => $this->state,
             'access' => $this->access,
             'ordering' => $this->ordering,
@@ -90,7 +90,7 @@ class ItemsSearch extends Items
 
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'alias', $this->alias])
-              ->andFilterWhere(['like', 'category.name', $this->catid])
+              ->andFilterWhere(['like', 'category.name', $this->cat_id])
               ->andFilterWhere(['like', 'createdby.username', $this->created_by])
               ->andFilterWhere(['like', 'modifiedby.username', $this->modified_by])
               ->andFilterWhere(['like', 'introtext', $this->introtext])

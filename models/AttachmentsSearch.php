@@ -28,7 +28,7 @@ class AttachmentsSearch extends Attachments
     public function rules()
     {
         return [
-            [['id', 'itemid', 'hits'], 'integer'],
+            [['id', 'item_id', 'hits'], 'integer'],
             [['filename', 'title', 'titleAttribute'], 'safe'],
         ];
     }
@@ -72,7 +72,7 @@ class AttachmentsSearch extends Attachments
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'itemid' => $this->itemid,
+            'item_id' => $this->item_id,
             'hits' => $this->hits,
         ]);
 

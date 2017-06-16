@@ -151,11 +151,11 @@ $this->registerJs('
                     }
                 ],
                 [
-                    'attribute' => 'catid',
+                    'attribute' => 'cat_id',
                     'format' => 'html',
                     'hAlign' => 'center',
                     'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->catid]));
+                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->cat_id]));
                         $cat = isset($data->category->name) ? $data->category->name : "";
 
                         if($cat!="") {

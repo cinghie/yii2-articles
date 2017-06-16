@@ -20,7 +20,7 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Get current user
 $user     = Yii::$app->user->identity;
-$userid   = $user->id;
+$user_id   = $user->id;
 $username = $user->username;
 
 // Get info For the Select2 Categories
@@ -36,7 +36,7 @@ if (!$model->isNewRecord) {
 } else {
     $modified_by = 0;
     $modified_by_username = Yii::t('articles', 'Nobody');
-    $created_by  = $userid ;
+    $created_by  = $user_id ;
     $created_by_username = $username;
 }
 
@@ -50,7 +50,7 @@ $attachments      = $model->getAttachments()->asArray()->all();
 $roles            = $model->getRoles();
 $select2languages = $model->getLanguagesSelect2();
 $select2published = $model->getPublishSelect2();
-$select2users     = $model->getUsersSelect2($userid,$username);
+$select2users     = $model->getUsersSelect2($user_id,$username);
 $select2videotype = $model->getVideoTypeSelect2();
 ?>
 
@@ -206,7 +206,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                             <div class="col-lg-4">
 
-                                <?= $form->field($model, 'catid')->widget(Select2::classname(), [
+                                <?= $form->field($model, 'cat_id')->widget(Select2::classname(), [
                                     'data' => $select2categories,
                                     'addon' => [
                                         'prepend' => [
@@ -233,7 +233,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ],
                                 ]); ?>
 
-                                <?= $form->field($model, 'userid')->widget(Select2::classname(), [
+                                <?= $form->field($model, 'user_id')->widget(Select2::classname(), [
                                     'data' => $select2users,
                                     'addon' => [
                                         'prepend' => [

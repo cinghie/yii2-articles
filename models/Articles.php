@@ -22,6 +22,7 @@ class Articles extends ActiveRecord
 {
     /**
      * Upload file
+     *
      * @param $fileName
      * @param $fileNameType
      * @param $filePath
@@ -75,6 +76,7 @@ class Articles extends ActiveRecord
 
     /**
      * createThumbImages files
+     *
      * @param $image
      * @param $imagePath
      * @param $imgOptions
@@ -102,6 +104,7 @@ class Articles extends ActiveRecord
 
     /**
      * Generate fileName
+     *
      * @param $name
      * @return string fileName
      */
@@ -118,6 +121,7 @@ class Articles extends ActiveRecord
 	
 	/**
 	 * Generate URL alias
+     *
      * @param $name
 	 * @return string alias
 	 */
@@ -138,6 +142,7 @@ class Articles extends ActiveRecord
 
 	/*
 	 * Get lang code like en
+	 *
 	 * @return string lang
 	 */
 	public function getLang() {
@@ -146,6 +151,7 @@ class Articles extends ActiveRecord
 
 	/*
 	 * Get lang tag like en-GB
+	 *
 	 * @return string lang
 	 */
 	public function getLangTag() {
@@ -154,6 +160,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Generate JSON for Params
+     *
      * @param $params
 	 * @return string json encoded
 	 */
@@ -163,6 +170,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Active the item setting state = 1
+     *
 	 * @return bool
 	 */
 	public function publish()
@@ -174,6 +182,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Inactive the item setting state = 0
+     *
 	 * @return bool
 	 */
 	public function unpublish()
@@ -185,19 +194,20 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return array for User Select2 with current user selected
-     * @param $userid
+     *
+     * @param $user_id
      * @param $username
 	 * @return array
 	 */
-	public function getUsersSelect2($userid,$username)
+	public function getUsersSelect2($user_id,$username)
 	{
         $users = User::find()
             ->select(['id','username'])
             ->where(['blocked_at' => null, 'unconfirmed_email' => null])
-            ->andWhere(['!=', 'id', $userid])
+            ->andWhere(['!=', 'id', $user_id])
             ->all();
 
-		$array[$userid] = ucwords($username);
+		$array[$user_id] = ucwords($username);
 
 		foreach($users as $user) {
 			$array[$user['id']] = ucwords($user['username']);
@@ -208,6 +218,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return array with all Items
+     *
 	 * @return array
 	 */
 	public function getItemsSelect2()
@@ -227,6 +238,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return an array with the user roles
+     *
 	 * @return array
 	 */
 	public function getRoles()
@@ -243,6 +255,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return an array with languages
+     *
 	 * @return array
 	 */
 	public function getLanguagesSelect2()
@@ -262,6 +275,7 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return param
+     *
      * @param $params
      * @param $param
 	 * @return $param
@@ -275,6 +289,7 @@ class Articles extends ActiveRecord
 
     /**
      * Function for creating directory to save file
+     *
      * @param string $path file to create
      */
     protected function createDirectory($path)

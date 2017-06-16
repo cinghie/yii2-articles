@@ -137,12 +137,12 @@ $this->registerJs('
                     }
 				],
 				[
-					'attribute' => 'parentid',
+					'attribute' => 'parent_id',
                     'format' => 'html',
 					'hAlign' => 'center',
 					'value' => 'parent.name',
                     'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->parentid]));
+                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->parent_id]));
                         $cat = isset($data->parent->name) ? $data->parent->name : "";
 
                         if($cat!="") {

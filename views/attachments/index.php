@@ -111,12 +111,12 @@ $this->registerJs('
                 }
             ],
             [
-                'attribute' => 'itemid',
+                'attribute' => 'item_id',
                 'format' => 'html',
                 'hAlign' => 'center',
                 'value' => 'item.title',
                 'value' => function ($data) {
-                    $url  = urldecode(Url::toRoute(['items/update', 'id' => $data->itemid]));
+                    $url  = urldecode(Url::toRoute(['items/update', 'id' => $data->item_id]));
                     $item = isset($data->item->title) ? $data->item->title : "";
 
                     if($item!="") {

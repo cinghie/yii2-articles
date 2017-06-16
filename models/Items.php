@@ -31,8 +31,8 @@ class Items extends Articles
     public function rules()
     {
         return [
-            [['title', 'catid', 'userid', 'created', 'modified', 'language'], 'required'],
-            [['catid', 'userid', 'state', 'created_by', 'modified_by', 'ordering', 'hits'], 'integer'],
+            [['title', 'cat_id', 'user_id', 'created', 'modified', 'language'], 'required'],
+            [['cat_id', 'user_id', 'state', 'created_by', 'modified_by', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'access', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
 			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
             [['access'], 'string', 'max' => 64],
@@ -52,8 +52,8 @@ class Items extends Articles
         return [
             'id' => Yii::t('articles', 'ID'),
             'title' => Yii::t('articles', 'Title'),
-            'catid' => Yii::t('articles', 'Catid'),
-            'userid' => Yii::t('articles', 'Userid'),
+            'cat_id' => Yii::t('articles', 'Catid'),
+            'user_id' => Yii::t('articles', 'Userid'),
             'state' => Yii::t('articles', 'State'),
             'introtext' => Yii::t('articles', 'Introtext'),
             'fulltext' => Yii::t('articles', 'Fulltext'),
@@ -225,7 +225,7 @@ class Items extends Articles
      * @return Attachments
      */
     public function getAttachments() {
-        return $this->hasMany(Attachments::className(), ['itemid' => 'id'])->from(Attachments::tableName() . ' AS attach');
+        return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attach');
     }
 
     /**
@@ -234,7 +234,7 @@ class Items extends Articles
      * @return Categories
      */
     public function getCategory() {
-        return $this->hasOne(Categories::className(), ['id' => 'catid'])->from(Categories::tableName() . ' AS category');
+        return $this->hasOne(Categories::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS category');
     }
 
     /**
@@ -245,7 +245,7 @@ class Items extends Articles
     public function getUser() {
         $userClass = Yii::$app->controller->module->userClass;
         $user = Yii::$container->get($userClass);
-        return $this->hasOne($userClass, ['id' => 'userid'])->from($user::tableName() . ' AS user');
+        return $this->hasOne($userClass, ['id' => 'user_id'])->from($user::tableName() . ' AS user');
     }
 
     /**

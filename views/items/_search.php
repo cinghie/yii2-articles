@@ -18,9 +18,9 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'alias') ?>
 
-        <?= $form->field($model, 'catid') ?>
+        <?= $form->field($model, 'cat_id') ?>
 
-        <?= $form->field($model, 'userid') ?>
+        <?= $form->field($model, 'user_id') ?>
 
         <?php // echo $form->field($model, 'introtext') ?>
 

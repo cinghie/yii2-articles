@@ -127,7 +127,7 @@ $themes    = $model->getThemesSelect2();
 						
 						<div class="col-lg-4">
 						
-							<?= $form->field($model, 'parentid')->widget(Select2::classname(), [
+							<?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
 								'data' => $select2categories,
 								'addon' => [
 									'prepend' => [

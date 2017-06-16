@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'description') ?>
 
-        <?= $form->field($model, 'parentid') ?>
+        <?= $form->field($model, 'parent_id') ?>
 
         <?php // echo $form->field($model, 'state') ?>
 

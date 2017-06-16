@@ -30,7 +30,7 @@ class Categories extends Articles
     {	
         return [
             [['name', 'language'], 'required'],
-			[['parentid', 'state', 'ordering'], 'integer'],
+			[['parent_id', 'state', 'ordering'], 'integer'],
 			[['name', 'alias', 'image_caption', 'image_credits'], 'string', 'max' => 255],
             [['description', 'image', 'params', 'metadesc', 'metakey'], 'string'],
             [['access'], 'string', 'max' => 64],
@@ -53,7 +53,7 @@ class Categories extends Articles
             'name' => Yii::t('articles', 'Name'),
             'alias' => Yii::t('articles', 'Alias'),
             'description' => Yii::t('articles', 'Description'),
-            'parentid' => Yii::t('articles', 'Parent'),
+            'parent_id' => Yii::t('articles', 'Parent'),
             'state' => Yii::t('articles', 'State'),
             'access' => Yii::t('articles', 'Access'),
             'theme' => Yii::t('articles', 'Theme'),
@@ -78,7 +78,7 @@ class Categories extends Articles
      */
     public function getParent()
     {
-        return $this->hasOne(self::className(), ['id' => 'parentid'])->from(self::tableName() . ' AS parent');
+        return $this->hasOne(self::className(), ['id' => 'parent_id'])->from(self::tableName() . ' AS parent');
     }
 
     /**
@@ -99,7 +99,7 @@ class Categories extends Articles
      */
     public function getCategories()
     {
-        return $this->hasMany(Categories::className(), ['parentid' => 'id']);
+        return $this->hasMany(Categories::className(), ['parent_id' => 'id']);
     }
 
     /**
@@ -109,7 +109,7 @@ class Categories extends Articles
      */
     public function getArticleItems()
     {
-        return $this->hasMany(Items::className(), ['catid' => 'id']);
+        return $this->hasMany(Items::className(), ['cat_id' => 'id']);
     }
 	
 	/**
@@ -184,14 +184,14 @@ class Categories extends Articles
     /**
      * Get Items by Category ID
      *
-     * @param integer $catid
+     * @param integer $cat_id
      * @param string $order
      * @return Items
      */
-    public function getItemsByCategory($catid,$order = 'title')
+    public function getItemsByCategory($cat_id,$order = 'title')
     {
         $items = Items::find()
-            ->where(['catid' => $catid])
+            ->where(['cat_id' => $cat_id])
             ->andWhere(['state' => 1])
             ->andWhere(['or',['language' => 'All'],['SUBSTRING(language,1,2)' => Yii::$app->language]])
             ->orderBy($order)
