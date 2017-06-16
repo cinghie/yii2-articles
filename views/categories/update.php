@@ -1,6 +1,10 @@
 <?php
 
-use yii\helpers\Html;
+/**
+ * @var $model cinghie\articles\models\Categories
+ */
+
+use kartik\helpers\Html;
 
 // Javascript to load Options Data
 $options = json_decode($model->params);
@@ -37,10 +41,8 @@ $this->title = Yii::t('articles', 'Update Categories') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-// Render Yii2-Articles Menu
-echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
-
 ?>
+
 <div class="categories-update">
 
 	<?php if(Yii::$app->getModule('articles')->showTitles): ?>

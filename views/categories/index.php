@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * @var $dataProvider yii\data\ActiveDataProvider
+ * @var $model cinghie\articles\models\Categories
+ * @var $searchModel cinghie\articles\models\CategoriesSearch
+ * @var $this yii\web\View
+ */
+
 use cinghie\articles\assets\ArticlesAsset;
 use kartik\grid\GridView;
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 

@@ -1,17 +1,16 @@
 <?php
 
-use yii\helpers\Html;
-use cinghie\articles\assets\ArticlesAsset;
+/**
+ * @var $form kartik\widgets\ActiveForm
+ * @var $model cinghie\articles\models\Categories
+ * @var $this yii\web\View
+ */
 
-// Load Kartik Libraries
+use cinghie\articles\assets\ArticlesAsset;
+use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
-
-// Load Editors Libraries
-use dosamigos\ckeditor\CKEditor;
-use dosamigos\tinymce\TinyMce;
-use kartik\markdown\MarkdownEditor;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -22,12 +21,8 @@ if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
 $select2categories = $model->getCategoriesSelect2();
 
 // Get info by Module Configuration
-$editor    = Yii::$app->controller->module->editor;
-$language  = substr(Yii::$app->language,0,2);
-$languages = Yii::$app->controller->module->languages;
 $imagetype = Yii::$app->controller->module->imageType;
-$roles     = $model->getRoles();
-$themes    = $model->getThemesSelect2();
+
 ?>
 
 <div class="categories-form">
@@ -74,7 +69,7 @@ $themes    = $model->getThemesSelect2();
 					<div class="separator"></div>
 				
 					<!-- Item -->
-					<div id="item" class="tab-pane fade active in">
+					<div id="item" class="row tab-pane fade active in">
                     
 						<div class="col-lg-8">
 						
@@ -85,43 +80,8 @@ $themes    = $model->getThemesSelect2();
 									]
 								]
 								])->textInput(['maxlength' => 255]) ?>
-                                
-                            <?php if ($editor=="ckeditor"): ?>
-                            	<?= $form->field($model, 'description')->widget(CKEditor::className(), [
-									'options' => ['rows' => 10],
-									'preset'  => 'basic'
-								]); ?>
-                            <?php elseif ($editor=="tinymce"): ?>
-                            	<?= $form->field($model, 'description')->widget(TinyMce::className(), [
-									'clientOptions' => [
-									'plugins' => [
-										"advlist autolink lists link charmap print preview anchor",
-										"searchreplace visualblocks code fullscreen",
-										"insertdatetime media table contextmenu paste"
-									],
-										'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-									],
-									'options' => ['rows' => 12]
-								]); ?>
-                            <?php elseif ($editor=="markdown"): ?>
-                            	<?= $form->field($model, 'description')->widget(
-									MarkdownEditor::classname(),
-									['height' => 300, 'encodeLabels' => true]
-								); ?>
-                            <?php elseif ($editor=="imperavi"): ?>
-                            	<?= $form->field($model, 'description')->widget(yii\imperavi\Widget::className(), [
-									'options' => [
-										'css' => 'wym.css',
-										'minHeight' => 300,
-									],
-									'plugins' => [
-										'fullscreen',
-										'clips'
-									]
-								]); ?>
-                            <?php else: ?>
-                            	<?= $form->field($model, 'description')->textarea(['rows' => 12]); ?>
-                            <?php endif ?>
+
+                            <?= $model->getEditorWidget($form,'description') ?>
 						
 						</div> <!-- col-lg-8 -->
 						
@@ -135,39 +95,15 @@ $themes    = $model->getThemesSelect2();
 									]
 								],
 							]); ?>
-						
-							<?= $form->field($model, 'state')->widget(Select2::classname(), [
-                                'data' => [
-                                    1 => Yii::t('articles', 'Published'),
-                                    0 => Yii::t('articles', 'Unpublished'),
-                                ],
-                                'addon' => [
-                                    'prepend' => [
-                                        'content'=>'<i class="glyphicon glyphicon-check"></i>'
-                                    ]
-                                ],
-                            ]); ?>
-                                
-                            <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                'data' => $roles,
-                                'addon' => [
-									'prepend' => [
-										'content'=>'<i class="glyphicon glyphicon-log-in"></i>'
-									]
-								],
-                            ]); ?>
 
-							<?= $form->field($model, 'language')->widget(Select2::classname(), [
-								'data' => $languages,
-								'addon' => [
-									'prepend' => [
-										'content'=>'<i class="glyphicon glyphicon-globe"></i>'
-									]
-								],
-							]); ?>
+                            <?= $model->getStateWidget($form) ?>
+
+                            <?= $model->getAccessWidget($form) ?>
+
+                            <?= $model->getLanguageWidget($form) ?>
 
                             <?= $form->field($model, 'theme')->widget(Select2::classname(), [
-                                'data' => $themes,
+                                'data' => $model->getThemesSelect2(),
                                 'addon' => [
                                     'prepend' => [
                                         'content'=>'<i class="glyphicon glyphicon-blackboard"></i>'
@@ -206,7 +142,7 @@ $themes    = $model->getThemesSelect2();
 					</div> <!-- #item -->
 					
 					<!-- SEO -->
-					<div id="seo" class="tab-pane fade">
+					<div id="seo" class="row  tab-pane fade">
                     
                     	<div class="col-lg-5">
 						
@@ -258,7 +194,7 @@ $themes    = $model->getThemesSelect2();
                     </div> <!-- #seo -->
                     
                     <!-- Image -->
-					<div id="image" class="tab-pane fade">
+					<div id="image" class="row tab-pane fade">
                     
                     	<p class="bg-info">
 							<?= Yii::t('articles', 'Allowed Extensions')?>: <?= $imagetype ?>
@@ -321,7 +257,7 @@ $themes    = $model->getThemesSelect2();
 					</div> <!-- #image -->
 					
 					<!-- Params -->
-					<div id="params" class="tab-pane fade">
+					<div id="params" class="row tab-pane fade">
 					
 						<!-- Categories View -->
 						<div class="col-md-4">

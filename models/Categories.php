@@ -13,13 +13,50 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use cinghie\traits\AccessTrait;
+use cinghie\traits\EditorTrait;
+use cinghie\traits\LanguageTrait;
+use cinghie\traits\NameAliasTrait;
+use cinghie\traits\StateTrait;
+use cinghie\traits\UserHelpersTrait;
 
+/**
+ * This is the model class for table "{{%article_categories}}".
+ *
+ * @property int $id
+ * @property int $parent_id
+ * @property string $name
+ * @property string $alias
+ * @property string $description
+ * @property int $state
+ * @property string $access
+ * @property string $language
+ * @property string $theme
+ * @property int $ordering
+ * @property string $image
+ * @property string $image_caption
+ * @property string $image_credits
+ * @property string $params
+ * @property string $metadesc
+ * @property string $metakey
+ * @property string $robots
+ * @property string $author
+ * @property string $copyright
+ *
+ * @property Categories $parent
+ * @property Categories[] $categories
+ * @property Items[] $items
+ */
 class Categories extends Articles
 {
+
+    use AccessTrait, EditorTrait, LanguageTrait, NameAliasTrait, StateTrait, UserHelpersTrait;
+
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return '{{%article_categories}}';
     }
 
@@ -28,19 +65,18 @@ class Categories extends Articles
      */
     public function rules()
     {	
-        return [
-            [['name', 'language'], 'required'],
-			[['parent_id', 'state', 'ordering'], 'integer'],
-			[['name', 'alias', 'image_caption', 'image_credits'], 'string', 'max' => 255],
-            [['description', 'image', 'params', 'metadesc', 'metakey'], 'string'],
-            [['access'], 'string', 'max' => 64],
-			[['author', 'copyright'], 'string', 'max' => 50],
-			[['language'], 'string', 'max' => 7],
+        return array_merge(AccessTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), StateTrait::rules(),[
+            [['access', 'name', 'language', 'state', 'theme'], 'required'],
+			[['ordering','parent_id'], 'integer'],
             [['theme'], 'string', 'max' => 12],
 			[['robots'], 'string', 'max' => 20],
+            [['author', 'copyright'], 'string', 'max' => 50],
+            [['image_caption', 'image_credits'], 'string', 'max' => 255],
+            [['description', 'image', 'metadesc', 'metakey', 'params'], 'string'],
 			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,],
-			[['image'], 'safe']
-        ];
+			[['image'], 'safe'],
+            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['parent_id' => 'id']],
+        ]);
     }
 
     /**
@@ -50,12 +86,8 @@ class Categories extends Articles
     {
         return [
             'id' => Yii::t('articles', 'ID'),
-            'name' => Yii::t('articles', 'Name'),
-            'alias' => Yii::t('articles', 'Alias'),
-            'description' => Yii::t('articles', 'Description'),
             'parent_id' => Yii::t('articles', 'Parent'),
-            'state' => Yii::t('articles', 'State'),
-            'access' => Yii::t('articles', 'Access'),
+            'description' => Yii::t('articles', 'Description'),
             'theme' => Yii::t('articles', 'Theme'),
             'ordering' => Yii::t('articles', 'Ordering'),
             'image' => Yii::t('articles', 'Image'),
@@ -72,9 +104,7 @@ class Categories extends Articles
     }
 
     /**
-     * Return Parent Category
-     *
-     * @return Categories
+     * @return \yii\db\ActiveQuery
      */
     public function getParent()
     {
@@ -82,20 +112,7 @@ class Categories extends Articles
     }
 
     /**
-     * Return Parent Name
-     *
-     * @return string
-     */
-	public function getParentName()
-	{
-        $model = $this->parent;
-        return $model?$model->name:'';
-    }
-
-    /**
-     * Return all Categories by parent Category
-     *
-     * @return Categories
+     * @return \yii\db\ActiveQuery
      */
     public function getCategories()
     {
@@ -103,39 +120,36 @@ class Categories extends Articles
     }
 
     /**
-     * Return all Items by Category
-     *
-     * @return Items
+     * @return \yii\db\ActiveQuery
      */
-    public function getArticleItems()
+    public function getItems()
     {
         return $this->hasMany(Items::className(), ['cat_id' => 'id']);
     }
 	
 	/**
-     * fetch stored file name with complete path
+     * Fetch stored file name with complete path
      *
      * @return string
      */
-    public function getFilePath() 
+    public function getImagePath()
     {
         return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image : null;
     }
 	
 	/**
-     * fetch stored file url
+     * Fetch stored file url
      *
      * @return string
      */
     public function getImageUrl() 
     {
-        // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
     }
 
     /**
-     * fetch stored image url
+     * Fetch stored image thumb url
      *
      * @param $size
      * @return string
@@ -148,10 +162,10 @@ class Categories extends Articles
     }
 	
 	/**
-    * Delete Image
+     * Delete Image
      *
-    * @return mixed the uploaded image instance
-    */
+     * @return mixed the uploaded image instance
+     */
 	public function deleteImage() 
 	{
 		$image   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image;
@@ -166,7 +180,7 @@ class Categories extends Articles
         }
 		
 		// check if uploaded file can be deleted on server
-		if (unlink($image)) 
+		if (unlink($image))
 		{
 			unlink($imageS);
 			unlink($imageM);
@@ -176,61 +190,34 @@ class Categories extends Articles
 			return true;
 			
 		} else {
+
 			return false;
 		}
-		
-	}
-
-    /**
-     * Get Items by Category ID
-     *
-     * @param integer $cat_id
-     * @param string $order
-     * @return Items
-     */
-    public function getItemsByCategory($cat_id,$order = 'title')
-    {
-        $items = Items::find()
-            ->where(['cat_id' => $cat_id])
-            ->andWhere(['state' => 1])
-            ->andWhere(['or',['language' => 'All'],['SUBSTRING(language,1,2)' => Yii::$app->language]])
-            ->orderBy($order)
-            ->all();
-
-        return $items;
-    }
-
-    /**
-     * Return array for Category Select2
-     *
-     * @return array
-     */
-	public function getCategoriesSelect2()
-	{
-        $categories = Categories::find()
-            ->orderBy('name')
-            ->all();
-
-		$array[0] = Yii::t('articles', 'No Parent'); 
-		
-		foreach($categories as $category)
-		{
-			$array[$category['id']] = $category['name'];
-		}
-		
-		return $array;
 	}
 
     /**
      * Return array with Categories Themes
      *
-     * @return array
+     * @return array[]
      */
     public function getThemesSelect2()
     {
-        $array = ['blog' => 'blog','portfolio' => 'portfolio'];
+        $array = [
+            'blog' => 'blog',
+            'portfolio' => 'portfolio'
+        ];
 
         return $array;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return CategoriesQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new CategoriesQuery(get_called_class());
     }
 	
 }

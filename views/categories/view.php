@@ -1,6 +1,10 @@
 <?php
 
-use yii\helpers\Html;
+/**
+ * @var $model cinghie\articles\models\Categories
+ */
+
+use kartik\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
 
 // Load Articles Assets

@@ -1,13 +1,14 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 /**
  * @var $form yii\widgets\ActiveForm
  * @var $model cinghie\articles\models\CategoriesSearch
  * @var $this yii\web\View
  */
+
+use kartik\helpers\Html;
+use yii\widgets\ActiveForm;
+
 ?>
 
 <div class="categories-search">
