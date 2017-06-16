@@ -13,12 +13,14 @@
 namespace cinghie\articles\widgets;
 
 use cinghie\articles\models\Items;
+use kartik\helpers\Html;
 use yii\bootstrap\Widget;
-use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
+use yii\rbac\Item;
 
 class ItemWidget extends Widget
 {
+
     public $id;
     public $classes;
     public $orderby;
@@ -44,6 +46,7 @@ class ItemWidget extends Widget
 
     public function run()
     {
+        /** @var Items $item */
         $item = Items::find()->where(['id' => $this->id])->one();
 
         return '<div class="articleWidget articleWidget-'.$this->id.' '.$this->classes.'">

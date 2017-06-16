@@ -18,6 +18,7 @@ use yii\bootstrap\Widget;
 
 class CategoryWidget extends Widget
 {
+
     public $id;
     public $classes;
 
@@ -25,9 +26,6 @@ class CategoryWidget extends Widget
     {
         parent::init();
 
-        /*
-         * Set id to 1, if not set in widget
-         */
         if(!$this->id) {
             $this->id = 1;
         }
@@ -50,4 +48,5 @@ class CategoryWidget extends Widget
 
         echo '</div>';
     }
+
 }
