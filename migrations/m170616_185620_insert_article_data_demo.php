@@ -12,7 +12,7 @@
 
 use cinghie\traits\migrations\Migration;
 
-class m170616_185620_insert_articles_data_demo extends Migration
+class m170616_185620_insert_article_data_demo extends Migration
 {
 
     public function safeUp()

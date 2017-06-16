@@ -12,7 +12,7 @@
 
 use cinghie\traits\migrations\Migration;
 
-class m151105_204528_create_articles_tags_table extends Migration
+class m151105_204528_create_article_tags_table extends Migration
 {
     public function up()
     {
