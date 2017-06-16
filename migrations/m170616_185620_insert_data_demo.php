@@ -82,7 +82,7 @@ class m170616_185620_insert_data_demo extends Migration
                      'author' => '',
                      'copyright' => '',
                  ]
-             ], $this->tableOptions
+             ]
         );
 
         $this->batchInsert('{{%article_items}}',
@@ -957,13 +957,14 @@ class m170616_185620_insert_data_demo extends Migration
                     'author' => '',
                     'copyright' => '',
                 ]
-            ], $this->tableOptions
+            ]
         );
     }
 
     public function safeDown()
     {
         //$this->truncateTable('{{%article_categories}} CASCADE');
+        //$this->truncateTable('{{%article_items}} CASCADE');
     }
 
 }

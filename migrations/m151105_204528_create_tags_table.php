@@ -16,50 +16,50 @@ class m151105_204528_create_tags_table extends Migration
 {
     public function up()
     {
-        $this->createTable('{{%article_tags}}', [
-            'id' => $this->primaryKey(),
-            'name' => $this->string(255)->notNull(),
-            'alias' => $this->string(255)->notNull(),
-            'description' => $this->text(),
-            'state' => $this->boolean()->notNull()->defaultValue(0),
+        $this->createTable("{{%article_tags}}", [
+            "id" => $this->primaryKey(),
+            "name" => $this->string(255)->notNull(),
+            "alias" => $this->string(255)->notNull()->unique(),
+            "description" => $this->text(),
+            "state" => $this->boolean()->notNull()->defaultValue(0),
         ], $this->tableOptions);
 
-        $this->createTable('{{%article_tags_assign}}', [
-            'id' => $this->primaryKey(),
-            'tag_id' => $this->integer(11)->notNull()->defaultValue(0),
-            'item_id' => $this->integer(11)->notNull()->defaultValue(0),
+        $this->createTable("{{%article_tags_assign}}", [
+            "id" => $this->primaryKey(),
+            "tag_id" => $this->integer(11)->notNull()->defaultValue(0),
+            "item_id" => $this->integer(11)->notNull()->defaultValue(0),
         ], $this->tableOptions);
 
-        // Auth Item Permissions
-        $this->insert('{{%auth_item}}',['name' => 'articles-create-tags', 'type' => '2', 'description' => 'Can create tags','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'articles-update-tags', 'type' => '2', 'description' => 'Can update tags','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'articles-delete-tags', 'type' => '2', 'description' => 'Can delete tags','created_at' => time(),'updated_at' => time()]);
-        $this->insert('{{%auth_item}}',['name' => 'articles-publish-tags', 'type' => '2', 'description' => 'Can publish tags','created_at' => time(),'updated_at' => time()]);
+        // Add Index and Foreign Key
+        $this->createIndex(
+            "index_article_tags_tag_id",
+            "{{%article_tags_assign}}",
+            "tag_id"
+        );
 
-        // Auth Item Child Admin Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-create-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-delete-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-publish-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-update-tags']);
+        $this->addForeignKey(
+            "fk_article_tags_tag_id",
+            "{{%article_tags_assign}}", "tag_id",
+            "{{%article_tags_assign}}", "id"
+        );
 
-        // Auth Item Child Admin Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-create-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-delete-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-publish-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-update-tags']);
+        // Add Index and Foreign Key
+        $this->createIndex(
+            "index_article_tags_item_id",
+            "{{%article_tags_assign}}", "item_id"
+        );
 
-        // Auth Item Child Admin Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-create-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-publish-tags']);
-        $this->insert('{{%auth_item_child}}', ['parent' => 'publisher', 'child' => 'articles-update-tags']);
-
-        // Auth Item Child Admin Articles
-        $this->insert('{{%auth_item_child}}', ['parent' => 'author', 'child' => 'articles-create-tags']);
+        $this->addForeignKey(
+            "fk_article_tags_item_id",
+            "{{%article_tags_assign}}", "item_id",
+            "{{%article_items}}", "id"
+        );
     }
 
     public function down()
     {
-        $this->dropTable('{{%article_tags}}');
-        $this->dropTable('{{%article_tags_assign}}');
+        $this->dropTable("{{%article_tags}}");
+        $this->dropTable("{{%article_tags_assign}}");
     }
+
 }
