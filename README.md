@@ -65,33 +65,33 @@ Set on your configuration file, in modules section
 		],			
 		
 		// Select Date Format
-        'dateFormat' => 'd F Y';
+		'dateFormat' => 'd F Y';
 		
 		// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
 		'editor' => 'ckeditor',
 		
 		// Select Path To Upload Category Image
-        'categoryImagePath' => '@webroot/img/articles/categories/',
-        // Select URL To Upload Category Image
-        'categoryImageURL'  => '@web/img/articles/categories/',
-        // Select Path To Upload Category Thumb
-        'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
-        // Select URL To Upload Category Image
-        'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
+        	'categoryImagePath' => '@webroot/img/articles/categories/',
+        	// Select URL To Upload Category Image
+        	'categoryImageURL'  => '@web/img/articles/categories/',
+        	// Select Path To Upload Category Thumb
+        	'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
+        	// Select URL To Upload Category Image
+        	'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
 
-        // Select Path To Upload Item Image
-        'itemImagePath' => '@webroot/img/articles/items/',
-        // Select URL To Upload Item Image
-        'itemImageURL'  => '@web/img/articles/items/',
-        // Select Path To Upload Item Thumb
-        'itemThumbPath' => '@webroot/img/articles/items/thumb/',
-        // Select URL To Upload Item Thumb
-        'itemThumbURL'  => '@web/img/articles/items/thumb/',
-		
+		// Select Path To Upload Item Image
+		'itemImagePath' => '@webroot/img/articles/items/',
+		// Select URL To Upload Item Image
+		'itemImageURL'  => '@web/img/articles/items/',
+		// Select Path To Upload Item Thumb
+		'itemThumbPath' => '@webroot/img/articles/items/thumb/',
+		// Select URL To Upload Item Thumb
+		'itemThumbURL'  => '@web/img/articles/items/thumb/',
+
 		// Select Path To Upload Attachments
-        'attachPath' => '@webroot/attachments/',
+        	'attachPath' => '@webroot/attachments/',
 		// Select URL To Upload Attachment
-        'attachURL' => '@web/img/articles/items/',
+        	'attachURL' => '@web/img/articles/items/',
 		// Select Image Types allowed
 		'attachType' => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
 		
@@ -107,19 +107,9 @@ Set on your configuration file, in modules section
 			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
 		],
 
-        // Show Titles in the views
-        'showTitles' => true,
-	],	
-	
-	// Module Kartik-v Grid
-	'gridview' =>  [
-		'class' => '\kartik\grid\Module',
-	],
-	
-	// Module Kartik-v Markdown Editor
-	'markdown' => [
-		'class' => 'kartik\markdown\Module',
-	],
+		// Show Titles in the views
+		'showTitles' => true,
+		],	
 
 ]
 ```
@@ -145,7 +135,7 @@ Set on your configuration file, in modules section
                 '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
             ],
         ],
-    ],
+],
 ```
 
 ## Users Auth
