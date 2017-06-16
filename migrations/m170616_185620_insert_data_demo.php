@@ -81,8 +81,8 @@ class m170616_185620_insert_data_demo extends Migration
                      'robots' => 'index, follow',
                      'author' => '',
                      'copyright' => '',
-                 ],
-             ]
+                 ]
+             ], $this->tableOptions
         );
 
         $this->batchInsert('{{%article_items}}',
@@ -957,7 +957,7 @@ class m170616_185620_insert_data_demo extends Migration
                     'author' => '',
                     'copyright' => '',
                 ]
-            ]
+            ], $this->tableOptions
         );
     }
 
