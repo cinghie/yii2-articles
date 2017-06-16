@@ -1,7 +1,7 @@
 <?php
 
 use cinghie\articles\assets\ArticlesAsset;
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use yii\widgets\DetailView;
 
 // Load Articles Assets

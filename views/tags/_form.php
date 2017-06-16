@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
 
 // Load Kartik Libraries

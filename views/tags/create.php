@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs
 $this->title = Yii::t('articles', 'Create Tags');
