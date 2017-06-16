@@ -19,9 +19,9 @@ class m151021_200427_create_article_items_table extends Migration
     {
         $this->createTable("{{%article_items}}", [
             "id" => $this->primaryKey(),
-            "cat_id" => $this->integer(11)->notNull()->defaultValue(null),
+            "cat_id" => $this->integer(11)->defaultValue(null),
             "title" => $this->string(255)->notNull(),
-            "alias" => $this->string(255)->notNull()->unique(),
+            "alias" => $this->string(255)->notNull(),
             "introtext" => $this->text(),
             "fulltext" => $this->text(),
             "state" => $this->boolean()->notNull()->defaultValue(0),
@@ -43,11 +43,11 @@ class m151021_200427_create_article_items_table extends Migration
             "robots" => $this->string(20)->defaultValue(null),
             "author" => $this->string(50)->defaultValue(null),
             "copyright" => $this->string(50)->defaultValue(null),
-            "user_id" => $this->integer(11)->notNull()->defaultValue(0),
+            "user_id" => $this->integer(11)->defaultValue(null),
+            "created_by" => $this->integer(11)->defaultValue(null),
             "created" => $this->dateTime()->notNull()->defaultValue("0000-00-00 00:00:00"),
-            "created_by" => $this->integer(11)->notNull()->defaultValue(0),
+            "modified_by" => $this->integer(11)->defaultValue(null),
             "modified" => $this->dateTime()->notNull()->defaultValue("0000-00-00 00:00:00"),
-            "modified_by" => $this->integer(11)->notNull()->defaultValue(0)
         ], $this->tableOptions);
 
         // Add Index and Foreign Key access

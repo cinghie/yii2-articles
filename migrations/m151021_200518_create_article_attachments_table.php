@@ -20,9 +20,10 @@ class m151021_200518_create_article_attachments_table extends Migration
         $this->createTable("{{%article_attachments}}", [
             "id" => $this->primaryKey(),
             "item_id" => $this->integer(11)->notNull(),
-            "filename" => $this->string(255)->notNull(),
             "title" => $this->string(255)->notNull(),
+            "alias" => $this->string(255)->notNull(),
             "titleAttribute" => $this->text(),
+            "filename" => $this->string(255)->notNull(),
             "extension" => $this->string(12)->notNull(),
             "mimetype" => $this->string(255)->notNull(),
             "size" => $this->integer(32)->notNull(),
@@ -45,8 +46,8 @@ class m151021_200518_create_article_attachments_table extends Migration
 
     public function down()
     {
-        $this->dropForeignKey("{{%fk_article_attachments_item_id}}", "{{%article_attachments}}");
-        $this->dropIndex("{{%index_article_attachments_item_id}}", "{{%article_attachments}}");
+        $this->dropForeignKey("{{fk_article_attachments_item_id}}", "{{%article_attachments}}");
+        $this->dropIndex("{{index_article_attachments_item_id}}", "{{%article_attachments}}");
         $this->dropTable("{{%article_attachments}}");
     }
 

@@ -21,7 +21,7 @@ class m151021_200401_create_article_categories_table extends Migration
             "id" => $this->primaryKey(),
             "parent_id" => $this->integer(11)->defaultValue(null),
             "name" => $this->string(255)->notNull(),
-            "alias" => $this->string(255)->notNull()->unique(),
+            "alias" => $this->string(255)->notNull(),
             "description" => $this->text(),
             "state" => $this->boolean()->notNull()->defaultValue(1),
             "access" => $this->string(64)->notNull(),
@@ -62,9 +62,9 @@ class m151021_200401_create_article_categories_table extends Migration
 
     public function down()
     {
-        $this->dropForeignKey('fk_article_categories_parent_id', '{{%article_categories}}');
-        $this->dropIndex('index_article_categories_access', '{{%article_categories}}');
-        $this->dropIndex('index_article_categories_parent_id', '{{%article_categories}}');
+        $this->dropForeignKey("fk_article_categories_parent_id", "{{%article_categories}}");
+        $this->dropIndex("index_article_categories_access", "{{%article_categories}}");
+        $this->dropIndex("index_article_categories_parent_id", "{{%article_categories}}");
         $this->dropTable("{{%article_categories}}");
     }
 

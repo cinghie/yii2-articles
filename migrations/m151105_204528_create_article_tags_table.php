@@ -19,7 +19,7 @@ class m151105_204528_create_article_tags_table extends Migration
         $this->createTable("{{%article_tags}}", [
             "id" => $this->primaryKey(),
             "name" => $this->string(255)->notNull(),
-            "alias" => $this->string(255)->notNull()->unique(),
+            "alias" => $this->string(255)->notNull(),
             "description" => $this->text(),
             "state" => $this->boolean()->notNull()->defaultValue(0),
         ], $this->tableOptions);
@@ -59,10 +59,10 @@ class m151105_204528_create_article_tags_table extends Migration
 
     public function down()
     {
-        $this->dropForeignKey("{{%fk_article_tags_assign_tag_id}}", "{{%article_tags_assign}}");
-        $this->dropForeignKey("{{%fk_article_tags_assign_item_id}}", "{{%article_tags_assign}}");
-        $this->dropIndex("{{%index_article_tags_assign_item_id}}", "{{%article_tags_assign}}");
-        $this->dropIndex("{{%index_article_tags_assign_tag_id}}", "{{%article_tags_assign}}");
+        $this->dropForeignKey("{{fk_article_tags_assign_tag_id}}", "{{%article_tags_assign}}");
+        $this->dropForeignKey("{{fk_article_tags_assign_item_id}}", "{{%article_tags_assign}}");
+        $this->dropIndex("{{index_article_tags_assign_item_id}}", "{{%article_tags_assign}}");
+        $this->dropIndex("{{index_article_tags_assign_tag_id}}", "{{%article_tags_assign}}");
         $this->dropTable("{{%article_tags_assign}}");
         $this->dropTable("{{%article_tags}}");
     }
