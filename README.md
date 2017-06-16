@@ -110,7 +110,7 @@ Set on your configuration file, in modules section
 		// Show Titles in the views
 		'showTitles' => true,
 		],	
-
+	],
 ]
 ```
 
