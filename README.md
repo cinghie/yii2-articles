@@ -111,6 +111,7 @@ Set on your configuration file, in modules section
 		'showTitles' => true,
 		],	
 	],
+	
 ]
 ```
 
