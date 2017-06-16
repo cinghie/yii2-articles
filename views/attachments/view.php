@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use yii\widgets\DetailView;
 
 // Set Title and Breadcrumbs

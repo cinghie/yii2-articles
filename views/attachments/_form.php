@@ -1,10 +1,10 @@
 <?php
 
 use cinghie\articles\assets\ArticlesAsset;
+use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
-use yii\helpers\Html;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
