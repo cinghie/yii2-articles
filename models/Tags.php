@@ -17,6 +17,7 @@ use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%article_tags}}".
+ *
  * @property integer $id
  * @property string $name
  * @property string $alias
@@ -62,6 +63,7 @@ class Tags extends Articles
 
     /**
      * return Tag url
+     *
      * @return string
      */
     public function getTagUrl() {
@@ -70,10 +72,12 @@ class Tags extends Articles
 
     /**
      * @inheritdoc
+     *
      * @return TagsQuery the active query used by this AR class.
      */
     public static function find()
     {
         return new TagsQuery(get_called_class());
     }
+
 }

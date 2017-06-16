@@ -18,9 +18,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Tags'), 'url' =
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('articles', 'Update');
 
-// Render Yii2-Articles Menu
-echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
-
 ?>
 <div class="tags-update">
 

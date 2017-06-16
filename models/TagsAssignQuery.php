@@ -18,6 +18,7 @@ namespace cinghie\articles\models;
  */
 class TagsAssignQuery extends \yii\db\ActiveQuery
 {
+
     /**
      * @inheritdoc
      * @return Tagsassign[]|array
@@ -35,4 +36,5 @@ class TagsAssignQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
 }

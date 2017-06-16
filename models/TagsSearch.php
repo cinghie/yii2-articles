@@ -21,6 +21,7 @@ use yii\data\ActiveDataProvider;
  */
 class TagsSearch extends Tags
 {
+
     /**
      * @inheritdoc
      */
@@ -45,7 +46,6 @@ class TagsSearch extends Tags
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     *
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -78,4 +78,5 @@ class TagsSearch extends Tags
 
         return $dataProvider;
     }
+
 }

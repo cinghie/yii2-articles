@@ -18,6 +18,7 @@ namespace cinghie\articles\models;
  */
 class TagsQuery extends \yii\db\ActiveQuery
 {
+
     public function active()
     {
         return $this->andWhere('[[state]]=1');
@@ -40,4 +41,5 @@ class TagsQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
 }

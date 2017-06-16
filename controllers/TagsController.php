@@ -66,6 +66,7 @@ class TagsController extends Controller
 
     /**
      * Lists all Tags models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -81,6 +82,7 @@ class TagsController extends Controller
 
     /**
      * Displays a single Tags model.
+     *
      * @param integer $id
      * @return mixed
      */
@@ -94,6 +96,7 @@ class TagsController extends Controller
     /**
      * Creates a new Tags model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      */
@@ -129,6 +132,7 @@ class TagsController extends Controller
     /**
      * Updates an existing Tags model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -165,6 +169,7 @@ class TagsController extends Controller
     /**
      * Deletes an existing Tags model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -187,6 +192,7 @@ class TagsController extends Controller
     /**
      * Deletes selected Tags models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      * @throws \Exception
@@ -218,7 +224,8 @@ class TagsController extends Controller
     }
 
     /**
-     * Change tags state: published or unpublished
+     * Change tags state: published or unpublished.
+     *
      * @param $id
      * @return \yii\web\Response
      * @throws ForbiddenHttpException
@@ -248,6 +255,7 @@ class TagsController extends Controller
     /**
      * Active selected Tags models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
@@ -275,11 +283,14 @@ class TagsController extends Controller
         } else {
             throw new ForbiddenHttpException;
         }
+
+        return;
     }
 
     /**
      * Active selected Tags models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
@@ -307,11 +318,14 @@ class TagsController extends Controller
         } else {
             throw new ForbiddenHttpException;
         }
+
+        return;
     }
 
     /**
      * Finds the Tags model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Tags the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -327,6 +341,7 @@ class TagsController extends Controller
 
     /**
      * Check if user can create Tags
+     *
      * @return bool
      */
     protected function userCanCreate()
@@ -336,7 +351,7 @@ class TagsController extends Controller
 
     /**
      * Check if user can update Tags
-     * @param $id
+     *
      * @return bool
      */
     protected function userCanUpdate()
@@ -346,7 +361,7 @@ class TagsController extends Controller
 
     /**
      * Check if user can publish Tags
-     * @param $id
+     *
      * @return bool
      */
     protected function userCanPublish()
@@ -356,7 +371,7 @@ class TagsController extends Controller
 
     /**
      * Check if user can delete Tags
-     * @param $id
+     *
      * @return bool
      */
     protected function userCanDelete()

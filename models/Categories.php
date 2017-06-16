@@ -223,7 +223,7 @@ class Categories extends Articles
 
     /**
      * Return array with Categories Themes
-     * 
+     *
      * @return array
      */
     public function getThemesSelect2()

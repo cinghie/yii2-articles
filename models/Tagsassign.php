@@ -16,6 +16,7 @@ use Yii;
 
 /**
  * This is the model class for table "{{%article_tags_assign}}".
+ *
  * @property integer $id
  * @property integer $tag_id
  * @property integer $item_id
@@ -54,10 +55,12 @@ class Tagsassign extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
+     *
      * @return TagsAssignQuery the active query used by this AR class.
      */
     public static function find()
     {
         return new TagsAssignQuery(get_called_class());
     }
+
 }
