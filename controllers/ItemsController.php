@@ -64,6 +64,7 @@ class ItemsController extends Controller
 
     /**
      * Lists all Items models.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      */
@@ -86,6 +87,7 @@ class ItemsController extends Controller
 
     /**
      * Displays a single Items model.
+     *
      * @param integer $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -108,6 +110,7 @@ class ItemsController extends Controller
     /**
      * Creates a new Items model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      */
@@ -175,6 +178,7 @@ class ItemsController extends Controller
     /**
      * Updates an existing Items model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -249,6 +253,7 @@ class ItemsController extends Controller
     /**
      * Deletes an existing Items model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -279,6 +284,7 @@ class ItemsController extends Controller
     /**
      * Deletes selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      * @throws \Exception
@@ -320,6 +326,7 @@ class ItemsController extends Controller
 	/**
      * Deletes an existing Items Image.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws ForbiddenHttpException
@@ -348,7 +355,8 @@ class ItemsController extends Controller
 	}
 
     /**
-     * Change article state: published or unpublished
+     * Change article state: published or unpublished.
+     *
      * @param $id
      * @return \yii\web\Response
      * @throws ForbiddenHttpException
@@ -378,6 +386,7 @@ class ItemsController extends Controller
     /**
      * Active selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
@@ -410,6 +419,7 @@ class ItemsController extends Controller
     /**
      * Active selected Items models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @return mixed
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
@@ -442,6 +452,7 @@ class ItemsController extends Controller
     /**
      * Finds the Items model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Items the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -456,7 +467,8 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can Index Items
+     * Check if user can Index Items.
+     *
      * @return bool
      */
     protected function userCanIndex()
@@ -465,7 +477,8 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can view Items
+     * Check if user can view Items.
+     *
      * @param $id
      * @return bool
      * @throws NotFoundHttpException
@@ -479,6 +492,7 @@ class ItemsController extends Controller
 
     /**
      * Check if user can create Items
+     *
      * @return bool
      */
     protected function userCanCreate()
@@ -488,6 +502,7 @@ class ItemsController extends Controller
 
     /**
      * Check if user can update Items
+     *
      * @param $id
      * @return bool
      */
@@ -500,6 +515,7 @@ class ItemsController extends Controller
 
     /**
      * Check if user can publish Items
+     *
      * @param $id
      * @return bool
      */
@@ -512,6 +528,7 @@ class ItemsController extends Controller
 
     /**
      * Check if user can delete Items
+     *
      * @param $id
      * @return bool
      */
@@ -524,6 +541,7 @@ class ItemsController extends Controller
 
     /**
      * Check article language
+     *
      * @param $id
      * @return bool
      */

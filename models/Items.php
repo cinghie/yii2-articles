@@ -17,6 +17,7 @@ use yii\helpers\Url;
 
 class Items extends Articles
 {
+
     /**
      * @inheritdoc
      */
@@ -83,6 +84,7 @@ class Items extends Articles
 
     /**
      * check if current user is the author from the article id
+     *
      * @return bool
      */
     public function isUserAuthor()
@@ -96,6 +98,7 @@ class Items extends Articles
 
     /**
      * return item url
+     *
      * @return string
      */
     public function getItemUrl() {
@@ -103,7 +106,8 @@ class Items extends Articles
     }
 
 	/**
-     * fetch stored file name with complete path 
+     * fetch stored file name with complete path
+     *
      * @return string
      */
     public function getFilePath() {
@@ -112,6 +116,7 @@ class Items extends Articles
 	
 	/**
      * fetch stored file url
+     *
      * @return string
      */
     public function getImageUrl() 
@@ -123,18 +128,19 @@ class Items extends Articles
 
     /**
      * fetch stored image url
+     *
      * @param $size
      * @return string
      */
     public function getImageThumbUrl($size)
     {
-        // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias(Yii::$app->controller->module->itemImageURL)."thumb/".$size."/".$file;
     }
 	
 	/**
     * Delete Image
+    *
     * @return mixed the uploaded image instance
     */
 	public function deleteImage() 
@@ -168,6 +174,7 @@ class Items extends Articles
 
     /**
      * Return array for Publish Status
+     *
      * @return array
      */
     public function getPublishSelect2()
@@ -181,6 +188,7 @@ class Items extends Articles
 	
 	/**
      * Return array for Category Select2
+     *
      * @return array
      **/
 	public function getCategoriesSelect2()
@@ -201,6 +209,7 @@ class Items extends Articles
 
     /*
      * Return array for Video Type
+     *
      * @return array
      */
 	public function getVideoTypeSelect2()
@@ -212,6 +221,7 @@ class Items extends Articles
 
     /**
      * Return Attachments
+     *
      * @return Attachments
      */
     public function getAttachments() {
@@ -220,6 +230,7 @@ class Items extends Articles
 
     /**
      * Return Categories
+     *
      * @return Categories
      */
     public function getCategory() {
@@ -228,6 +239,7 @@ class Items extends Articles
 
     /**
      * Return User
+     *
      * @return $this
      */
     public function getUser() {
@@ -238,6 +250,7 @@ class Items extends Articles
 
     /**
      * Return Created_By
+     *
      * @return $this
      */
     public function getCreatedby() {
@@ -248,6 +261,7 @@ class Items extends Articles
 
     /**
      * Return Tags
+     *
      * @return $this
      */
     public function getTags()
@@ -258,6 +272,7 @@ class Items extends Articles
 
     /**
      * Return Modified_By
+     *
      * @return $this
      */
     public function getModifiedby() {
@@ -268,6 +283,7 @@ class Items extends Articles
 
     /*
      * Return a date formatted with default format
+     *
      * @return string
      */
     public function getDateFormatted($date) {
