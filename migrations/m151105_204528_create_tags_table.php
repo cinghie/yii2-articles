@@ -10,7 +10,7 @@
  * @version 0.6.3
  */
 
-use cinghie\articles\migrations\Migration;
+use cinghie\traits\migrations\Migration;
 
 class m151105_204528_create_tags_table extends Migration
 {

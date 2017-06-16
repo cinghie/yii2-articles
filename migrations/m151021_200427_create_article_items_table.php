@@ -10,7 +10,7 @@
  * @version 0.6.3
  */
 
-use cinghie\articles\migrations\Migration;
+use cinghie\traits\migrations\Migration;
 
 class m151021_200427_create_article_items_table extends Migration
 {

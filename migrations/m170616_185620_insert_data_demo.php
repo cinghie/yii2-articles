@@ -10,7 +10,7 @@
  * @version 0.6.3
  */
 
-use yii\db\Migration;
+use cinghie\traits\migrations\Migration;
 
 class m170616_185620_insert_data_demo extends Migration
 {

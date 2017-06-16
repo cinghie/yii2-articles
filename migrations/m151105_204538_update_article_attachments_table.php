@@ -10,7 +10,7 @@
  * @version 0.6.3
  */
 
-use cinghie\articles\migrations\Migration;
+use cinghie\traits\migrations\Migration;
 
 class m151105_204538_update_article_attachments_table extends Migration
 {
