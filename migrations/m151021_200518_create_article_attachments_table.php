@@ -17,20 +17,37 @@ class m151021_200518_create_article_attachments_table extends Migration
 
     public function up()
     {
-        $this->createTable('{{%article_attachments}}', [
-            'id' => $this->primaryKey(),
-            'itemid' => $this->integer(11)->notNull(),
-            'filename' => $this->string(255)->notNull(),
-            'title' => $this->string(255)->notNull(),
-            'titleAttribute' => $this->text(),
-            'mimetype' => $this->string(255)->notNull(),
-            'hits' => $this->integer(11)->notNull()->defaultValue(0),
+        $this->createTable("{{%article_attachments}}", [
+            "id" => $this->primaryKey(),
+            "item_id" => $this->integer(11)->notNull(),
+            "filename" => $this->string(255)->notNull(),
+            "title" => $this->string(255)->notNull(),
+            "titleAttribute" => $this->text(),
+            "extension" => $this->string(12)->notNull(),
+            "mimetype" => $this->string(255)->notNull(),
+            "size" => $this->integer(32)->notNull(),
+            "hits" => $this->integer(11)->notNull()->defaultValue(0),
         ], $this->tableOptions);
+
+        // Add Index and Foreign Key
+        $this->createIndex(
+            "index_article_attachments_item_id",
+            "{{%article_attachments}}",
+            "item_id"
+        );
+
+        $this->addForeignKey(
+            "fk_article_attachments_item_id",
+            "{{%article_attachments}}", "item_id",
+            "{{%article_items}}", "id"
+        );
     }
 
     public function down()
     {
-        $this->dropTable('{{%article_attachments}}');
+        $this->dropForeignKey("{{%fk_article_attachments_item_id}}", "{{%article_attachments}}");
+        $this->dropIndex("{{%index_article_attachments_item_id}}", "{{%article_attachments}}");
+        $this->dropTable("{{%article_attachments}}");
     }
 
 }

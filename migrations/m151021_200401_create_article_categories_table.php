@@ -62,6 +62,9 @@ class m151021_200401_create_article_categories_table extends Migration
 
     public function down()
     {
+        $this->dropForeignKey('fk_article_categories_parent_id', '{{%article_categories}}');
+        $this->dropIndex('index_article_categories_access', '{{%article_categories}}');
+        $this->dropIndex('index_article_categories_parent_id', '{{%article_categories}}');
         $this->dropTable("{{%article_categories}}");
     }
 

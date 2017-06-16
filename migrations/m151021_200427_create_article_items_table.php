@@ -70,6 +70,19 @@ class m151021_200427_create_article_items_table extends Migration
             "SET NULL", "CASCADE"
         );
 
+        // Add Index and Foreign Key user_id
+        $this->createIndex(
+            "index_article_items_user_id",
+            "{{%article_items}}",
+            "user_id"
+        );
+        $this->addForeignKey(
+            "fk_article_items_user_id",
+            "{{%article_items}}", "user_id",
+            "{{%user}}", "id",
+            "SET NULL", "CASCADE"
+        );
+
         // Add Index and Foreign Key created_by
         $this->createIndex(
             "index_article_items_created_by",
@@ -100,6 +113,13 @@ class m151021_200427_create_article_items_table extends Migration
 
     public function down()
     {
+        $this->dropForeignKey('fk_article_items_user_id', '{{%article_items}}');
+        $this->dropForeignKey("fk_article_items_created_by", "{{%article_items}}");
+        $this->dropForeignKey("fk_article_items_modified_by", "{{%article_items}}");
+        $this->dropIndex('index_article_items_user_id', '{{%article_items}}');
+        $this->dropIndex("index_article_items_access", "{{%article_items}}");
+        $this->dropIndex("index_article_items_created_by", "{{%article_items}}");
+        $this->dropIndex("index_article_items_modified_by", "{{%article_items}}");
         $this->dropTable("{{%article_items}}");
     }
 
