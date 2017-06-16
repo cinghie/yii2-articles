@@ -73,6 +73,7 @@ class Categories extends Articles
 
     /**
      * Return Parent Category
+     *
      * @return Categories
      */
     public function getParent()
@@ -82,6 +83,7 @@ class Categories extends Articles
 
     /**
      * Return Parent Name
+     *
      * @return string
      */
 	public function getParentName()
@@ -92,6 +94,7 @@ class Categories extends Articles
 
     /**
      * Return all Categories by parent Category
+     *
      * @return Categories
      */
     public function getCategories()
@@ -101,6 +104,7 @@ class Categories extends Articles
 
     /**
      * Return all Items by Category
+     *
      * @return Items
      */
     public function getArticleItems()
@@ -109,7 +113,8 @@ class Categories extends Articles
     }
 	
 	/**
-     * fetch stored file name with complete path 
+     * fetch stored file name with complete path
+     *
      * @return string
      */
     public function getFilePath() 
@@ -119,6 +124,7 @@ class Categories extends Articles
 	
 	/**
      * fetch stored file url
+     *
      * @return string
      */
     public function getImageUrl() 
@@ -130,6 +136,7 @@ class Categories extends Articles
 
     /**
      * fetch stored image url
+     *
      * @param $size
      * @return string
      */
@@ -142,6 +149,7 @@ class Categories extends Articles
 	
 	/**
     * Delete Image
+     *
     * @return mixed the uploaded image instance
     */
 	public function deleteImage() 
@@ -175,6 +183,7 @@ class Categories extends Articles
 
     /**
      * Get Items by Category ID
+     *
      * @param integer $catid
      * @param string $order
      * @return Items
@@ -193,6 +202,7 @@ class Categories extends Articles
 
     /**
      * Return array for Category Select2
+     *
      * @return array
      */
 	public function getCategoriesSelect2()
@@ -213,6 +223,7 @@ class Categories extends Articles
 
     /**
      * Return array with Categories Themes
+     * 
      * @return array
      */
     public function getThemesSelect2()
