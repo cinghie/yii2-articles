@@ -20,14 +20,15 @@ use yii\web\UploadedFile;
 
 class Articles extends ActiveRecord
 {
+
     /**
-     * Upload file
+     * Upload file to folder
      *
      * @param $fileName
      * @param $fileNameType
      * @param $filePath
      * @param $fileField
-     * @return mixed the uploaded image instance
+     * @return UploadedFile|bool
      */
     public function uploadFile($fileName,$fileNameType,$filePath,$fileField) 
 	{
@@ -38,7 +39,9 @@ class Articles extends ActiveRecord
  
         // if no file was uploaded abort the upload
         if (empty($file)) {
+
             return false;
+
         } else {
   		
 			// set fileName by fileNameType
@@ -75,7 +78,7 @@ class Articles extends ActiveRecord
     }
 
     /**
-     * createThumbImages files
+     * Create Thumb Images files
      *
      * @param $image
      * @param $imagePath
@@ -99,7 +102,9 @@ class Articles extends ActiveRecord
 		Image::thumbnail($imageLink, $imgOptions['large']['width'], $imgOptions['large']['height'])
 			->save($thumbPath."large/".$imageName, ['quality' => $imgOptions['large']['quality']]);
 		Image::thumbnail($imageLink, $imgOptions['extra']['width'], $imgOptions['extra']['height'])
-			->save($thumbPath."extra/".$imageName, ['quality' => $imgOptions['extra']['quality']]);		
+			->save($thumbPath."extra/".$imageName, ['quality' => $imgOptions['extra']['quality']]);
+
+		return;
 	}
 
     /**
@@ -108,55 +113,35 @@ class Articles extends ActiveRecord
      * @param $name
      * @return string fileName
      */
-	public function generateFileName($name)
-    {	
-		// remove any duplicate whitespace, and ensure all characters are alphanumeric
-		$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $name);
-
-        // lowercase and trim
-        $str = trim(strtolower($str));
-		
-        return $str;
-    }
-	
-	/**
-	 * Generate URL alias
-     *
-     * @param $name
-	 * @return string alias
-	 */
-	public function generateAlias($name)
+    public function generateFileName($name)
     {
-        // remove any '-' from the string they will be used as concatonater
-		$str = str_replace('-', ' ', $name);
-        $str = str_replace('_', ' ', $str);
-		
-		// remove any duplicate whitespace, and ensure all characters are alphanumeric
-		$str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $str);
+        // remove any duplicate whitespace, and ensure all characters are alphanumeric
+        $str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $name);
 
         // lowercase and trim
         $str = trim(strtolower($str));
-		
+
         return $str;
     }
 
-	/*
-	 * Get lang code like en
-	 *
-	 * @return string lang
-	 */
-	public function getLang() {
-		return substr($this->language,0,2);
-	}
+    /**
+     * Get Items by Category ID
+     *
+     * @param integer $cat_id
+     * @param string $order
+     * @return Items[]
+     */
+    public function getItemsByCategory($cat_id,$order = 'title')
+    {
+        $items = Items::find()
+            ->where(['cat_id' => $cat_id])
+            ->andWhere(['state' => 1])
+            ->andWhere(['or',['language' => 'All'],['SUBSTRING(language,1,2)' => Yii::$app->language]])
+            ->orderBy($order)
+            ->all();
 
-	/*
-	 * Get lang tag like en-GB
-	 *
-	 * @return string lang
-	 */
-	public function getLangTag() {
-		return $this->language;
-	}
+        return $items;
+    }
 
 	/**
 	 * Generate JSON for Params
@@ -168,53 +153,26 @@ class Articles extends ActiveRecord
 		return json_encode($params);
 	}
 
-	/**
-	 * Active the item setting state = 1
+    /**
+     * Return array for Category Select2
      *
-	 * @return bool
-	 */
-	public function publish()
-	{
-		return (bool)$this->updateAttributes([
-			'state' => 1
-		]);
-	}
-
-	/**
-	 * Inactive the item setting state = 0
-     *
-	 * @return bool
-	 */
-	public function unpublish()
-	{
-		return (bool)$this->updateAttributes([
-			'state' => 0
-		]);
-	}
-
-	/**
-	 * Return array for User Select2 with current user selected
-     *
-     * @param $user_id
-     * @param $username
-	 * @return array
-	 */
-	public function getUsersSelect2($user_id,$username)
-	{
-        $users = User::find()
-            ->select(['id','username'])
-            ->where(['blocked_at' => null, 'unconfirmed_email' => null])
-            ->andWhere(['!=', 'id', $user_id])
+     * @return array
+     */
+    public function getCategoriesSelect2()
+    {
+        $categories = Categories::find()
+            ->orderBy('name')
             ->all();
 
-		$array[$user_id] = ucwords($username);
+        $array[0] = Yii::t('articles', 'No Parent');
 
-		foreach($users as $user) {
-			$array[$user['id']] = ucwords($user['username']);
-		}
+        foreach($categories as $category)
+        {
+            $array[$category['id']] = $category['name'];
+        }
 
-		return $array;
-	}
+        return $array;
+    }
 
 	/**
 	 * Return array with all Items
@@ -234,43 +192,6 @@ class Articles extends ActiveRecord
 		}
 
 		return $array;
-	}
-
-	/**
-	 * Return an array with the user roles
-     *
-	 * @return array
-	 */
-	public function getRoles()
-	{
-		$roles = Yii::$app->authManager->getRoles();
-		$array = ['public' => 'Public'];
-
-		foreach($roles as $role) {
-			$array[ucwords($role->name)] = ucwords($role->name);
-		}
-
-		return $array;
-	}
-
-	/**
-	 * Return an array with languages
-     *
-	 * @return array
-	 */
-	public function getLanguagesSelect2()
-	{
-		$languages = Yii::$app->controller->module->languages;
-		$languagesSelect = array('All' => Yii::t('articles', 'All'));
-
-		if($languages)
-		{
-			foreach($languages as $language) {
-				$languagesSelect[$language] = ucwords($language);
-			}
-		}
-
-		return $languagesSelect;
 	}
 
 	/**
