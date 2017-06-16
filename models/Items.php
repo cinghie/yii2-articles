@@ -106,16 +106,16 @@ class Items extends Articles
     }
 
 	/**
-     * fetch stored file name with complete path
+     * Fetch stored file name with complete path
      *
      * @return string
      */
-    public function getFilePath() {
+    public function getImagePath() {
         return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image : null;
     }
 	
 	/**
-     * fetch stored file url
+     * Fetch stored file url
      *
      * @return string
      */
@@ -127,7 +127,7 @@ class Items extends Articles
     }
 
     /**
-     * fetch stored image url
+     * Fetch stored image url
      *
      * @param $size
      * @return string

@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
 
 // Load Kartik Libraries
@@ -47,7 +47,7 @@ $imagetype        = Yii::$app->controller->module->imageType;
 
 // Get info by Model
 $attachments      = $model->getAttachments()->asArray()->all();
-$roles            = $model->getRoles();
+$roles            = $model->getRolesSelect2();
 $select2languages = $model->getLanguagesSelect2();
 $select2published = $model->getPublishSelect2();
 $select2users     = $model->getUsersSelect2($user_id,$username);

@@ -1,8 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+/**
+ * @var \cinghie\articles\models\Items $model
+ */
+
 use cinghie\articles\assets\ArticlesAsset;
+use kartik\helpers\Html;
 
 // Load Articles Assets
 ArticlesAsset::register($this);

@@ -1,6 +1,12 @@
 <?php
 
-use yii\helpers\Html;
+/**
+ * @var $form yii\widgets\ActiveForm
+ * @var $model cinghie\articles\models\ItemsSearch
+ * @var $this yii\web\View
+ */
+
+use kartik\helpers\Html;
 use yii\widgets\ActiveForm;
 
 ?>

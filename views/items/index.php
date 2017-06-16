@@ -1,18 +1,15 @@
 <?php
 
 /**
-* @copyright Copyright &copy; Gogodigital Srls
-* @company Gogodigital Srls - Wide ICT Solutions 
-* @website http://www.gogodigital.it
-* @github https://github.com/cinghie/yii2-articles
-* @license GNU GENERAL PUBLIC LICENSE VERSION 3
-* @package yii2-articles
-* @version 0.6.3
-*/
+ * @var $dataProvider yii\data\ActiveDataProvider
+ * @var $model cinghie\articles\models\Items
+ * @var $searchModel cinghie\articles\models\ItemsSearch
+ * @var $this yii\web\View
+ */
 
 use cinghie\articles\assets\ArticlesAsset;
 use kartik\grid\GridView;
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 

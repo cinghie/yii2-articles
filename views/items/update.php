@@ -1,6 +1,12 @@
 <?php
 
-use yii\helpers\Html;
+/**
+ * @var $dataProvider yii\data\ActiveDataProvider
+ * @var $model cinghie\articles\models\Items
+ * @var $searchModel cinghie\articles\models\ItemsSearch
+ */
+
+use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs
 $this->title = Yii::t('articles', 'Update Items') . ': ' . $model->title;
@@ -8,6 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Items'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <div class="items-update">
 
     <?php if(Yii::$app->getModule('articles')->showTitles): ?>
