@@ -116,92 +116,89 @@ $this->registerJs('
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <!-- Tags Grid -->
-    <div class="categories-grid">
+    <?php Pjax::begin() ?>
 
-        <?php Pjax::begin() ?>
-
-    </div>
-
-    <?= GridView::widget([
-        'dataProvider'=> $dataProvider,
-        'filterModel' => $searchModel,
-        'containerOptions' => [
-            'class' => 'tags-pjax-container'
-        ],
-        'pjaxSettings'=>[
-            'neverTimeout' => true,
-        ],
-        'columns' => [
-            [
-                'class' => '\kartik\grid\CheckboxColumn'
+        <?= GridView::widget([
+            'dataProvider'=> $dataProvider,
+            'filterModel' => $searchModel,
+            'containerOptions' => [
+                'class' => 'tags-pjax-container'
             ],
-            [
-                'attribute' => 'name',
-                'format' => 'html',
-                'hAlign' => 'center',
-                'value' => function ($model) {
-                    $url = urldecode(Url::toRoute(['tags/update', 'id' => $model->id, 'alias' => $model->alias]));
-                    return Html::a($model->name,$url);
-                }
+            'pjaxSettings'=>[
+                'neverTimeout' => true,
             ],
-            [
-                'attribute' => 'alias',
-                'width' => '35%',
-                'hAlign' => 'center',
-            ],
-            [
-                'attribute' => 'state',
-                'format' => 'raw',
-                'hAlign' => 'center',
-                'width' => '6%',
-                'value' => function ($model) {
-                    if($model->state) {
-                        return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
-                            'data-method' => 'post',
-                        ]);
-                    } else {
-                        return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
-                            'data-method' => 'post',
-                        ]);
+            'columns' => [
+                [
+                    'class' => '\kartik\grid\CheckboxColumn'
+                ],
+                [
+                    'attribute' => 'name',
+                    'format' => 'html',
+                    'hAlign' => 'center',
+                    'value' => function ($model) {
+                        $url = urldecode(Url::toRoute(['tags/update', 'id' => $model->id, 'alias' => $model->alias]));
+                        return Html::a($model->name,$url);
                     }
-                },
+                ],
+                [
+                    'attribute' => 'alias',
+                    'width' => '35%',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'attribute' => 'state',
+                    'format' => 'raw',
+                    'hAlign' => 'center',
+                    'width' => '6%',
+                    'value' => function ($model) {
+                        if($model->state) {
+                            return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
+                                'data-method' => 'post',
+                            ]);
+                        } else {
+                            return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
+                                'data-method' => 'post',
+                            ]);
+                        }
+                    },
+                ],
+                [
+                    'attribute' => 'id',
+                    'width' => '5%',
+                    'hAlign' => 'center',
+                ]
             ],
-            [
-                'attribute' => 'id',
-                'width' => '5%',
-                'hAlign' => 'center',
-            ]
-        ],
-        'responsive' => true,
-        'hover' => true,
-        'panel' => [
-            'heading'    => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
-            'type'       => 'success',
-            'before'     => '<span style="margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
-                    ['create'], ['class' => 'btn btn-success']
-                ).'</span><span style="margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
-                    '#', ['class' => 'btn btn-update btn-warning']
-                ).'</span><span style="margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
-                    '#', ['class' => 'btn btn-delete btn-danger']
-                ).'</span><span style="margin-right: 5px;">'.
-                Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
-                    '#', ['class' => 'btn btn-preview btn-info']
-                ).'</span><span style="float: right; margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('articles', 'Deactive'),
-                    '#', ['class' => 'btn btn-deactive btn-danger']
-                ).'</span><span style="float: right; margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('articles', 'Active'),
-                    ['#'], ['class' => 'btn btn-active btn-success']
-                ).'</span>',
-            'after' => Html::a(
-                '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
-            ),
-            'showFooter' => false
-        ],
-    ]); ?>
+            'responsive' => true,
+            'hover' => true,
+            'panel' => [
+                'heading'    => '<h3 class="panel-title"><i class="fa fa-tags"></i></h3>',
+                'type'       => 'success',
+                'before'     => '<span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
+                        ['create'], ['class' => 'btn btn-success']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
+                        '#', ['class' => 'btn btn-update btn-warning']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
+                        '#', ['class' => 'btn btn-delete btn-danger']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
+                        '#', ['class' => 'btn btn-preview btn-info']
+                    ).'</span><span style="float: right; margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('articles', 'Deactive'),
+                        '#', ['class' => 'btn btn-deactive btn-danger']
+                    ).'</span><span style="float: right; margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('articles', 'Active'),
+                        ['#'], ['class' => 'btn btn-active btn-success']
+                    ).'</span>',
+                'after' => Html::a(
+                    '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+                ),
+                'showFooter' => false
+            ],
+        ]); ?>
+
     <?php Pjax::end(); ?>
+
 </div>
