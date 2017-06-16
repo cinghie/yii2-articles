@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 
 // Add Facebook Title
 Yii::$app->view->registerMetaTag([
