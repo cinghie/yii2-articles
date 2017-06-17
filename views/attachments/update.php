@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $model cinghie\articles\models\Attachments
+ */
+
 use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs

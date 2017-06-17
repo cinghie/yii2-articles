@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $form yii\widgets\ActiveForm
+ * @var $model cinghie\articles\models\TagsSearch
+ * @var $this yii\web\View
+ */
+
 use kartik\helpers\Html;
 use yii\widgets\ActiveForm;
 

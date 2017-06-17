@@ -1,9 +1,7 @@
 <?php
 
 /**
- * @var $dataProvider yii\data\ActiveDataProvider
  * @var $model cinghie\articles\models\Items
- * @var $searchModel cinghie\articles\models\ItemsSearch
  */
 
 use kartik\helpers\Html;

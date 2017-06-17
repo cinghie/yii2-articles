@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $form kartik\widgets\ActiveForm
+ * @var $model cinghie\articles\models\Attachments
+ * @var $this yii\web\View
+ */
+
 use cinghie\articles\assets\ArticlesAsset;
 use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;

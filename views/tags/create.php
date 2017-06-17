@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $model cinghie\articles\models\Tags
+ * @var $searchModel cinghie\articles\models\TagsSearch
+ * @var $this yii\web\View
+ */
+
 use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs
@@ -8,6 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Tags'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <div class="tags-create">
 
     <?php if(Yii::$app->getModule('articles')->showTitles): ?>

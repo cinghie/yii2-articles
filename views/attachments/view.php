@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $model cinghie\articles\models\Attachments
+ */
+
 use kartik\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -8,6 +12,7 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <div class="attachments-view">
 
     <h1><?= Html::encode($this->title) ?></h1>

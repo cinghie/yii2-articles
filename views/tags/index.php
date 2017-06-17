@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @var $dataProvider yii\data\ActiveDataProvider
+ * @var $model cinghie\articles\models\Tags
+ * @var $searchModel cinghie\articles\models\TagsSearch
+ * @var $this yii\web\View
+ */
+
 use cinghie\articles\assets\ArticlesAsset;
 use kartik\grid\GridView;
 use kartik\helpers\Html;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $model cinghie\articles\models\Attachments
+ * @var $searchModel cinghie\articles\models\AttachmentsSearch
+ * @var $this yii\web\View
+ */
+
 use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs

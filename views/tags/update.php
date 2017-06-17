@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $model cinghie\articles\models\Tags
+ */
+
 use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs
@@ -9,6 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = Yii::t('articles', 'Update');
 
 ?>
+
 <div class="tags-update">
 
     <?php if(Yii::$app->getModule('articles')->showTitles): ?>

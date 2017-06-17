@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @var $model cinghie\articles\models\Tags
+ */
+
 use cinghie\articles\assets\ArticlesAsset;
 use kartik\helpers\Html;
 use yii\widgets\DetailView;

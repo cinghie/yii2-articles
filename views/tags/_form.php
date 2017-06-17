@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @var $form kartik\widgets\ActiveForm
+ * @var $model cinghie\articles\models\Tags
+ * @var $this yii\web\View
+ */
+
 use kartik\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
 
