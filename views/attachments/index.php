@@ -32,9 +32,9 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else if(selectedId.length>1){
-                alert("'.Yii::t("articles", "Select only 1 item").'");
+                alert("'.Yii::t("traits", "Select only 1 item").'");
             } else {
                 var url = "'.Url::to(['/articles/attachments/update']).'?id="+selectedId[0];
                 window.location.href= url;
@@ -44,9 +44,9 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else {
-                var choose = confirm("'.Yii::t("articles", "Do you want delete selected items?").'");
+                var choose = confirm("'.Yii::t("traits", "Do you want delete selected items?").'");
 
                 if (choose == true) {
                     $.ajax({
@@ -64,9 +64,9 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else if(selectedId.length>1){
-                alert("'.Yii::t("articles", "Select only 1 item").'");
+                alert("'.Yii::t("traits", "Select only 1 item").'");
             } else {
                 var url = "'.Url::to(['/articles/attachments/view']).'?id="+selectedId[0];
                 window.location.href= url;

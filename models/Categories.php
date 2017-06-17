@@ -84,7 +84,7 @@ class Categories extends Articles
      */
     public function attributeLabels()
     {
-        return [
+        return array_merge(AccessTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), StateTrait::attributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
             'parent_id' => Yii::t('articles', 'Parent'),
             'description' => Yii::t('articles', 'Description'),
@@ -100,7 +100,7 @@ class Categories extends Articles
             'author' => Yii::t('articles', 'Author'),
             'copyright' => Yii::t('articles', 'Copyright'),
             'language' => Yii::t('articles', 'Language'),
-        ];
+        ]);
     }
 
     /**

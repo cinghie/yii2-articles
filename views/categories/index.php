@@ -18,7 +18,7 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Categories');
+$this->title = Yii::t('traits', 'Categories');
 $this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu
@@ -32,9 +32,9 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else if(selectedId.length>1){
-                alert("'.Yii::t("articles", "Select only 1 item").'");
+                alert("'.Yii::t("traits", "Select only 1 item").'");
             } else {
                 var url = "'.Url::to(['/articles/categories/update']).'?id="+selectedId[0];
                 window.location.href= url;
@@ -44,7 +44,7 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else {
                 $.ajax({
                     type: \'POST\',
@@ -60,7 +60,7 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else {
                 $.ajax({
                     type: \'POST\',
@@ -76,9 +76,9 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else {
-                var choose = confirm("'.Yii::t("articles", "Do you want delete selected items?").'");
+                var choose = confirm("'.Yii::t("traits", "Do you want delete selected items?").'");
 
                 if (choose == true) {
                     $.ajax({
@@ -96,9 +96,9 @@ $this->registerJs('
             var selectedId = $("#w1").yiiGridView("getSelectedRows");
 
             if(selectedId.length == 0) {
-                alert("'.Yii::t("articles", "Select at least one item").'");
+                alert("'.Yii::t("traits", "Select at least one item").'");
             } else if(selectedId.length>1){
-                alert("'.Yii::t("articles", "Select only 1 item").'");
+                alert("'.Yii::t("traits", "Select only 1 item").'");
             } else {
                 var url = "'.Url::to(['/articles/categories/view']).'?id="+selectedId[0];
                 window.open(url,"_blank");
@@ -111,131 +111,130 @@ $this->registerJs('
 
 <div class="categories-index">
 
-	<?php if(Yii::$app->getModule('articles')->showTitles): ?>
+	<?php if(Yii::$app->getModule('traits')->showTitles): ?>
 		<div class="page-header">
 			<h1><?= Html::encode($this->title) ?></h1>
 		</div>
 	<?php endif ?>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    
+
     <!-- Categories Grid -->
     <div class="categories-grid">
 
 		<?php Pjax::begin() ?>
 
-        <?= GridView::widget([
-            'dataProvider'=> $dataProvider,
-            'filterModel' => $searchModel,
-            'pjaxSettings'=>[
-                'neverTimeout' => true,
-            ],
-            'columns' => [
-				[
-					'class' => '\kartik\grid\CheckboxColumn'
-				],
-				[
-					'attribute' => 'name',
-					'format' => 'html',
-					'hAlign' => 'center',
-                    'value' => function ($model) {
-                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id, 'alias' => $model->alias]));
-                        return Html::a($model->name,$url);
-                    }
-				],
-				[
-					'attribute' => 'parent_id',
-                    'format' => 'html',
-					'hAlign' => 'center',
-					'value' => 'parent.name',
-                    'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->parent_id]));
-                        $cat = isset($data->parent->name) ? $data->parent->name : "";
+            <?= GridView::widget([
+                'dataProvider'=> $dataProvider,
+                'filterModel' => $searchModel,
+                'pjaxSettings'=>[
+                    'neverTimeout' => true,
+                ],
+                'columns' => [
+                    [
+                        'class' => '\kartik\grid\CheckboxColumn'
+                    ],
+                    [
+                        'attribute' => 'name',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($model) {
+                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id, 'alias' => $model->alias]));
+                            return Html::a($model->name,$url);
+                        }
+                    ],
+                    [
+                        'attribute' => 'parent_id',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($model) {
+                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->parent_id]));
+                            $cat = isset($model->parent->name) ? $model->parent->name : "";
 
-                        if($cat!="") {
-                            return Html::a($cat,$url);
-                        } else {
-                            return Yii::t('articles', 'Nobody');
+                            if($cat != "") {
+                                return Html::a($cat,$url);
+                            } else {
+                                return Yii::t('traits', 'Nobody');
+                            }
                         }
-                    }
-				],
-				[
-					'attribute' => 'access',
-					'hAlign' => 'center',
-				],[
-					'attribute' => 'theme',
-					'hAlign' => 'center',
-				],
-				[
-					'attribute' => 'image',
-					'format' => 'html',
-					'hAlign' => 'center',
-					'value' => function ($model, $key, $index, $column) {
-						if ($model->image) {
-							return Html::img($model->getImageThumbUrl("small"),
-								['width' => '36px']);
-						}
-					},
-					'width' => '8%',
-				],
-				[
-					'attribute' => 'language',
-					'hAlign' => 'center',
-					'width' => '6%',
-				],
-				[
-					'attribute' => 'state',
-                    'format' => 'raw',
-					'hAlign' => 'center',
-                    'width' => '6%',
-                    'value' => function ($model) {
-                        if($model->state) {
-                            return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
-                                'data-method' => 'post',
-                            ]);
-                        } else {
-                            return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
-                                'data-method' => 'post',
-                            ]);
+                    ],
+                    [
+                        'attribute' => 'access',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($model) {
+                            /** @var $model cinghie\articles\models\Categories */
+                            return $model->getAccessGridView();
                         }
-                    },
-				],
-				[
-					'attribute' => 'id',
-					'hAlign' => 'center',
-					'width' => '5%',
-				]
-			],
-            'responsive' => true,
-            'hover' => true,
-			'panel' => [
-				'heading'    => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
-				'type'       => 'success',
-                'before'     => '<span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
-                        ['create'], ['class' => 'btn btn-success']
-                    ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
-                        '#', ['class' => 'btn btn-update btn-warning']
-                    ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
-                        '#', ['class' => 'btn btn-delete btn-danger']
-                    ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
-                        '#', ['class' => 'btn btn-preview btn-info']
-                    ).'</span><span style="float: right; margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('articles', 'Deactive'),
-                        '#', ['class' => 'btn btn-deactive btn-danger']
-                    ).'</span><span style="float: right; margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('articles', 'Active'),
-                        ['#'], ['class' => 'btn btn-active btn-success']
-                    ).'</span>',
-				'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> '.
-                    Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
-				),
-				'showFooter' => false
-			],
-        ]); ?>
+                    ],[
+                        'attribute' => 'theme',
+                        'hAlign' => 'center',
+                    ],
+                    [
+                        'attribute' => 'image',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($model) {
+                            /** @var $model cinghie\articles\models\Categories */
+                            if ($model->image) {
+                                return Html::img($model->getImageThumbUrl("small"),['width' => '36px']);
+                            } else {
+                                return "";
+                            }
+                        },
+                        'width' => '8%',
+                    ],
+                    [
+                        'attribute' => 'language',
+                        'hAlign' => 'center',
+                        'width' => '6%',
+                    ],
+                    [
+                        'attribute' => 'state',
+                        'format' => 'raw',
+                        'hAlign' => 'center',
+                        'width' => '6%',
+                        'value' => function ($model) {
+                            /** @var $model cinghie\articles\models\Categories */
+                            return $model->getStateGridView();
+                        }
+                    ],
+                    [
+                        'attribute' => 'id',
+                        'hAlign' => 'center',
+                        'width' => '5%',
+                    ]
+                ],
+                'responsive' => true,
+                'hover' => true,
+                'panel' => [
+                    'heading'    => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
+                    'type'       => 'success',
+                    'before'     => '<span style="margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('traits', 'New'),
+                            ['create'], ['class' => 'btn btn-success']
+                        ).'</span><span style="margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('traits', 'Update'),
+                            '#', ['class' => 'btn btn-update btn-warning']
+                        ).'</span><span style="margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('traits', 'Delete'),
+                            '#', ['class' => 'btn btn-delete btn-danger']
+                        ).'</span><span style="margin-right: 5px;">'.
+                        Html::a('<i class="fa fa-eye"></i> '.Yii::t('traits', 'Preview'),
+                            '#', ['class' => 'btn btn-preview btn-info']
+                        ).'</span><span style="float: right; margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('traits', 'Deactive'),
+                            '#', ['class' => 'btn btn-deactive btn-danger']
+                        ).'</span><span style="float: right; margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('traits', 'Active'),
+                            ['#'], ['class' => 'btn btn-active btn-success']
+                        ).'</span>',
+                    'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> '.
+                        Yii::t('traits', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+                    ),
+                    'showFooter' => false
+                ],
+            ]); ?>
 
 		<?php Pjax::end() ?>
 

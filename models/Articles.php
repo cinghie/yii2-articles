@@ -13,13 +13,39 @@
 namespace cinghie\articles\models;
 
 use Yii;
-use dektrium\user\models\User;
+use kartik\widgets\Select2;
 use yii\db\ActiveRecord;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 
 class Articles extends ActiveRecord
 {
+
+    /**
+     * Generate Ordering Form Widget
+     *
+     * @param \kartik\widgets\ActiveForm $form
+     * @return \kartik\form\ActiveField
+     */
+    public function getOrderingWidget($form)
+    {
+        $orderingSelect = [
+            "0" =>  Yii::t('articles', 'In Development')
+        ];
+
+        /** @var $this \yii\base\Model */
+        return $form->field($this, 'ordering')->widget(Select2::classname(), [
+            'data' => $orderingSelect,
+            'options' => [
+                'disabled' => 'disabled'
+            ],
+            'addon' => [
+                'prepend' => [
+                    'content'=>'<i class="glyphicon glyphicon-sort"></i>'
+                ]
+            ],
+        ]);
+    }
 
     /**
      * Upload file to folder
@@ -160,14 +186,23 @@ class Articles extends ActiveRecord
      */
     public function getCategoriesSelect2()
     {
-        $categories = Categories::find()
-            ->orderBy('name')
-            ->all();
+        if($this->isNewRecord) {
 
-        $array[0] = Yii::t('articles', 'No Parent');
+            $categories = Categories::find()
+                ->orderBy('name')
+                ->all();
 
-        foreach($categories as $category)
-        {
+        } else {
+
+            $categories = Categories::find()
+                ->where(['id' => $this->id])
+                ->orderBy('name')
+                ->all();
+        }
+
+        $array[''] = Yii::t('articles', 'No Parent');
+
+        foreach($categories as $category) {
             $array[$category['id']] = $category['name'];
         }
 
@@ -222,10 +257,8 @@ class Articles extends ActiveRecord
             'extra',
         );
 
-        foreach($sizes as $size)
-        {
-            if(!file_exists($path.$size))
-            {
+        foreach($sizes as $size) {
+            if(!file_exists($path.$size)) {
                 mkdir($path.$size, 0755, true);
             }
         }
