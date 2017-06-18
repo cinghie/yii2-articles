@@ -59,7 +59,7 @@ class Articles extends \yii\base\Module
 	public $imageNameType = "categoryname";
 
 	// Select Image Types allowed
-	public $imageType = "image/jpg,image/jpeg,image/gif,image/png";
+	public $imageType = ['png','jpg','jpeg'];
 
 	// Select Path To Upload Attachments
 	public $attachPath = "@webroot/attachments/";

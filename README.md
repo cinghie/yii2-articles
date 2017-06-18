@@ -71,34 +71,34 @@ Set on your configuration file, in modules section
 		'editor' => 'ckeditor',
 		
 		// Select Path To Upload Category Image
-        	'categoryImagePath' => '@webroot/img/articles/categories/',
-        	// Select URL To Upload Category Image
-        	'categoryImageURL'  => '@web/img/articles/categories/',
-        	// Select Path To Upload Category Thumb
-        	'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
-        	// Select URL To Upload Category Image
-        	'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
+		'categoryImagePath' => '@webroot/img/articles/categories/',
+		// Select URL To Upload Category Image
+		'categoryImageURL'  => '@web/img/articles/categories/',
+		// Select Path To Upload Category Thumb
+		'categoryThumbPath' => '@webroot/img/articles/categories/thumb/',
+		// Select URL To Upload Category Image
+		'categoryThumbURL'  => '@web/img/articles/categories/thumb/',
 
 		// Select Path To Upload Item Image
 		'itemImagePath' => '@webroot/img/articles/items/',
 		// Select URL To Upload Item Image
-		'itemImageURL'  => '@web/img/articles/items/',
+		'itemImageURL' => '@web/img/articles/items/',
 		// Select Path To Upload Item Thumb
 		'itemThumbPath' => '@webroot/img/articles/items/thumb/',
 		// Select URL To Upload Item Thumb
-		'itemThumbURL'  => '@web/img/articles/items/thumb/',
+		'itemThumbURL' => '@web/img/articles/items/thumb/',
 
 		// Select Path To Upload Attachments
-        	'attachPath' => '@webroot/attachments/',
+		'attachPath' => '@webroot/attachments/',
 		// Select URL To Upload Attachment
-        	'attachURL' => '@web/img/articles/items/',
+		'attachURL' => '@web/img/articles/items/',
 		// Select Image Types allowed
 		'attachType' => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
 		
 		// Select Image Name: categoryname, original, casual
 		'imageNameType' => 'categoryname',
 		// Select Image Types allowed
-		'imageType'     => 'jpg,jpeg,gif,png',
+		'imageType' => ['png','jpg','jpeg'],
 		// Thumbnails Options
 		'thumbOptions'  => [ 
 			'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
