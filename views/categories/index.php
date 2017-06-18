@@ -8,6 +8,7 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
+use cinghie\articles\models\Categories;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\helpers\Url;
@@ -18,11 +19,9 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('traits', 'Categories');
+$this->title = Yii::t('articles', 'Categories');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Articles'), 'url' => ['/articles/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
-
-// Render Yii2-Articles Menu
-echo Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php');
 
 // Register action buttons js
 $this->registerJs('
@@ -108,6 +107,36 @@ $this->registerJs('
 ');
 
 ?>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <?= Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php'); ?>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <?= $searchModel->getDeactiveButton() ?>
+
+        <?= $searchModel->getActiveButton() ?>
+
+        <?= $searchModel->getResetButton() ?>
+
+        <?= $searchModel->getPreviewButton() ?>
+
+        <?= $searchModel->getDeleteButton() ?>
+
+        <?= $searchModel->getUpdateButton() ?>
+
+        <?= $searchModel->getCreateButton() ?>
+
+    </div>
+
+</div>
+
+<div class="separator"></div>
 
 <div class="categories-index">
 
@@ -208,31 +237,9 @@ $this->registerJs('
                 'responsive' => true,
                 'hover' => true,
                 'panel' => [
-                    'heading'    => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
-                    'type'       => 'success',
-                    'before'     => '<span style="margin-right: 5px;">'.
-                        Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('traits', 'New'),
-                            ['create'], ['class' => 'btn btn-success']
-                        ).'</span><span style="margin-right: 5px;">'.
-                        Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('traits', 'Update'),
-                            '#', ['class' => 'btn btn-update btn-warning']
-                        ).'</span><span style="margin-right: 5px;">'.
-                        Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('traits', 'Delete'),
-                            '#', ['class' => 'btn btn-delete btn-danger']
-                        ).'</span><span style="margin-right: 5px;">'.
-                        Html::a('<i class="fa fa-eye"></i> '.Yii::t('traits', 'Preview'),
-                            '#', ['class' => 'btn btn-preview btn-info']
-                        ).'</span><span style="float: right; margin-right: 5px;">'.
-                        Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('traits', 'Deactive'),
-                            '#', ['class' => 'btn btn-deactive btn-danger']
-                        ).'</span><span style="float: right; margin-right: 5px;">'.
-                        Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('traits', 'Active'),
-                            ['#'], ['class' => 'btn btn-active btn-success']
-                        ).'</span>',
-                    'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> '.
-                        Yii::t('traits', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
-                    ),
-                    'showFooter' => false
+                    'heading' => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
+                    'type' => 'success',
+                    'footer' => ''
                 ],
             ]); ?>
 

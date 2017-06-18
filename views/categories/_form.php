@@ -62,7 +62,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
                         <div class="col-md-6">
 
-                            <?= $model->getExitButton(['/articles/categories/index']) ?>
+                            <?= $model->getExitButton() ?>
 
                             <?= $model->getCancelButton() ?>
 

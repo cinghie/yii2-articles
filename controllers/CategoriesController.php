@@ -475,7 +475,7 @@ class CategoriesController extends Controller
                 $model = $this->findModel($id);
 
                 if(!$model->state) {
-                    $model->publish();
+                    $model->active();
                     Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Categories actived'));
                 }
             }
@@ -508,7 +508,7 @@ class CategoriesController extends Controller
                 $model = $this->findModel($id);
 
                 if($model->state) {
-                    $model->unpublish();
+                    $model->deactive();
                     Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Categories inactived'));
                 }
             }
