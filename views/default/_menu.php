@@ -25,7 +25,7 @@ use yii\bootstrap\Nav;
 			'url'     => ['/articles/default/index'],
 		],
 		[
-			'label'   => Yii::t('articles', 'Articles'),
+			'label'   => Yii::t('articles', 'Items'),
 			'url'     => ['/articles/items/index'],
 		],
 		[

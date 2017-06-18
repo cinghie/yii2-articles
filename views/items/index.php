@@ -18,7 +18,8 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Articles');
+$this->title = Yii::t('articles', 'Items');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Articles'), 'url' => ['/articles/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 // Render Yii2-Articles Menu
