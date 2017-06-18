@@ -36,7 +36,7 @@ span.select2.select2-container.select2-container--krajee {
 /* Category Form*/
 
 div.separator {
-	margin-top: 25px;
+	margin-top: 10px;
 }
 p.bg-info {
 	padding: 15px;
@@ -45,7 +45,7 @@ div#params h4 {
 	background-color: #5CB85C;
 	color: #FFFFFF!important;
 	margin: 0 0 15px;
-	padding: 10px;
+	padding: 7px;
 	text-align: center;
 }
 

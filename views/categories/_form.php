@@ -6,15 +6,13 @@
  * @var $this yii\web\View
  */
 
-use cinghie\articles\assets\ArticlesAsset;
 use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 
 // Load Articles Assets
-ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+cinghie\articles\assets\ArticlesAsset::register($this);
 
 ?>
 
@@ -32,74 +30,82 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
                 <div class="bs-example bs-example-tabs">
 
-                    <!-- Tab Control -->
-                    <ul class="nav nav-tabs" id="myTab">
-                        <li class="active">
-                            <a data-toggle="tab" href="#item">
-                                <?= Yii::t('articles', 'Category') ?>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#seo">
-                                <?= Yii::t('articles', 'SEO') ?>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#image">
-                                <?= Yii::t('articles', 'Image') ?>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#params">
-                                <?= Yii::t('articles', 'Options') ?>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <!-- Tab Control -->
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#item">
+                                        <?= Yii::t('articles', 'Category') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#seo">
+                                        <?= Yii::t('articles', 'SEO') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#image">
+                                        <?= Yii::t('articles', 'Image') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#params">
+                                        <?= Yii::t('articles', 'Options') ?>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <?= $model->getExitButton(['/articles/categories/index']) ?>
+
+                            <?= $model->getCancelButton() ?>
+
+                            <?= $model->getSaveButton() ?>
+
+                        </div>
+
+                    </div>
 
                     <!-- Tab Contents -->
                     <div class="tab-content" id="myTabContent">
 
-                        <div class="separator"></div>
-
                         <!-- Item -->
                         <div id="item" class="row tab-pane fade active in">
 
-                            <div class="col-lg-8">
+                            <div class="separator"></div>
 
-                                <div class="row">
+                            <div class="col-md-4">
 
-                                    <div class="col-md-6">
-
-                                        <?= $model->getNameWidget($form) ?>
-
-                                    </div> <!-- col-md-6 -->
-
-                                    <div class="col-md-6">
-
-                                        <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
-                                            'data' => $model->getCategoriesSelect2(),
-                                            'addon' => [
-                                                'prepend' => [
-                                                    'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
-                                                ]
-                                            ],
-                                        ]); ?>
-
-                                    </div> <!-- col-md-6 -->
-
-                                </div> <!-- row -->
-
-                                <?= $model->getEditorWidget($form,'description') ?>
-
-                            </div> <!-- col-lg-8 -->
-
-                            <div class="col-lg-4">
-
-                                <?= $model->getStateWidget($form) ?>
+                                <?= $model->getNameWidget($form) ?>
 
                                 <?= $model->getAccessWidget($form) ?>
 
+                            </div> <!-- col-md-4 -->
+
+                            <div class="col-md-4">
+
+                                <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
+                                    'data' => $model->getCategoriesSelect2(),
+                                    'addon' => [
+                                        'prepend' => [
+                                            'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
+                                        ]
+                                    ],
+                                ]); ?>
+
                                 <?= $model->getLanguageWidget($form) ?>
+
+                            </div> <!-- col-md-4 -->
+
+                            <div class="col-md-4">
+
+                                <?= $model->getStateWidget($form) ?>
 
                                 <?= $form->field($model, 'theme')->widget(Select2::classname(), [
                                     'data' => $model->getThemesSelect2(),
@@ -110,14 +116,20 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
                                     ],
                                 ]); ?>
 
-                                <?= $model->getOrderingWidget($form) ?>
+                            </div> <!-- col-md-4 -->
 
-                            </div> <!-- col-lg-4 -->
+                            <div class="col-md-12">
+
+                                <?= $model->getEditorWidget($form,'description') ?>
+
+                            </div> <!-- col-md-12 -->
 
                         </div> <!-- #item -->
 
                         <!-- SEO -->
                         <div id="seo" class="row  tab-pane fade">
+
+                            <div class="separator"></div>
 
                             <div class="col-lg-5">
 
@@ -133,21 +145,9 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
                             <div class="col-lg-7">
 
-                                <?= $form->field($model, 'metadesc', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-info-sign"></i>'
-                                        ]
-                                    ]
-                                ])->textarea(['rows' => 4]) ?>
+                                <?= $model->getMetaDescriptionWidget($form) ?>
 
-                                <?= $form->field($model, 'metakey', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-tags"></i>'
-                                        ]
-                                    ]
-                                ])->textarea(['rows' => 4]) ?>
+                                <?= $model->getMetaKeyWidget($form) ?>
 
                             </div> <!-- col-lg-7 -->
 
@@ -156,15 +156,21 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
                         <!-- Image -->
                         <div id="image" class="row tab-pane fade">
 
-                            <p class="bg-info">
-                                <?= Yii::t('articles', 'Allowed Extensions')?>: <?= Yii::$app->controller->module->imageType ?>
-                            </p>
+                            <div class="separator"></div>
+
+                            <div class="col-lg-12">
+
+                                <p class="bg-info">
+                                    <?= Yii::t('articles', 'Allowed Extensions')?>: <?= Yii::$app->controller->module->imageType ?>
+                                </p>
+
+                            </div> <!-- col-lg-12 -->
 
                             <div class="col-lg-6">
 
                                 <?= $form->field($model, 'image')->widget(FileInput::classname(), [
                                         'options' => [
-                                            'accept' => 'image/'.Yii::$app->controller->module->imageType
+                                            'accept' => $model->getImagesAccept()
                                         ],
                                         'pluginOptions' => [
                                             'previewFileType' => 'image',
@@ -218,6 +224,8 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
                         <!-- Params -->
                         <div id="params" class="row tab-pane fade">
+
+                            <div class="separator"></div>
 
                             <!-- Categories View -->
                             <div class="col-md-4">
@@ -569,18 +577,6 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
                     </div> <!-- tab-content -->
 
                 </div> <!-- bs-example -->
-
-                <div class="row">
-
-                    <div class="col-lg-12">
-
-                        <div class="form-group">
-                            <?= Html::submitButton($model->isNewRecord ?  Yii::t('traits', 'Create') : Yii::t('traits', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                        </div>
-
-                    </div>
-
-                </div> <!-- row -->
 
             </div> <!-- col-lg-12 -->
 

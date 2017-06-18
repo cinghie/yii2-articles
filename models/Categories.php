@@ -15,10 +15,12 @@ namespace cinghie\articles\models;
 use Yii;
 use cinghie\traits\AccessTrait;
 use cinghie\traits\EditorTrait;
+use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\NameAliasTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\UserHelpersTrait;
+use cinghie\traits\ViewsHelpersTrait;
 
 /**
  * This is the model class for table "{{%article_categories}}".
@@ -50,7 +52,7 @@ use cinghie\traits\UserHelpersTrait;
 class Categories extends Articles
 {
 
-    use AccessTrait, EditorTrait, LanguageTrait, NameAliasTrait, StateTrait, UserHelpersTrait;
+    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -203,8 +205,8 @@ class Categories extends Articles
     public function getThemesSelect2()
     {
         $array = [
-            'blog' => 'blog',
-            'portfolio' => 'portfolio'
+            'blog' => 'Blog',
+            'portfolio' => 'Portfolio'
         ];
 
         return $array;
