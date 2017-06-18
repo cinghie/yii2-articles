@@ -22,14 +22,15 @@ use cinghie\articles\models\Categories;
  */
 class CategoriesSearch extends Categories
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'state', 'access', 'ordering'], 'integer'],
-            [['name', 'parent_id', 'alias', 'description', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
+            [['id', 'state', 'ordering'], 'integer'],
+            [['name', 'parent_id', 'alias', 'description', 'access', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
         ];
     }
 
@@ -73,28 +74,28 @@ class CategoriesSearch extends Categories
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'state' => $this->state,
-            'access' => $this->access,
-            'ordering' => $this->ordering,
+            '{{%article_categories}}.id' => $this->id,
+            '{{%article_categories}}.state' => $this->state,
+            '{{%article_categories}}.ordering' => $this->ordering,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', '{{%article_categories}}.name', $this->name])
               ->andFilterWhere(['like', 'parent.name', $this->parent_id])
-              ->andFilterWhere(['like', 'alias', $this->alias])
-              ->andFilterWhere(['like', 'description', $this->description])
-              ->andFilterWhere(['like', 'image', $this->image])
-              ->andFilterWhere(['like', 'image_caption', $this->image_caption])
-              ->andFilterWhere(['like', 'image_credits', $this->image_credits])
-              ->andFilterWhere(['like', 'params', $this->params])
-              ->andFilterWhere(['like', 'metadesc', $this->metadesc])
-              ->andFilterWhere(['like', 'metakey', $this->metakey])
-              ->andFilterWhere(['like', 'robots', $this->robots])
-              ->andFilterWhere(['like', 'author', $this->author])
-              ->andFilterWhere(['like', 'copyright', $this->copyright])
-              ->andFilterWhere(['like', 'theme', $this->theme])
-              ->andFilterWhere(['like', 'language', $this->language]);
+              ->andFilterWhere(['like', '{{%article_categories}}.alias', $this->alias])
+              ->andFilterWhere(['like', '{{%article_categories}}.description', $this->description])
+              ->andFilterWhere(['like', '{{%article_categories}}.access', $this->access])
+              ->andFilterWhere(['like', '{{%article_categories}}.image', $this->image])
+              ->andFilterWhere(['like', '{{%article_categories}}.image_caption', $this->image_caption])
+              ->andFilterWhere(['like', '{{%article_categories}}.image_credits', $this->image_credits])
+              ->andFilterWhere(['like', '{{%article_categories}}.metadesc', $this->metadesc])
+              ->andFilterWhere(['like', '{{%article_categories}}.metakey', $this->metakey])
+              ->andFilterWhere(['like', '{{%article_categories}}.robots', $this->robots])
+              ->andFilterWhere(['like', '{{%article_categories}}.author', $this->author])
+              ->andFilterWhere(['like', '{{%article_categories}}.copyright', $this->copyright])
+              ->andFilterWhere(['like', '{{%article_categories}}.theme', $this->theme])
+              ->andFilterWhere(['like', '{{%article_categories}}.language', $this->language]);
 
         return $dataProvider;
     }
+
 }
