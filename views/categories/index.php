@@ -8,7 +8,6 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
-use cinghie\articles\models\Categories;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\helpers\Url;
@@ -24,98 +23,28 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Articles'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 
 // Register action buttons js
-$this->registerJs('
-    $(document).ready(function()
-    {
-        $("a.btn-update").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
-
-            if(selectedId.length == 0) {
-                alert("'.Yii::t("traits", "Select at least one item").'");
-            } else if(selectedId.length>1){
-                alert("'.Yii::t("traits", "Select only 1 item").'");
-            } else {
-                var url = "'.Url::to(['/articles/categories/update']).'?id="+selectedId[0];
-                window.location.href= url;
-            }
-        });
-        $("a.btn-active").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
-
-            if(selectedId.length == 0) {
-                alert("'.Yii::t("traits", "Select at least one item").'");
-            } else {
-                $.ajax({
-                    type: \'POST\',
-                    url : "'.Url::to(['/articles/categories/activemultiple']).'?id="+selectedId,
-                    data : {ids: selectedId},
-                    success : function() {
-                        $.pjax.reload({container:"#w1"});
-                    }
-                });
-            }
-        });
-        $("a.btn-deactive").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
-
-            if(selectedId.length == 0) {
-                alert("'.Yii::t("traits", "Select at least one item").'");
-            } else {
-                $.ajax({
-                    type: \'POST\',
-                    url : "'.Url::to(['/articles/categories/deactivemultiple']).'?id="+selectedId,
-                    data : {ids: selectedId},
-                    success : function() {
-                        $.pjax.reload({container:"#w1"});
-                    }
-                });
-            }
-        });
-        $("a.btn-delete").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
-
-            if(selectedId.length == 0) {
-                alert("'.Yii::t("traits", "Select at least one item").'");
-            } else {
-                var choose = confirm("'.Yii::t("traits", "Do you want delete selected items?").'");
-
-                if (choose == true) {
-                    $.ajax({
-                        type: \'POST\',
-                        url : "'.Url::to(['/articles/categories/deletemultiple']).'?id="+selectedId,
-                        data : {ids: selectedId},
-                        success : function() {
-                            $.pjax.reload({container:"#w1"});
-                        }
-                    });
-                }
-            }
-        });
-        $("a.btn-preview").click(function() {
-            var selectedId = $("#w1").yiiGridView("getSelectedRows");
-
-            if(selectedId.length == 0) {
-                alert("'.Yii::t("traits", "Select at least one item").'");
-            } else if(selectedId.length>1){
-                alert("'.Yii::t("traits", "Select only 1 item").'");
-            } else {
-                var url = "'.Url::to(['/articles/categories/view']).'?id="+selectedId[0];
-                window.open(url,"_blank");
-            }
-        });
-    });
+$this->registerJs('$(document).ready(function() 
+    {'
+        .$searchModel->getUpdateButtonJavascript('#w1')
+        .$searchModel->getDeleteButtonJavascript('#w1')
+        .$searchModel->getActiveButtonJavascript('#w1')
+        .$searchModel->getDeactiveButtonJavascript('#w1')
+        .$searchModel->getPreviewButtonJavascript('#w1').
+    '});
 ');
 
 ?>
 
 <div class="row">
 
+    <!-- action menu -->
     <div class="col-md-6">
 
         <?= Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php'); ?>
 
     </div>
 
+    <!-- action buttons -->
     <div class="col-md-6">
 
         <?= $searchModel->getDeactiveButton() ?>
