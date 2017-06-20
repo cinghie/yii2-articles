@@ -8,7 +8,6 @@
 
 use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
-use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 
 // Load Articles Assets
@@ -43,17 +42,17 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#seo">
-                                        <?= Yii::t('articles', 'SEO') ?>
+                                        <?= Yii::t('traits', 'SEO') ?>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#image">
-                                        <?= Yii::t('articles', 'Image') ?>
+                                        <?= Yii::t('traits', 'Image') ?>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#params">
-                                        <?= Yii::t('articles', 'Options') ?>
+                                        <?= Yii::t('traits', 'Options') ?>
                                     </a>
                                 </li>
                             </ul>
@@ -161,62 +160,23 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                             <div class="col-lg-12">
 
                                 <p class="bg-info">
-                                    <?= Yii::t('articles', 'Allowed Extensions')?>: <?= Yii::$app->controller->module->imageType ?>
+                                    <?= Yii::t('articles', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
+                                    (<?= Yii::t('articles', 'Max Size'). ": " .$model->getUploadMaxSize() ?>)
                                 </p>
 
                             </div> <!-- col-lg-12 -->
 
                             <div class="col-lg-6">
 
-                                <?= $form->field($model, 'image')->widget(FileInput::classname(), [
-                                        'options' => [
-                                            'accept' => $model->getImagesAccept()
-                                        ],
-                                        'pluginOptions' => [
-                                            'previewFileType' => 'image',
-                                            'showUpload'      => false,
-                                            'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
-                                        ],
-                                ]); ?>
-
-                                <?php if ( isset($model->image) && !empty($model->image) ): ?>
-
-                                <div class="thumbnail">
-                                    <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $model->getImageUrl() ?>">
-                                    <div class="caption">
-                                        <p></p>
-                                        <p>
-                                            <?= Html::a(Yii::t('articles', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
-                                                    'class' => 'btn btn-danger',
-                                                    'data' => [
-                                                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                                    ],
-                                            ]) ?>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <?php endif ?>
+                                <?= $model->getImageWidget($form)  ?>
 
                             </div> <!-- col-lg-6 -->
 
                             <div class="col-lg-6">
 
-                                <?= $form->field($model, 'image_caption', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-picture"></i>'
-                                        ]
-                                     ]
-                                ])->textarea(['rows' => 6]) ?>
+                                <?= $model->getImageCaptionWidget($form) ?>
 
-                                <?= $form->field($model, 'image_credits', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-barcode"></i>'
-                                        ]
-                                    ]
-                                ])->textInput(['maxlength' => 255]) ?>
+                                <?= $model->getImageCreditsWidget($form) ?>
 
                             </div> <!-- col-lg-6 -->
 

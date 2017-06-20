@@ -181,13 +181,13 @@ class CategoriesController extends Controller
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
 
-            if ($model->save()) {
+            // Upload only if valid uploaded file instance found
+            if ($image !== false) {
+                // save thumbs to thumbPaths
+                $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
+            }
 
-                // upload only if valid uploaded file instance found
-                if ($image !== false) {
-                    // save thumbs to thumbPaths
-                    $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
-                }
+            if ($model->save()) {
 
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
@@ -273,19 +273,13 @@ class CategoriesController extends Controller
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
 
-            // revert back if no valid file instance uploaded
-            if ($image === false) {
-                $model->image = $oldImage;
+            // Upload only if valid uploaded file instance found
+            if ($image !== false) {
+                // save thumbs to thumbPaths
+                $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
             }
 
             if ($model->save()) {
-
-                // upload only if valid uploaded file instance found
-                if ($image !== false)
-                {
-                    // save thumbs to thumbPaths
-                    $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
-                }
 
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));

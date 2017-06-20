@@ -67,16 +67,13 @@ class Categories extends Articles
      */
     public function rules()
     {	
-        return array_merge(AccessTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), StateTrait::rules(),[
+        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), StateTrait::rules(),[
             [['access', 'name', 'language', 'state', 'theme'], 'required'],
 			[['ordering','parent_id'], 'integer'],
             [['theme'], 'string', 'max' => 12],
 			[['robots'], 'string', 'max' => 20],
             [['author', 'copyright'], 'string', 'max' => 50],
-            [['image_caption', 'image_credits'], 'string', 'max' => 255],
-            [['description', 'image', 'metadesc', 'metakey', 'params'], 'string'],
-			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,],
-			[['image'], 'safe'],
+            [['description', 'metadesc', 'metakey', 'params'], 'string'],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ]);
     }
@@ -86,7 +83,7 @@ class Categories extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), StateTrait::attributeLabels(),[
+        return array_merge(AccessTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), StateTrait::attributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
             'parent_id' => Yii::t('articles', 'Parent'),
             'description' => Yii::t('articles', 'Description'),
