@@ -370,10 +370,10 @@ class ItemsController extends Controller
 			$model = $this->findModel($id);
 
 			if($model->state) {
-				$model->unpublish();
+				$model->deactive();
 				Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Article unpublished'));
 			} else {
-				$model->publish();
+				$model->active();
 				Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
 			}
 
@@ -407,7 +407,7 @@ class ItemsController extends Controller
                 $model = $this->findModel($id);
 
                 if (!$model->state) {
-                    $model->publish();
+                    $model->active();
                     Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items actived'));
                 } else {
                     throw new ForbiddenHttpException;
@@ -440,7 +440,7 @@ class ItemsController extends Controller
                 $model = $this->findModel($id);
 
                 if($model->state) {
-                    $model->unpublish();
+                    $model->deactive();
                     Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items inactived'));
                 }
             } else {

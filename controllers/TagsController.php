@@ -239,10 +239,10 @@ class TagsController extends Controller
             $model = $this->findModel($id);
 
             if ($model->state) {
-                $model->unpublish();
+                $model->deactive();
                 Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags unpublished'));
             } else {
-                $model->publish();
+                $model->active();
                 Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags published'));
             }
 
@@ -276,7 +276,7 @@ class TagsController extends Controller
                 $model = $this->findModel($id);
 
                 if(!$model->state) {
-                    $model->publish();
+                    $model->active();
                     Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags actived'));
                 }
             }
@@ -311,7 +311,7 @@ class TagsController extends Controller
                 $model = $this->findModel($id);
 
                 if($model->state) {
-                    $model->unpublish();
+                    $model->deactive();
                     Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags inactived'));
                 }
             }
