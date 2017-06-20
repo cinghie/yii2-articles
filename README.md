@@ -154,7 +154,7 @@ Set on your configuration file, in modules section
 
 |           | create | publish | update | delete | index | view |
 |:---------:|:------:|:-------:|:------:|:------:|:-----:|:----:|
-|   admin   |   yes  |   yes   |   yes  |   all  |  yes  |  yes |
+|   admin   |   yes  |   yes   |   yes  |   yes  |  yes  |  yes |
 |   editor  |   yes  |    no   |   yes  |    no  |  yes  |  yes |
 | publisher |    no  |    no   |    no  |    no  |  yes  |  yes |
 |   author  |    no  |    no   |    no  |    no  |  yes  |  yes |
