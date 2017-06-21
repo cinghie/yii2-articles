@@ -89,80 +89,80 @@ $this->registerJs('
 
     <?php Pjax::begin() ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'pjaxSettings'=>[
-            'neverTimeout' => true,
-        ],
-        'columns' => [
-            [
-                'class' => '\kartik\grid\CheckboxColumn'
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'pjaxSettings'=>[
+                'neverTimeout' => true,
             ],
-            [
-                'attribute' => 'title',
-                'format' => 'html',
-                'hAlign' => 'center',
-                'value' => function ($model) {
-                    $url = urldecode(Url::toRoute(['attachments/update', 'id' => $model->id]));
-                    return Html::a($model->title,$url);
-                }
-            ],
-            [
-                'attribute' => 'item_id',
-                'format' => 'html',
-                'hAlign' => 'center',
-                'value' => 'item.title',
-                'value' => function ($data) {
-                    $url  = urldecode(Url::toRoute(['items/update', 'id' => $data->item_id]));
-                    $item = isset($data->item->title) ? $data->item->title : "";
-
-                    if($item!="") {
-                        return Html::a($item,$url);
-                    } else {
-                        return Yii::t('articles', 'Nobody');
+            'columns' => [
+                [
+                    'class' => '\kartik\grid\CheckboxColumn'
+                ],
+                [
+                    'attribute' => 'title',
+                    'format' => 'html',
+                    'hAlign' => 'center',
+                    'value' => function ($model) {
+                        $url = urldecode(Url::toRoute(['attachments/update', 'id' => $model->id]));
+                        return Html::a($model->title,$url);
                     }
-                }
+                ],
+                [
+                    'attribute' => 'item_id',
+                    'format' => 'html',
+                    'hAlign' => 'center',
+                    'value' => 'item.title',
+                    'value' => function ($data) {
+                        $url  = urldecode(Url::toRoute(['items/update', 'id' => $data->item_id]));
+                        $item = isset($data->item->title) ? $data->item->title : "";
+
+                        if($item!="") {
+                            return Html::a($item,$url);
+                        } else {
+                            return Yii::t('articles', 'Nobody');
+                        }
+                    }
+                ],
+                [
+                    'attribute' => 'filename',
+                    'hAlign' => 'center',
+                ],
+                [
+                    'attribute' => 'hits',
+                    'hAlign' => 'center',
+                    'width' => '8%',
+                ],
+                [
+                    'attribute' => 'id',
+                    'hAlign' => 'center',
+                    'width' => '8%',
+                ],
             ],
-            [
-                'attribute' => 'filename',
-                'hAlign' => 'center',
+            'responsive' => true,
+            'hover' => true,
+            'panel' => [
+                'heading'    => '<h3 class="panel-title"><i class="fa fa-paperclip"></i></h3>',
+                'type'       => 'success',
+                'before'     => '<span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
+                        ['create'], ['class' => 'btn btn-success']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
+                        '#', ['class' => 'btn btn-update btn-warning']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
+                        '#', ['class' => 'btn btn-delete btn-danger']
+                    ).'</span><span style="margin-right: 5px;">'.
+                    Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
+                        '#', ['class' => 'btn btn-preview btn-info']
+                    ).'</span>',
+                'after' => Html::a(
+                    '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+                ),
+                'showFooter' => false
             ],
-            [
-                'attribute' => 'hits',
-                'hAlign' => 'center',
-                'width' => '8%',
-            ],
-            [
-                'attribute' => 'id',
-                'hAlign' => 'center',
-                'width' => '8%',
-            ],
-        ],
-        'responsive' => true,
-        'hover' => true,
-        'panel' => [
-            'heading'    => '<h3 class="panel-title"><i class="fa fa-paperclip"></i></h3>',
-            'type'       => 'success',
-            'before'     => '<span style="margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
-                    ['create'], ['class' => 'btn btn-success']
-                ).'</span><span style="margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
-                    '#', ['class' => 'btn btn-update btn-warning']
-                ).'</span><span style="margin-right: 5px;">'.
-                Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
-                    '#', ['class' => 'btn btn-delete btn-danger']
-                ).'</span><span style="margin-right: 5px;">'.
-                Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
-                    '#', ['class' => 'btn btn-preview btn-info']
-                ).'</span>',
-            'after' => Html::a(
-                '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
-            ),
-            'showFooter' => false
-        ],
-    ]); ?>
+        ]); ?>
 
     <?php Pjax::end() ?>
 

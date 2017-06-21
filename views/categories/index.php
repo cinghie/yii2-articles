@@ -69,7 +69,7 @@ $this->registerJs('$(document).ready(function()
 
 <div class="categories-index">
 
-	<?php if(Yii::$app->getModule('traits')->showTitles): ?>
+	<?php if(Yii::$app->getModule('articles')->showTitles): ?>
 		<div class="page-header">
 			<h1><?= Html::encode($this->title) ?></h1>
 		</div>

@@ -124,158 +124,158 @@ $this->registerJs('
 
         <?php Pjax::begin() ?>
 
-        <?= GridView::widget([
-            'dataProvider'=> $dataProvider,
-            'filterModel' => $searchModel,
-            'containerOptions' => ['class' => 'articles-pjax-container'],
-            'pjaxSettings'=>[
-                'neverTimeout' => true,
-            ],
-            'columns' => [
-                [
-                    'class' => '\kartik\grid\CheckboxColumn'
+            <?= GridView::widget([
+                'dataProvider'=> $dataProvider,
+                'filterModel' => $searchModel,
+                'containerOptions' => ['class' => 'articles-pjax-container'],
+                'pjaxSettings'=>[
+                    'neverTimeout' => true,
                 ],
-                [
-                    'attribute' => 'title',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['items/update',
-                            'id' => $data->id,
-                            'alias' => $data->alias,
-                            'cat' => isset($data->category->alias) ? $data->category->alias : null
-                        ]));
-                        return Html::a($data->title,$url);
-                    }
-                ],
-                [
-                    'attribute' => 'cat_id',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->cat_id]));
-                        $cat = isset($data->category->name) ? $data->category->name : "";
+                'columns' => [
+                    [
+                        'class' => '\kartik\grid\CheckboxColumn'
+                    ],
+                    [
+                        'attribute' => 'title',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($data) {
+                            $url = urldecode(Url::toRoute(['items/update',
+                                'id' => $data->id,
+                                'alias' => $data->alias,
+                                'cat' => isset($data->category->alias) ? $data->category->alias : null
+                            ]));
+                            return Html::a($data->title,$url);
+                        }
+                    ],
+                    [
+                        'attribute' => 'cat_id',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($data) {
+                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->cat_id]));
+                            $cat = isset($data->category->name) ? $data->category->name : "";
 
-                        if($cat!="") {
-                            return Html::a($cat,$url);
-                        } else {
-                            return Yii::t('articles', 'Nobody');
+                            if($cat!="") {
+                                return Html::a($cat,$url);
+                            } else {
+                                return Yii::t('articles', 'Nobody');
+                            }
                         }
-                    }
-                ],
-                [
-                    'attribute' => 'access',
-                    'hAlign' => 'center',
-                ],
-                [
-                    'attribute' => 'created_by',
-                    'hAlign' => 'center',
-                    'format' => 'html',
-                    'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->created_by]));
-                        $createdby = isset($data->createdby->username) ? $data->createdby->username : "";
+                    ],
+                    [
+                        'attribute' => 'access',
+                        'hAlign' => 'center',
+                    ],
+                    [
+                        'attribute' => 'created_by',
+                        'hAlign' => 'center',
+                        'format' => 'html',
+                        'value' => function ($data) {
+                            $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->created_by]));
+                            $createdby = isset($data->createdby->username) ? $data->createdby->username : "";
 
-                        if($data->created_by!=0) {
-                            return Html::a($createdby,$url);
-                        } else {
-                            return Yii::t('articles', 'Nobody');
+                            if($data->created_by!=0) {
+                                return Html::a($createdby,$url);
+                            } else {
+                                return Yii::t('articles', 'Nobody');
+                            }
                         }
-                    }
-                ],
-                [
-                    'attribute' => 'created',
-                    'hAlign' => 'center',
-                ],
-                [
-                    'attribute' => 'modified_by',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($data) {
-                        $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->modified_by]));
-                        $modifiedby = isset($data->modifiedby->username) ? $data->modifiedby->username : "";
+                    ],
+                    [
+                        'attribute' => 'created',
+                        'hAlign' => 'center',
+                    ],
+                    [
+                        'attribute' => 'modified_by',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($data) {
+                            $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->modified_by]));
+                            $modifiedby = isset($data->modifiedby->username) ? $data->modifiedby->username : "";
 
-                        if($modifiedby!="") {
-                            return Html::a($modifiedby,$url);
-                        } else {
-                            return Yii::t('articles', 'Nobody');
+                            if($modifiedby!="") {
+                                return Html::a($modifiedby,$url);
+                            } else {
+                                return Yii::t('articles', 'Nobody');
+                            }
                         }
-                    }
-                ],
-                [
-                    'attribute' => 'modified',
-                    'hAlign' => 'center',
-                ],
-                [
-                    'attribute' => 'image',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($model) {
-                        if ($model->image) {
-                            return Html::img($model->getImageThumbUrl("small"), ['width' => '36px']);
-                        } else {
-                            return Yii::t('articles', 'Nobody');
+                    ],
+                    [
+                        'attribute' => 'modified',
+                        'hAlign' => 'center',
+                    ],
+                    [
+                        'attribute' => 'image',
+                        'format' => 'html',
+                        'hAlign' => 'center',
+                        'value' => function ($model) {
+                            if ($model->image) {
+                                return Html::img($model->getImageThumbUrl("small"), ['width' => '36px']);
+                            } else {
+                                return Yii::t('articles', 'Nobody');
+                            }
+                        },
+                        'width' => '6%',
+                    ],
+                    [
+                        'attribute' => 'language',
+                        'hAlign' => 'center',
+                        'width' => '5%',
+                    ],
+                    [
+                        'attribute' => 'state',
+                        'format' => 'raw',
+                        'hAlign' => 'center',
+                        'width' => '5%',
+                        'value' => function ($model) {
+                            if($model->state) {
+                                return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
+                                    'data-method' => 'post',
+                                ]);
+                            } else {
+                                return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
+                                    'data-method' => 'post',
+                                ]);
+                            }
                         }
-                    },
-                    'width' => '6%',
+                    ],
+                    [
+                        'attribute' => 'id',
+                        'width' => '5%',
+                        'hAlign' => 'center',
+                    ]
                 ],
-                [
-                    'attribute' => 'language',
-                    'hAlign' => 'center',
-                    'width' => '5%',
+                'responsive' => true,
+                'hover' => true,
+                'panel' => [
+                    'heading'    => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
+                    'type'       => 'success',
+                    'before'     => '<span style="margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
+                            ['create'], ['class' => 'btn btn-success']
+                        ).'</span><span style="margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
+                            '#', ['class' => 'btn btn-update btn-warning']
+                        ).'</span><span style="margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
+                            '#', ['class' => 'btn btn-delete btn-danger']
+                        ).'</span><span style="margin-right: 5px;">'.
+                        Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
+                            '#', ['class' => 'btn btn-preview btn-info']
+                        ).'</span><span style="float: right; margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('articles', 'Deactive'),
+                            '#', ['class' => 'btn btn-deactive btn-danger']
+                        ).'</span><span style="float: right; margin-right: 5px;">'.
+                        Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('articles', 'Active'),
+                            ['#'], ['class' => 'btn btn-active btn-success']
+                        ).'</span>',
+                    'after' => Html::a(
+                        '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
+                    ),
+                    'showFooter' => false
                 ],
-                [
-                    'attribute' => 'state',
-                    'format' => 'raw',
-                    'hAlign' => 'center',
-                    'width' => '5%',
-                    'value' => function ($model) {
-                        if($model->state) {
-                            return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
-                                'data-method' => 'post',
-                            ]);
-                        } else {
-                            return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
-                                'data-method' => 'post',
-                            ]);
-                        }
-                    }
-                ],
-                [
-                    'attribute' => 'id',
-                    'width' => '5%',
-                    'hAlign' => 'center',
-                ]
-            ],
-            'responsive' => true,
-            'hover' => true,
-			'panel' => [
-                'heading'    => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
-                'type'       => 'success',
-                'before'     => '<span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('articles', 'New'),
-                        ['create'], ['class' => 'btn btn-success']
-                    ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-pencil"></i> '.Yii::t('articles', 'Update'),
-                        '#', ['class' => 'btn btn-update btn-warning']
-                    ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-minus-sign"></i> '.Yii::t('articles', 'Delete'),
-                        '#', ['class' => 'btn btn-delete btn-danger']
-                    ).'</span><span style="margin-right: 5px;">'.
-                    Html::a('<i class="fa fa-eye"></i> '.Yii::t('articles', 'Preview'),
-                        '#', ['class' => 'btn btn-preview btn-info']
-                    ).'</span><span style="float: right; margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-remove"></i> '.Yii::t('articles', 'Deactive'),
-                        '#', ['class' => 'btn btn-deactive btn-danger']
-                    ).'</span><span style="float: right; margin-right: 5px;">'.
-                    Html::a('<i class="glyphicon glyphicon-ok"></i> '.Yii::t('articles', 'Active'),
-                        ['#'], ['class' => 'btn btn-active btn-success']
-                    ).'</span>',
-                'after' => Html::a(
-                    '<i class="glyphicon glyphicon-repeat"></i> '.Yii::t('articles', 'Reset Grid'), ['index'], ['class' => 'btn btn-info']
-                ),
-                'showFooter' => false
-            ],
-        ]); ?>
+            ]); ?>
 
         <?php Pjax::end() ?>
 
