@@ -13,10 +13,13 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use cinghie\traits\ViewsHelpersTrait;
 use yii\helpers\Url;
 
 class Items extends Articles
 {
+
+    use ViewsHelpersTrait;
 
     /**
      * @inheritdoc
