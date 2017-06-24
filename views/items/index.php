@@ -97,22 +97,22 @@ $this->registerJs('$(document).ready(function()
                         'attribute' => 'title',
                         'format' => 'html',
                         'hAlign' => 'center',
-                        'value' => function ($data) {
+                        'value' => function ($model) {
                             $url = urldecode(Url::toRoute(['items/update',
-                                'id' => $data->id,
-                                'alias' => $data->alias,
-                                'cat' => isset($data->category->alias) ? $data->category->alias : null
+                                'id' => $model->id,
+                                'alias' => $model->alias,
+                                'cat' => isset($model->category->alias) ? $model->category->alias : null
                             ]));
-                            return Html::a($data->title,$url);
+                            return Html::a($model->title,$url);
                         }
                     ],
                     [
                         'attribute' => 'cat_id',
                         'format' => 'html',
                         'hAlign' => 'center',
-                        'value' => function ($data) {
-                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $data->cat_id]));
-                            $cat = isset($data->category->name) ? $data->category->name : "";
+                        'value' => function ($model) {
+                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->cat_id]));
+                            $cat = isset($model->category->name) ? $model->category->name : "";
 
                             if($cat!="") {
                                 return Html::a($cat,$url);
@@ -123,21 +123,20 @@ $this->registerJs('$(document).ready(function()
                     ],
                     [
                         'attribute' => 'access',
+                        'format' => 'html',
                         'hAlign' => 'center',
+                        'value' => function ($model) {
+                            /** @var $model cinghie\articles\models\Items */
+                            return $model->getAccessGridView();
+                        }
                     ],
                     [
                         'attribute' => 'created_by',
                         'hAlign' => 'center',
-                        'format' => 'html',
-                        'value' => function ($data) {
-                            $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->created_by]));
-                            $createdby = isset($data->createdby->username) ? $data->createdby->username : "";
-
-                            if($data->created_by!=0) {
-                                return Html::a($createdby,$url);
-                            } else {
-                                return Yii::t('articles', 'Nobody');
-                            }
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            /** @var $model cinghie\newsletters\models\Lists */
+                            return $model->getCreatedByGridView();
                         }
                     ],
                     [
@@ -146,17 +145,11 @@ $this->registerJs('$(document).ready(function()
                     ],
                     [
                         'attribute' => 'modified_by',
-                        'format' => 'html',
                         'hAlign' => 'center',
-                        'value' => function ($data) {
-                            $url = urldecode(Url::toRoute(['/user/profile/show', 'id' => $data->modified_by]));
-                            $modifiedby = isset($data->modifiedby->username) ? $data->modifiedby->username : "";
-
-                            if($modifiedby!="") {
-                                return Html::a($modifiedby,$url);
-                            } else {
-                                return Yii::t('articles', 'Nobody');
-                            }
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            /** @var $model cinghie\articles\models\Items */
+                            return $model->getModifiedByGridView();
                         }
                     ],
                     [
@@ -169,6 +162,7 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'value' => function ($model) {
                             if ($model->image) {
+                                /** @var $model cinghie\articles\models\Items */
                                 return Html::img($model->getImageThumbUrl("small"), ['width' => '36px']);
                             } else {
                                 return Yii::t('articles', 'Nobody');
@@ -187,15 +181,8 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'width' => '5%',
                         'value' => function ($model) {
-                            if($model->state) {
-                                return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
-                                    'data-method' => 'post',
-                                ]);
-                            } else {
-                                return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
-                                    'data-method' => 'post',
-                                ]);
-                            }
+                            /** @var $model cinghie\articles\models\Items */
+                            return $model->getStateGridView();
                         }
                     ],
                     [

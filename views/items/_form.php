@@ -38,7 +38,7 @@ if (!$model->isNewRecord) {
     $modified_by = $model->modified_by;
     $modified_by_username = isset($model->modifiedby->username) ? $model->modifiedby->username : $username;
     $created_by  = $model->created_by;
-    $created_by_username = $model->createdby->username;
+    $created_by_username = $model->createdBy->username;
 } else {
     $modified_by = 0;
     $modified_by_username = Yii::t('articles', 'Nobody');
