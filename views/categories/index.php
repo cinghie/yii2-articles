@@ -124,7 +124,8 @@ $this->registerJs('$(document).ready(function()
                             /** @var $model cinghie\articles\models\Categories */
                             return $model->getAccessGridView();
                         }
-                    ],[
+                    ],
+                    [
                         'attribute' => 'theme',
                         'hAlign' => 'center',
                     ],
