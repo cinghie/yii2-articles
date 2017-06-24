@@ -63,205 +63,197 @@ class ItemsController extends Controller
     }
 
     /**
-     * Lists all Items models.
+     * Lists all Items models
      *
      * @return mixed
-     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
-        // Check RBAC Permission
-        if($this->userCanIndex())
-        {
-            $searchModel = new ItemsSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel  = new ItemsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        } else {
-            throw new ForbiddenHttpException;
-        }
+        return $this->render('index', [
+            'searchModel'  => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**
-     * Displays a single Items model.
+     * Displays a single Items model
      *
      * @param integer $id
      * @return mixed
-     * @throws ForbiddenHttpException
      */
     public function actionView($id)
     {
-        // Check RBAC Permission
-        if($this->userCanView($id) && $this->checkArticleLanguage($id))
-        {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            return $this->render('view', [
-                'model' => $model,
-            ]);
-        } else {
-            throw new ForbiddenHttpException;
-        }
+        return $this->render('view', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Creates a new Items model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Creates a new Items model
      *
      * @return mixed
-     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
-        // Check RBAC Permission
-        if($this->userCanCreate())
+        $model = new Items();
+
+        if ( $model->load(Yii::$app->request->post()) )
         {
-            $model = new Items();
+            // Set Modified as actual date
+            $model->modified = "0000-00-00 00:00:00";
 
-            if ( $model->load(Yii::$app->request->post()) )
+            // If alias is not set, generate it
+            if ($_POST['Items']['alias']=="")
             {
-                // Set Modified as actual date
-                $model->modified = "0000-00-00 00:00:00";
+                $model->alias = $model->generateAlias($model->title);
+            }
 
-                // If alias is not set, generate it
-                if ($_POST['Items']['alias']=="")
+            // Upload Image and Thumb if is not Null
+            $imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
+            $thumbPath   = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
+            $imgNameType = Yii::$app->controller->module->imageNameType;
+            $imgOptions  = Yii::$app->controller->module->thumbOptions;
+            $imgName     = $model->title;
+            $fileField   = "image";
+
+            // Create UploadFile Instance
+            $image  = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+
+            if ($model->save()) {
+
+                // upload only if valid uploaded file instance found
+                if ($image !== false)
                 {
-                    $model->alias = $model->generateAlias($model->title);
+                    // save thumbs to thumbPaths
+                    $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                 }
 
-                // Upload Image and Thumb if is not Null
-                $imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
-                $thumbPath   = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
-                $imgNameType = Yii::$app->controller->module->imageNameType;
-                $imgOptions  = Yii::$app->controller->module->thumbOptions;
-                $imgName     = $model->title;
-                $fileField   = "image";
+                // Set Success Message
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
 
-                // Create UploadFile Instance
-                $image  = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
-
-                if ($model->save()) {
-
-                    // upload only if valid uploaded file instance found
-                    if ($image !== false)
-                    {
-                        // save thumbs to thumbPaths
-                        $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
-                    }
-
-                    // Set Success Message
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
-
-                    return $this->redirect(['index']);
-
-                } else {
-
-                    // Set Error Message
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
-
-                    return $this->render('create', ['model' => $model,]);
-                }
+                return $this->redirect(['index']);
 
             } else {
+
+                // Set Error Message
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
                 return $this->render('create', ['model' => $model,]);
             }
+
         } else {
-            throw new ForbiddenHttpException;
+
+            return $this->render('create', ['model' => $model,]);
         }
-			
     }
 
     /**
-     * Updates an existing Items model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Updates an existing Items model
      *
      * @param integer $id
      * @return mixed
-     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
-        // Check RBAC Permission
-        if($this->userCanUpdate($id))
-        {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
 
-                // Set Modified as actual date
-                $model->modified = date("Y-m-d H:i:s");
+            // Set Modified as actual date
+            $model->modified = date("Y-m-d H:i:s");
 
-                // Set Modified by User
-                $model->modified_by = Yii::$app->user->identity->id;
+            // Set Modified by User
+            $model->modified_by = Yii::$app->user->identity->id;
 
-                // If alias is not set, generate it
-                if ($_POST['Items']['alias'] == "") {
-                    $model->alias = $model->generateAlias($model->title);
+            // If alias is not set, generate it
+            if ($_POST['Items']['alias'] == "") {
+                $model->alias = $model->generateAlias($model->title);
+            }
+
+            // Upload Image and Thumb if is not Null
+            $imagePath = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
+            $thumbPath = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
+            $imgNameType = Yii::$app->controller->module->imageNameType;
+            $imgOptions = Yii::$app->controller->module->thumbOptions;
+            $imgName = $model->title;
+            $fileField = "image";
+
+            // Create UploadFile Instance
+            $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
+
+            if($model->image == false && $image === false) {
+                unset($model->image);
+            }
+
+            if ($model->save()) {
+
+                // upload only if valid uploaded file instance found
+                if ($image !== false) {
+                    // save thumbs to thumbPaths
+                    $thumb = $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
                 }
 
-                // Upload Image and Thumb if is not Null
-                $imagePath = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
-                $thumbPath = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
-                $imgNameType = Yii::$app->controller->module->imageNameType;
-                $imgOptions = Yii::$app->controller->module->thumbOptions;
-                $imgName = $model->title;
-                $fileField = "image";
+                // Set Success Message
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
 
-                // Create UploadFile Instance
-                $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
-
-                if($model->image == false && $image === false) {
-                    unset($model->image);
-                }
-
-                if ($model->save()) {
-
-                    // upload only if valid uploaded file instance found
-                    if ($image !== false) {
-                        // save thumbs to thumbPaths
-                        $thumb = $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
-                    }
-
-                    // Set Success Message
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
-
-                    return $this->redirect(['index']);
-
-                } else {
-
-                    // Set Error Message
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
-
-                    return $this->render('update', ['model' => $model,]);
-                }
+                return $this->redirect(['index']);
 
             } else {
 
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
+                // Set Error Message
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
+
+                return $this->render('update', ['model' => $model,]);
             }
+
         } else {
-            throw new ForbiddenHttpException;
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
     }
 
     /**
-     * Deletes an existing Items model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Deletes an existing Items model
      *
      * @param integer $id
      * @return mixed
-     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {
-        // Check RBAC Permission
-        if($this->userCanDelete($id))
+        $model = $this->findModel($id);
+
+        if ($model->delete()) {
+            if (!$model->deleteImage() && !empty($model->image)) {
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
+            } else {
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
+            }
+        } else {
+            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
+        }
+    }
+
+    /**
+     * Deletes selected Items models
+     *
+     * @throws NotFoundHttpException
+     */
+    public function actionDeletemultiple()
+    {
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
         {
             $model = $this->findModel($id);
 
@@ -274,49 +266,6 @@ class ItemsController extends Controller
             } else {
                 Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
             }
-
-            return $this->redirect(['index']);
-        } else {
-            throw new ForbiddenHttpException;
-        }
-    }
-
-    /**
-     * Deletes selected Items models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     * @throws \Exception
-     */
-    public function actionDeletemultiple()
-    {
-        $ids = Yii::$app->request->post('ids');
-
-        if (!$ids) {
-            return;
-        }
-
-        foreach ($ids as $id)
-        {
-            // Check RBAC Permission
-            if($this->userCanDelete($id))
-            {
-                $model = $this->findModel($id);
-
-                if ($model->delete()) {
-                    if (!$model->deleteImage() && !empty($model->image)) {
-                        Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
-                    } else {
-                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
-                    }
-                } else {
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
-                }
-
-            } else {
-                throw new ForbiddenHttpException;
-            }
         }
 
         // Set Success Message
@@ -324,72 +273,53 @@ class ItemsController extends Controller
     }
 	
 	/**
-     * Deletes an existing Items Image.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Deletes an existing Items Image
      *
      * @param integer $id
      * @return mixed
-     * @throws ForbiddenHttpException
      */
 	public function actionDeleteimage($id) 
 	{
-        // Check RBAC Permission
-        if($this->userCanUpdate($id))
-        {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            if ($model->deleteImage()) {
-                $model->image = "";
-                $model->save();
-                Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
-            } else {
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
-            }
-
-            return $this->redirect([
-                'update', 'id' => $model->id,
-            ]);
+        if ($model->deleteImage()) {
+            $model->image = "";
+            $model->save();
+            Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
         } else {
-            throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
         }
+
+        return $this->redirect([
+            'update', 'id' => $model->id,
+        ]);
 	}
 
     /**
-     * Change article state: published or unpublished.
+     * Change article state: published or unpublished
      *
      * @param $id
      * @return \yii\web\Response
-     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
     public function actionChangestate($id)
     {
-		// Check RBAC Permission
-        if($this->userCanPublish($id))
-        {
-			$model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-			if($model->state) {
-				$model->deactive();
-				Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Article unpublished'));
-			} else {
-				$model->active();
-				Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
-			}
-
-			return $this->redirect(['index']);	
-		} else {
-            throw new ForbiddenHttpException;
+        if($model->state) {
+            $model->deactive();
+            Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Article unpublished'));
+        } else {
+            $model->active();
+            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
         }
     }
 
     /**
-     * Active selected Items models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Active selected Items models
      *
      * @return mixed
      * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
      */
     public function actionActivemultiple()
     {
@@ -401,27 +331,21 @@ class ItemsController extends Controller
 
         foreach ($ids as $id)
         {
-            // Check RBAC Permission
-            if($this->userCanPublish($id))
-            {
-                $model = $this->findModel($id);
+            $model = $this->findModel($id);
 
-                if (!$model->state) {
-                    $model->active();
-                    Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items actived'));
-                } else {
-                    throw new ForbiddenHttpException;
-                }
+            if (!$model->state) {
+                $model->active();
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items actived'));
+            } else {
+                throw new ForbiddenHttpException;
             }
         }
     }
 
     /**
-     * Active selected Items models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Active selected Items models
      *
      * @return mixed
-     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
     public function actionDeactivemultiple()
@@ -434,24 +358,17 @@ class ItemsController extends Controller
 
         foreach ($ids as $id)
         {
-            // Check RBAC Permission
-            if($this->userCanPublish($id))
-            {
-                $model = $this->findModel($id);
+            $model = $this->findModel($id);
 
-                if($model->state) {
-                    $model->deactive();
-                    Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items inactived'));
-                }
-            } else {
-                throw new ForbiddenHttpException;
+            if($model->state) {
+                $model->deactive();
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items inactived'));
             }
         }
     }
 
     /**
-     * Finds the Items model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * Finds the Items model based on its primary key value
      *
      * @param integer $id
      * @return Items the loaded model

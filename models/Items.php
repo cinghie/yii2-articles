@@ -13,13 +13,66 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use cinghie\traits\AccessTrait;
+use cinghie\traits\CreatedTrait;
+use cinghie\traits\EditorTrait;
+use cinghie\traits\ImageTrait;
+use cinghie\traits\LanguageTrait;
+use cinghie\traits\ModifiedTrait;
+use cinghie\traits\StateTrait;
+use cinghie\traits\TitleAliasTrait;
+use cinghie\traits\UserTrait;
+use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\helpers\Url;
 
+
+/**
+ * This is the model class for table "{{%article_items}}".
+ *
+ * @property int $id
+ * @property int $cat_id
+ * @property string $title
+ * @property string $alias
+ * @property string $introtext
+ * @property string $fulltext
+ * @property int $state
+ * @property string $access
+ * @property string $language
+ * @property string $theme
+ * @property int $ordering
+ * @property int $hits
+ * @property string $image
+ * @property string $image_caption
+ * @property string $image_credits
+ * @property string $video
+ * @property string $video_type
+ * @property string $video_caption
+ * @property string $video_credits
+ * @property string $params
+ * @property string $metadesc
+ * @property string $metakey
+ * @property string $robots
+ * @property string $author
+ * @property string $copyright
+ * @property int $user_id
+ * @property int $created_by
+ * @property string $created
+ * @property int $modified_by
+ * @property string $modified
+ *
+ * @property Attachments[] $articleAttachments
+ * @property Items $cat
+ * @property Items[] $items
+ * @property \dektrium\user\models\User $createdBy
+ * @property \dektrium\user\models\User $modifiedBy
+ * @property \dektrium\user\models\User $user
+ * @property TagsAssign[] $articleTagsAssigns
+ */
 class Items extends Articles
 {
 
-    use ViewsHelpersTrait;
+    use AccessTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -33,18 +86,15 @@ class Items extends Articles
      */
     public function rules()
     {
-        return [
+        return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), [
             [['title', 'cat_id', 'user_id', 'created', 'modified', 'language'], 'required'],
-            [['cat_id', 'user_id', 'state', 'created_by', 'modified_by', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'access', 'image_caption', 'video_caption', 'metadesc', 'metakey', 'params'], 'string'],
-			[['title', 'alias', 'image_caption', 'image_credits', 'video_caption', 'video_credits'], 'string', 'max' => 255],
-            [['access'], 'string', 'max' => 64],
+            [['cat_id', 'ordering', 'hits'], 'integer'],
+            [['introtext', 'fulltext', 'metadesc', 'metakey', 'params'], 'string'],
+			[['video_caption', 'video_credits'], 'string', 'max' => 255],
             [['video', 'author', 'copyright'], 'string', 'max' => 50],
 			[['robots','video_type'], 'string', 'max' => 20],
-			[['language'], 'string', 'max' => 7],
-            [['created', 'modified','image'], 'safe'],
-			[['image'], 'file', 'extensions' => Yii::$app->controller->module->imageType,]
-        ];
+            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Items::className(), 'targetAttribute' => ['cat_id' => 'id']],
+        ]);
     }
 
     /**
@@ -52,51 +102,56 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-        return [
+        return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
-            'title' => Yii::t('articles', 'Title'),
             'cat_id' => Yii::t('articles', 'Catid'),
-            'user_id' => Yii::t('articles', 'Userid'),
-            'state' => Yii::t('articles', 'State'),
             'introtext' => Yii::t('articles', 'Introtext'),
             'fulltext' => Yii::t('articles', 'Fulltext'),
-            'image' => Yii::t('articles', 'Image'),
-            'image_caption' => Yii::t('articles', 'Image Caption'),
-            'image_credits' => Yii::t('articles', 'Image Credits'),
             'video' => Yii::t('articles', 'Video ID'),
 			'video_type' => Yii::t('articles', 'Video Type'),
             'video_caption' => Yii::t('articles', 'Video Caption'),
             'video_credits' => Yii::t('articles', 'Video Credits'),
-            'created' => Yii::t('articles', 'Created'),
-            'created_by' => Yii::t('articles', 'Created By'),
-            'modified' => Yii::t('articles', 'Modified'),
-            'modified_by' => Yii::t('articles', 'Modified By'),
-            'access' => Yii::t('articles', 'Access'),
             'ordering' => Yii::t('articles', 'Ordering'),
             'hits' => Yii::t('articles', 'Hits'),
-            'alias' => Yii::t('articles', 'Alias'),
             'metadesc' => Yii::t('articles', 'Metadesc'),
             'metakey' => Yii::t('articles', 'Metakey'),
             'robots' => Yii::t('articles', 'Robots'),
             'author' => Yii::t('articles', 'Author'),
             'copyright' => Yii::t('articles', 'Copyright'),
             'params' => Yii::t('articles', 'Params'),
-            'language' => Yii::t('articles', 'Language'),
-        ];
+        ]);
     }
 
     /**
-     * check if current user is the author from the article id
-     *
-     * @return bool
+     * @return \yii\db\ActiveQuery
      */
-    public function isUserAuthor()
+    public function getAttachments()
     {
-        if ( Yii::$app->user->identity->id == $this->created_by ) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attach');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Items::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS category');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItems()
+    {
+        return $this->hasMany(self::className(), ['cat_id' => 'id'])->from(self::tableName() . ' AS items');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTagsAssigns()
+    {
+        return $this->hasMany(TagsAssign::className(), ['item_id' => 'id'])->from(TagsAssign::tableName() . ' AS tags_assign');
     }
 
     /**
@@ -188,27 +243,6 @@ class Items extends Articles
             return [ 0 => Yii::t('articles', 'Unpublished') ];
         }
     }
-	
-	/**
-     * Return array for Category Select2
-     *
-     * @return array
-     **/
-	public function getCategoriesSelect2()
-	{
-        $categories = Categories::find()
-            ->select(['id','name'])
-            ->where(['state' => 1])
-            ->all();
-
-		$array[0] = Yii::t('articles', 'No Category');
-		
-		foreach($categories as $category) {
-			$array[$category['id']] = $category['name'];
-		}
-		
-		return $array;
-	}
 
     /*
      * Return array for Video Type
@@ -222,71 +256,10 @@ class Items extends Articles
 		return $videotype;
 	}
 
-    /**
-     * Return Attachments
-     *
-     * @return Attachments
-     */
-    public function getAttachments() {
-        return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attach');
-    }
-
-    /**
-     * Return Categories
-     *
-     * @return Categories
-     */
-    public function getCategory() {
-        return $this->hasOne(Categories::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS category');
-    }
-
-    /**
-     * Return User
-     *
-     * @return $this
-     */
-    public function getUser() {
-        $userClass = Yii::$app->controller->module->userClass;
-        $user = Yii::$container->get($userClass);
-        return $this->hasOne($userClass, ['id' => 'user_id'])->from($user::tableName() . ' AS user');
-    }
-
-    /**
-     * Return Created_By
-     *
-     * @return $this
-     */
-    public function getCreatedby() {
-        $userClass = Yii::$app->controller->module->userClass;
-        $user = Yii::$container->get($userClass);
-        return $this->hasOne($userClass, ['id' => 'created_by'])->from($user::tableName() . ' AS createdby');
-    }
-
-    /**
-     * Return Tags
-     *
-     * @return $this
-     */
-    public function getTags()
-    {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
-            ->viaTable(Tagsassign::className(), ['item_id' => 'id']);
-    }
-
-    /**
-     * Return Modified_By
-     *
-     * @return $this
-     */
-    public function getModifiedby() {
-        $userClass = Yii::$app->controller->module->userClass;
-        $user = Yii::$container->get($userClass);
-        return $this->hasOne($userClass, ['id' => 'modified_by'])->from($user::tableName() . ' AS modifiedby');
-    }
-
     /*
      * Return a date formatted with default format
      *
+     * @param strung $date
      * @return string
      */
     public function getDateFormatted($date) {

@@ -56,8 +56,8 @@ class ItemsSearch extends Items
         }
 
         $query->joinWith('category');
-        $query->joinWith('createdby');
-        $query->joinWith('modifiedby');
+        $query->joinWith('createdBy');
+        $query->joinWith('modifiedBy');
         $query->joinWith('user');
 
         $dataProvider = new ActiveDataProvider([
@@ -91,7 +91,7 @@ class ItemsSearch extends Items
         $query->andFilterWhere(['like', 'title', $this->title])
               ->andFilterWhere(['like', 'alias', $this->alias])
               ->andFilterWhere(['like', 'category.name', $this->cat_id])
-              ->andFilterWhere(['like', 'createdby.username', $this->created_by])
+              ->andFilterWhere(['like', 'createdBy.username', $this->created_by])
               ->andFilterWhere(['like', 'modifiedby.username', $this->modified_by])
               ->andFilterWhere(['like', 'introtext', $this->introtext])
               ->andFilterWhere(['like', 'fulltext', $this->fulltext])
