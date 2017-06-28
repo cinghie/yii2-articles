@@ -29,10 +29,6 @@ $user     = Yii::$app->user->identity;
 $user_id   = $user->id;
 $username = $user->username;
 
-// Get info For the Select2 Categories
-if ($model->id) { $id = $_REQUEST['id']; } else { $id = 0; }
-$select2categories = $model->getCategoriesSelect2();
-
 // Get Username
 if (!$model->isNewRecord) {
     $modified_by = $model->modified_by;
@@ -74,36 +70,70 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                 <div class="bs-example bs-example-tabs">
 
-                    <ul class="nav nav-tabs" id="myTab">
-                        <li class="active">
-                            <a data-toggle="tab" href="#item"><?= Yii::t('articles', 'Article') ?></a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#seo"><?= Yii::t('articles', 'SEO') ?></a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#image"><?= Yii::t('articles', 'Image') ?></a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#video"><?= Yii::t('articles', 'Video') ?></a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#attach"><?= Yii::t('articles', 'Attachments') ?></a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#params"><?= Yii::t('articles', 'Options') ?></a>
-                        </li>
-                    </ul>
+                    <div class="row">
 
+                        <div class="col-md-6">
+
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#item">
+                                        <?= Yii::t('articles', 'Article') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#seo">
+                                        <?= Yii::t('articles', 'SEO') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#image">
+                                        <?= Yii::t('articles', 'Image') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#video">
+                                        <?= Yii::t('articles', 'Video') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#attach">
+                                        <?= Yii::t('articles', 'Attachments') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#params">
+                                        <?= Yii::t('articles', 'Options') ?>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <?= $model->getExitButton() ?>
+
+                            <?= $model->getCancelButton() ?>
+
+                            <?= $model->getSaveButton() ?>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Tab Contents -->
                     <div class="tab-content" id="myTabContent">
 
                         <div class="separator"></div>
 
+                        <!-- Item -->
                         <div id="item" class="tab-pane fade active in">
 
-                            <div class="col-lg-8">
+                            <div class="separator"></div>
 
-                                <div class="col-lg-6">
+                            <div class="col-md-8">
+
+                                <div class="col-md-6">
 
                                     <?= $form->field($model, 'title', [
                                         'addon' => [
@@ -113,9 +143,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                                         ]
                                     ])->textInput(['maxlength' => true]) ?>
 
-                                </div> <!-- end col-lg-6 -->
+                                </div> <!-- end col-md-6 -->
 
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
 
                                     <?= $form->field($model, 'language')->widget(Select2::classname(), [
                                         'data' => $select2languages,
@@ -126,9 +156,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                                         ],
                                     ]); ?>
 
-                                </div> <!-- end col-lg-6 -->
+                                </div> <!-- end col-md-6 -->
 
-                                <div class="col-lg-12">
+                                <div class="col-md-12">
 
                                     <?php if ($editor=="ckeditor"): ?>
                                         <?= $form->field($model, 'introtext')->widget(CKEditor::className(),
@@ -206,14 +236,14 @@ $select2videotype = $model->getVideoTypeSelect2();
                                         <?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
                                     <?php endif ?>
 
-                                </div> <!-- end col-lg-12 -->
+                                </div> <!-- end col-md-12 -->
 
-                            </div> <!-- end col-lg-8 -->
+                            </div> <!-- end col-md-8 -->
 
-                            <div class="col-lg-4">
+                            <div class="col-md-4">
 
                                 <?= $form->field($model, 'cat_id')->widget(Select2::classname(), [
-                                    'data' => $select2categories,
+                                    'data' => $model->getCategoriesSelect2(),
                                     'addon' => [
                                         'prepend' => [
                                             'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
@@ -376,13 +406,14 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                                 <?php endif ?>
 
-                            </div> <!-- end col-lg-3 -->
+                            </div> <!-- end col-md-3 -->
 
                         </div> <!-- end #item -->
 
+                        <!-- SEO -->
                         <div id="seo" class="tab-pane fade">
 
-                            <div class="col-lg-5">
+                            <div class="col-md-5">
 
                                 <?= $form->field($model, 'alias', [
                                     'addon' => [
@@ -422,9 +453,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ]
                                 ])->textInput(['maxlength' => true]) ?>
 
-                            </div> <!-- col-lg-5 -->
+                            </div> <!-- col-md-5 -->
 
-                            <div class="col-lg-7">
+                            <div class="col-md-7">
 
                                 <?= $form->field($model, 'metadesc', [
                                     'addon' => [
@@ -442,17 +473,18 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ]
                                 ])->textarea(['rows' => 4]) ?>
 
-                            </div> <!-- col-lg-7 -->
+                            </div> <!-- col-md-7 -->
 
                         </div> <!-- seo -->
 
+                        <!-- Image -->
                         <div id="image" class="tab-pane fade">
 
                             <p class="bg-info">
                                 <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $imagetype ?>
                             </p>
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
 
                                 <?= $form->field($model, 'image')->widget(FileInput::classname(), [
                                     'options' => [
@@ -484,9 +516,9 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                                 <?php endif ?>
 
-                            </div> <!-- col-lg-6 -->
+                            </div> <!-- col-md-6 -->
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
 
                                 <?= $form->field($model, 'image_caption', [
                                     'addon' => [
@@ -504,13 +536,14 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ]
                                 ])->textInput(['maxlength' => true]) ?>
 
-                            </div> <!-- col-lg-6 -->
+                            </div> <!-- col-md-6 -->
 
                         </div> <!-- #image -->
 
+                        <!-- video -->
                         <div id="video" class="tab-pane fade">
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
 
                                 <?= $form->field($model, 'video', [
                                     'addon' => [
@@ -529,9 +562,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ],
                                 ]); ?>
 
-                            </div> <!-- end col-lg-6 -->
+                            </div> <!-- end col-md-6 -->
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
 
                                 <?= $form->field($model, 'video_caption', [
                                     'addon' => [
@@ -549,13 +582,13 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ]
                                 ])->textInput(['maxlength' => 255]) ?>
 
-                            </div> <!-- end col-lg-6 -->
+                            </div> <!-- end col-md-6 -->
 
                         </div> <!-- end video -->
 
                         <div id="attach" class="tab-pane fade">
 
-                            <div class="col-lg-12">
+                            <div class="col-md-12">
 
                                 <?php if(!$model->isNewRecord): ?>
 
@@ -577,7 +610,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                                 <?php endif; ?>
 
-                            </div> <!-- end col-lg-12 -->
+                            </div> <!-- end col-md-12 -->
 
                         </div> <!-- end attach -->
 
@@ -588,14 +621,6 @@ $select2videotype = $model->getVideoTypeSelect2();
                         </div> <!-- #params -->
 
                     </div> <!-- end bs-example-tabs -->
-
-                    <div class="col-lg-12">
-
-                        <div class="form-group">
-                            <?= Html::submitButton($model->isNewRecord ?  Yii::t('articles', 'Save & Exit') : Yii::t('articles', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                        </div>
-
-                    </div>
 
                 </div> <!-- col-lg-12 -->
 
