@@ -32,7 +32,7 @@ $username = $user->username;
 // Get Username
 if (!$model->isNewRecord) {
     $modified_by = $model->modified_by;
-    $modified_by_username = isset($model->modifiedby->username) ? $model->modifiedby->username : $username;
+    $modified_by_username = isset($model->modifiedBy->username) ? $model->modifiedBy->username : $username;
     $created_by  = $model->created_by;
     $created_by_username = $model->createdBy->username;
 } else {
@@ -124,119 +124,36 @@ $select2videotype = $model->getVideoTypeSelect2();
                     <!-- Tab Contents -->
                     <div class="tab-content" id="myTabContent">
 
-                        <div class="separator"></div>
-
                         <!-- Item -->
-                        <div id="item" class="tab-pane fade active in">
+                        <div id="item" class="row tab-pane fade active in">
 
                             <div class="separator"></div>
 
                             <div class="col-md-8">
 
-                                <div class="col-md-6">
+                                <div class="row">
 
-                                    <?= $form->field($model, 'title', [
-                                        'addon' => [
-                                            'prepend' => [
-                                                'content'=>'<i class="glyphicon glyphicon-plus"></i>'
-                                            ]
-                                        ]
-                                    ])->textInput(['maxlength' => true]) ?>
+                                    <div class="col-md-6">
 
-                                </div> <!-- end col-md-6 -->
+                                        <?= $model->getTitleWidget($form) ?>
 
-                                <div class="col-md-6">
+                                    </div> <!-- end col-md-6 -->
 
-                                    <?= $form->field($model, 'language')->widget(Select2::classname(), [
-                                        'data' => $select2languages,
-                                        'addon' => [
-                                            'prepend' => [
-                                                'content'=>'<i class="glyphicon glyphicon-globe"></i>'
-                                            ]
-                                        ],
-                                    ]); ?>
+                                    <div class="col-md-6">
 
-                                </div> <!-- end col-md-6 -->
+                                        <?= $model->getLanguageWidget($form) ?>
 
-                                <div class="col-md-12">
+                                    </div> <!-- end col-md-6 -->
 
-                                    <?php if ($editor=="ckeditor"): ?>
-                                        <?= $form->field($model, 'introtext')->widget(CKEditor::className(),
-                                            [
-                                                'options' => ['rows' => 4],
-                                                'preset' => 'advanced'
-                                            ]); ?>
-                                    <?php elseif ($editor=="tinymce"): ?>
-                                        <?= $form->field($model, 'introtext')->widget(TinyMce::className(), [
-                                            'options' => ['rows' => 12],
-                                            'clientOptions' => [
-                                                'plugins' => [
-                                                    "advlist autolink lists link charmap print preview anchor",
-                                                    "searchreplace visualblocks code fullscreen",
-                                                    "insertdatetime media table contextmenu paste"
-                                                ],
-                                                'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-                                            ]
-                                        ]); ?>
-                                    <?php elseif ($editor=="markdown"): ?>
-                                        <?= $form->field($model, 'introtext')->widget(
-                                            MarkdownEditor::classname(),
-                                            ['height' => 150, 'encodeLabels' => true]
-                                        ); ?>
-                                    <?php elseif ($editor=="imperavi"): ?>
-                                        <?= $form->field($model, 'introtext')->widget(yii\imperavi\Widget::className(), [
-                                            'options' => [
-                                                'css' => 'wym.css',
-                                                'minHeight' => 250,
-                                            ],
-                                            'plugins' => [
-                                                'fullscreen',
-                                                'clips'
-                                            ]
-                                        ]); ?>
-                                    <?php else: ?>
-                                        <?= $form->field($model, 'introtext')->textarea(['rows' => 12]); ?>
-                                    <?php endif ?>
+                                    <div class="col-md-12">
 
-                                    <?php if ($editor=="ckeditor"): ?>
-                                        <?= $form->field($model, 'fulltext')->widget(CKEditor::className(),
-                                            [
-                                                'options' => ['rows' => 6],
-                                                'preset' => 'advanced'
-                                            ]); ?>
-                                    <?php elseif ($editor=="tinymce"): ?>
-                                        <?= $form->field($model, 'fulltext')->widget(TinyMce::className(), [
-                                            'options' => ['rows' => 12],
-                                            'clientOptions' => [
-                                                'plugins' => [
-                                                    "advlist autolink lists link charmap print preview anchor",
-                                                    "searchreplace visualblocks code fullscreen",
-                                                    "insertdatetime media table contextmenu paste"
-                                                ],
-                                                'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-                                            ]
-                                        ]); ?>
-                                    <?php elseif ($editor=="markdown"): ?>
-                                        <?= $form->field($model, 'fulltext')->widget(
-                                            MarkdownEditor::classname(),
-                                            ['height' => 150, 'encodeLabels' => true]
-                                        ); ?>
-                                    <?php elseif ($editor=="imperavi"): ?>
-                                        <?= $form->field($model, 'fulltext')->widget(yii\imperavi\Widget::className(), [
-                                            'options' => [
-                                                'css' => 'wym.css',
-                                                'minHeight' => 300,
-                                            ],
-                                            'plugins' => [
-                                                'fullscreen',
-                                                'clips'
-                                            ]
-                                        ]); ?>
-                                    <?php else: ?>
-                                        <?= $form->field($model, 'fulltext')->textarea(['rows' => 12]); ?>
-                                    <?php endif ?>
+                                        <?= $model->getEditorWidget($form,'introtext') ?>
 
-                                </div> <!-- end col-md-12 -->
+                                        <?= $model->getEditorWidget($form,'fulltext') ?>
+
+                                    </div> <!-- end col-md-12 -->
+
+                                </div> <!-- end row -->
 
                             </div> <!-- end col-md-8 -->
 
@@ -251,90 +168,15 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ],
                                 ]); ?>
 
-                                <?= $form->field($model, 'state')->widget(Select2::classname(), [
-                                    'data' => $select2published,
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-check"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+                                <?= $model->getStateWidget($form) ?>
 
-                                <?= $form->field($model, 'access')->widget(Select2::classname(), [
-                                    'data' => $roles,
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-log-in"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+                                <?= $model->getAccessWidget($form) ?>
 
-                                <?= $form->field($model, 'user_id')->widget(Select2::classname(), [
-                                    'data' => $select2users,
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-user"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+                                <?= $model->getUserWidget($form) ?>
 
-                                <?php if ($model->isNewRecord): ?>
+                                <?= $model->getCreatedWidget($form) ?>
 
-                                    <?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
-                                        'options' => [
-                                            'value' => date("Y-m-d H:i:s"),
-                                        ],
-                                        'pluginOptions' => [
-                                            'autoclose'      => true,
-                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
-                                            'todayHighlight' => true,
-                                        ]
-                                    ]); ?>
-
-                                <?php else : ?>
-
-                                    <?php echo $form->field($model, 'created')->widget(DateTimePicker::classname(), [
-                                        'options' => [
-                                            'disabled' => 'disabled',
-                                            'value'    => $model->created,
-                                        ],
-                                        'pluginOptions' => [
-                                            'autoclose'      => true,
-                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
-                                            'todayHighlight' => true,
-                                        ]
-                                    ]); ?>
-
-                                <?php endif; ?>
-
-                                <?php if ($model->isNewRecord): ?>
-
-                                    <?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
-                                        'options' => [
-                                            'disabled' => 'disabled',
-                                            'value'    => date("Y-m-d H:i:s"),
-                                        ],
-                                        'pluginOptions' => [
-                                            'autoclose'      => true,
-                                            'format'         => 'yyyy-mm-dd hh:ii:ss',
-                                            'todayHighlight' => true,
-                                        ]
-                                    ]); ?>
-
-                                <?php else: ?>
-
-                                    <?php echo $form->field($model, 'modified')->widget(DateTimePicker::classname(), [
-                                        'options' => [
-                                            'disabled' => 'disabled',
-                                            'value'    => $model->modified,
-                                        ],
-                                        'pluginOptions' => [
-                                            'autoclose' => true,
-                                            'format'    => 'yyyy-mm-dd hh:ii:ss',
-                                        ]
-                                    ]); ?>
-
-                                <?php endif ?>
+                                <?= $model->getModifiedWidget($form) ?>
 
                                 <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
                                     'data' => [
@@ -350,27 +192,9 @@ $select2videotype = $model->getVideoTypeSelect2();
                                     ],
                                 ]); ?>
 
-                                <?= $form->field($model, 'created_by')->widget(Select2::classname(), [
-                                    'data' => [
-                                        $created_by => $created_by_username
-                                    ],
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-user"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+                                <?= $model->getCreatedByWidget($form) ?>
 
-                                <?= $form->field($model, 'modified_by')->widget(Select2::classname(), [
-                                    'data' => [
-                                        $modified_by => $modified_by_username
-                                    ],
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-user"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+                                <?= $model->getModifiedByWidget($form) ?>
 
                                 <?php if ($model->isNewRecord): ?>
 
@@ -411,7 +235,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                         </div> <!-- end #item -->
 
                         <!-- SEO -->
-                        <div id="seo" class="tab-pane fade">
+                        <div id="seo" class="row tab-pane fade">
 
                             <div class="col-md-5">
 
@@ -478,70 +302,37 @@ $select2videotype = $model->getVideoTypeSelect2();
                         </div> <!-- seo -->
 
                         <!-- Image -->
-                        <div id="image" class="tab-pane fade">
+                        <div id="image" class="row tab-pane fade">
 
-                            <p class="bg-info">
-                                <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $imagetype ?>
-                            </p>
+                            <div class="separator"></div>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-12">
 
-                                <?= $form->field($model, 'image')->widget(FileInput::classname(), [
-                                    'options' => [
-                                        'accept' => 'image/'.$imagetype
-                                    ],
-                                    'pluginOptions' => [
-                                        'previewFileType' => 'image',
-                                        'showUpload'      => false,
-                                        'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
-                                    ],
-                                ]); ?>
+                                <p class="bg-info">
+                                    <?= Yii::t('articles', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
+                                    (<?= Yii::t('articles', 'Max Size'). ": " .$model->getUploadMaxSize() ?>)
+                                </p>
 
-                                <?php if ( isset($model->image) && !empty($model->image) ): ?>
+                            </div> <!-- col-lg-12 -->
 
-                                    <div class="thumbnail">
-                                        <img alt="200x200" class="img-thumbnail" data-src="holder.js/300x250" style="width: 300px;" src="<?= $model->getImageUrl() ?>">
-                                        <div class="caption">
-                                            <p></p>
-                                            <p>
-                                                <?= Html::a(Yii::t('articles', 'Delete Image'), ['deleteimage', 'id' => $model->id], [
-                                                    'class' => 'btn btn-danger',
-                                                    'data' => [
-                                                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                                    ],
-                                                ]) ?>
-                                            </p>
-                                        </div>
-                                    </div>
+                            <div class="col-lg-6">
 
-                                <?php endif ?>
+                                <?= $model->getImageWidget()  ?>
 
-                            </div> <!-- col-md-6 -->
+                            </div> <!-- col-lg-6 -->
 
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
 
-                                <?= $form->field($model, 'image_caption', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-picture"></i>'
-                                        ]
-                                    ]
-                                ])->textarea(['maxlength' => true,'rows' => 6]) ?>
+                                <?= $model->getImageCaptionWidget($form) ?>
 
-                                <?= $form->field($model, 'image_credits', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-barcode"></i>'
-                                        ]
-                                    ]
-                                ])->textInput(['maxlength' => true]) ?>
+                                <?= $model->getImageCreditsWidget($form) ?>
 
-                            </div> <!-- col-md-6 -->
+                            </div> <!-- col-lg-6 -->
 
                         </div> <!-- #image -->
 
                         <!-- video -->
-                        <div id="video" class="tab-pane fade">
+                        <div id="video" class="row tab-pane fade">
 
                             <div class="col-md-6">
 
@@ -586,7 +377,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                         </div> <!-- end video -->
 
-                        <div id="attach" class="tab-pane fade">
+                        <div id="attach" class="row tab-pane fade">
 
                             <div class="col-md-12">
 
@@ -614,9 +405,11 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                         </div> <!-- end attach -->
 
-                        <div id="params" class="tab-pane fade">
+                        <div id="params" class="row tab-pane fade">
 
-                            <?= $form->field($model, 'params')->textarea(['rows' => 6]) ?>
+                            <div class="separator"></div>
+
+                            <?= $this->render('_form_params') ?>
 
                         </div> <!-- #params -->
 

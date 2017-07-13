@@ -92,7 +92,7 @@ class ItemsSearch extends Items
               ->andFilterWhere(['like', 'alias', $this->alias])
               ->andFilterWhere(['like', 'category.name', $this->cat_id])
               ->andFilterWhere(['like', 'createdBy.username', $this->created_by])
-              ->andFilterWhere(['like', 'modifiedby.username', $this->modified_by])
+              ->andFilterWhere(['like', 'modifiedBy.username', $this->modified_by])
               ->andFilterWhere(['like', 'introtext', $this->introtext])
               ->andFilterWhere(['like', 'fulltext', $this->fulltext])
               ->andFilterWhere(['like', 'language', $this->language])
