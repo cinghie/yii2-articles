@@ -239,63 +239,21 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                             <div class="col-md-5">
 
-                                <?= $form->field($model, 'alias', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-bookmark"></i>'
-                                        ]
-                                    ]
-                                ] )->textInput(['maxlength' => 255]) ?>
+                                <?= $model->getAliasWidget($form) ?>
 
-                                <?= $form->field($model, 'robots')->widget(Select2::classname(), [
-                                    'data' => [
-                                        "index, follow"       => "index, follow",
-                                        "no index, no follow" => "no index, no follow",
-                                        "no index, follow"    => "no index, follow",
-                                        "index, no follow"    => "index, no follow"
-                                    ],
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-globe"></i>'
-                                        ]
-                                    ]
-                                ]); ?>
+                                <?= $model->getRobotsWidget($form) ?>
 
-                                <?= $form->field($model, 'author', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-user"></i>'
-                                        ]
-                                    ]
-                                ])->textInput(['maxlength' => true]) ?>
+                                <?= $model->getAuthorWidget($form) ?>
 
-                                <?= $form->field($model, 'copyright', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-ban-circle"></i>'
-                                        ]
-                                    ]
-                                ])->textInput(['maxlength' => true]) ?>
+                                <?= $model->getCopyrightWidget($form) ?>
 
                             </div> <!-- col-md-5 -->
 
                             <div class="col-md-7">
 
-                                <?= $form->field($model, 'metadesc', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-info-sign"></i>'
-                                        ]
-                                    ]
-                                ])->textarea(['rows' => 4]) ?>
+                                <?= $model->getMetaDescriptionWidget($form) ?>
 
-                                <?= $form->field($model, 'metakey', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-tags"></i>'
-                                        ]
-                                    ]
-                                ])->textarea(['rows' => 4]) ?>
+                                <?= $model->getMetaKeyWidget($form) ?>
 
                             </div> <!-- col-md-7 -->
 
