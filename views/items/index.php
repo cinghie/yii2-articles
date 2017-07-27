@@ -114,7 +114,7 @@ $this->registerJs('$(document).ready(function()
                             $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->cat_id]));
                             $cat = isset($model->category->name) ? $model->category->name : "";
 
-                            if($cat!="") {
+                            if($cat != "") {
                                 return Html::a($cat,$url);
                             } else {
                                 return Yii::t('articles', 'Nobody');

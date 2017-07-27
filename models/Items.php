@@ -124,7 +124,7 @@ class Items extends Articles
      */
     public function getCategory()
     {
-        return $this->hasOne(Items::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS category');
+        return $this->hasOne(Categories::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS category');
     }
 
     /**
