@@ -35,13 +35,47 @@ class ItemsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deleteimage','deletemultiple','changestate','activemultiple','deactivemultiple'],
-                        'roles' => ['@']
+                        'actions' => ['index'],
+                        'matchCallback' => function () {
+                            return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items') );
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['articles-create-items'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isCurrentUserCreator()) ) );
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['changestate','activemultiple','deactivemultiple'],
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isCurrentUserCreator()) ) );
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete','deleteimage','deletemultiple'],
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isCurrentUserCreator()) ) );
+                        }
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['?', '@']
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-view-items') || $model->access === "public" );
+                        }
                     ],
                 ],
                 'denyCallback' => function () {
@@ -384,79 +418,6 @@ class ItemsController extends Controller
     }
 
     /**
-     * Check if user can Index Items.
-     *
-     * @return bool
-     */
-    protected function userCanIndex()
-    {
-        return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'));
-    }
-
-    /**
-     * Check if user can view Items.
-     *
-     * @param $id
-     * @return bool
-     * @throws NotFoundHttpException
-     */
-    protected function userCanView($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-view-items') || $model->access == "public" );
-    }
-
-    /**
-     * Check if user can create Items
-     *
-     * @return bool
-     */
-    protected function userCanCreate()
-    {
-        return ( Yii::$app->user->can('articles-create-items') );
-    }
-
-    /**
-     * Check if user can update Items
-     *
-     * @param $id
-     * @return bool
-     */
-    protected function userCanUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) );
-    }
-
-    /**
-     * Check if user can publish Items
-     *
-     * @param $id
-     * @return bool
-     */
-    protected function userCanPublish($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) );
-    }
-
-    /**
-     * Check if user can delete Items
-     *
-     * @param $id
-     * @return bool
-     */
-    protected function userCanDelete($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) );
-    }
-
-    /**
      * Check article language
      *
      * @param $id
@@ -466,7 +427,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->language == $model->getLang() || $model->getLangTag() == "All") {
+        if(Yii::$app->language == $model->getLang() || $model->getLangTag() === "all") {
             return true;
         } else {
             return false;

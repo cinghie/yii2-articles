@@ -44,8 +44,13 @@ class CategoriesController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update','changestate','activemultiple','deactivemultiple'],
+                        'actions' => ['update'],
                         'roles' => ['articles-update-categories'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['changestate','activemultiple','deactivemultiple'],
+                        'roles' => ['articles-publish-categories'],
                     ],
                     [
                         'allow' => true,
@@ -55,9 +60,9 @@ class CategoriesController extends Controller
 					[
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['articles-view-categories'],
                         'matchCallback' => function () {
-                            return $this->userCanview() === true;
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-view-categories') || $model->access === "public" );
                         }
                     ],
 				],
@@ -488,18 +493,6 @@ class CategoriesController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    /**
-     * Check if user can view Categories
-     *
-     * @return bool
-     */
-    protected function userCanView()
-    {
-        $model = $this->findModel(Yii::$app->request->get('id'));
-
-        return ( Yii::$app->user->can('articles-view-categories') || $model->access == "public" );
     }
 
 }
