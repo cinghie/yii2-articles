@@ -165,7 +165,7 @@ $this->registerJs('$(document).ready(function()
                                 /** @var $model cinghie\articles\models\Items */
                                 return Html::img($model->getImageThumbUrl("small"), ['width' => '36px']);
                             } else {
-                                return Yii::t('articles', 'Nobody');
+                                return '<span class="fa fa-ban text-danger"></span>';
                             }
                         },
                         'width' => '6%',
