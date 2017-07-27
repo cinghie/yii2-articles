@@ -294,42 +294,17 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                             <div class="col-md-6">
 
-                                <?= $form->field($model, 'video', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-film"></i>'
-                                        ]
-                                    ]
-                                ])->textInput(['maxlength' => true]) ?>
+                                <?= $model->getVideoIDWidget($form) ?>
 
-                                <?= $form->field($model, 'video_type')->widget(Select2::classname(), [
-                                    'data' => $select2videotype,
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-film"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+                                <?= $model->getVideoTypeWidget($form) ?>
 
                             </div> <!-- end col-md-6 -->
 
                             <div class="col-md-6">
 
-                                <?= $form->field($model, 'video_caption', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-facetime-video"></i>'
-                                        ]
-                                    ]
-                                ])->textarea(['maxlength' => 255,'rows' => 6]) ?>
+                                <?= $model->getVideoCaptionWidget($form) ?>
 
-                                <?= $form->field($model, 'video_credits', [
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-barcode"></i>'
-                                        ]
-                                    ]
-                                ])->textInput(['maxlength' => 255]) ?>
+                                <?= $model->getVideoCreditsWidget($form) ?>
 
                             </div> <!-- end col-md-6 -->
 

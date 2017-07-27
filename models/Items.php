@@ -23,6 +23,7 @@ use cinghie\traits\StateTrait;
 use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\UserTrait;
 use cinghie\traits\UserHelpersTrait;
+use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\helpers\Url;
 
@@ -72,7 +73,7 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-    use AccessTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, ViewsHelpersTrait;
+    use AccessTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -86,13 +87,10 @@ class Items extends Articles
      */
     public function rules()
     {
-        return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), [
+        return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
             [['title', 'cat_id', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'metadesc', 'metakey', 'params'], 'string'],
-			[['video_caption', 'video_credits'], 'string', 'max' => 255],
-            [['video', 'author', 'copyright'], 'string', 'max' => 50],
-			[['robots','video_type'], 'string', 'max' => 20],
+            [['introtext', 'fulltext', 'params'], 'string'],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Items::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ]);
     }
@@ -102,22 +100,13 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(), [
+        return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),
             'fulltext' => Yii::t('articles', 'Fulltext'),
-            'video' => Yii::t('articles', 'Video ID'),
-			'video_type' => Yii::t('articles', 'Video Type'),
-            'video_caption' => Yii::t('articles', 'Video Caption'),
-            'video_credits' => Yii::t('articles', 'Video Credits'),
             'ordering' => Yii::t('articles', 'Ordering'),
             'hits' => Yii::t('articles', 'Hits'),
-            'metadesc' => Yii::t('articles', 'Metadesc'),
-            'metakey' => Yii::t('articles', 'Metakey'),
-            'robots' => Yii::t('articles', 'Robots'),
-            'author' => Yii::t('articles', 'Author'),
-            'copyright' => Yii::t('articles', 'Copyright'),
             'params' => Yii::t('articles', 'Params'),
         ]);
     }
@@ -243,18 +232,6 @@ class Items extends Articles
             return [ 0 => Yii::t('articles', 'Unpublished') ];
         }
     }
-
-    /*
-     * Return array for Video Type
-     *
-     * @return array
-     */
-	public function getVideoTypeSelect2()
-	{
-		$videotype = [ "youtube" => "YouTube", "vimeo" => "Vimeo", "dailymotion" => "Dailymotion" ];
-
-		return $videotype;
-	}
 
     /*
      * Return a date formatted with default format
