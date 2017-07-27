@@ -85,6 +85,9 @@ $this->registerJs('$(document).ready(function()
             <?= GridView::widget([
                 'dataProvider'=> $dataProvider,
                 'filterModel' => $searchModel,
+                'containerOptions' => [
+                    'class' => 'articles-categories-pjax-container'
+                ],
                 'pjaxSettings'=>[
                     'neverTimeout' => true,
                 ],
@@ -109,7 +112,7 @@ $this->registerJs('$(document).ready(function()
                             $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->parent_id]));
                             $cat = isset($model->parent->name) ? $model->parent->name : "";
 
-                            if($cat != "") {
+                            if($cat !== "") {
                                 return Html::a($cat,$url);
                             } else {
                                 return Yii::t('traits', 'Nobody');

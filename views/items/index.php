@@ -85,7 +85,9 @@ $this->registerJs('$(document).ready(function()
             <?= GridView::widget([
                 'dataProvider'=> $dataProvider,
                 'filterModel' => $searchModel,
-                'containerOptions' => ['class' => 'articles-pjax-container'],
+                'containerOptions' => [
+                        'class' => 'articles-items-pjax-container'
+                ],
                 'pjaxSettings'=>[
                     'neverTimeout' => true,
                 ],
@@ -114,7 +116,7 @@ $this->registerJs('$(document).ready(function()
                             $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->cat_id]));
                             $cat = isset($model->category->name) ? $model->category->name : "";
 
-                            if($cat != "") {
+                            if($cat !== "") {
                                 return Html::a($cat,$url);
                             } else {
                                 return Yii::t('articles', 'Nobody');
@@ -194,7 +196,7 @@ $this->registerJs('$(document).ready(function()
                 'responsive' => true,
                 'hover' => true,
                 'panel' => [
-                    'heading' => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
+                    'heading' => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
                     'type' => 'success',
                     'footer' => ''
                 ],
