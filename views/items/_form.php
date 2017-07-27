@@ -77,7 +77,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                             <ul class="nav nav-tabs" id="myTab">
                                 <li class="active">
                                     <a data-toggle="tab" href="#item">
-                                        <?= Yii::t('articles', 'Article') ?>
+                                        <?= Yii::t('articles', 'Item') ?>
                                     </a>
                                 </li>
                                 <li class="">
@@ -87,7 +87,7 @@ $select2videotype = $model->getVideoTypeSelect2();
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#image">
-                                        <?= Yii::t('articles', 'Image') ?>
+                                        <?= Yii::t('traits', 'Image') ?>
                                     </a>
                                 </li>
                                 <li class="">
@@ -174,10 +174,6 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                                 <?= $model->getUserWidget($form) ?>
 
-                                <?= $model->getCreatedWidget($form) ?>
-
-                                <?= $model->getModifiedWidget($form) ?>
-
                                 <?= $form->field($model, 'ordering')->widget(Select2::classname(), [
                                     'data' => [
                                         "0" =>  Yii::t('articles', 'In Development')
@@ -191,6 +187,10 @@ $select2videotype = $model->getVideoTypeSelect2();
                                         ]
                                     ],
                                 ]); ?>
+
+                                <?= $model->getCreatedWidget($form) ?>
+
+                                <?= $model->getModifiedWidget($form) ?>
 
                                 <?= $model->getCreatedByWidget($form) ?>
 
