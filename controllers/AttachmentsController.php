@@ -117,14 +117,16 @@ class AttachmentsController extends Controller
                 $attachField = "filename";
 
                 // Create UploadFile Instance
-                $attach = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
-                $model->filename = $attach->name;
+                $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+                $model->filename = $attachment->name;
+                //$model->extension = $attachment->extension;
+                //$model->mimetype = $attachment->type;
+                $model->size = $attachment->size;
 
-                if ( $model->save() )
-                {
+                if ( $model->save() ) {
+
                     // upload only if valid uploaded file instance found
-                    if ($attach !== false)
-                    {
+                    if ($attachment !== false) {
                         // Set Success Message
                         Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
                     }
@@ -170,13 +172,30 @@ class AttachmentsController extends Controller
                 $attachField = "filename";
 
                 // Create UploadFile Instance
-                $attach = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
-                $model->filename = $attach->name;
+                $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+                $model->filename = $attachment->name;
+                $model->extension = $attachment->extension;
+                $model->mimetype = $attachment->mimetype;
+                $model->size = $attachment->size;
 
-                if($model->save())
-                {
+                if ( $model->save() ) {
+
+                    // upload only if valid uploaded file instance found
+                    if ($attachment !== false) {
+                        // Set Success Message
+                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
+                    }
+
                     return $this->redirect(['index']);
+
+                } else {
+
+                    // Set Error Message
+                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
+
+                    return $this->render('create', ['model' => $model,]);
                 }
+
             } else {
                 return $this->render('update', [
                     'model' => $model,

@@ -13,9 +13,30 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use cinghie\traits\AttachmentTrait;
+use cinghie\traits\ViewsHelpersTrait;
 
+/**
+ * This is the model class for table "{{%article_attachments}}".
+ *
+ * @property int $id
+ * @property int $item_id
+ * @property string $title
+ * @property string $alias
+ * @property string $titleAttribute
+ * @property string $filename
+ * @property string $extension
+ * @property string $mimetype
+ * @property int $size
+ * @property int $hits
+ *
+ * @property Items $item
+ */
 class Attachments extends Articles
 {
+
+    use AttachmentTrait, ViewsHelpersTrait;
+
     /**
      * @inheritdoc
      */
@@ -29,12 +50,11 @@ class Attachments extends Articles
      */
     public function rules()
     {
-        return [
-            [['item_id', 'title', 'titleAttribute'], 'required'],
+        return array_merge(AttachmentTrait::rules(), [
+            [['title'], 'required'],
             [['item_id', 'hits'], 'integer'],
             [['titleAttribute'], 'string'],
-            [['filename', 'title'], 'string', 'max' => 255]
-        ];
+        ]);
     }
 
     /**
@@ -42,18 +62,25 @@ class Attachments extends Articles
      */
     public function attributeLabels()
     {
-        return [
+        return array_merge(AttachmentTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'item_id' => Yii::t('articles', 'Article'),
-            'filename' => Yii::t('articles', 'Filename'),
-            'title' => Yii::t('articles', 'Title'),
             'titleAttribute' => Yii::t('articles', 'Title Attribute'),
             'hits' => Yii::t('articles', 'Hits'),
-        ];
+        ]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItem()
+    {
+        return $this->hasOne(Items::className(), ['id' => 'item_id']);
     }
 
     /**
      * check if current user is the author from the article id
+     *
      * @return bool
      */
     public function isUserAuthor()
@@ -68,6 +95,7 @@ class Attachments extends Articles
 
     /**
      * return user of the author from the article
+     *
      * @return bool
      */
     public function getUserAuthor()
@@ -77,6 +105,7 @@ class Attachments extends Articles
 
     /**
      * Delete File attached
+     *
      * @return mixed the uploaded image instance
      */
     public function deleteFile()
@@ -91,16 +120,7 @@ class Attachments extends Articles
         // check if uploaded file can be deleted on server
         if (unlink($file)) {
             return true;
-        } else {
-            return false;
         }
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItem()
-    {
-        return $this->hasOne(Items::className(), ['id' => 'item_id']);
-    }
 }

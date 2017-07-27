@@ -12,24 +12,23 @@
 
 namespace cinghie\articles\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use cinghie\articles\models\Attachments;
 
 /**
  * AttachmentsSearch represents the model behind the search form about `cinghie\articles\models\Attachments`.
  */
 class AttachmentsSearch extends Attachments
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'item_id', 'hits'], 'integer'],
-            [['filename', 'title', 'titleAttribute'], 'safe'],
+            [['id', 'item_id', 'hits', 'size'], 'integer'],
+            [['extension', 'filename', 'mimetype', 'title', 'titleAttribute'], 'safe'],
         ];
     }
 
@@ -46,7 +45,6 @@ class AttachmentsSearch extends Attachments
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     *
      * @return ActiveDataProvider
      */
     public function search($params)
@@ -74,12 +72,16 @@ class AttachmentsSearch extends Attachments
             'id' => $this->id,
             'item_id' => $this->item_id,
             'hits' => $this->hits,
+            'size' => $this->size,
         ]);
 
         $query->andFilterWhere(['like', 'filename', $this->filename])
+            ->andFilterWhere(['like', 'extension', $this->extension])
+            ->andFilterWhere(['like', 'mimetype', $this->mimetype])
             ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'titleAttribute', $this->titleAttribute]);
 
         return $dataProvider;
     }
+
 }

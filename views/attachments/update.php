@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Attachments'), 
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <div class="attachments-update">
 
     <?php if(Yii::$app->getModule('articles')->showTitles): ?>
