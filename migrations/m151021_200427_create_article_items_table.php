@@ -66,7 +66,7 @@ class m151021_200427_create_article_items_table extends Migration
 
         $this->addForeignKey("fk_article_items_cat_id",
             "{{%article_items}}", "cat_id",
-            "{{%article_items}}", "id",
+            "{{%article_categories}}", "id",
             "SET NULL", "CASCADE"
         );
 
