@@ -11,49 +11,12 @@ use cinghie\articles\assets\ArticlesAsset;
 
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
-use kartik\widgets\DateTimePicker;
-use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
-
-// Load Editors Libraries
-use dosamigos\ckeditor\CKEditor;
-use dosamigos\tinymce\TinyMce;
-use kartik\markdown\MarkdownEditor;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
-// Get current user
-$user     = Yii::$app->user->identity;
-$user_id   = $user->id;
-$username = $user->username;
-
-// Get Username
-if (!$model->isNewRecord) {
-    $modified_by = $model->modified_by;
-    $modified_by_username = isset($model->modifiedBy->username) ? $model->modifiedBy->username : $username;
-    $created_by  = $model->created_by;
-    $created_by_username = $model->createdBy->username;
-} else {
-    $modified_by = 0;
-    $modified_by_username = Yii::t('articles', 'Nobody');
-    $created_by  = $user_id ;
-    $created_by_username = $username;
-}
-
-// Get info by Configuration
-$editor           = Yii::$app->controller->module->editor;
-$language         = substr(Yii::$app->language,0,2);
-$imagetype        = Yii::$app->controller->module->imageType;
-
-// Get info by Model
-$attachments      = $model->getAttachments()->asArray()->all();
-$roles            = $model->getRolesSelect2();
-$select2languages = $model->getLanguagesSelect2();
-$select2published = $model->getPublishSelect2();
-$select2users     = $model->getUsersSelect2($user_id,$username);
-$select2videotype = $model->getVideoTypeSelect2();
 ?>
 
 <div class="items-form">
@@ -318,7 +281,7 @@ $select2videotype = $model->getVideoTypeSelect2();
 
                                     <div class="form-group field-items-files">
                                         <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachments') ?></label>
-                                        <?php foreach($attachments as $attach): ?>
+                                        <?php foreach($model->getAttachments()->asArray()->all() as $attach): ?>
                                             <div class="alert alert-info" role="alert">
                                                 <?= $attach['filename'] ?>
                                             </div>
