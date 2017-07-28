@@ -40,62 +40,118 @@ if ($model->isNewRecord) {
 
         <div class="col-lg-12">
 
-            <div class="col-lg-12">
+            <div class="row">
 
-                <p class="bg-info">
-                    <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $attachType ?>
-                </p>
+                <div class="col-md-8">
 
-            </div>
+                    <p class="bg-info">
+                        <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $attachType ?>
+                    </p>
 
-            <div class="col-lg-5">
+                </div>
 
-                <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-4">
 
-                <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
-                    'options' => [
-                        'accept' => $attachType
-                    ],
-                    'pluginOptions' => [
-                        'previewFileType' => 'image',
-                        'showUpload'      => false,
-                        'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
-                    ],
-                ]); ?>
+                    <?= $model->getExitButton() ?>
 
-                <?= $form->field($model, 'item_id')->widget(Select2::classname(), [
-                    'data' => $select2articles,
-                    'addon' => [
-                        'prepend' => [
-                            'content'=>'<i class="fa fa-file-text-o"></i>'
-                        ]
-                    ],
-                ]); ?>
+                    <?= $model->getCancelButton() ?>
+
+                    <?= $model->getSaveButton() ?>
+
+                </div>
 
             </div>
 
-            <div class="col-lg-7">
+            <div class="separator"></div>
 
-                <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 4]) ?>
+            <div class="row">
 
-                <?= $form->field($model, 'hits')->widget(Select2::classname(), [
-                    'data' => [
-                        $hits => $hits
-                    ],
-                    'options' => [ 'disabled' => 'disabled' ],
-                    'addon' => [
-                        'prepend' => [
-                            'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
-                        ]
-                    ],
-                ]); ?>
+                <div class="col-lg-12">
 
-            </div>
 
-            <div class="col-lg-12">
 
-                <div class="form-group">
-                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                </div>
+
+                <div class="col-lg-5">
+
+                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
+                        'options' => [
+                            'accept' => $attachType
+                        ],
+                        'pluginOptions' => [
+                            'previewFileType' => 'image',
+                            'showUpload'      => false,
+                            'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
+                        ],
+                    ]); ?>
+
+                    <?= $form->field($model, 'item_id')->widget(Select2::classname(), [
+                        'data' => $select2articles,
+                        'addon' => [
+                            'prepend' => [
+                                'content'=>'<i class="fa fa-file-text-o"></i>'
+                            ]
+                        ],
+                    ]); ?>
+
+                </div>
+
+                <div class="col-lg-7">
+
+                    <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 4]) ?>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <?= $form->field($model, 'hits')->widget(Select2::classname(), [
+                                'data' => [
+                                    $hits => $hits
+                                ],
+                                'options' => [ 'disabled' => 'disabled' ],
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
+                                    ]
+                                ],
+                            ]); ?>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <?= $form->field($model, 'extension')->widget(Select2::classname(), [
+                                'data' => [
+                                    $hits => $hits
+                                ],
+                                'options' => [ 'disabled' => 'disabled' ],
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
+                                    ]
+                                ],
+                            ]); ?>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <?= $form->field($model, 'size')->widget(Select2::classname(), [
+                                'data' => [
+                                    $hits => $hits
+                                ],
+                                'options' => [ 'disabled' => 'disabled' ],
+                                'addon' => [
+                                    'prepend' => [
+                                        'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
+                                    ]
+                                ],
+                            ]); ?>
+
+                        </div>
+
                 </div>
 
             </div>

@@ -6,7 +6,6 @@
  * @var $this yii\web\View
  */
 
-use kartik\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
 
 // Load Kartik Libraries
