@@ -129,7 +129,7 @@ if ($model->isNewRecord) {
                                 'options' => [ 'disabled' => 'disabled' ],
                                 'addon' => [
                                     'prepend' => [
-                                        'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
+                                        'content'=>'<i class="fa fa-file"></i>'
                                     ]
                                 ],
                             ]); ?>
@@ -145,7 +145,7 @@ if ($model->isNewRecord) {
                                 'options' => [ 'disabled' => 'disabled' ],
                                 'addon' => [
                                     'prepend' => [
-                                        'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
+                                        'content'=>'<i class="fa fa-balance-scale"></i>'
                                     ]
                                 ],
                             ]); ?>
