@@ -68,7 +68,7 @@ class Articles extends \yii\base\Module
 	public $attachURL = "@web/attachments/";
 
 	// Select Attachment Types allowed
-	public $attachType = "application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png";
+	public $attachType = ".jpg, .jpeg, .gif, .png, .csv, .pdf, .txt, .doc, .docs";
 
 	// Show Titles in the views
 	public $showTitles = true;
