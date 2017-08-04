@@ -19,6 +19,7 @@ use cinghie\traits\EditorTrait;
 use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\ModifiedTrait;
+use cinghie\traits\SeoTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\UserTrait;
@@ -73,7 +74,7 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-    use AccessTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+    use AccessTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -87,7 +88,7 @@ class Items extends Articles
      */
     public function rules()
     {
-        return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
+        return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
             [['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
@@ -100,7 +101,7 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
+        return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), SeoTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),
