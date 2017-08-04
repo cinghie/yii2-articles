@@ -42,7 +42,7 @@ if ($model->isNewRecord) {
 
             <div class="row">
 
-                <div class="col-md-8">
+                <div class="col-md-9">
 
                     <p class="bg-info">
                         <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $attachType ?>
@@ -50,7 +50,7 @@ if ($model->isNewRecord) {
 
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
 
                     <?= $model->getExitButton() ?>
 

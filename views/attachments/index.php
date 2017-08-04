@@ -112,7 +112,12 @@ $this->registerJs('$(document).ready(function()
                 ],
                 [
                     'attribute' => 'filename',
+                    'format' => 'html',
                     'hAlign' => 'center',
+                    'value' => function ($model) {
+                        /** @var $model cinghie\articles\models\Attachments */
+                        return Html::a($model->filename,$model->getFileUrl());
+                    }
                 ],
                 [
                     'attribute' => 'extension',
@@ -123,6 +128,10 @@ $this->registerJs('$(document).ready(function()
                     'attribute' => 'size',
                     'hAlign' => 'center',
                     'width' => '10%',
+                    'value' => function ($model) {
+                        /** @var $model cinghie\articles\models\Attachments */
+                        return $model->getSize();
+                    }
                 ],
                 [
                     'attribute' => 'hits',

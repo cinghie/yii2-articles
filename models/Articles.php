@@ -75,7 +75,7 @@ class Articles extends ActiveRecord
 			{
 				case "original":
 					// get original file name
-					$name = $file->name;
+					$name = $file->baseName;
 					break;
 				case "casual":
 					// generate a unique file name

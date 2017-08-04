@@ -14,6 +14,7 @@ namespace cinghie\articles\models;
 
 use Yii;
 use cinghie\traits\AttachmentTrait;
+use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\ViewsHelpersTrait;
 
 /**
@@ -35,7 +36,7 @@ use cinghie\traits\ViewsHelpersTrait;
 class Attachments extends Articles
 {
 
-    use AttachmentTrait, ViewsHelpersTrait;
+    use AttachmentTrait, TitleAliasTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -50,7 +51,7 @@ class Attachments extends Articles
      */
     public function rules()
     {
-        return array_merge(AttachmentTrait::rules(), [
+        return array_merge(AttachmentTrait::rules(),TitleAliasTrait::rules(), [
             [['title'], 'required'],
             [['item_id', 'hits'], 'integer'],
             [['titleAttribute'], 'string'],
@@ -62,7 +63,7 @@ class Attachments extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AttachmentTrait::attributeLabels(), [
+        return array_merge(AttachmentTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'item_id' => Yii::t('articles', 'Article'),
             'titleAttribute' => Yii::t('articles', 'Title Attribute'),
@@ -85,10 +86,12 @@ class Attachments extends Articles
      */
     public function isUserAuthor()
     {
-        if ( Yii::$app->user->identity->id == $this->getUserAuthor() )
+        if ( Yii::$app->user->identity->id === $this->getUserAuthor() )
         {
             return true;
+
         } else {
+
             return false;
         }
     }
@@ -104,7 +107,17 @@ class Attachments extends Articles
     }
 
     /**
-     * Delete File attached
+     * return file attached
+     *
+     * @return string
+     */
+    public function getFileUrl()
+    {
+        return Yii::getAlias(Yii::$app->controller->module->attachURL).$this->filename;
+    }
+
+    /**
+     * delete file attached
      *
      * @return mixed the uploaded image instance
      */
@@ -121,6 +134,8 @@ class Attachments extends Articles
         if (unlink($file)) {
             return true;
         }
+
+        return;
     }
 
 }

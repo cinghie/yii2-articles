@@ -119,8 +119,8 @@ class AttachmentsController extends Controller
                 // Create UploadFile Instance
                 $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
                 $model->filename = $attachment->name;
-                //$model->extension = $attachment->extension;
-                //$model->mimetype = $attachment->type;
+                $model->extension = $attachment->extension;
+                $model->mimetype = $attachment->type;
                 $model->size = $attachment->size;
 
                 if ( $model->save() ) {
@@ -163,7 +163,9 @@ class AttachmentsController extends Controller
         if($this->userCanUpdate($id))
         {
             $model = $this->findModel($id);
-            if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->load(Yii::$app->request->post()))
+            {
 
                 // Upload Attachments if is not Null
                 $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
@@ -175,7 +177,7 @@ class AttachmentsController extends Controller
                 $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
                 $model->filename = $attachment->name;
                 $model->extension = $attachment->extension;
-                $model->mimetype = $attachment->mimetype;
+                $model->mimetype = $attachment->type;
                 $model->size = $attachment->size;
 
                 if ( $model->save() ) {
@@ -197,11 +199,13 @@ class AttachmentsController extends Controller
                 }
 
             } else {
+
                 return $this->render('update', [
                     'model' => $model,
                 ]);
             }
         } else {
+
             throw new ForbiddenHttpException;
         }
     }
