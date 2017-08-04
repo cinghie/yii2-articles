@@ -74,18 +74,7 @@ if ($model->isNewRecord) {
 
                 <div class="col-lg-5">
 
-                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
-                        'options' => [
-                            'accept' => $attachType
-                        ],
-                        'pluginOptions' => [
-                            'previewFileType' => 'image',
-                            'showUpload'      => false,
-                            'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
-                        ],
-                    ]); ?>
+                    <?= $model->getTitleWidget($form) ?>
 
                     <?= $form->field($model, 'item_id')->widget(Select2::classname(), [
                         'data' => $select2articles,
@@ -96,59 +85,62 @@ if ($model->isNewRecord) {
                         ],
                     ]); ?>
 
+                    <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 4]) ?>
+
                 </div>
 
                 <div class="col-lg-7">
 
-                    <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 4]) ?>
-
                     <div class="row">
+
+                        <div class="col-md-12">
+
+                            <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
+                                'options' => [
+                                    'accept' => $attachType
+                                ],
+                                'pluginOptions' => [
+                                    'previewFileType' => 'image',
+                                    'showUpload'      => false,
+                                    'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
+                                ],
+                            ]); ?>
+
+                        </div>
 
                         <div class="col-md-4">
 
-                            <?= $form->field($model, 'hits')->widget(Select2::classname(), [
-                                'data' => [
-                                    $hits => $hits
-                                ],
-                                'options' => [ 'disabled' => 'disabled' ],
+                            <?= $form->field($model, 'hits',[
                                 'addon' => [
                                     'prepend' => [
                                         'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
                                     ]
                                 ],
-                            ]); ?>
+                            ])->textInput(['disabled' => true]) ?>
 
                         </div>
 
                         <div class="col-md-4">
 
-                            <?= $form->field($model, 'extension')->widget(Select2::classname(), [
-                                'data' => [
-                                    $hits => $hits
-                                ],
-                                'options' => [ 'disabled' => 'disabled' ],
+                            <?= $form->field($model, 'extension',[
                                 'addon' => [
                                     'prepend' => [
                                         'content'=>'<i class="fa fa-file"></i>'
                                     ]
                                 ],
-                            ]); ?>
+                            ])->textInput(['disabled' => true]) ?>
 
                         </div>
 
                         <div class="col-md-4">
 
-                            <?= $form->field($model, 'size')->widget(Select2::classname(), [
-                                'data' => [
-                                    $hits => $hits
-                                ],
-                                'options' => [ 'disabled' => 'disabled' ],
+                            <?= $form->field($model, 'size',[
                                 'addon' => [
                                     'prepend' => [
                                         'content'=>'<i class="fa fa-balance-scale"></i>'
                                     ]
                                 ],
-                            ]); ?>
+                            ])->textInput(['disabled' => true, 'value' => $model->getSize()]) ?>
 
                         </div>
 
