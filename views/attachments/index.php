@@ -130,7 +130,7 @@ $this->registerJs('$(document).ready(function()
                     'width' => '10%',
                     'value' => function ($model) {
                         /** @var $model cinghie\articles\models\Attachments */
-                        return $model->getSize();
+                        return $model->formatSize();
                     }
                 ],
                 [

@@ -17,14 +17,7 @@ ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Load info
-$attachType       = Yii::$app->controller->module->attachType;
-$select2articles = $model->getItemsSelect2();
-
-if ($model->isNewRecord) {
-    $hits = "0";
-} else {
-    $hits = $model->hits;
-}
+$attachType = Yii::$app->controller->module->attachType;
 
 ?>
 
@@ -66,18 +59,12 @@ if ($model->isNewRecord) {
 
             <div class="row">
 
-                <div class="col-lg-12">
-
-
-
-                </div>
-
                 <div class="col-lg-5">
 
                     <?= $model->getTitleWidget($form) ?>
 
                     <?= $form->field($model, 'item_id')->widget(Select2::classname(), [
-                        'data' => $select2articles,
+                        'data' => $model->getItemsSelect2(),
                         'addon' => [
                             'prepend' => [
                                 'content'=>'<i class="fa fa-file-text-o"></i>'
@@ -108,7 +95,7 @@ if ($model->isNewRecord) {
 
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-2">
 
                             <?= $form->field($model, 'hits',[
                                 'addon' => [
@@ -120,27 +107,21 @@ if ($model->isNewRecord) {
 
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-2">
 
-                            <?= $form->field($model, 'extension',[
-                                'addon' => [
-                                    'prepend' => [
-                                        'content'=>'<i class="fa fa-file"></i>'
-                                    ]
-                                ],
-                            ])->textInput(['disabled' => true]) ?>
+                            <?= $model->getExtensionWidget($form) ?>
 
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-5">
 
-                            <?= $form->field($model, 'size',[
-                                'addon' => [
-                                    'prepend' => [
-                                        'content'=>'<i class="fa fa-balance-scale"></i>'
-                                    ]
-                                ],
-                            ])->textInput(['disabled' => true, 'value' => $model->getSize()]) ?>
+                            <?= $model->getMimeTypeWidget($form) ?>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <?= $model->getSizeWidget($form) ?>
 
                         </div>
 
