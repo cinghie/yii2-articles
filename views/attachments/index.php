@@ -121,8 +121,13 @@ $this->registerJs('$(document).ready(function()
                 ],
                 [
                     'attribute' => 'extension',
+                    'format' => 'html',
                     'hAlign' => 'center',
                     'width' => '10%',
+                    'value' => function ($model) {
+                        /** @var $model cinghie\articles\models\Attachments */
+                        return $model->getAttachmentTypeIcon();
+                    }
                 ],
                 [
                     'attribute' => 'size',
