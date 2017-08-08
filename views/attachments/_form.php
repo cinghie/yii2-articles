@@ -7,9 +7,7 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
-use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
-use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 
 // Load Articles Assets
@@ -59,9 +57,17 @@ $attachType = Yii::$app->controller->module->attachType;
 
             <div class="row">
 
-                <div class="col-lg-5">
+                <div class="col-lg-4">
+
+                    <?= $model->getFileWidget($form) ?>
+
+                </div>
+
+                <div class="col-lg-4">
 
                     <?= $model->getTitleWidget($form) ?>
+
+                    <?= $model->getAliasWidget($form) ?>
 
                     <?= $form->field($model, 'item_id')->widget(Select2::classname(), [
                         'data' => $model->getItemsSelect2(),
@@ -72,30 +78,21 @@ $attachType = Yii::$app->controller->module->attachType;
                         ],
                     ]); ?>
 
-                    <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 4]) ?>
-
                 </div>
 
-                <div class="col-lg-7">
+                <div class="col-lg-4">
 
                     <div class="row">
 
                         <div class="col-md-12">
 
-                            <?= $form->field($model, 'filename')->widget(FileInput::classname(), [
-                                'options' => [
-                                    'accept' => $attachType
-                                ],
-                                'pluginOptions' => [
-                                    'previewFileType' => 'image',
-                                    'showUpload'      => false,
-                                    'browseLabel'     => Yii::t('articles', 'Browse &hellip;'),
-                                ],
-                            ]); ?>
+                            <?= $form->field($model, 'titleAttribute')->textarea(['rows' => 1]) ?>
+
+                            <?= $model->getMimeTypeWidget($form) ?>
 
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-4">
 
                             <?= $form->field($model, 'hits',[
                                 'addon' => [
@@ -107,19 +104,14 @@ $attachType = Yii::$app->controller->module->attachType;
 
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-4">
 
                             <?= $model->getExtensionWidget($form) ?>
 
                         </div>
 
-                        <div class="col-md-5">
 
-                            <?= $model->getMimeTypeWidget($form) ?>
-
-                        </div>
-
-                        <div class="col-md-3">
+                        <div class="col-md-4">
 
                             <?= $model->getSizeWidget($form) ?>
 
