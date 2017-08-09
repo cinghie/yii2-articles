@@ -16,7 +16,7 @@ use Yii;
 
 class Articles extends \yii\base\Module
 {
-
+    // Controller Namespace
     public $controllerNamespace = 'cinghie\articles\controllers';
 
     // Select User Class
@@ -118,28 +118,23 @@ class Articles extends \yii\base\Module
 	 */
     protected function setupImageDirectory()
     {
-        if(!file_exists(Yii::getAlias($this->categoryImagePath)))
-        {
+        if(!file_exists(Yii::getAlias($this->categoryImagePath))) {
             mkdir(Yii::getAlias($this->categoryImagePath), 0755, true);
         }
 
-        if(!file_exists(Yii::getAlias($this->categoryThumbPath)))
-        {
+        if(!file_exists(Yii::getAlias($this->categoryThumbPath))) {
             mkdir(Yii::getAlias($this->categoryThumbPath), 0755, true);
         }
 
-        if(!file_exists(Yii::getAlias($this->itemImagePath)))
-        {
+        if(!file_exists(Yii::getAlias($this->itemImagePath))) {
             mkdir(Yii::getAlias($this->itemImagePath), 0755, true);
         }
 
-        if(!file_exists(Yii::getAlias($this->itemThumbPath)))
-        {
+        if(!file_exists(Yii::getAlias($this->itemThumbPath))) {
             mkdir(Yii::getAlias($this->itemThumbPath), 0755, true);
         }
 
-        if(!file_exists(Yii::getAlias($this->attachPath)))
-        {
+        if(!file_exists(Yii::getAlias($this->attachPath))) {
             mkdir(Yii::getAlias($this->attachPath), 0755, true);
         }
     }
