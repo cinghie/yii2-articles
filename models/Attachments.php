@@ -16,6 +16,7 @@ use Yii;
 use cinghie\traits\AttachmentTrait;
 use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "{{%article_attachments}}".
@@ -117,6 +118,59 @@ class Attachments extends Articles
     }
 
     /**
+     * Upload file to folder
+     *
+     * @param $fileName
+     * @param $fileNameType
+     * @param $filePath
+     * @param $fileField
+     * @return UploadedFile|bool
+     */
+    public function uploadFile($fileName,$fileNameType,$filePath,$fileField)
+    {
+        // get the uploaded file instance. for multiple file uploads
+        // the following data will return an array (you may need to use
+        // getInstances method)
+        $file = UploadedFile::getInstance($this, $fileField);
+
+        // if no file was uploaded abort the upload
+        if ($file === null) {
+
+            return false;
+
+        } else {
+
+            // set fileName by fileNameType
+            switch($fileNameType)
+            {
+                case "original":
+                    $name = $file->baseName; // get original file name
+                    break;
+                case "casual":
+                    $name = Yii::$app->security->generateRandomString(); // generate a unique file name
+                    break;
+                default:
+                    $name = $fileName; // get item title like filename
+                    break;
+            }
+
+            // file extension
+            $fileExt = $file->extension;
+            // purge filename
+            $fileName = $name;
+            // set field to filename.extensions
+            $this->$fileField = $fileName.".{$fileExt}";
+            // update file->name
+            $file->name = $fileName.".{$fileExt}";
+            // save images to imagePath
+            $file->saveAs($filePath.$fileName.".{$fileExt}");
+
+            // the uploaded file instance
+            return $file;
+        }
+    }
+
+    /**
      * delete file attached
      *
      * @return mixed the uploaded image instance
@@ -135,7 +189,7 @@ class Attachments extends Articles
             return true;
         }
 
-        return;
+        return false;
     }
 
 }

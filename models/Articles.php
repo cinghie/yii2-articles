@@ -56,51 +56,48 @@ class Articles extends ActiveRecord
      * @param $fileField
      * @return UploadedFile|bool
      */
-    public function uploadFile($fileName,$fileNameType,$filePath,$fileField) 
-	{
+    public function uploadFile($fileName,$fileNameType,$filePath,$fileField)
+    {
         // get the uploaded file instance. for multiple file uploads
         // the following data will return an array (you may need to use
         // getInstances method)
         $file = UploadedFile::getInstance($this, $fileField);
- 
+
         // if no file was uploaded abort the upload
-        if (empty($file)) {
+        if ($file === null) {
 
             return false;
 
         } else {
-  		
-			// set fileName by fileNameType
-			switch($fileNameType) 
-			{
-				case "original":
-					// get original file name
-					$name = $file->baseName;
-					break;
-				case "casual":
-					// generate a unique file name
-					$name = Yii::$app->security->generateRandomString();
-					break;
-				default:
-					// get item title like filename
-					$name = $fileName;
-					break;
-			}
-			
-			// file extension
-			$fileExt  = $file->extension;
-			// purge filename
-			$fileName = $this->generateFileName($name);
-			// set field to filename.extensions
-			$this->$fileField = $fileName.".{$fileExt}";
-			// update file->name
-			$file->name = $fileName.".{$fileExt}";
-			// save images to imagePath
-			$file->saveAs($filePath.$fileName.".{$fileExt}");
-	 
-			// the uploaded file instance
-			return $file;
-		}
+
+            // set fileName by fileNameType
+            switch($fileNameType)
+            {
+                case "original":
+                    $name = $file->baseName; // get original file name
+                    break;
+                case "casual":
+                    $name = Yii::$app->security->generateRandomString(); // generate a unique file name
+                    break;
+                default:
+                    $name = $fileName; // get item title like filename
+                    break;
+            }
+
+            // file extension
+            $fileExt = $file->extension;
+            // purge filename
+            $fileName = $name;
+            // set field to filename.extensions
+            $this->$fileField = $fileName.".{$fileExt}";
+            // update file->name
+            $file->name = $fileName.".{$fileExt}";
+            // save images to imagePath
+            $file->saveAs($filePath.$fileName.".{$fileExt}");
+
+            // the uploaded file instance
+            return $file;
+        }
     }
 
     /**
@@ -134,20 +131,24 @@ class Articles extends ActiveRecord
 	}
 
     /**
-     * Generate fileName
+     * Function for creating directory to save file
      *
-     * @param $name
-     * @return string fileName
+     * @param string $path file to create
      */
-    public function generateFileName($name)
+    protected function createDirectory($path)
     {
-        // remove any duplicate whitespace, and ensure all characters are alphanumeric
-        $str = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $name);
+        $sizes = array(
+            'small',
+            'medium',
+            'large',
+            'extra',
+        );
 
-        // lowercase and trim
-        $str = trim(strtolower($str));
-
-        return $str;
+        foreach($sizes as $size) {
+            if(!file_exists($path.$size)) {
+                mkdir($path.$size, 0755, true);
+            }
+        }
     }
 
     /**
@@ -168,16 +169,6 @@ class Articles extends ActiveRecord
 
         return $items;
     }
-
-	/**
-	 * Generate JSON for Params
-     *
-     * @param $params
-	 * @return string json encoded
-	 */
-	public function generateJsonParams($params) {
-		return json_encode($params);
-	}
 
     /**
      * Return array for Category Select2
@@ -229,6 +220,16 @@ class Articles extends ActiveRecord
 		return $array;
 	}
 
+    /**
+     * Generate JSON for Params
+     *
+     * @param $params
+     * @return string json encoded
+     */
+    public function generateJsonParams($params) {
+        return json_encode($params);
+    }
+
 	/**
 	 * Return param
      *
@@ -242,26 +243,5 @@ class Articles extends ActiveRecord
 
 		return $params->$param;
 	}
-
-    /**
-     * Function for creating directory to save file
-     *
-     * @param string $path file to create
-     */
-    protected function createDirectory($path)
-    {
-        $sizes = array(
-            'small',
-            'medium',
-            'large',
-            'extra',
-        );
-
-        foreach($sizes as $size) {
-            if(!file_exists($path.$size)) {
-                mkdir($path.$size, 0755, true);
-            }
-        }
-    }
 
 }
