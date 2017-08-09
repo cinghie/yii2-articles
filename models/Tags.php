@@ -13,6 +13,10 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use cinghie\traits\EditorTrait;
+use cinghie\traits\NameAliasTrait;
+use cinghie\traits\StateTrait;
+use cinghie\traits\ViewsHelpersTrait;
 use yii\helpers\Url;
 
 /**
@@ -26,6 +30,9 @@ use yii\helpers\Url;
  */
 class Tags extends Articles
 {
+
+    use EditorTrait, NameAliasTrait, StateTrait, ViewsHelpersTrait;
+
     /**
      * @inheritdoc
      */
@@ -39,12 +46,10 @@ class Tags extends Articles
      */
     public function rules()
     {
-        return [
+        return array_merge(NameAliasTrait::rules(), StateTrait::rules(), [
             [['name'], 'required'],
             [['description'], 'string'],
-            [['state'], 'integer'],
-            [['name', 'alias'], 'string', 'max' => 255],
-        ];
+        ]);
     }
 
     /**
@@ -52,13 +57,10 @@ class Tags extends Articles
      */
     public function attributeLabels()
     {
-        return [
+        return array_merge(NameAliasTrait::attributeLabels(), StateTrait::attributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
-            'name' => Yii::t('articles', 'Name'),
-            'alias' => Yii::t('articles', 'Alias'),
-            'state' => Yii::t('articles', 'State'),
             'description' => Yii::t('articles', 'Description'),
-        ];
+        ]);
     }
 
     /**
