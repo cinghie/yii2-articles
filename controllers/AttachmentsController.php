@@ -18,7 +18,6 @@ use cinghie\articles\models\AttachmentsSearch;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 class AttachmentsController extends Controller
@@ -32,13 +31,39 @@ class AttachmentsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deletemultiple'],
-                        'roles' => ['@']
+                        'actions' => ['index'],
+                        'matchCallback' => function () {
+                            return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items') );
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['articles-create-items'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->item->isCurrentUserCreator()) ) );
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete','deletemultiple'],
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->item->isCurrentUserCreator()) ) );
+                        }
                     ],
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'roles' => ['?', '@']
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-view-items') || $model->access === "public" );
+                        }
                     ],
                 ],
                 'denyCallback' => function () {
@@ -56,197 +81,179 @@ class AttachmentsController extends Controller
     }
 
     /**
-     * Lists all Attachments models
+     * Lists all Attachments models.
+     *
      * @return string
-     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
-        // Check RBAC Permission
-        if($this->userCanIndex())
-        {
-            $searchModel = new AttachmentsSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new AttachmentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        } else {
-            throw new ForbiddenHttpException;
-        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
-     * Displays a single Attachments model.
+     * Displays a single Attachments model
+     *
      * @param $id
      * @return string
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
-        // Check RBAC Permission
-        if($this->userCanView($id))
-        {
-            return $this->render('view', ['model' => $this->findModel($id),]);
-        } else {
-            throw new ForbiddenHttpException;
-        }
+        return $this->render('view', [
+            'model' => $this->findModel($id)
+        ]);
     }
 
     /**
      * Creates a new Attachments model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return string|\yii\web\Response
-     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
-        // Check RBAC Permission
-        if($this->userCanCreate())
+        $model = new Attachments();
+
+        if ( $model->load(Yii::$app->request->post()) )
         {
-            $model = new Attachments();
+            // If alias is not set, generate it
+            if ($_POST['Attachments']['alias'] === "") {
+                $model->alias = $model->generateAlias($model->title);
+            }
 
-            if ( $model->load(Yii::$app->request->post()) )
-            {
-                // Upload Attachments if is not Null
-                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
-                $attachName  = $model->title;
-                $attachType  = "original";
-                $attachField = "filename";
+            // Upload Attachments if is not Null
+            $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
+            $attachName  = $model->title;
+            $attachType  = "original";
+            $attachField = "filename";
 
-                // Create UploadFile Instance
-                $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
-                $model->filename = $attachment->name;
-                $model->extension = $attachment->extension;
-                $model->mimetype = $attachment->type;
-                $model->size = $attachment->size;
+            // Create UploadFile Instance
+            $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+            $model->filename = $attachment->name;
+            $model->extension = $attachment->extension;
+            $model->mimetype = $attachment->type;
+            $model->size = $attachment->size;
 
-                if ( $model->save() ) {
+            if ( $model->save() ) {
 
-                    // upload only if valid uploaded file instance found
-                    if ($attachment !== false) {
-                        // Set Success Message
-                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
-                    }
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
 
-                    return $this->redirect(['index']);
-
-                } else {
-
-                    // Set Error Message
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
-
-                    return $this->render('create', ['model' => $model,]);
-                }
+                return $this->redirect(['index']);
 
             } else {
-                return $this->render('create', ['model' => $model,]);
+
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
+
+                return $this->render('create', [
+                    'model' => $model
+                ]);
             }
+
         } else {
-            throw new ForbiddenHttpException;
+
+            return $this->render('create', [
+                'model' => $model
+            ]);
         }
     }
 
     /**
      * Updates an existing Attachments model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param $id
      * @return string|\yii\web\Response
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
-        // Check RBAC Permission
-        if($this->userCanUpdate($id))
+        $model = $this->findModel($id);
+        $file_name = $model->filename;
+
+        if ($model->load(Yii::$app->request->post()))
         {
-            $model = $this->findModel($id);
+            // If alias is not set, generate it
+            if ($_POST['Attachments']['alias'] === "") {
+                $model->alias = $model->generateAlias($model->title);
+            }
 
-            if ($model->load(Yii::$app->request->post()))
-            {
+            // Upload Attachments if is not Null
+            $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
+            $attachName  = $model->title;
+            $attachType  = "original";
+            $attachField = "filename";
 
-                // Upload Attachments if is not Null
-                $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
-                $attachName  = $model->title;
-                $attachType  = "original";
-                $attachField = "filename";
+            // Create UploadFile Instance
+            $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
 
-                // Create UploadFile Instance
-                $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
+            if($attachment) {
+
                 $model->filename = $attachment->name;
                 $model->extension = $attachment->extension;
                 $model->mimetype = $attachment->type;
                 $model->size = $attachment->size;
 
-                if ( $model->save() ) {
+            } else {
 
-                    // upload only if valid uploaded file instance found
-                    if ($attachment !== false) {
-                        // Set Success Message
-                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
-                    }
+                $model->filename = $file_name;
+            }
 
-                    return $this->redirect(['index']);
+            if ( $model->save() ) {
 
-                } else {
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been updated!'));
 
-                    // Set Error Message
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
-
-                    return $this->render('create', ['model' => $model,]);
-                }
+                return $this->redirect(['index']);
 
             } else {
 
-                return $this->render('update', [
-                    'model' => $model,
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
+
+                return $this->render('create', [
+                    'model' => $model
                 ]);
             }
+
         } else {
 
-            throw new ForbiddenHttpException;
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
     }
 
     /**
      * Deletes an existing Attachments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param $id
      * @return \yii\web\Response
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     * @throws \Exception
      */
     public function actionDelete($id)
     {
-        // Check RBAC Permission
-        if($this->userCanDelete($id))
-        {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            if ($model->delete()) {
-                if (!$model->deleteFile() && !empty($model->filename)) {
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment (controller delete)'));
-                } else {
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
-                }
+        if ($model->delete()) {
+            if (!$model->deleteFile() && !empty($model->filename)) {
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment (controller delete)'));
             } else {
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
             }
-
-            return $this->redirect(['index']);
         } else {
-            throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
         }
+
+        return $this->redirect(['index']);
     }
 
     /**
      * Deletes selected Attachments models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
+     *
+     * @return void
      * @throws \Exception
      */
     public function actionDeletemultiple()
@@ -259,23 +266,22 @@ class AttachmentsController extends Controller
 
         foreach ($ids as $id)
         {
-            // Check RBAC Permission
-            if($this->userCanDelete($id))
-            {
-                $model = $this->findModel($id);
+            $model = $this->findModel($id);
 
-                if ($model->delete()) {
-                    if (!$model->deleteFile() && !empty($model->filename)) {
-                        Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
-                    } else {
-                        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
-                    }
-                } else {
+            if ($model->delete()) {
+
+                if (!$model->deleteFile() && !empty($model->filename)) {
+
                     Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+
+                } else {
+
+                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
                 }
 
             } else {
-                throw new ForbiddenHttpException;
+
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
             }
         }
 
@@ -286,6 +292,7 @@ class AttachmentsController extends Controller
     /**
      * Finds the Attachments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Attachments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -297,72 +304,6 @@ class AttachmentsController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    /**
-     * Check if user can Index Articles
-     * @return bool
-     */
-    protected function userCanIndex()
-    {
-        return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items'));
-    }
-
-    /**
-     * Check if user can view Articles
-     * @param $id
-     * @return bool
-     */
-    protected function userCanView($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-view-items') || $model->access == "public"  );
-    }
-
-    /**
-     * Check if user can create Articles
-     * @return bool
-     */
-    protected function userCanCreate()
-    {
-        return ( Yii::$app->user->can('articles-create-items') );
-    }
-
-    /**
-     * Check if user can update Articles
-     * @param $id
-     * @return bool
-     */
-    protected function userCanUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isUserAuthor()) ) );
-    }
-
-    /**
-     * Check if user can publish Articles
-     * @param $id
-     * @return bool
-     */
-    protected function userCanPublish($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isUserAuthor()) ) );
-    }
-
-    /**
-     * Check if user can delete Articles
-     * @param $id
-     * @return bool
-     */
-    protected function userCanDelete($id)
-    {
-        $model = $this->findModel($id);
-
-        return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isUserAuthor()) ) );
     }
 
 }
