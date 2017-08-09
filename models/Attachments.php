@@ -77,7 +77,7 @@ class Attachments extends Articles
      */
     public function getItem()
     {
-        return $this->hasOne(Items::className(), ['id' => 'item_id']);
+        return $this->hasOne(Items::className(), ['id' => 'item_id'])->from(Items::tableName() . ' AS item');
     }
 
     /**

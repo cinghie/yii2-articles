@@ -27,8 +27,8 @@ class AttachmentsSearch extends Attachments
     public function rules()
     {
         return [
-            [['id', 'item_id', 'hits', 'size'], 'integer'],
-            [['extension', 'filename', 'mimetype', 'title', 'titleAttribute'], 'safe'],
+            [['id', 'hits', 'size'], 'integer'],
+            [['item_id', 'extension', 'filename', 'mimetype', 'title', 'titleAttribute'], 'safe'],
         ];
     }
 
@@ -50,6 +50,7 @@ class AttachmentsSearch extends Attachments
     public function search($params)
     {
         $query = Attachments::find();
+        $query->joinWith('item');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -70,12 +71,12 @@ class AttachmentsSearch extends Attachments
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'item_id' => $this->item_id,
             'hits' => $this->hits,
             'size' => $this->size,
         ]);
 
         $query->andFilterWhere(['like', 'filename', $this->filename])
+            ->andFilterWhere(['like', 'item.title', $this->item_id])
             ->andFilterWhere(['like', 'extension', $this->extension])
             ->andFilterWhere(['like', 'mimetype', $this->mimetype])
             ->andFilterWhere(['like', 'title', $this->title])
