@@ -38,13 +38,23 @@ class TagsController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index','create','update','delete','deletemultiple','changestate','activemultiple','deactivemultiple'],
-                        'roles' => ['@']
+                        'actions' => ['index'],
+                        'roles' => ['articles-index-tags'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view'],
-                        'roles' => ['?', '@']
+                        'actions' => ['create'],
+                        'roles' => ['articles-create-tags'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update','changestate','activemultiple','deactivemultiple'],
+                        'roles' => ['articles-update-tags'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete','deleteimage','deletemultiple'],
+                        'roles' => ['articles-delete-tags'],
                     ],
                 ],
                 'denyCallback' => function () {
@@ -104,28 +114,21 @@ class TagsController extends Controller
     {
         $model = new Tags();
 
-        // Check RBAC Permission
-        if($this->userCanCreate())
+        if ($model->load(Yii::$app->request->post()))
         {
-            if ($model->load(Yii::$app->request->post()))
-            {
-                // If alias is not set, generate it
-                if ($_POST['Tags']['alias']=="") {
-                    $model->alias = $model->generateAlias($model->name);
-                }
+            // If alias is not set, generate it
+            if ($_POST['Tags']['alias']=="") {
+                $model->alias = $model->generateAlias($model->name);
+            }
 
-                if($model->save()) {
-                    return $this->redirect(['index']);
-                } else {
-                    return $this->render('create', [ 'model' => $model, ]);
-                }
-
+            if($model->save()) {
+                return $this->redirect(['index']);
             } else {
                 return $this->render('create', [ 'model' => $model, ]);
             }
 
         } else {
-            throw new ForbiddenHttpException;
+            return $this->render('create', [ 'model' => $model, ]);
         }
     }
 
@@ -140,29 +143,23 @@ class TagsController extends Controller
      */
     public function actionUpdate($id)
     {
-        // Check RBAC Permission
-        if($this->userCanUpdate())
-        {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
 
-                // If alias is not set, generate it
-                if ($_POST['Tags']['alias']=="") {
-                    $model->alias = $model->generateAlias($model->name);
-                }
+            // If alias is not set, generate it
+            if ($_POST['Tags']['alias']=="") {
+                $model->alias = $model->generateAlias($model->name);
+            }
 
-                if($model->save()) {
-                    return $this->redirect(['index']);
-                } else {
-                    return $this->render('update', [ 'model' => $model, ]);
-                }
-
+            if($model->save()) {
+                return $this->redirect(['index']);
             } else {
                 return $this->render('update', [ 'model' => $model, ]);
             }
+
         } else {
-            throw new ForbiddenHttpException;
+            return $this->render('update', [ 'model' => $model, ]);
         }
     }
 
@@ -178,15 +175,9 @@ class TagsController extends Controller
      */
     public function actionDelete($id)
     {
-        // Check RBAC Permission
-        if($this->userCanUpdate())
-        {
-            $this->findModel($id)->delete();
+        $this->findModel($id)->delete();
 
-            return $this->redirect(['index']);
-        }  else {
-            throw new ForbiddenHttpException;
-        }
+        return $this->redirect(['index']);
     }
 
     /**
@@ -205,20 +196,14 @@ class TagsController extends Controller
             return;
         }
 
-        foreach ($ids as $id) {
-            // Check RBAC Permission
-            if ($this->userCanDelete())
-            {
-                $model = $this->findModel($id);
+        foreach ($ids as $id)
+        {
+            $model = $this->findModel($id);
 
-                if ($model->delete()) {
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Tag has been deleted!'));
-                } else {
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting tags'));
-                }
-
+            if ($model->delete()) {
+                Yii::$app->session->setFlash('success', Yii::t('articles', 'Tag has been deleted!'));
             } else {
-                throw new ForbiddenHttpException;
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting tags'));
             }
         }
     }
@@ -233,22 +218,14 @@ class TagsController extends Controller
      */
     public function actionChangestate($id)
     {
-        // Check RBAC Permission
-        if($this->userCanPublish())
-        {
-            $model = $this->findModel($id);
+        $model = $this->findModel($id);
 
-            if ($model->state) {
-                $model->deactive();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags unpublished'));
-            } else {
-                $model->active();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags published'));
-            }
-
-            return $this->redirect(['index']);
+        if ($model->state) {
+            $model->deactive();
+            Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags unpublished'));
         } else {
-            throw new ForbiddenHttpException;
+            $model->active();
+            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags published'));
         }
     }
 
@@ -262,26 +239,20 @@ class TagsController extends Controller
      */
     public function actionActivemultiple()
     {
-        // Check RBAC Permission
-        if($this->userCanPublish())
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
         {
-            $ids = Yii::$app->request->post('ids');
+            $model = $this->findModel($id);
 
-            if (!$ids) {
-                return;
+            if(!$model->state) {
+                $model->active();
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags actived'));
             }
-
-            foreach ($ids as $id)
-            {
-                $model = $this->findModel($id);
-
-                if(!$model->state) {
-                    $model->active();
-                    Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags actived'));
-                }
-            }
-        } else {
-            throw new ForbiddenHttpException;
         }
 
         return;
@@ -297,26 +268,20 @@ class TagsController extends Controller
      */
     public function actionDeactivemultiple()
     {
-        // Check RBAC Permission
-        if($this->userCanPublish())
+        $ids = Yii::$app->request->post('ids');
+
+        if (!$ids) {
+            return;
+        }
+
+        foreach ($ids as $id)
         {
-            $ids = Yii::$app->request->post('ids');
+            $model = $this->findModel($id);
 
-            if (!$ids) {
-                return;
+            if($model->state) {
+                $model->deactive();
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags inactived'));
             }
-
-            foreach ($ids as $id)
-            {
-                $model = $this->findModel($id);
-
-                if($model->state) {
-                    $model->deactive();
-                    Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags inactived'));
-                }
-            }
-        } else {
-            throw new ForbiddenHttpException;
         }
 
         return;
@@ -338,44 +303,5 @@ class TagsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-    /**
-     * Check if user can create Tags
-     *
-     * @return bool
-     */
-    protected function userCanCreate()
-    {
-        return ( Yii::$app->user->can('articles-create-tags') );
-    }
-
-    /**
-     * Check if user can update Tags
-     *
-     * @return bool
-     */
-    protected function userCanUpdate()
-    {
-        return ( Yii::$app->user->can('articles-update-tags') );
-    }
-
-    /**
-     * Check if user can publish Tags
-     *
-     * @return bool
-     */
-    protected function userCanPublish()
-    {
-        return ( Yii::$app->user->can('articles-publish-tags') );
-    }
-
-    /**
-     * Check if user can delete Tags
-     *
-     * @return bool
-     */
-    protected function userCanDelete()
-    {
-        return ( Yii::$app->user->can('articles-delete-tags') );
-    }
+    
 }
