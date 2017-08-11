@@ -16,7 +16,7 @@ namespace cinghie\articles\models;
  * This is the ActiveQuery class for [[Tagsassign]].
  * @see Tagsassign
  */
-class TagsAssignQuery extends \yii\db\ActiveQuery
+class TagsassignQuery extends \yii\db\ActiveQuery
 {
 
     /**

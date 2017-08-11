@@ -64,6 +64,14 @@ class Tags extends Articles
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTagsassign()
+    {
+        return $this->hasMany(Tagsassign::className(), ['tag_id' => 'id']);
+    }
+
+    /**
      * return Tag url
      *
      * @return string

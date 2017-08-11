@@ -54,6 +54,22 @@ class Tagsassign extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItem()
+    {
+        return $this->hasOne(Items::className(), ['id' => 'item_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTag()
+    {
+        return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
+    }
+
+    /**
      * @inheritdoc
      *
      * @return TagsAssignQuery the active query used by this AR class.
