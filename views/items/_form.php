@@ -95,17 +95,28 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
                                 <div class="row">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-7">
 
                                         <?= $model->getTitleWidget($form) ?>
 
-                                    </div> <!-- end col-md-6 -->
+                                        <?= $model->getTagsWidget() ?>
 
-                                    <div class="col-md-6">
+                                    </div> <!-- end col-md-8 -->
+
+                                    <div class="col-md-5">
+
+                                        <?= $form->field($model, 'cat_id')->widget(Select2::classname(), [
+                                            'data' => $model->getCategoriesSelect2(),
+                                            'addon' => [
+                                                'prepend' => [
+                                                    'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
+                                                ]
+                                            ],
+                                        ]); ?>
 
                                         <?= $model->getLanguageWidget($form) ?>
 
-                                    </div> <!-- end col-md-6 -->
+                                    </div> <!-- end col-md-4 -->
 
                                     <div class="col-md-12">
 
@@ -120,15 +131,6 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
                             </div> <!-- end col-md-8 -->
 
                             <div class="col-md-4">
-
-                                <?= $form->field($model, 'cat_id')->widget(Select2::classname(), [
-                                    'data' => $model->getCategoriesSelect2(),
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
 
                                 <?= $model->getStateWidget($form) ?>
 

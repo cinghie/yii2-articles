@@ -48,6 +48,29 @@ class Articles extends ActiveRecord
     }
 
     /**
+     * Generate Tags Form Widget
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function getTagsWidget()
+    {
+        $tags = '<div class="form-group field-items-title">';
+        $tags .= '<label class="control-label">'.Yii::t('articles','Tags').'</label>';
+        $tags .= Select2::widget([
+            'name' => 'tags',
+            'data' => $this->getTagsSelect2(),
+            'options' => [
+                'placeholder' => Yii::t('articles','Select tags'),
+                'multiple' => true
+            ],
+        ]);
+        $tags .= '</div>';
+
+        return $tags;
+    }
+
+    /**
      * Upload file to folder
      *
      * @param $fileName
@@ -108,6 +131,7 @@ class Articles extends ActiveRecord
      * @param $imgOptions
      * @param $thumbPath
      * @return mixed the uploaded image instance
+     * @throws \Imagine\Exception\RuntimeException
      */
 	public function createThumbImages($image,$imagePath,$imgOptions,$thumbPath)
 	{	
@@ -219,6 +243,27 @@ class Articles extends ActiveRecord
 
 		return $array;
 	}
+
+    /**
+     * Return array with all Tags
+     *
+     * @return array
+     */
+    public function getTagsSelect2()
+    {
+        $array = array();
+
+        $tags = Tags::find()
+            ->select(['id','name'])
+            ->orderBy('name')
+            ->all();
+
+        foreach($tags as $tag) {
+            $array[$tag['id']] = $tag['name'];
+        }
+
+        return $array;
+    }
 
     /**
      * Generate JSON for Params
