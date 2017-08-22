@@ -24,7 +24,11 @@ class DefaultController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index'], 'roles' => ['@']],
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['admin']
+                    ],
                 ],
                 'denyCallback' => function () {
                     throw new \Exception('You are not allowed to access this page');

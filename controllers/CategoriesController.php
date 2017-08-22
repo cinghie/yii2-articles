@@ -88,6 +88,7 @@ class CategoriesController extends Controller
      * Lists all Categories models
      *
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionIndex()
     {
@@ -105,6 +106,7 @@ class CategoriesController extends Controller
      *
      * @param int $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      * @throws NotFoundHttpException
      */
     public function actionView($id)
@@ -141,7 +143,7 @@ class CategoriesController extends Controller
             }
 
             // If alias is not set, generate it
-            if ($post['Categories']['alias'] == "") {
+            if ($post['Categories']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->name);
             }
 
@@ -218,6 +220,7 @@ class CategoriesController extends Controller
      *
      * @param int $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionUpdate($id)
     {
@@ -233,7 +236,7 @@ class CategoriesController extends Controller
             }
 
             // If alias is not set, generate it
-            if ($post['Categories']['alias'] == "") {
+            if ($post['Categories']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->name);
             }
 

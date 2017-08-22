@@ -78,6 +78,7 @@ class TagsController extends Controller
      * Lists all Tags models.
      *
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionIndex()
     {
@@ -95,6 +96,7 @@ class TagsController extends Controller
      *
      * @param integer $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionView($id)
     {
@@ -117,7 +119,7 @@ class TagsController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
             // If alias is not set, generate it
-            if ($_POST['Tags']['alias']=="") {
+            if ($_POST['Tags']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->name);
             }
 
@@ -148,7 +150,7 @@ class TagsController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             // If alias is not set, generate it
-            if ($_POST['Tags']['alias']=="") {
+            if ($_POST['Tags']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->name);
             }
 

@@ -84,6 +84,7 @@ class AttachmentsController extends Controller
      * Lists all Attachments models.
      *
      * @return string
+     * @throws \yii\base\InvalidParamException
      */
     public function actionIndex()
     {
@@ -101,6 +102,7 @@ class AttachmentsController extends Controller
      *
      * @param $id
      * @return string
+     * @throws \yii\base\InvalidParamException
      */
     public function actionView($id)
     {
@@ -114,6 +116,7 @@ class AttachmentsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      *
      * @return string|\yii\web\Response
+     * @throws \yii\base\InvalidParamException
      */
     public function actionCreate()
     {
@@ -122,7 +125,7 @@ class AttachmentsController extends Controller
         if ( $model->load(Yii::$app->request->post()) )
         {
             // If alias is not set, generate it
-            if ($_POST['Attachments']['alias'] === "") {
+            if ($_POST['Attachments']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 
@@ -168,6 +171,7 @@ class AttachmentsController extends Controller
      *
      * @param $id
      * @return string|\yii\web\Response
+     * @throws \yii\base\InvalidParamException
      */
     public function actionUpdate($id)
     {
@@ -177,7 +181,7 @@ class AttachmentsController extends Controller
         if ($model->load(Yii::$app->request->post()))
         {
             // If alias is not set, generate it
-            if ($_POST['Attachments']['alias'] === "") {
+            if ($_POST['Attachments']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 

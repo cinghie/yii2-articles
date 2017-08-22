@@ -100,6 +100,7 @@ class ItemsController extends Controller
      * Lists all Items models
      *
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionIndex()
     {
@@ -117,6 +118,7 @@ class ItemsController extends Controller
      *
      * @param integer $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionView($id)
     {
@@ -142,7 +144,7 @@ class ItemsController extends Controller
             $model->modified = "0000-00-00 00:00:00";
 
             // If alias is not set, generate it
-            if ($_POST['Items']['alias']=="")
+            if ($_POST['Items']['alias'] === '')
             {
                 $model->alias = $model->generateAlias($model->title);
             }
@@ -191,6 +193,7 @@ class ItemsController extends Controller
      *
      * @param integer $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionUpdate($id)
     {
@@ -205,7 +208,7 @@ class ItemsController extends Controller
             $model->modified_by = Yii::$app->user->identity->id;
 
             // If alias is not set, generate it
-            if ($_POST['Items']['alias'] == "") {
+            if ($_POST['Items']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 
