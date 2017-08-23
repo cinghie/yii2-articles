@@ -64,6 +64,10 @@ class Articles extends ActiveRecord
                 'placeholder' => Yii::t('articles','Select Tags'),
                 'multiple' => true
             ],
+            'pluginOptions' => [
+                'tags' => true,
+            ],
+            'value' => $this->getTagsIDByItemID($this->id)
         ]);
         $tags .= '</div>';
 
@@ -260,6 +264,26 @@ class Articles extends ActiveRecord
 
         foreach($tags as $tag) {
             $array[$tag['id']] = $tag['name'];
+        }
+
+        return $array;
+    }
+
+    /**
+     * Get Tags by Item ID
+     *
+     * return Integer[]
+     */
+    public function getTagsIDByItemID($item_id)
+    {
+        $array = array();
+
+        $tags = Tagsassign::find()
+            ->where(['item_id' => $item_id])
+            ->all();
+
+        foreach($tags as $tag) {
+            $array[] = $tag['tag_id'];
         }
 
         return $array;
