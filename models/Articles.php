@@ -61,7 +61,7 @@ class Articles extends ActiveRecord
             'name' => 'tags',
             'data' => $this->getTagsSelect2(),
             'options' => [
-                'placeholder' => Yii::t('articles','Select tags'),
+                'placeholder' => Yii::t('articles','Select Tags'),
                 'multiple' => true
             ],
         ]);

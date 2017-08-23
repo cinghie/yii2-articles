@@ -115,11 +115,12 @@ class TagsController extends Controller
     public function actionCreate()
     {
         $model = new Tags();
+        $post  = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()))
+        if ( $model->load($post) )
         {
             // If alias is not set, generate it
-            if ($_POST['Tags']['alias'] === '') {
+            if ($post['Tags']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->name);
             }
 
@@ -146,11 +147,12 @@ class TagsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $post  = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post())) {
-
+        if ( $model->load($post) )
+        {
             // If alias is not set, generate it
-            if ($_POST['Tags']['alias'] === '') {
+            if ($post['Tags']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->name);
             }
 

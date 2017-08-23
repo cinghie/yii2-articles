@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use cinghie\articles\models\Tagsassign;
 use Yii;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
@@ -137,15 +138,15 @@ class ItemsController extends Controller
     public function actionCreate()
     {
         $model = new Items();
+        $post  = Yii::$app->request->post();
 
-        if ( $model->load(Yii::$app->request->post()) )
+        if ( $model->load($post) )
         {
             // Set Modified as actual date
             $model->modified = "0000-00-00 00:00:00";
 
             // If alias is not set, generate it
-            if ($_POST['Items']['alias'] === '')
-            {
+            if ($post['Items']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 
@@ -158,11 +159,24 @@ class ItemsController extends Controller
             $fileField   = "image";
 
             // Create UploadFile Instance
-            $image  = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+            $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
 
             if ($model->save()) {
 
-                // upload only if valid uploaded file instance found
+                // Set Tags
+                $tags = $post['tags'];
+
+                if($tags !== null)
+                {
+                    foreach ($tags as $tag) {
+                        $tagsAassign = new Tagsassign();
+                        $tagsAassign->item_id = $model->id;
+                        $tagsAassign->tag_id = $tag;
+                        $tagsAassign->save();
+                    }
+                }
+
+                // Upload only if valid uploaded file instance found
                 if ($image !== false)
                 {
                     // save thumbs to thumbPaths
@@ -198,8 +212,9 @@ class ItemsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $post  = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load($post)) {
 
             // Set Modified as actual date
             $model->modified = date("Y-m-d H:i:s");
@@ -208,7 +223,7 @@ class ItemsController extends Controller
             $model->modified_by = Yii::$app->user->identity->id;
 
             // If alias is not set, generate it
-            if ($_POST['Items']['alias'] === '') {
+            if ($post['Items']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 
@@ -228,6 +243,19 @@ class ItemsController extends Controller
             }
 
             if ($model->save()) {
+
+                // Set Tags
+                $tags = $post['tags'];
+
+                if($tags !== null)
+                {
+                    foreach ($tags as $tag) {
+                        $tagsAassign = new Tagsassign();
+                        $tagsAassign->item_id = $model->id;
+                        $tagsAassign->tag_id = $tag;
+                        $tagsAassign->save();
+                    }
+                }
 
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {

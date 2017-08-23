@@ -121,11 +121,12 @@ class AttachmentsController extends Controller
     public function actionCreate()
     {
         $model = new Attachments();
+        $post  = Yii::$app->request->post();
 
-        if ( $model->load(Yii::$app->request->post()) )
+        if ( $model->load($post) )
         {
             // If alias is not set, generate it
-            if ($_POST['Attachments']['alias'] === '') {
+            if ($post['Attachments']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 
@@ -176,12 +177,14 @@ class AttachmentsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $post  = Yii::$app->request->post();
+
         $file_name = $model->filename;
 
-        if ($model->load(Yii::$app->request->post()))
+        if ( $model->load($post) )
         {
             // If alias is not set, generate it
-            if ($_POST['Attachments']['alias'] === '') {
+            if ($post['Attachments']['alias'] === '') {
                 $model->alias = $model->generateAlias($model->title);
             }
 
