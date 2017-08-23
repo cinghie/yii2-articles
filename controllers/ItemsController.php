@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use cinghie\articles\models\Attachments;
 use cinghie\articles\models\Tagsassign;
 use Yii;
 use cinghie\articles\models\Items;
@@ -294,6 +295,14 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
+        Attachments::deleteAll([
+            'AND', 'item_id = '.$id
+        ]);
+
+        Tagsassign::deleteAll([
+            'AND', 'item_id = '.$id
+        ]);
+
         if ($model->delete()) {
             if (!$model->deleteImage() && !empty($model->image)) {
                 Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
@@ -321,6 +330,14 @@ class ItemsController extends Controller
         foreach ($ids as $id)
         {
             $model = $this->findModel($id);
+
+            Attachments::deleteAll([
+                'AND', 'item_id = '.$id
+            ]);
+
+            Tagsassign::deleteAll([
+                'AND', 'item_id = '.$id
+            ]);
 
             if ($model->delete()) {
                 if (!$model->deleteImage() && !empty($model->image)) {
