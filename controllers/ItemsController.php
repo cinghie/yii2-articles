@@ -217,6 +217,8 @@ class ItemsController extends Controller
 
         if ($model->load($post)) {
 
+            $oldTags = $model->getTagsIDByItemID();
+
             // Set Modified as actual date
             $model->modified = date("Y-m-d H:i:s");
 
@@ -248,8 +250,7 @@ class ItemsController extends Controller
                 // Set Tags
                 $tags = $post['tags'];
 
-                if($tags !== null)
-                {
+                if($tags !== null) {
                     foreach ($tags as $tag) {
                         $tagsAassign = new Tagsassign();
                         $tagsAassign->item_id = $model->id;

@@ -67,7 +67,7 @@ class Articles extends ActiveRecord
             'pluginOptions' => [
                 'tags' => true,
             ],
-            'value' => $this->getTagsIDByItemID($this->id)
+            'value' => $this->getTagsIDByItemID()
         ]);
         $tags .= '</div>';
 
@@ -274,12 +274,12 @@ class Articles extends ActiveRecord
      *
      * return Integer[]
      */
-    public function getTagsIDByItemID($item_id)
+    public function getTagsIDByItemID()
     {
         $array = array();
 
         $tags = Tagsassign::find()
-            ->where(['item_id' => $item_id])
+            ->where(['item_id' => $this->id])
             ->all();
 
         foreach($tags as $tag) {
