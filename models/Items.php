@@ -28,7 +28,6 @@ use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\helpers\Url;
 
-
 /**
  * This is the model class for table "{{%article_items}}".
  *

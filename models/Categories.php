@@ -18,6 +18,7 @@ use cinghie\traits\EditorTrait;
 use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\NameAliasTrait;
+use cinghie\traits\SeoTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\ViewsHelpersTrait;
@@ -52,7 +53,7 @@ use cinghie\traits\ViewsHelpersTrait;
 class Categories extends Articles
 {
 
-    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
+    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, SeoTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
