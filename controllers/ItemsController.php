@@ -163,9 +163,9 @@ class ItemsController extends Controller
             if ($model->save()) {
 
                 // Set Tags
-                $tags = $post['tags'];
+                $tags = !empty($post['tags']) ? $post['tags'] : null;
 
-                if($tags !== null)
+                if(!$tags == null)
                 {
                     foreach ($tags as $tag) {
                         $tagsAassign = new Tagsassign();
@@ -244,7 +244,7 @@ class ItemsController extends Controller
             if ($model->save()) {
 
                 // Set Tags
-                $tags = $post['tags'];
+	            $tags = !empty($post['tags']) ? $post['tags'] : null;
 
                 if($tags !== null) {
                     foreach ($tags as $tag) {
