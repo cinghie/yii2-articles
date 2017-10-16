@@ -143,9 +143,7 @@ class CategoriesController extends Controller
             }
 
             // If alias is not set, generate it
-            if ($post['Categories']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->name);
-            }
+	        $model->setAlias($post['Categories'],'name');
 
             // Genarate Json Params
             $params = [
@@ -235,10 +233,8 @@ class CategoriesController extends Controller
                 $model->state = 1;
             }
 
-            // If alias is not set, generate it
-            if ($post['Categories']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->name);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Categories'],'name');
 
             // Genarate Json Params
             $params = [

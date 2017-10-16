@@ -119,10 +119,8 @@ class TagsController extends Controller
 
         if ( $model->load($post) )
         {
-            // If alias is not set, generate it
-            if ($post['Tags']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->name);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Tags'],'name');
 
             if($model->save()) {
                 return $this->redirect(['index']);
@@ -151,10 +149,8 @@ class TagsController extends Controller
 
         if ( $model->load($post) )
         {
-            // If alias is not set, generate it
-            if ($post['Tags']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->name);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Tags'],'name');
 
             if($model->save()) {
                 return $this->redirect(['index']);

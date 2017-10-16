@@ -146,10 +146,8 @@ class ItemsController extends Controller
             // Set Modified as actual date
             $model->modified = "0000-00-00 00:00:00";
 
-            // If alias is not set, generate it
-            if ($post['Items']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->title);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Items'],'title');
 
             // Upload Image and Thumb if is not Null
             $imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
@@ -225,10 +223,8 @@ class ItemsController extends Controller
             // Set Modified by User
             $model->modified_by = Yii::$app->user->identity->id;
 
-            // If alias is not set, generate it
-            if ($post['Items']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->title);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Items'],'title');
 
             // Upload Image and Thumb if is not Null
             $imagePath = Yii::getAlias(Yii::$app->controller->module->itemImagePath);

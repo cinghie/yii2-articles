@@ -125,10 +125,8 @@ class AttachmentsController extends Controller
 
         if ( $model->load($post) )
         {
-            // If alias is not set, generate it
-            if ($post['Attachments']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->title);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Attachments'],'title');
 
             // Upload Attachments if is not Null
             $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
@@ -183,10 +181,8 @@ class AttachmentsController extends Controller
 
         if ( $model->load($post) )
         {
-            // If alias is not set, generate it
-            if ($post['Attachments']['alias'] === '') {
-                $model->alias = $model->generateAlias($model->title);
-            }
+	        // If alias is not set, generate it
+	        $model->setAlias($post['Attachments'],'title');
 
             // Upload Attachments if is not Null
             $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
