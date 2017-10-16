@@ -132,11 +132,7 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'value' => function ($model) {
                             /** @var $model cinghie\articles\models\Categories */
-                            if ($model->image) {
-                                return Html::img($model->getImageThumbUrl("small"),['width' => '36px']);
-                            } else {
-                                return "";
-                            }
+	                        return $model->getImageGridView();
                         },
                         'width' => '8%',
                     ],

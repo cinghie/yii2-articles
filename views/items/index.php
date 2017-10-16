@@ -163,12 +163,8 @@ $this->registerJs('$(document).ready(function()
                         'format' => 'html',
                         'hAlign' => 'center',
                         'value' => function ($model) {
-                            if ($model->image) {
-                                /** @var $model cinghie\articles\models\Items */
-                                return Html::img($model->getImageThumbUrl("small"), ['width' => '36px']);
-                            } else {
-                                return '<span class="fa fa-ban text-danger"></span>';
-                            }
+	                        /** @var $model cinghie\articles\models\Items */
+	                        return $model->getImageGridView();
                         },
                         'width' => '6%',
                     ],
