@@ -109,14 +109,8 @@ $this->registerJs('$(document).ready(function()
                         'format' => 'html',
                         'hAlign' => 'center',
                         'value' => function ($model) {
-                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->parent_id]));
-                            $cat = isset($model->parent->name) ? $model->parent->name : "";
-
-                            if($cat !== "") {
-                                return Html::a($cat,$url);
-                            } else {
-                                return Yii::t('traits', 'Nobody');
-                            }
+	                        /** @var $model cinghie\articles\models\Categories */
+	                        return $model->getParentGridView('name','/menu/items/update');
                         }
                     ],
                     [

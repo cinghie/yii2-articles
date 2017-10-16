@@ -221,8 +221,9 @@ class Articles extends ActiveRecord
 
         $array[''] = Yii::t('articles', 'No Parent');
 
-        foreach($categories as $category) {
-            $array[$category['id']] = $category['name'];
+        foreach($categories as $category)
+        {
+	        $array[$category['id']] = $category['name'];
         }
 
         return $array;

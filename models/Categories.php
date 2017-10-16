@@ -18,6 +18,7 @@ use cinghie\traits\EditorTrait;
 use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\NameAliasTrait;
+use cinghie\traits\ParentTrait;
 use cinghie\traits\SeoTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\UserHelpersTrait;
@@ -53,7 +54,7 @@ use cinghie\traits\ViewsHelpersTrait;
 class Categories extends Articles
 {
 
-    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, SeoTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
+    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, ParentTrait, SeoTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -68,14 +69,13 @@ class Categories extends Articles
      */
     public function rules()
     {	
-        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), StateTrait::rules(),[
+        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), ParentTrait::rules(), StateTrait::rules(),[
             [['access', 'name', 'language', 'state', 'theme'], 'required'],
-			[['ordering','parent_id'], 'integer'],
+			[['ordering'], 'integer'],
             [['theme'], 'string', 'max' => 12],
 			[['robots'], 'string', 'max' => 20],
             [['author', 'copyright'], 'string', 'max' => 50],
             [['description', 'metadesc', 'metakey', 'params'], 'string'],
-            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ]);
     }
 
@@ -86,29 +86,21 @@ class Categories extends Articles
     {
         return array_merge(AccessTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), StateTrait::attributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
-            'parent_id' => Yii::t('articles', 'Parent'),
+            'parent_id' => Yii::t('traits', 'Parent'),
             'description' => Yii::t('articles', 'Description'),
             'theme' => Yii::t('articles', 'Theme'),
             'ordering' => Yii::t('articles', 'Ordering'),
-            'image' => Yii::t('articles', 'Image'),
-            'image_caption' => Yii::t('articles', 'Image Caption'),
-            'image_credits' => Yii::t('articles', 'Image Credits'),
+            'image' => Yii::t('traits', 'Image'),
+            'image_caption' => Yii::t('traits', 'Image Caption'),
+            'image_credits' => Yii::t('traits', 'Image Credits'),
             'params' => Yii::t('articles', 'Params'),
             'metadesc' => Yii::t('articles', 'Metadesc'),
             'metakey' => Yii::t('articles', 'Metakey'),
             'robots' => Yii::t('articles', 'Robots'),
             'author' => Yii::t('articles', 'Author'),
             'copyright' => Yii::t('articles', 'Copyright'),
-            'language' => Yii::t('articles', 'Language'),
+            'language' => Yii::t('traits', 'Language'),
         ]);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParent()
-    {
-        return $this->hasOne(self::className(), ['id' => 'parent_id'])->from(self::tableName() . ' AS parent');
     }
 
     /**

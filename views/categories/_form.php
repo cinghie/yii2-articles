@@ -88,14 +88,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
                             <div class="col-md-4">
 
-                                <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
-                                    'data' => $model->getCategoriesSelect2(),
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
-                                        ]
-                                    ],
-                                ]); ?>
+	                            <?= $model->getParentWidget($form,$model->getCategoriesSelect2()) ?>
 
                                 <?= $model->getLanguageWidget($form) ?>
 
