@@ -110,7 +110,7 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'value' => function ($model) {
 	                        /** @var $model cinghie\articles\models\Categories */
-	                        return $model->getParentGridView('name','/menu/items/update');
+	                        return $model->getParentGridView('name','categories/update');
                         }
                     ],
                     [
