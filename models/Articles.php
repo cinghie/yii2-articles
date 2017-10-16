@@ -205,19 +205,9 @@ class Articles extends ActiveRecord
      */
     public function getCategoriesSelect2()
     {
-        if($this->isNewRecord) {
-
-            $categories = Categories::find()
-                ->orderBy('name')
-                ->all();
-
-        } else {
-
-            $categories = Categories::find()
-                ->where(['id' => $this->id])
-                ->orderBy('name')
-                ->all();
-        }
+	    $categories = Categories::find()
+	        ->orderBy('name')
+	        ->all();
 
         $array[''] = Yii::t('articles', 'No Parent');
 
