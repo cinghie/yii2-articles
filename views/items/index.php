@@ -119,7 +119,7 @@ $this->registerJs('$(document).ready(function()
                             if($cat !== "") {
                                 return Html::a($cat,$url);
                             } else {
-                                return Yii::t('articles', 'Nobody');
+	                            return '<span class="fa fa-ban text-danger"></span>';
                             }
                         }
                     ],
