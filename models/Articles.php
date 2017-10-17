@@ -205,14 +205,11 @@ class Articles extends ActiveRecord
      */
     public function getCategoriesSelect2()
     {
-	    $categories = Categories::find()
-	        ->orderBy('name')
-	        ->all();
+	    $categories = Categories::find()->orderBy('name')->all();
 
         $array[''] = Yii::t('articles', 'No Parent');
 
-        foreach($categories as $category)
-        {
+        foreach($categories as $category) {
 	        $array[$category['id']] = $category['name'];
         }
 
