@@ -91,7 +91,7 @@ class Items extends Articles
             [['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
-            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Items::className(), 'targetAttribute' => ['cat_id' => 'id']],
+            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ]);
     }
 
