@@ -33,8 +33,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesIntroText',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -45,8 +45,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesFullText',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -59,8 +59,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesCreatedData',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -71,8 +71,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesModifiedData',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -83,8 +83,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesUser',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -95,8 +95,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesHits',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -109,8 +109,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoriesDebug',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -148,8 +148,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryIntroText',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -160,8 +160,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryFullText',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -174,8 +174,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryCreatedData',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -186,8 +186,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryModifiedData',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -198,8 +198,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryUser',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -210,8 +210,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryHits',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -224,8 +224,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'categoryDebug',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -263,8 +263,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemIntroText',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -275,8 +275,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemFullText',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -289,8 +289,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemCreatedData',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -301,8 +301,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemModifiedData',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -313,8 +313,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemUser',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -325,8 +325,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemHits',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';
@@ -339,8 +339,8 @@ use kartik\widgets\Select2;
             echo Select2::widget([
                 'name' => 'itemDebug',
                 'data' => [
-                    'No' => Yii::t('articles','No'),
-                    'Yes' => Yii::t('articles','Yes')
+                    'No' => Yii::t('traits','No'),
+                    'Yes' => Yii::t('traits','Yes')
                 ],
             ]);
             echo '</div>';

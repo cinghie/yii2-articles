@@ -26,9 +26,12 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 ?>
 
 <article class="item-view">
+
 	<header>
+
     	<h1><?= Html::encode($this->title) ?></h1>
         <time pubdate datetime="<?= $model->created ?>"></time>
+
         <?php if ($model->image): ?>
             <figure>
                 <img class="img-responsive center-block img-rounded" src="<?= $model->getImageUrl() ?>" alt="<?= $this->title ?>" title="<?= $this->title ?>">
@@ -39,19 +42,48 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
                 <?php endif; ?>
             </figure>
         <?php endif; ?>
+
     </header>
+
+    <div class="row item-informations">
+
+        <div class="col-md-12">
+
+            <span class="item-created">
+                <?= Yii::t('articles','Published on') ?> <?= $model->created ?>,
+            </span>
+
+            <span class="item-created">
+                <?= Yii::t('articles','By') ?> <?= $model->createdBy->username ?>
+            </span>
+
+        </div>
+
+    </div>
+
     <?php //if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
-    <?php if ($model->introtext): ?>
-        <div class="intro-text">
-            <?= $model->introtext ?>
+
+    <div class="row item-content">
+
+        <div class="col-md-12">
+
+            <?php if ($model->introtext): ?>
+                <div class="intro-text">
+                    <?= $model->introtext ?>
+                </div>
+                <hr>
+            <?php endif; ?>
+
+            <?php if ($model->fulltext): ?>
+                <div class="full-text">
+                    <?= $model->fulltext ?>
+                </div>
+            <?php endif; ?>
+
         </div>
-        <hr>
-    <?php endif; ?>
-    <?php if ($model->fulltext): ?>
-        <div class="full-text">
-        	<?= $model->fulltext ?>    
-        </div>
-    <?php endif; ?>
+
+    </div>
+
 </article>
 
 <?php /* if($model->getOption($model->category->params,"itemDebug") == "Yes"): ?>
