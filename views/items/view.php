@@ -54,7 +54,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
             </span>
 
             <span class="item-created">
-                <?= Yii::t('articles','By') ?> <?= $model->createdBy->username ?>
+                <?= Yii::t('traits','by') ?> <?= $model->createdBy->username ?>
             </span>
 
         </div>
