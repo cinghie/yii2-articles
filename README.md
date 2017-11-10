@@ -133,9 +133,7 @@ INSERT INTO `PREFIX_auth_assignment` (`item_name`, `user_id`, `created_at`) VALU
 ('admin', 'YUOR_USER_ID', 1451514052);
 ```
 
-Override PREFIX_ with your tables prefix and YUOR_USER_ID with your user_id
-
-example:
+Override PREFIX_ with your tables prefix and YUOR_USER_ID with your user_id. For example:
 
 ```
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
