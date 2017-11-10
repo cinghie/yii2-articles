@@ -119,7 +119,7 @@ Set on your configuration file, in modules section
 
 To use easily this extension is strongly recommended install and config dektrium/yii2-user to manage user
 
-[Installation](https://github.com/dektrium/yii2-user/blob/master/docs/getting-started.md)
+[Installation](https://github.com/dektrium/yii2-user/blob/master/docs/getting-started.md)  
 [Configuration](https://github.com/dektrium/yii2-user/blob/master/docs/configuration.md)
 
 and dektrium/yii2-rbac to manage auth permission
