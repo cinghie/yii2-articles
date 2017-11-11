@@ -16,7 +16,7 @@ use yii\web\AssetBundle;
 
 class ArticlesAsset extends AssetBundle
 {
-	public $sourcePath = __DIR__;
+	public $sourcePath = __DIR__."/assets/";
 	
 	public $css = array(
 		'//fonts.googleapis.com/css?family=Roboto:400,700',
@@ -27,6 +27,7 @@ class ArticlesAsset extends AssetBundle
 	public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+		'yii\bootstrap\BootstrapPluginAsset',
 		'kartik\form\ActiveFormAsset',
 		'kartik\base\WidgetAsset',
 		'kartik\select2\Select2Asset',
