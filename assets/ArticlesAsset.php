@@ -20,7 +20,7 @@ class ArticlesAsset extends AssetBundle
 	/**
 	 * @inherit
 	 */
-	public $sourcePath = __DIR__."/assets/";
+	public $sourcePath = '@vendor/cinghie/yii2-articles/assets/assets';
 
 	/**
 	 * @inherit
