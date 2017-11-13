@@ -51,7 +51,7 @@ class AttachmentsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['delete','deletemultiple'],
+                        'actions' => ['delete','deletemultiple','deleteonfly'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->item->isCurrentUserCreator()) ) );
@@ -75,6 +75,7 @@ class AttachmentsController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                     'deletemultiple' => ['post'],
+                    'deleteonfly' => ['post'],
                 ],
             ],
         ];
@@ -291,6 +292,26 @@ class AttachmentsController extends Controller
         // Set Success Message
         Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
+
+	/**
+	 * Deletes an existing Attachments model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionDeleteonfly($id)
+	{
+		$model = $this->findModel($id);
+
+		if ($model->delete()) {
+			Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
+			return true;
+		} else {
+			Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+			return false;
+		}
+	}
 
     /**
      * Finds the Attachments model based on its primary key value.
