@@ -14,6 +14,7 @@ namespace cinghie\articles\models;
 
 use Yii;
 use cinghie\traits\AccessTrait;
+use cinghie\traits\AttachmentTrait;
 use cinghie\traits\CreatedTrait;
 use cinghie\traits\EditorTrait;
 use cinghie\traits\ImageTrait;
@@ -73,7 +74,9 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-    use AccessTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+    use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+
+    public $attachments;
 
     /**
      * @inheritdoc
@@ -91,6 +94,8 @@ class Items extends Articles
             [['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
+	        [['attachments'], 'safe'],
+	        [['attachments'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ]);
     }
@@ -118,6 +123,11 @@ class Items extends Articles
     {
         return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attach');
     }
+
+	public function getAttachs()
+	{
+		return Attachments::find()->where(['item_id' => $this->id])->all();
+	}
 
     /**
      * @return \yii\db\ActiveQuery

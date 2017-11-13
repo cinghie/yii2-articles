@@ -152,7 +152,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                             <div class="col-lg-12">
 
                                 <p class="bg-info">
-                                    <?= Yii::t('articles', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
+                                    <?= Yii::t('traits', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
                                     (<?= Yii::t('articles', 'Max Size'). ": " .$model->getUploadMaxSize() ?>)
                                 </p>
 

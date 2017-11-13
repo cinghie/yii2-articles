@@ -16,6 +16,8 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 // Load info
 $attachType = Yii::$app->controller->module->attachType;
+$attachTypeString = implode(', ', $attachType);
+$attachURL = Yii::$app->controller->module->attachURL;
 
 ?>
 
@@ -36,7 +38,7 @@ $attachType = Yii::$app->controller->module->attachType;
                 <div class="col-md-9">
 
                     <p class="bg-info">
-                        <?= Yii::t('articles', 'Allowed Extensions')?>: <?= $attachType ?>
+                        <?= Yii::t('traits', 'Allowed Extensions')?>: <?= $attachTypeString ?>
                     </p>
 
                 </div>
@@ -59,7 +61,7 @@ $attachType = Yii::$app->controller->module->attachType;
 
                 <div class="col-lg-4">
 
-                    <?= $model->getFileWidget($form) ?>
+                    <?= $model->getFileWidget($form,$attachType) ?>
 
                 </div>
 

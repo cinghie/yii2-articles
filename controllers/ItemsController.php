@@ -22,6 +22,7 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * ItemsController implements the CRUD actions for Items model.
@@ -162,10 +163,38 @@ class ItemsController extends Controller
 
             if ($model->save()) {
 
-                // Set Tags
-                $tags = !empty($post['tags']) ? $post['tags'] : null;
+            	// Set Attachments
+	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
-                if(!$tags == null)
+	            if(count($model->attachments))
+	            {
+		            $attachmentFolder = Yii::getAlias(Yii::$app->controller->module->attachPath);
+
+		            foreach ($model->attachments as $key => $attachment)
+		            {
+			            $attachmentName = $attachment->baseName;
+			            $attachmentExt  = $attachment->extension;
+			            $attachmentSize = $attachment->size;
+			            $attachmentPath = $attachmentFolder. $attachmentName . '.' . $attachmentExt;
+
+			            if($attachment->saveAs($attachmentPath))
+			            {
+				            $attach = new Attachments();
+				            $attach->item_id = $model->id;
+				            $attach->title = $attachmentName;
+				            $attach->filename = $attachmentName . '.' . $attachmentExt;
+				            $attach->extension = $attachment->extension;
+				            $attach->mimetype = $attachment->type;
+				            $attach->size = $attachmentSize;
+				            $attach->save();
+			            }
+		            }
+	            }
+
+                // Set Tags
+                $tags = !empty($post['tags']) ? $post['tags'] : [];
+
+                if(count($tags))
                 {
                     foreach ($tags as $tag) {
                         $tagsAassign = new Tagsassign();
@@ -243,10 +272,39 @@ class ItemsController extends Controller
 
             if ($model->save()) {
 
-                // Set Tags
-	            $tags = !empty($post['tags']) ? $post['tags'] : null;
+	            // Set Attachments
+	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
-                if($tags !== null) {
+	            if(count($model->attachments))
+	            {
+		            $attachmentFolder = Yii::getAlias(Yii::$app->controller->module->attachPath);
+
+		            foreach ($model->attachments as $key => $attachment)
+		            {
+			            $attachmentName = $attachment->baseName;
+			            $attachmentExt  = $attachment->extension;
+			            $attachmentSize = $attachment->size;
+			            $attachmentPath = $attachmentFolder. $attachmentName . '.' . $attachmentExt;
+
+			            if($attachment->saveAs($attachmentPath))
+			            {
+				            $attach = new Attachments();
+				            $attach->item_id = $model->id;
+				            $attach->title = $attachmentName;
+				            $attach->filename = $attachmentName . '.' . $attachmentExt;
+				            $attach->extension = $attachment->extension;
+				            $attach->mimetype = $attachment->type;
+				            $attach->size = $attachmentSize;
+				            $attach->save();
+			            }
+		            }
+	            }
+
+                // Set Tags
+	            $tags = !empty($post['tags']) ? $post['tags'] : [];
+
+	            if(count($tags))
+	            {
                     foreach ($tags as $tag) {
                         $tagsAassign = new Tagsassign();
                         $tagsAassign->item_id = $model->id;

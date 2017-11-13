@@ -68,7 +68,7 @@ class Articles extends \yii\base\Module
 	public $attachURL = "@web/attachments/";
 
 	// Select Attachment Types allowed
-	public $attachType = ".jpg, .jpeg, .gif, .png, .csv, .pdf, .txt, .doc, .docs";
+	public $attachType = ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'];
 
 	// Show Titles in the views
 	public $showTitles = true;

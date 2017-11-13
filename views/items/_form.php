@@ -16,6 +16,11 @@ use kartik\widgets\Select2;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
+// Load info
+$attachType = Yii::$app->controller->module->attachType;
+$attachTypeString = implode(', ', $attachType);
+$attachURL = Yii::$app->controller->module->attachURL;
+
 ?>
 
 <div class="items-form">
@@ -231,7 +236,7 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
                             <div class="col-lg-12">
 
                                 <p class="bg-info">
-                                    <?= Yii::t('articles', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
+                                    <?= Yii::t('traits', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
                                     (<?= Yii::t('articles', 'Max Size'). ": " .$model->getUploadMaxSize() ?>)
                                 </p>
 
@@ -278,25 +283,11 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
                             <div class="col-md-12">
 
-                                <?php if(!$model->isNewRecord): ?>
+                                <p class="bg-info">
+		                            <?= Yii::t('traits', 'Allowed Extensions')?>: <?= $attachTypeString ?>
+                                </p>
 
-                                    <div class="form-group field-items-files">
-                                        <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachments') ?></label>
-                                        <?php foreach($model->getAttachments()->asArray()->all() as $attach): ?>
-                                            <div class="alert alert-info" role="alert">
-                                                <?= $attach['filename'] ?>
-                                            </div>
-                                        <?php endforeach ?>
-                                    </div>
-
-                                <?php else: ?>
-
-                                    <div class="form-group field-items-files">
-                                        <label for="items-files" class="control-label"><?= Yii::t('articles', 'Attachments') ?></label>
-                                        <div class="alert alert-warning" role="alert"><?= Yii::t('articles', 'No Attachment') ?></div>
-                                    </div>
-
-                                <?php endif; ?>
+                                <?= $model->getFilesWidget($attachType,$attachURL) ?>
 
                             </div> <!-- end col-md-12 -->
 

@@ -7,7 +7,6 @@ return [
 	'Categories' => 'Categorie',
 	'Attachment' => 'Allegato',
 	'Attachments' => 'Allegati',
-	'Allowed Extensions' => 'Estensioni Permesse',
 	'Article unpublished' => 'Articolo non pubblicato',
 	'Article published' => 'Articolo pubblicato',
 	'Attachment could not be saved!' => 'Impossibile salvare l\' allegato!',
