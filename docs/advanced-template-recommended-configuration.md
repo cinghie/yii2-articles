@@ -40,7 +40,7 @@ Recommended Configuration for Advanced Template
         // Select Image Types allowed
         'imageType' => ['png','jpg','jpeg'],
         // Select Image Types allowed
-        'attachType' => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
+        'attachType' => ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'],
         // Thumbnails Options
         'thumbOptions'  => [ 
         	'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],

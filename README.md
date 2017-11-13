@@ -93,7 +93,7 @@ Set on your configuration file, in modules section
 		// Select URL To Upload Attachment
 		'attachURL' => '@web/img/articles/items/',
 		// Select Image Types allowed
-		'attachType' => 'application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv, .pdf, text/plain, .jpg, .jpeg, .gif, .png',
+		'attachType' => ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'],
 		
 		// Select Image Name: categoryname, original, casual
 		'imageNameType' => 'categoryname',
