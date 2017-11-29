@@ -105,6 +105,7 @@ class CategoriesController extends Controller
      * Displays a single Categories model
      *
      * @param int $id
+     *
      * @return mixed
      * @throws \yii\base\InvalidParamException
      * @throws NotFoundHttpException
@@ -213,13 +214,14 @@ class CategoriesController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Categories model
-     *
-     * @param int $id
-     * @return mixed
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Updates an existing Categories model
+	 *
+	 * @param int $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 */
     public function actionUpdate($id)
     {
         $post     = Yii::$app->request->post();
@@ -305,12 +307,17 @@ class CategoriesController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Categories model
-     *
-     * @param int $id
-     * @return mixed
-     */
+	/**
+	 * Deletes an existing Categories model
+	 *
+	 * @param int $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
+	 */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -334,12 +341,14 @@ class CategoriesController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Delete the Image from the Categories model
-     *
-     * @param int $id
-     * @return \yii\web\Response
-     */
+	/**
+	 * Delete the Image from the Categories model
+	 *
+	 * @param int $id
+	 *
+	 * @return \yii\web\Response
+	 * @throws NotFoundHttpException
+	 */
 	public function actionDeleteimage($id)
 	{
         $model = $this->findModel($id);
@@ -361,12 +370,17 @@ class CategoriesController extends Controller
         ]);
 	}
 
-    /**
-     * Deletes selected Categories models
-     *
-     * @property array $ids
-     * @return \yii\web\Response | void
-     */
+	/**
+	 * Deletes selected Categories models
+	 *
+	 * @property array $ids
+	 *
+	 * @return \yii\web\Response | void
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
+	 */
     public function actionDeletemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -400,12 +414,14 @@ class CategoriesController extends Controller
         Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
 
-    /**
-     * Change category state: active or deactive
-     *
-     * @param int $id
-     * @return \yii\web\Response
-     */
+	/**
+	 * Change category state: active or deactive
+	 *
+	 * @param int $id
+	 *
+	 * @return \yii\web\Response
+	 * @throws NotFoundHttpException
+	 */
     public function actionChangestate($id)
     {
         $model = $this->findModel($id);
@@ -424,12 +440,14 @@ class CategoriesController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Active selected Categories models
-     *
-     * @property array $ids
-     * @return \yii\web\Response | void
-     */
+	/**
+	 * Active selected Categories models
+	 *
+	 * @property array $ids
+	 *
+	 * @return \yii\web\Response | void
+	 * @throws NotFoundHttpException
+	 */
     public function actionActivemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -451,12 +469,14 @@ class CategoriesController extends Controller
         return;
     }
 
-    /**
-     * Deactive selected Categories models
-     *
-     * @property array $ids
-     * @return \yii\web\Response | void
-     */
+	/**
+	 * Deactive selected Categories models
+	 *
+	 * @property array $ids
+	 *
+	 * @return \yii\web\Response | void
+	 * @throws NotFoundHttpException
+	 */
     public function actionDeactivemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -482,6 +502,7 @@ class CategoriesController extends Controller
      * Finds the Categories model based on its primary key value
      *
      * @param string $id
+     *
      * @return Categories the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

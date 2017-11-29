@@ -99,12 +99,12 @@ class ItemsController extends Controller
         ];
     }
 
-    /**
-     * Lists all Items models
-     *
-     * @return mixed
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Lists all Items models
+	 *
+	 * @return mixed
+	 * @throws ForbiddenHttpException
+	 */
     public function actionIndex()
     {
         $searchModel  = new ItemsSearch();
@@ -116,13 +116,14 @@ class ItemsController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Items model
-     *
-     * @param integer $id
-     * @return mixed
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Displays a single Items model
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 */
     public function actionView($id)
     {
         $model = $this->findModel($id);
@@ -230,13 +231,14 @@ class ItemsController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Items model
-     *
-     * @param integer $id
-     * @return mixed
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Updates an existing Items model
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -340,12 +342,17 @@ class ItemsController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Items model
-     *
-     * @param integer $id
-     * @return mixed
-     */
+	/**
+	 * Deletes an existing Items model
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
+	 */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -369,11 +376,14 @@ class ItemsController extends Controller
         }
     }
 
-    /**
-     * Deletes selected Items models
-     *
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * Deletes selected Items models
+	 *
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
+	 */
     public function actionDeletemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -408,13 +418,15 @@ class ItemsController extends Controller
         // Set Success Message
         Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
-	
+
 	/**
-     * Deletes an existing Items Image
-     *
-     * @param integer $id
-     * @return mixed
-     */
+	 * Deletes an existing Items Image
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 */
 	public function actionDeleteimage($id) 
 	{
         $model = $this->findModel($id);
@@ -432,13 +444,14 @@ class ItemsController extends Controller
         ]);
 	}
 
-    /**
-     * Change article state: published or unpublished
-     *
-     * @param $id
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * Change article state: published or unpublished
+	 *
+	 * @param $id
+	 *
+	 * @return void
+	 * @throws NotFoundHttpException
+	 */
     public function actionChangestate($id)
     {
         $model = $this->findModel($id);
@@ -452,12 +465,14 @@ class ItemsController extends Controller
         }
     }
 
-    /**
-     * Active selected Items models
-     *
-     * @return mixed
-     * @throws ForbiddenHttpException
-     */
+	/**
+	 * Active selected Items models
+	 *
+	 * @return mixed
+	 * @throws \yii\web\ForbiddenHttpException
+	 * @throws ForbiddenHttpException
+	 * @throws NotFoundHttpException
+	 */
     public function actionActivemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -520,12 +535,14 @@ class ItemsController extends Controller
         }
     }
 
-    /**
-     * Check article language
-     *
-     * @param $id
-     * @return bool
-     */
+	/**
+	 * Check article language
+	 *
+	 * @param $id
+	 *
+	 * @return bool
+	 * @throws NotFoundHttpException
+	 */
     protected function checkArticleLanguage($id)
     {
         $model = $this->findModel($id);

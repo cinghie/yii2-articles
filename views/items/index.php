@@ -78,7 +78,7 @@ $this->registerJs('$(document).ready(function()
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <!-- Categories Grid -->
-    <div class="categories-grid">
+    <div class="items-grid">
 
         <?php Pjax::begin() ?>
 

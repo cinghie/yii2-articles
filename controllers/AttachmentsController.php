@@ -98,13 +98,14 @@ class AttachmentsController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Attachments model
-     *
-     * @param $id
-     * @return string
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Displays a single Attachments model
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 * @throws NotFoundHttpException
+	 */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -165,14 +166,15 @@ class AttachmentsController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Attachments model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param $id
-     * @return string|\yii\web\Response
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Updates an existing Attachments model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @param $id
+	 *
+	 * @return string|\yii\web\Response
+	 * @throws NotFoundHttpException
+	 */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -229,13 +231,18 @@ class AttachmentsController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Attachments model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param $id
-     * @return \yii\web\Response
-     */
+	/**
+	 * Deletes an existing Attachments model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @param $id
+	 *
+	 * @return \yii\web\Response
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
+	 */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -298,7 +305,12 @@ class AttachmentsController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
 	 * @param integer $id
+	 *
 	 * @return mixed
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
 	 */
 	public function actionDeleteonfly($id)
 	{
@@ -318,6 +330,7 @@ class AttachmentsController extends Controller
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
      * @param integer $id
+     *
      * @return Attachments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
