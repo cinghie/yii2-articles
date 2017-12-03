@@ -215,7 +215,17 @@ class ItemsController extends Controller
                 }
 
                 if ($model->save()) {
-
+			// Set Tags
+			$tags = !empty($post['tags']) ? $post['tags'] : null;
+			if(!$tags == null) {
+			    Tagsassign::deleteAll(['item_id'=>$model->id]);
+			    foreach ($tags as $tag) {
+				$tagsAassign = new Tagsassign();
+				$tagsAassign->item_id = $model->id;
+				$tagsAassign->tag_id = $tag;
+				$tagsAassign->save();
+			    }
+			}
                     // upload only if valid uploaded file instance found
                     if ($image !== false) {
                         // save thumbs to thumbPaths
