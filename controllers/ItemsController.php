@@ -139,7 +139,10 @@ class ItemsController extends Controller
 
                 // Create UploadFile Instance
                 $image  = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
-
+		    // check if cat_id was zero from form set null to db
+		    if($model->cat_id == 0){
+			$model->cat_id = null;
+		    }
                 if ($model->save()) {
 
                     // upload only if valid uploaded file instance found
@@ -213,7 +216,10 @@ class ItemsController extends Controller
                 if($model->image == false && $image === false) {
                     unset($model->image);
                 }
-
+		    // check if cat_id was zero from form set null to db
+		    if($model->cat_id == 0){
+			$model->cat_id = null;
+		    }
                 if ($model->save()) {
 			// Set Tags
 			$tags = !empty($post['tags']) ? $post['tags'] : null;
