@@ -61,6 +61,12 @@ class m170626_185620_insert_article_auth_permissions extends Migration
 		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-update-categories']);
 		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-view-categories']);
 
+		// Auth Item Child tags
+		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-index-tags']);
+		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-create-tags']);
+		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-update-tags']);
+		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-delete-tags']);
+
 		// Auth Item Child Editor Articles
 		$this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-create-items']);
 		$this->insert('{{%auth_item_child}}', ['parent' => 'editor', 'child' => 'articles-delete-his-items']);

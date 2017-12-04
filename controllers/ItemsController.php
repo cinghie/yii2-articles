@@ -145,11 +145,16 @@ class ItemsController extends Controller
 
         if ( $model->load($post) )
         {
-            // Set Modified as actual date
+            // Set modified as actual date
             $model->modified = "0000-00-00 00:00:00";
 
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Items'],'title');
+
+	        // Check if cat_id was zero from form set null to db
+	        if($model->cat_id == 0) {
+	            $model->cat_id = null;
+	        }
 
             // Upload Image and Thumb if is not Null
             $imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
@@ -248,11 +253,16 @@ class ItemsController extends Controller
 
             $oldTags = $model->getTagsIDByItemID();
 
-            // Set Modified as actual date
+            // Set modified as actual date
             $model->modified = date("Y-m-d H:i:s");
 
-            // Set Modified by User
+            // Set modified_by User
             $model->modified_by = Yii::$app->user->identity->id;
+
+	        // Check if cat_id was zero from form set null to db
+	        if($model->cat_id == 0) {
+		        $model->cat_id = null;
+	        }
 
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Items'],'title');
@@ -307,6 +317,8 @@ class ItemsController extends Controller
 
 	            if(count($tags))
 	            {
+		            Tagsassign::deleteAll(['item_id'=>$model->id]);
+		            
                     foreach ($tags as $tag) {
                         $tagsAassign = new Tagsassign();
                         $tagsAassign->item_id = $model->id;
