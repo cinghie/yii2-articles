@@ -79,4 +79,41 @@ class TagsSearch extends Tags
         return $dataProvider;
     }
 
+	/**
+	 * Creates data provider instance with last tags
+	 *
+	 * @param int $limit
+	 * @param string $orderby
+	 * @param int $order
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function last($limit, $orderby = "id", $order = SORT_DESC)
+	{
+		$query = Tags::find()->limit($limit);
+
+		// add conditions that should always apply here
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'pagination' => [
+				'pageSize' => $limit,
+			],
+			'sort' => [
+				'defaultOrder' => [
+					$orderby => $order
+				],
+			],
+			'totalCount' => $limit
+		]);
+
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+
+		return $dataProvider;
+	}
+
 }

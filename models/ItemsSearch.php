@@ -41,7 +41,9 @@ class ItemsSearch extends Items
 
     /**
      * Creates data provider instance with search query applied
+     *
      * @param array $params
+     *
      * @return ActiveDataProvider
      * @throws ForbiddenHttpException
      */
@@ -112,4 +114,48 @@ class ItemsSearch extends Items
 
         return $dataProvider;
     }
+
+	/**
+	 * Creates data provider instance with last items
+	 *
+	 * @param int $limit
+	 * @param string $orderby
+	 * @param int $order
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function last($limit, $orderby = "id", $order = SORT_DESC)
+	{
+		if(Yii::$app->user->can('articles-index-all-items')) {
+			$query = Items::find()->limit($limit);
+		} elseif(Yii::$app->user->can('articles-index-his-items')) {
+			$query = Items::find()->where(['created_by' => Yii::$app->user->identity->id])->limit($limit);
+		} else {
+			throw new ForbiddenHttpException;
+		}
+
+		// add conditions that should always apply here
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'pagination' => [
+				'pageSize' => $limit,
+			],
+			'sort' => [
+				'defaultOrder' => [
+					$orderby => $order
+				],
+			],
+			'totalCount' => $limit
+		]);
+
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+
+		return $dataProvider;
+	}
+
 }
