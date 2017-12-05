@@ -35,7 +35,7 @@ class m170626_185620_insert_article_auth_permissions extends Migration
 		$this->insert('{{%auth_item}}',['name' => 'articles-delete-categories', 'type' => '2', 'description' => 'Can delete all categories','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-index-all-items', 'type' => '2', 'description' => 'Can view all articles admin grid','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-index-his-items', 'type' => '2', 'description' => 'Can view his articles admin grid','created_at' => time(),'updated_at' => time()]);
-		$this->insert('{{%auth_item}}',['name' => 'articles-index-categories', 'type' => '2', 'description' => 'Can view categories admin grid','created_at' => time(),'updated_at' => time()]);
+		$this->insert('{{%auth_item}}',['name' => 'articles-index-categories', 'type' => '2', 'description' => 'Can index categories admin grid','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-publish-all-items', 'type' => '2', 'description' => 'Can publish all articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-publish-his-items', 'type' => '2', 'description' => 'Can publish his articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-publish-categories', 'type' => '2', 'description' => 'Can publish categories','created_at' => time(),'updated_at' => time()]);
