@@ -137,7 +137,7 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            /** @var $model cinghie\newsletters\models\Lists */
+                            /** @var $model cinghie\articles\models\Items */
                             return $model->getCreatedByGridView();
                         }
                     ],
