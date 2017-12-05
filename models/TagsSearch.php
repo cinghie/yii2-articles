@@ -12,7 +12,7 @@
 
 namespace cinghie\articles\models;
 
-use Yii;
+use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -42,17 +42,17 @@ class TagsSearch extends Tags
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     * @return ActiveDataProvider
-     */
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 * @throws InvalidParamException
+	 */
     public function search($params)
     {
         $query = Tags::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -87,12 +87,11 @@ class TagsSearch extends Tags
 	 * @param int $order
 	 *
 	 * @return ActiveDataProvider
+	 * @throws InvalidParamException
 	 */
-	public function last($limit, $orderby = "id", $order = SORT_DESC)
+	public function last($limit, $orderby = 'id', $order = SORT_DESC)
 	{
 		$query = Tags::find()->limit($limit);
-
-		// add conditions that should always apply here
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,

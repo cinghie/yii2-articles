@@ -13,6 +13,7 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
@@ -39,14 +40,15 @@ class ItemsSearch extends Items
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     * @throws ForbiddenHttpException
-     */
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 * @throws ForbiddenHttpException
+	 * @throws InvalidParamException
+	 */
     public function search($params)
     {
         if(Yii::$app->user->can('articles-index-all-items')) {
@@ -123,8 +125,10 @@ class ItemsSearch extends Items
 	 * @param int $order
 	 *
 	 * @return ActiveDataProvider
+	 * @throws ForbiddenHttpException
+	 * @throws InvalidParamException
 	 */
-	public function last($limit, $orderby = "id", $order = SORT_DESC)
+	public function last($limit, $orderby = 'id', $order = SORT_DESC)
 	{
 		if(Yii::$app->user->can('articles-index-all-items')) {
 			$query = Items::find()->limit($limit);
@@ -133,8 +137,6 @@ class ItemsSearch extends Items
 		} else {
 			throw new ForbiddenHttpException;
 		}
-
-		// add conditions that should always apply here
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,

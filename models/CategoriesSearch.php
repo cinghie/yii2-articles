@@ -13,9 +13,10 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use cinghie\articles\models\Categories;
+use yii\web\ForbiddenHttpException;
 
 /**
  * CategoriesSearch represents the model behind the search form about `cinghie\articles\models\Attachments`.
@@ -43,13 +44,14 @@ class CategoriesSearch extends Categories
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 * @throws InvalidParamException
+	 */
     public function search($params)
     {
         $query = Categories::find();
@@ -106,10 +108,16 @@ class CategoriesSearch extends Categories
 	 * @param int $order
 	 *
 	 * @return ActiveDataProvider
+	 * @throws ForbiddenHttpException
+	 * @throws InvalidParamException
 	 */
 	public function last($limit, $orderby = "id", $order = SORT_DESC)
 	{
-		$query = Categories::find()->limit($limit);
+		if(Yii::$app->user->can('articles-index-all-items')) {
+			$query = Categories::find()->limit($limit);
+		} else {
+			throw new ForbiddenHttpException;
+		}
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,

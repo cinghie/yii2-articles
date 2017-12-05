@@ -41,12 +41,14 @@ class AttachmentsSearch extends Attachments
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     * @return ActiveDataProvider
-     */
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 * @throws \yii\base\InvalidParamException
+	 */
     public function search($params)
     {
         $query = Attachments::find();
@@ -93,8 +95,9 @@ class AttachmentsSearch extends Attachments
 	 * @param int $order
 	 *
 	 * @return ActiveDataProvider
+	 * @throws \yii\base\InvalidParamException
 	 */
-	public function last($limit, $orderby = "id", $order = SORT_DESC)
+	public function last($limit, $orderby = 'id', $order = SORT_DESC)
 	{
 		$query = Attachments::find()->limit($limit);
 
