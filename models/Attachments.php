@@ -16,6 +16,7 @@ use Yii;
 use cinghie\traits\AttachmentTrait;
 use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use yii\base\InvalidParamException;
 use yii\web\UploadedFile;
 
 /**
@@ -87,14 +88,7 @@ class Attachments extends Articles
      */
     public function isUserAuthor()
     {
-        if ( Yii::$app->user->identity->id === $this->getUserAuthor() )
-        {
-            return true;
-
-        } else {
-
-            return false;
-        }
+	    return Yii::$app->user->identity->id === $this->getUserAuthor();
     }
 
     /**
@@ -107,25 +101,28 @@ class Attachments extends Articles
         return $this->getItem()->one()->created_by;
     }
 
-    /**
-     * return file attached
-     *
-     * @return string
-     */
+	/**
+	 * return file attached
+	 *
+	 * @return string
+	 * @throws \yii\base\InvalidParamException
+	 */
     public function getFileUrl()
     {
         return Yii::getAlias(Yii::$app->controller->module->attachURL).$this->filename;
     }
 
-    /**
-     * Upload file to folder
-     *
-     * @param $fileName
-     * @param $fileNameType
-     * @param $filePath
-     * @param $fileField
-     * @return UploadedFile|bool
-     */
+	/**
+	 * Upload file to folder
+	 *
+	 * @param $fileName
+	 * @param $fileNameType
+	 * @param $filePath
+	 * @param $fileField
+	 *
+	 * @return UploadedFile|bool
+	 * @throws \yii\base\Exception
+	 */
     public function uploadFile($fileName,$fileNameType,$filePath,$fileField)
     {
         // get the uploaded file instance. for multiple file uploads
@@ -138,43 +135,42 @@ class Attachments extends Articles
 
             return false;
 
-        } else {
-
-            // set fileName by fileNameType
-            switch($fileNameType)
-            {
-                case "original":
-                    $name = $file->baseName; // get original file name
-                    break;
-                case "casual":
-                    $name = Yii::$app->security->generateRandomString(); // generate a unique file name
-                    break;
-                default:
-                    $name = $fileName; // get item title like filename
-                    break;
-            }
-
-            // file extension
-            $fileExt = $file->extension;
-            // purge filename
-            $fileName = $name;
-            // set field to filename.extensions
-            $this->$fileField = $fileName.".{$fileExt}";
-            // update file->name
-            $file->name = $fileName.".{$fileExt}";
-            // save images to imagePath
-            $file->saveAs($filePath.$fileName.".{$fileExt}");
-
-            // the uploaded file instance
-            return $file;
         }
+
+	    // set fileName by fileNameType
+	    switch($fileNameType) {
+		    case 'original':
+			    $name = $file->baseName; // get original file name
+			    break;
+		    case 'casual':
+			    $name = Yii::$app->security->generateRandomString(); // generate a unique file name
+			    break;
+		    default:
+			    $name = $fileName; // get item title like filename
+			    break;
+	    }
+
+	    // file extension
+	    $fileExt = $file->extension;
+	    // purge filename
+	    $fileName = $name;
+	    // set field to filename.extensions
+	    $this->$fileField = $fileName.".{$fileExt}";
+	    // update file->name
+	    $file->name = $fileName.".{$fileExt}";
+	    // save images to imagePath
+	    $file->saveAs($filePath.$fileName.".{$fileExt}");
+
+	    // the uploaded file instance
+	    return $file;
     }
 
-    /**
-     * delete file attached
-     *
-     * @return mixed the uploaded image instance
-     */
+	/**
+	 * delete file attached
+	 *
+	 * @return mixed the uploaded image instance
+	 * @throws InvalidParamException
+	 */
     public function deleteFile()
     {
         $file = Yii::getAlias(Yii::$app->controller->module->attachPath).$this->filename;

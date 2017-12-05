@@ -26,6 +26,7 @@ class TagsQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
+     *
      * @return Tags[]|array
      */
     public function all($db = null)
@@ -35,6 +36,7 @@ class TagsQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
+     *
      * @return Tags|array|null
      */
     public function one($db = null)

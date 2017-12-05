@@ -25,16 +25,17 @@ class Articles extends ActiveRecord
      * Generate Ordering Form Widget
      *
      * @param \kartik\widgets\ActiveForm $form
+     *
      * @return \kartik\form\ActiveField
      */
     public function getOrderingWidget($form)
     {
         $orderingSelect = [
-            "0" =>  Yii::t('articles', 'In Development')
+	        '0' =>  Yii::t('articles', 'In Development')
         ];
 
         /** @var $this \yii\base\Model */
-        return $form->field($this, 'ordering')->widget(Select2::classname(), [
+        return $form->field($this, 'ordering')->widget(Select2::className(), [
             'data' => $orderingSelect,
             'options' => [
                 'disabled' => 'disabled'
@@ -74,15 +75,17 @@ class Articles extends ActiveRecord
         return $tags;
     }
 
-    /**
-     * Upload file to folder
-     *
-     * @param $fileName
-     * @param $fileNameType
-     * @param $filePath
-     * @param $fileField
-     * @return UploadedFile|bool
-     */
+	/**
+	 * Upload file to folder
+	 *
+	 * @param $fileName
+	 * @param $fileNameType
+	 * @param $filePath
+	 * @param $fileField
+	 *
+	 * @return UploadedFile|bool
+	 * @throws \yii\base\Exception
+	 */
     public function uploadFile($fileName,$fileNameType,$filePath,$fileField)
     {
         // get the uploaded file instance. for multiple file uploads
@@ -92,39 +95,36 @@ class Articles extends ActiveRecord
 
         // if no file was uploaded abort the upload
         if ($file === null) {
-
             return false;
-
-        } else {
-
-            // set fileName by fileNameType
-            switch($fileNameType)
-            {
-                case "original":
-                    $name = $file->baseName; // get original file name
-                    break;
-                case "casual":
-                    $name = Yii::$app->security->generateRandomString(); // generate a unique file name
-                    break;
-                default:
-                    $name = $fileName; // get item title like filename
-                    break;
-            }
-
-            // file extension
-            $fileExt = $file->extension;
-            // purge filename
-            $fileName = $name;
-            // set field to filename.extensions
-            $this->$fileField = $fileName.".{$fileExt}";
-            // update file->name
-            $file->name = $fileName.".{$fileExt}";
-            // save images to imagePath
-            $file->saveAs($filePath.$fileName.".{$fileExt}");
-
-            // the uploaded file instance
-            return $file;
         }
+
+	    // set fileName by fileNameType
+	    switch($fileNameType)
+	    {
+		    case 'original':
+			    $name = $file->baseName; // get original file name
+			    break;
+		    case 'casual':
+			    $name = Yii::$app->security->generateRandomString(); // generate a unique file name
+			    break;
+		    default:
+			    $name = $fileName; // get item title like filename
+			    break;
+	    }
+
+	    // file extension
+	    $fileExt = $file->extension;
+	    // purge filename
+	    $fileName = $name;
+	    // set field to filename.extensions
+	    $this->$fileField = $fileName.".{$fileExt}";
+	    // update file->name
+	    $file->name = $fileName.".{$fileExt}";
+	    // save images to imagePath
+	    $file->saveAs($filePath.$fileName.".{$fileExt}");
+
+	    // the uploaded file instance
+	    return $file;
     }
 
     /**
@@ -134,6 +134,7 @@ class Articles extends ActiveRecord
      * @param $imagePath
      * @param $imgOptions
      * @param $thumbPath
+     *
      * @return mixed the uploaded image instance
      * @throws \Imagine\Exception\RuntimeException
      */
@@ -147,15 +148,15 @@ class Articles extends ActiveRecord
 		
 		// Save Image Thumbs
 		Image::thumbnail($imageLink, $imgOptions['small']['width'], $imgOptions['small']['height'])
-			->save($thumbPath."small/".$imageName, ['quality' => $imgOptions['small']['quality']]);
+			->save( $thumbPath . 'small/' . $imageName, [ 'quality' => $imgOptions['small']['quality']]);
 		Image::thumbnail($imageLink, $imgOptions['medium']['width'], $imgOptions['medium']['height'])
-			->save($thumbPath."medium/".$imageName, ['quality' => $imgOptions['medium']['quality']]);
+			->save( $thumbPath . 'medium/' . $imageName, [ 'quality' => $imgOptions['medium']['quality']]);
 		Image::thumbnail($imageLink, $imgOptions['large']['width'], $imgOptions['large']['height'])
-			->save($thumbPath."large/".$imageName, ['quality' => $imgOptions['large']['quality']]);
+			->save( $thumbPath . 'large/' . $imageName, [ 'quality' => $imgOptions['large']['quality']]);
 		Image::thumbnail($imageLink, $imgOptions['extra']['width'], $imgOptions['extra']['height'])
-			->save($thumbPath."extra/".$imageName, ['quality' => $imgOptions['extra']['quality']]);
+			->save( $thumbPath . 'extra/' . $imageName, [ 'quality' => $imgOptions['extra']['quality']]);
 
-		return;
+		return true;
 	}
 
     /**
@@ -184,6 +185,7 @@ class Articles extends ActiveRecord
      *
      * @param integer $cat_id
      * @param string $order
+     *
      * @return Items[]
      */
     public function getItemsByCategory($cat_id,$order = 'title')
@@ -288,10 +290,11 @@ class Articles extends ActiveRecord
     }
 
 	/**
-	 * Return param
+	 * Return params json decoded
      *
      * @param $params
      * @param $param
+	 *
 	 * @return $param
 	 */
 	public function getOption($params,$param)

@@ -21,6 +21,7 @@ class TagsassignQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
+     *
      * @return Tagsassign[]|array
      */
     public function all($db = null)
@@ -30,6 +31,7 @@ class TagsassignQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
+     *
      * @return Tagsassign|array|null
      */
     public function one($db = null)
