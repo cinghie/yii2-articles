@@ -4,13 +4,12 @@ use cinghie\adminlte\widgets\Box;
 use cinghie\adminlte\widgets\Simplebox3;
 use cinghie\articles\models\Attachments;
 use cinghie\articles\models\AttachmentsSearch;
+use cinghie\articles\models\Categories;
+use cinghie\articles\models\CategoriesSearch;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
 use cinghie\articles\models\Tags;
 use cinghie\articles\models\TagsSearch;
-use cinghie\userextended\models\User;
-use cinghie\userextended\models\UserSearch;
-use dektrium\user\Finder;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\jui\DatePicker;
@@ -19,9 +18,9 @@ $this->title = Yii::t('articles', 'Dashboard');
 $this->params['breadcrumbs'][] = $this->title;
 
 $attachSearch = new AttachmentsSearch();
-$itemsSearch  = new ItemsSearch();
-$tagsSearch   = new TagsSearch();
-$usersSearch  = new UserSearch(new Finder());
+$categoriesSearch = new CategoriesSearch();
+$itemsSearch = new ItemsSearch();
+$tagsSearch = new TagsSearch();
 
 ?>
 
@@ -44,6 +43,16 @@ $usersSearch  = new UserSearch(new Finder());
 			'bgclass' => 'bg-green',
 			'class' => 'col-md-3 col-sm-6 col-xs-12',
 			'description' => Yii::t('traits', 'More info'),
+			'icon' => 'fa fa-folder-open',
+			'link' => Url::to(['/articles/categories/index']),
+			'title' => Categories::find()->count(),
+			'subtitle' => Yii::t('articles','Categories')
+		]) ?>
+
+		<?= Simplebox3::widget([
+			'bgclass' => 'bg-yellow',
+			'class' => 'col-md-3 col-sm-6 col-xs-12',
+			'description' => Yii::t('traits', 'More info'),
 			'icon' => 'fa fa-tags',
 			'link' => Url::to(['/articles/tags/index']),
 			'title' => Tags::find()->count(),
@@ -51,23 +60,13 @@ $usersSearch  = new UserSearch(new Finder());
 		]) ?>
 
 		<?= Simplebox3::widget([
-			'bgclass' => 'bg-yellow',
+			'bgclass' => 'bg-red',
 			'class' => 'col-md-3 col-sm-6 col-xs-12',
 			'description' => Yii::t('traits', 'More info'),
 			'icon' => 'fa fa-paperclip',
 			'link' => Url::to(['/articles/attachments/index']),
 			'title' => Attachments::find()->count(),
 			'subtitle' => Yii::t('articles','Attachments')
-		]) ?>
-
-		<?= Simplebox3::widget([
-			'bgclass' => 'bg-red',
-			'class' => 'col-md-3 col-sm-6 col-xs-12',
-			'description' => Yii::t('traits', 'More info'),
-			'icon' => 'fa fa-users',
-			'link' => Url::to(['/user/admin/index']),
-			'title' => User::find()->count(),
-			'subtitle' => Yii::t('user','Users')
 		]) ?>
 
     </div>
@@ -136,38 +135,38 @@ $usersSearch  = new UserSearch(new Finder());
 
 		<?= Box::widget([
 			'class' => 'col-md-6 col-sm-12 col-xs-12',
-			'buttonLeftTitle' => Yii::t('userextended','New User'),
-			'buttonRightTitle' => Yii::t('userextended','All Users'),
-			'buttonLeftLink' => Url::to(['/user/admin/create']),
-			'buttonRightLink' => Url::to(['/user/admin/index']),
+			'buttonLeftTitle' => Yii::t('articles','New Category'),
+			'buttonRightTitle' => Yii::t('articles','All Categories'),
+			'buttonLeftLink' => Url::to(['/articles/categories/create']),
+			'buttonRightLink' => Url::to(['/articles/categories/index']),
 			'columns' => [
 				[
-					'attribute' => 'username',
+					'attribute' => 'name',
 					'format' => 'html',
 					'hAlign' => 'center',
 					'value' => function ($model) {
-						$url = urldecode(Url::toRoute(['/user/admin/update', 'id' => $model->id]));
-						return Html::a($model->username,$url);
+						$url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id, 'alias' => $model->alias]));
+						return Html::a($model->name,$url);
 					}
 				],
 				[
-					'attribute' => 'email',
-					'format' => 'email',
-					'hAlign' => 'center',
-				],
-				[
-					'attribute' => 'created_at',
-					'filter' => DatePicker::widget([
-						'attribute'  => 'created_at',
-						'dateFormat' => 'php:Y-m-d',
-						'options' => [
-							'class' => 'form-control',
-						],
-					]),
+					'attribute' => 'parent_id',
+					'format' => 'html',
 					'hAlign' => 'center',
 					'value' => function ($model) {
-						return date('Y-m-d H:i:s', $model->created_at);
+						/** @var $model cinghie\articles\models\Categories */
+						return $model->getParentGridView('name','categories/update');
+					}
+				],
+				[
+					'attribute' => 'image',
+					'format' => 'html',
+					'hAlign' => 'center',
+					'value' => function ($model) {
+						/** @var $model cinghie\articles\models\Categories */
+						return $model->getImageGridView();
 					},
+					'width' => '10%',
 				],
 				[
 					'attribute' => 'id',
@@ -175,9 +174,9 @@ $usersSearch  = new UserSearch(new Finder());
 					'width' => '7%',
 				]
 			],
-			'dataProvider' => $usersSearch->last(5),
+			'dataProvider' => $categoriesSearch->last(5),
 			'type' => 'box-danger',
-			'title' => Yii::t('userextended','Last Users'),
+			'title' => Yii::t('articles','Last Categories'),
 		]) ?>
 
     </div>
