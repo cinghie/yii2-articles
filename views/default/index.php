@@ -175,7 +175,7 @@ $tagsSearch = new TagsSearch();
 				]
 			],
 			'dataProvider' => $categoriesSearch->last(5),
-			'type' => 'box-danger',
+			'type' => 'box-success',
 			'title' => Yii::t('articles','Last Categories'),
 		]) ?>
 
@@ -206,7 +206,7 @@ $tagsSearch = new TagsSearch();
 				]
 			],
 			'dataProvider' => $tagsSearch->last(5),
-			'type' => 'box-success',
+			'type' => 'box-warning',
 			'title' => Yii::t('articles','Last Tags'),
 		]) ?>
 
@@ -253,7 +253,7 @@ $tagsSearch = new TagsSearch();
 				]
 			],
 			'dataProvider' => $attachSearch->last(5),
-			'type' => 'box-warning',
+			'type' => 'box-danger',
 			'title' => Yii::t('articles','Last Attachments'),
 		]) ?>
 
