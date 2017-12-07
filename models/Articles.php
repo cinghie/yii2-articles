@@ -54,25 +54,20 @@ class Articles extends ActiveRecord
      * @return string
      * @throws \Exception
      */
-    public function getTagsWidget()
+    public function getTagsWidget($form)
     {
-        $tags = '<div class="form-group field-items-title">';
-        $tags .= '<label class="control-label">'.Yii::t('articles','Tags').'</label>';
-        $tags .= Select2::widget([
-            'name' => 'tags',
-            'data' => $this->getTagsSelect2(),
-            'options' => [
-                'placeholder' => Yii::t('articles','Select Tags'),
-                'multiple' => true
-            ],
-            'pluginOptions' => [
-                'tags' => true,
-            ],
-            'value' => $this->getTagsIDByItemID()
-        ]);
-        $tags .= '</div>';
-
-        return $tags;
+    	return $form->field($this, 'tags')->widget(Select2::className(), [
+		    'name' => 'tags',
+		    'data' => $this->getTagsSelect2(),
+		    'options' => [
+			    'placeholder' => Yii::t('articles','Select Tags'),
+			    'multiple' => true
+		    ],
+		    'pluginOptions' => [
+			    'tags' => true,
+		    ],
+		    //'value' => $this->getTagsIDByItemID()
+	    ]);
     }
 
 	/**
@@ -278,6 +273,27 @@ class Articles extends ActiveRecord
 
         return $array;
     }
+
+	/**
+	 * Generate URL alias by string
+	 *
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	public function generateAlias($string)
+	{
+		// remove any '-' from the string they will be used as concatonater
+		$string = str_replace(array('-','_'), ' ', $string);
+
+		// remove any duplicate whitespace, and ensure all characters are alphanumeric
+		$string = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $string);
+
+		// lowercase and trim
+		$string = trim(strtolower($string));
+
+		return $string;
+	}
 
     /**
      * Generate JSON for Params

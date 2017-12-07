@@ -21,6 +21,9 @@ $attachType = Yii::$app->controller->module->attachType;
 $attachTypeString = implode(', ', $attachType);
 $attachURL = Yii::$app->controller->module->attachURL;
 
+// Set Tags
+$model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
+
 ?>
 
 <div class="items-form">
@@ -104,7 +107,7 @@ $attachURL = Yii::$app->controller->module->attachURL;
 
                                         <?= $model->getTitleWidget($form) ?>
 
-                                        <?= $model->getTagsWidget() ?>
+                                        <?= $model->getTagsWidget($form) ?>
 
                                     </div> <!-- end col-md-8 -->
 

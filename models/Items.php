@@ -64,8 +64,8 @@ use yii\helpers\Url;
  * @property string $modified
  *
  * @property Attachments[] $articleAttachments
- * @property Items $cat
  * @property Items[] $items
+ * @property Tags[] $tags
  * @property \dektrium\user\models\User $createdBy
  * @property \dektrium\user\models\User $modifiedBy
  * @property \dektrium\user\models\User $user
@@ -77,6 +77,7 @@ class Items extends Articles
     use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
 
     public $attachments;
+    public $tags;
 
     /**
      * @inheritdoc
@@ -94,7 +95,7 @@ class Items extends Articles
             [['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
-	        [['attachments'], 'safe'],
+	        [['attachments','tags'], 'safe'],
 	        [['attachments'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ]);

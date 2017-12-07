@@ -12,11 +12,12 @@
 
 namespace cinghie\articles\controllers;
 
-use cinghie\articles\models\Attachments;
-use cinghie\articles\models\Tagsassign;
 use Yii;
+use cinghie\articles\models\Attachments;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
+use cinghie\articles\models\Tags;
+use cinghie\articles\models\Tagsassign;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -197,18 +198,35 @@ class ItemsController extends Controller
 		            }
 	            }
 
-                // Set Tags
-                $tags = !empty($post['tags']) ? $post['tags'] : [];
+	            // Set Tags
+	            $tags = !empty($post['Items']['tags']) ? $post['Items']['tags'] : [];
 
-                if(count($tags))
-                {
-                    foreach ($tags as $tag) {
-                        $tagsAassign = new Tagsassign();
-                        $tagsAassign->item_id = $model->id;
-                        $tagsAassign->tag_id = $tag;
-                        $tagsAassign->save();
-                    }
-                }
+	            if(count($tags))
+	            {
+		            foreach ($tags as $tag) {
+
+			            $tag_id = Tags::find()->where(['name' => $tag])->one();
+
+			            // Tags
+			            if(!$tag_id) {
+				            $newTag = new Tags();
+				            $newTag->name = $tag;
+				            $newTag->alias = $model->generateAlias($tag);
+				            $newTag->state = 1;
+				            $newTag->save();
+
+				            $tag_id = $newTag->id;
+			            }
+
+			            // TagsAssign
+			            Tagsassign::deleteAll(['item_id'=>$model->id]);
+
+			            $tagsAassign = new Tagsassign();
+			            $tagsAassign->item_id = $model->id;
+			            $tagsAassign->tag_id = $tag_id;
+			            $tagsAassign->save();
+		            }
+	            }
 
                 // Upload only if valid uploaded file instance found
                 if ($image !== false)
@@ -313,16 +331,31 @@ class ItemsController extends Controller
 	            }
 
                 // Set Tags
-	            $tags = !empty($post['tags']) ? $post['tags'] : [];
+	            $tags = !empty($post['Items']['tags']) ? $post['Items']['tags'] : [];
 
 	            if(count($tags))
 	            {
-		            Tagsassign::deleteAll(['item_id'=>$model->id]);
-		            
                     foreach ($tags as $tag) {
+
+	                    $tag_id = Tags::find()->where(['name' => $tag])->one();
+
+                    	// Tags
+	                    if(!$tag_id) {
+							$newTag = new Tags();
+		                    $newTag->name = $tag;
+		                    $newTag->alias = $model->generateAlias($tag);
+		                    $newTag->state = 1;
+		                    $newTag->save();
+
+		                    $tag_id = $newTag->id;
+	                    }
+
+	                    // TagsAssign
+	                    Tagsassign::deleteAll(['item_id'=>$model->id]);
+
                         $tagsAassign = new Tagsassign();
                         $tagsAassign->item_id = $model->id;
-                        $tagsAassign->tag_id = $tag;
+                        $tagsAassign->tag_id = $tag_id;
                         $tagsAassign->save();
                     }
                 }
