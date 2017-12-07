@@ -23,33 +23,25 @@ use cinghie\traits\SeoTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use yii\base\InvalidParamException;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%article_categories}}".
  *
  * @property int $id
- * @property int $parent_id
- * @property string $name
- * @property string $alias
  * @property string $description
- * @property int $state
- * @property string $access
- * @property string $language
  * @property string $theme
  * @property int $ordering
- * @property string $image
- * @property string $image_caption
- * @property string $image_credits
  * @property string $params
- * @property string $metadesc
- * @property string $metakey
- * @property string $robots
- * @property string $author
- * @property string $copyright
  *
  * @property Categories $parent
  * @property Categories[] $categories
  * @property Items[] $items
+ * @property array[] $themesSelect2
+ * @property string $categoryUrl
+ * @property string $imageUrl
+ * @property string $imagePath
  */
 class Categories extends Articles
 {
@@ -93,11 +85,11 @@ class Categories extends Articles
             'image_caption' => Yii::t('traits', 'Image Caption'),
             'image_credits' => Yii::t('traits', 'Image Credits'),
             'params' => Yii::t('articles', 'Params'),
-            'metadesc' => Yii::t('articles', 'Metadesc'),
-            'metakey' => Yii::t('articles', 'Metakey'),
-            'robots' => Yii::t('articles', 'Robots'),
-            'author' => Yii::t('articles', 'Author'),
-            'copyright' => Yii::t('articles', 'Copyright'),
+            'metadesc' => Yii::t('traits', 'Metadesc'),
+            'metakey' => Yii::t('traits', 'Metakey'),
+            'robots' => Yii::t('traits', 'Robots'),
+            'author' => Yii::t('traits', 'Author'),
+            'copyright' => Yii::t('traits', 'Copyright'),
             'language' => Yii::t('traits', 'Language'),
         ]);
     }
@@ -107,7 +99,7 @@ class Categories extends Articles
      */
     public function getCategories()
     {
-        return $this->hasMany(Categories::className(), ['parent_id' => 'id']);
+        return $this->hasMany(self::className(), [ 'parent_id' => 'id']);
     }
 
     /**
@@ -117,53 +109,68 @@ class Categories extends Articles
     {
         return $this->hasMany(Items::className(), ['cat_id' => 'id']);
     }
-	
+
 	/**
-     * Fetch stored file name with complete path
-     *
-     * @return string
-     */
+	 * Return Tag url
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
+	public function getCategoryUrl() {
+		return Url::to(['/articles/categories/view', 'id' => $this->id, 'alias' => $this->alias]);
+	}
+
+	/**
+	 * Fetch stored file url
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
+	public function getImageUrl()
+	{
+		$file = isset($this->image) ? $this->image : 'default.jpg';
+		return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
+	}
+
+	/**
+	 * Fetch stored file name with complete path
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getImagePath()
     {
         return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image : null;
     }
-	
-	/**
-     * Fetch stored file url
-     *
-     * @return string
-     */
-    public function getImageUrl() 
-    {
-        $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
-    }
 
-    /**
-     * Fetch stored image thumb url
-     *
-     * @param $size
-     * @return string
-     */
+	/**
+	 * Fetch stored image thumb url
+	 *
+	 * @param $size
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getImageThumbUrl($size)
     {
         // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias(Yii::$app->controller->module->categoryImageURL)."thumb/".$size."/".$file;
+        return Yii::getAlias(Yii::$app->controller->module->categoryImageURL) . 'thumb/' . $size . '/' . $file;
     }
-	
+
 	/**
-     * Delete Image
-     *
-     * @return mixed the uploaded image instance
-     */
+	 * Delete Image
+	 *
+	 * @return mixed the uploaded image instance
+	 * @throws InvalidParamException
+	 */
 	public function deleteImage() 
 	{
-		$image   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image;
-		$imageS  = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."small/").$this->image;
-		$imageM  = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."medium/").$this->image;
-		$imageL  = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."large/").$this->image;
-		$imageXL = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath."extra/").$this->image;
+		$image   = Yii::getAlias( Yii::$app->controller->module->categoryImagePath ) . $this->image;
+		$imageS  = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'small/' ) . $this->image;
+		$imageM  = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'medium/' ) . $this->image;
+		$imageL  = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'large/' ) . $this->image;
+		$imageXL = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'extra/' ) . $this->image;
 		
 		// check if image exists on server
         if (empty($this->image) || !file_exists($image)) {
@@ -179,11 +186,9 @@ class Categories extends Articles
 			unlink($imageXL);
 			
 			return true;
-			
-		} else {
-
-			return false;
 		}
+
+		return false;
 	}
 
     /**
@@ -208,7 +213,7 @@ class Categories extends Articles
      */
     public static function find()
     {
-        return new CategoriesQuery(get_called_class());
+        return new CategoriesQuery( static::class );
     }
 	
 }

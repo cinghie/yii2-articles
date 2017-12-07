@@ -27,6 +27,8 @@ use cinghie\traits\UserTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use yii\base\InvalidParamException;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
 /**
@@ -34,42 +36,24 @@ use yii\helpers\Url;
  *
  * @property int $id
  * @property int $cat_id
- * @property string $title
- * @property string $alias
  * @property string $introtext
  * @property string $fulltext
- * @property int $state
- * @property string $access
- * @property string $language
  * @property string $theme
  * @property int $ordering
  * @property int $hits
- * @property string $image
- * @property string $image_caption
- * @property string $image_credits
- * @property string $video
- * @property string $video_type
- * @property string $video_caption
- * @property string $video_credits
  * @property string $params
- * @property string $metadesc
- * @property string $metakey
- * @property string $robots
- * @property string $author
- * @property string $copyright
- * @property int $user_id
- * @property int $created_by
- * @property string $created
- * @property int $modified_by
- * @property string $modified
  *
- * @property Attachments[] $articleAttachments
+ * @property Attachments[] $attachments
  * @property Items[] $items
  * @property Tags[] $tags
- * @property \dektrium\user\models\User $createdBy
- * @property \dektrium\user\models\User $modifiedBy
- * @property \dektrium\user\models\User $user
- * @property TagsAssign[] $articleTagsAssigns
+ * @property TagsAssign[] $tagsAssigns
+ *
+ * @property ActiveQuery $category
+ * @property string $itemUrl
+ * @property string $imageUrl
+ * @property string $imagePath
+ * @property array $publishSelect2
+ * @property mixed $attachs
  */
 class Items extends Articles
 {
@@ -78,6 +62,7 @@ class Items extends Articles
 
     public $attachments;
     public $tags;
+    public $tagsAssign;
 
     /**
      * @inheritdoc
@@ -122,20 +107,15 @@ class Items extends Articles
      */
     public function getAttachments()
     {
-        return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attach');
+        return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attachments');
     }
-
-	public function getAttachs()
-	{
-		return Attachments::find()->where(['item_id' => $this->id])->all();
-	}
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS category');
+        return $this->hasOne(Categories::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS categories');
     }
 
     /**
@@ -154,29 +134,42 @@ class Items extends Articles
         return $this->hasMany(TagsAssign::className(), ['item_id' => 'id'])->from(TagsAssign::tableName() . ' AS tags_assign');
     }
 
-    /**
-     * return item url
-     *
-     * @return string
-     */
+	/**
+	 * Return Attachments by item_id
+	 *
+	 * @return Attachments[]
+	 */
+	public function getAttachs()
+	{
+		return Attachments::find()->where(['item_id' => $this->id])->all();
+	}
+
+	/**
+	 * return item url
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getItemUrl() {
         return Url::to(['/articles/items/view', 'id' => $this->id, 'alias' => $this->alias, 'cat' => $this->category->alias]);
     }
 
 	/**
-     * Fetch stored file name with complete path
-     *
-     * @return string
-     */
+	 * Fetch stored file name with complete path
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getImagePath() {
         return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image : null;
     }
-	
+
 	/**
-     * Fetch stored file url
-     *
-     * @return string
-     */
+	 * Fetch stored file url
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getImageUrl() 
     {
         // return a default image placeholder if your source avatar is not found
@@ -184,30 +177,33 @@ class Items extends Articles
         return Yii::getAlias(Yii::$app->controller->module->itemImageURL).$file;
     }
 
-    /**
-     * Fetch stored image url
-     *
-     * @param $size
-     * @return string
-     */
+	/**
+	 * Fetch stored image url
+	 *
+	 * @param $size
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getImageThumbUrl($size)
     {
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias(Yii::$app->controller->module->itemImageURL)."thumb/".$size."/".$file;
+        return Yii::getAlias(Yii::$app->controller->module->itemImageURL) . 'thumb/' . $size . '/' . $file;
     }
-	
+
 	/**
-    * Delete Image
-    *
-    * @return mixed the uploaded image instance
-    */
+	 * Delete Image
+	 *
+	 * @return mixed the uploaded image instance
+	 * @throws InvalidParamException
+	 */
 	public function deleteImage() 
 	{
-		$image   = Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image;
-		$imageS  = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."small/").$this->image;
-		$imageM  = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."medium/").$this->image;
-		$imageL  = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."large/").$this->image;
-		$imageXL = Yii::getAlias(Yii::$app->controller->module->itemThumbPath."extra/").$this->image;
+		$image   = Yii::getAlias( Yii::$app->controller->module->itemImagePath ). $this->image;
+		$imageS  = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'small/' ) . $this->image;
+		$imageM  = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'medium/' ) . $this->image;
+		$imageL  = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'large/' ) . $this->image;
+		$imageXL = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'extra/' ) . $this->image;
 		
 		// check if image exists on server
         if ( empty($this->image) || !file_exists($image) ) {
@@ -223,11 +219,9 @@ class Items extends Articles
 			unlink($imageXL);
 			
 			return true;
-			
-		} else {
-			return false;
 		}
-		
+
+		return false;
 	}
 
     /**
@@ -239,19 +233,9 @@ class Items extends Articles
     {
         if ( Yii::$app->user->can('articles-publish-all-items') || Yii::$app->user->can('articles-publish-his-items') ) {
             return [ 1 => Yii::t('articles', 'Published'), 0 => Yii::t('articles', 'Unpublished') ];
-        } else {
-            return [ 0 => Yii::t('articles', 'Unpublished') ];
         }
-    }
 
-    /*
-     * Return a date formatted with default format
-     *
-     * @param strung $date
-     * @return string
-     */
-    public function getDateFormatted($date) {
-        return Yii::$app->formatter->asDatetime($date, "php:".Yii::$app->controller->module->dateFormat);
+	    return [ 0 => Yii::t('articles', 'Unpublished') ];
     }
 	
 }

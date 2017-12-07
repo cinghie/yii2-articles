@@ -17,6 +17,7 @@ use cinghie\traits\AttachmentTrait;
 use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\base\InvalidParamException;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
 
 /**
@@ -24,16 +25,14 @@ use yii\web\UploadedFile;
  *
  * @property int $id
  * @property int $item_id
- * @property string $title
- * @property string $alias
  * @property string $titleAttribute
- * @property string $filename
- * @property string $extension
- * @property string $mimetype
  * @property int $size
  * @property int $hits
  *
  * @property Items $item
+ * @property bool $userAuthor
+ * @property string $attachmentUrl
+ * @property string $fileUrl
  */
 class Attachments extends Articles
 {
@@ -91,26 +90,36 @@ class Attachments extends Articles
 	    return Yii::$app->user->identity->id === $this->getUserAuthor();
     }
 
-    /**
-     * return user of the author from the article
-     *
-     * @return bool
-     */
-    public function getUserAuthor()
-    {
-        return $this->getItem()->one()->created_by;
-    }
-
 	/**
-	 * return file attached
+	 * Return Attachment url
 	 *
 	 * @return string
-	 * @throws \yii\base\InvalidParamException
+	 * @throws InvalidParamException
+	 */
+	public function getAttachmentUrl() {
+		return Url::to(['/articles/attachments/view', 'id' => $this->id, 'alias' => $this->alias]);
+	}
+
+	/**
+	 * Return file attached
+	 *
+	 * @return string
+	 * @throws InvalidParamException
 	 */
     public function getFileUrl()
     {
         return Yii::getAlias(Yii::$app->controller->module->attachURL).$this->filename;
     }
+
+	/**
+	 * Return user of the author from the article
+	 *
+	 * @return bool
+	 */
+	public function getUserAuthor()
+	{
+		return $this->getItem()->one()->created_by;
+	}
 
 	/**
 	 * Upload file to folder
@@ -166,7 +175,7 @@ class Attachments extends Articles
     }
 
 	/**
-	 * delete file attached
+	 * Delete file attached
 	 *
 	 * @return mixed the uploaded image instance
 	 * @throws InvalidParamException

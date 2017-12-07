@@ -12,17 +12,28 @@
 
 namespace cinghie\articles\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[Tags]].
  * @see Tags
  */
-class TagsQuery extends \yii\db\ActiveQuery
+class TagsQuery extends ActiveQuery
 {
 
-    public function active()
-    {
-        return $this->andWhere('[[state]]=1');
-    }
+	/**
+	 * @inheritdoc
+	 *
+	 * @param int $limit
+	 * @param string $order
+	 * @param string $orderby
+	 *
+	 * @return TagsQuery
+	 */
+	public function last($limit, $orderby = 'id', $order = 'DESC' )
+	{
+		return $this->orderBy([$orderby => $order])->limit($limit);
+	}
 
     /**
      * @inheritdoc

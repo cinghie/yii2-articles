@@ -17,16 +17,18 @@ use cinghie\traits\EditorTrait;
 use cinghie\traits\NameAliasTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use yii\base\InvalidParamException;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%article_tags}}".
  *
  * @property integer $id
- * @property string $name
- * @property string $alias
- * @property integer $state
  * @property string $description
+ *
+ * @property ActiveQuery $tagsassign
+ * @property string $tagUrl
  */
 class Tags extends Articles
 {
@@ -71,11 +73,12 @@ class Tags extends Articles
         return $this->hasMany(Tagsassign::className(), ['tag_id' => 'id']);
     }
 
-    /**
-     * return Tag url
-     *
-     * @return string
-     */
+	/**
+	 * Return Tag url
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function getTagUrl() {
         return Url::to(['/articles/tags/view', 'id' => $this->id, 'alias' => $this->alias]);
     }
@@ -87,7 +90,7 @@ class Tags extends Articles
      */
     public static function find()
     {
-        return new TagsQuery(get_called_class());
+        return new TagsQuery( static::class );
     }
 
 }

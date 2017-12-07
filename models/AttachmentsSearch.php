@@ -47,7 +47,7 @@ class AttachmentsSearch extends Attachments
 	 * @param array $params
 	 *
 	 * @return ActiveDataProvider
-	 * @throws \yii\base\InvalidParamException
+	 * @throws InvalidParamException
 	 */
     public function search($params)
     {
@@ -95,7 +95,7 @@ class AttachmentsSearch extends Attachments
 	 * @param int $order
 	 *
 	 * @return ActiveDataProvider
-	 * @throws \yii\base\InvalidParamException
+	 * @throws InvalidParamException
 	 */
 	public function last($limit, $orderby = 'id', $order = SORT_DESC)
 	{

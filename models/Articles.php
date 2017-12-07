@@ -14,10 +14,20 @@ namespace cinghie\articles\models;
 
 use Yii;
 use kartik\widgets\Select2;
+use yii\base\InvalidParamException;
+use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 
+/**
+ * Superclass for Yii2 Articles Module
+ *
+ * @property array $categoriesSelect2
+ * @property array $itemsSelect2
+ * @property array $tagsIDByItemID
+ * @property array $tagsSelect2
+ */
 class Articles extends ActiveRecord
 {
 
@@ -30,9 +40,7 @@ class Articles extends ActiveRecord
      */
     public function getOrderingWidget($form)
     {
-        $orderingSelect = [
-	        '0' =>  Yii::t('articles', 'In Development')
-        ];
+        $orderingSelect = ['0' => Yii::t('articles', 'In Development')];
 
         /** @var $this \yii\base\Model */
         return $form->field($this, 'ordering')->widget(Select2::className(), [
@@ -48,12 +56,13 @@ class Articles extends ActiveRecord
         ]);
     }
 
-    /**
-     * Generate Tags Form Widget
-     *
-     * @return string
-     * @throws \Exception
-     */
+	/**
+	 * Generate Tags Form Widget
+	 *
+	 * @param \kartik\widgets\ActiveForm $form
+	 *
+	 * @return string
+	 */
     public function getTagsWidget($form)
     {
     	return $form->field($this, 'tags')->widget(Select2::className(), [
@@ -155,7 +164,7 @@ class Articles extends ActiveRecord
 	}
 
     /**
-     * Function for creating directory to save file
+     * Creating directory to save file if not exist
      *
      * @param string $path file to create
      */
@@ -275,6 +284,19 @@ class Articles extends ActiveRecord
     }
 
 	/**
+	 * Return date formatted with Module option dateFormat
+	 *
+	 * @param $date
+	 *
+	 * @return string
+	 * @throws InvalidConfigException
+	 * @throws InvalidParamException
+	 */
+	public function getDateFormatted($date) {
+		return Yii::$app->formatter->asDatetime($date, 'php:' . Yii::$app->controller->module->dateFormat);
+	}
+
+	/**
 	 * Generate URL alias by string
 	 *
 	 * @param string $string
@@ -290,7 +312,7 @@ class Articles extends ActiveRecord
 		$string = preg_replace(array('/\s+/','/[^A-Za-z0-9\-]/'), array('-',''), $string);
 
 		// lowercase and trim
-		$string = trim(strtolower($string));
+		$string = strtolower(trim($string));
 
 		return $string;
 	}
@@ -307,11 +329,11 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return params json decoded
-     *
-     * @param $params
-     * @param $param
 	 *
-	 * @return $param
+	 * @param $params
+	 * @param $param
+	 *
+	 * @return mixed
 	 */
 	public function getOption($params,$param)
 	{

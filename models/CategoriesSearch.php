@@ -111,7 +111,7 @@ class CategoriesSearch extends Categories
 	 * @throws ForbiddenHttpException
 	 * @throws InvalidParamException
 	 */
-	public function last($limit, $orderby = "id", $order = SORT_DESC)
+	public function last($limit, $orderby = 'id', $order = SORT_DESC)
 	{
 		if(Yii::$app->user->can('articles-index-all-items')) {
 			$query = Categories::find()->limit($limit);

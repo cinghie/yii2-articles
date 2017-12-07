@@ -13,6 +13,8 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%article_tags_assign}}".
@@ -20,9 +22,13 @@ use Yii;
  * @property integer $id
  * @property integer $tag_id
  * @property integer $item_id
+ *
+ * @property ActiveQuery $tag
+ * @property ActiveQuery $item
  */
-class Tagsassign extends \yii\db\ActiveRecord
+class Tagsassign extends ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -48,8 +54,8 @@ class Tagsassign extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('articles', 'ID'),
-            'tag_id' => Yii::t('articles', 'Tagid'),
-            'item_id' => Yii::t('articles', 'Itemid'),
+            'tag_id' => Yii::t('articles', 'Tag'),
+            'item_id' => Yii::t('articles', 'Item'),
         ];
     }
 
@@ -76,7 +82,7 @@ class Tagsassign extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new TagsAssignQuery(get_called_class());
+        return new TagsAssignQuery( static::class );
     }
 
 }
