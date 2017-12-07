@@ -31,7 +31,7 @@ class DefaultController extends Controller
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \Exception('You are not allowed to access this page');
+                    throw new \RuntimeException('You are not allowed to access this page');
                 }
             ],
         ];
