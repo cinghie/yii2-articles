@@ -402,23 +402,11 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        Attachments::deleteAll([
-            'AND', 'item_id = '.$id
-        ]);
-
-        Tagsassign::deleteAll([
-            'AND', 'item_id = '.$id
-        ]);
-
         if ($model->delete()) {
-            if (!$model->deleteImage() && !empty($model->image)) {
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
-            } else {
-                Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
-            }
-        } else {
-            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
+	        Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
         }
+
+	    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
     }
 
 	/**
@@ -441,21 +429,12 @@ class ItemsController extends Controller
         {
             $model = $this->findModel($id);
 
-            Attachments::deleteAll([
-                'AND', 'item_id = '.$id
-            ]);
-
-            Tagsassign::deleteAll([
-                'AND', 'item_id = '.$id
-            ]);
-
             if ($model->delete()) {
-                if (!$model->deleteImage() && !empty($model->image)) {
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
-                } else {
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
-                }
+
+	            Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
+
             } else {
+
                 Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
             }
         }

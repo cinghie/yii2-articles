@@ -224,6 +224,21 @@ class Items extends Articles
 		return false;
 	}
 
+	/**
+	 * Delete Attachments
+	 *
+	 * @throws InvalidParamException
+	 */
+	public function deleteAttachments()
+	{
+		$attachments = $this->getAttachs();
+
+		foreach ($attachments as $attachment) {
+			$attachmentUrl = Yii::getAlias( Yii::$app->controller->module->attachPath ). $attachment['filename'];
+			unlink($attachmentUrl);
+		}
+	}
+
     /**
      * Return array for Publish Status
      *
@@ -237,5 +252,27 @@ class Items extends Articles
 
 	    return [ 0 => Yii::t('articles', 'Unpublished') ];
     }
-	
+
+	/**
+	 * Before delete Item, delete Image, Attachments, TagsAssigned
+	 *
+	 * @throws InvalidParamException
+	 */
+    public function beforeDelete()
+    {
+	    /** @var Items $this */
+
+    	// Delete Attachments
+	    $this->deleteAttachments();
+	    Attachments::deleteAll([ 'AND', 'item_id = '.$this->id ]);
+
+	    // Delete TagsAssigned
+	    Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
+
+	    // Delete Image
+	    $this->deleteImage();
+
+	    return parent::beforeDelete();
+    }
+
 }
