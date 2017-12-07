@@ -14,8 +14,9 @@ namespace cinghie\articles\controllers;
 
 use Yii;
 use cinghie\articles\models\Tags;
-use cinghie\articles\models\Tagsassign;
 use cinghie\articles\models\TagsSearch;
+use yii\base\InvalidParamException;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -27,9 +28,10 @@ use yii\web\NotFoundHttpException;
  */
 class TagsController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+	/**
+	 * @inheritdoc
+	 * @throws \Exception
+	 */
     public function behaviors()
     {
         return [
@@ -58,7 +60,7 @@ class TagsController extends Controller
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \Exception('You are not allowed to access this page');
+                    throw new \RuntimeException('You are not allowed to access this page');
                 }
             ],
             'verbs' => [
@@ -97,6 +99,7 @@ class TagsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return mixed
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
     public function actionView($id)
@@ -106,13 +109,13 @@ class TagsController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Tags model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     *
-     * @return mixed
-     * @throws ForbiddenHttpException
-     */
+	/**
+	 * Creates a new Tags model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @return mixed
+	 * @throws InvalidParamException
+	 */
     public function actionCreate()
     {
         $model = new Tags();
@@ -125,25 +128,24 @@ class TagsController extends Controller
 
             if($model->save()) {
                 return $this->redirect(['index']);
-            } else {
-                return $this->render('create', [ 'model' => $model, ]);
             }
 
-        } else {
-            return $this->render('create', [ 'model' => $model, ]);
+	        return $this->render('create', [ 'model' => $model ]);
         }
+
+	    return $this->render('create', [ 'model' => $model ]);
     }
 
-    /**
-     * Updates an existing Tags model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * Updates an existing Tags model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws InvalidParamException
+	 * @throws NotFoundHttpException
+	 */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -156,26 +158,26 @@ class TagsController extends Controller
 
             if($model->save()) {
                 return $this->redirect(['index']);
-            } else {
-                return $this->render('update', [ 'model' => $model, ]);
             }
 
-        } else {
-            return $this->render('update', [ 'model' => $model, ]);
+	        return $this->render('update', [ 'model' => $model ]);
         }
+
+	    return $this->render('update', [ 'model' => $model ]);
     }
 
-    /**
-     * Deletes an existing Tags model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     * @throws \Exception
-     */
+	/**
+	 * Deletes an existing Tags model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @param integer $id
+	 *
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 * @throws \Exception
+	 * @throws StaleObjectException
+	 * @throws \Throwable
+	 */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -183,14 +185,15 @@ class TagsController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Deletes selected Tags models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     * @throws \Exception
-     */
+	/**
+	 * Deletes selected Tags models.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @throws \Exception
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
+	 * @throws \Throwable
+	 */
     public function actionDeletemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -216,8 +219,6 @@ class TagsController extends Controller
      *
      * @param $id
      *
-     * @return \yii\web\Response
-     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
     public function actionChangestate($id)
@@ -226,22 +227,19 @@ class TagsController extends Controller
 
         if ($model->state) {
             $model->deactive();
-            Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags unpublished'));
+            Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tag unpublished'));
         } else {
             $model->active();
-            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags published'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tag published'));
         }
     }
 
-    /**
-     * Active selected Tags models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @return mixed
-     *
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * Active selected Tags models.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @throws NotFoundHttpException
+	 */
     public function actionActivemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -256,22 +254,17 @@ class TagsController extends Controller
 
             if(!$model->state) {
                 $model->active();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags actived'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tags published'));
             }
         }
-
-        return;
     }
 
-    /**
-     * Active selected Tags models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @return mixed
-     * 
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * Active selected Tags models.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @throws NotFoundHttpException
+	 */
     public function actionDeactivemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -286,11 +279,9 @@ class TagsController extends Controller
 
             if($model->state) {
                 $model->deactive();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags inactived'));
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Tags unpublished'));
             }
         }
-
-        return;
     }
 
     /**
@@ -305,9 +296,9 @@ class TagsController extends Controller
     {
         if (($model = Tags::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+	    throw new NotFoundHttpException('The requested page does not exist.');
     }
     
 }
