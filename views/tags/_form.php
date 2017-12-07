@@ -24,49 +24,49 @@ $asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
 
 ?>
 
-<div class="row">
-
-    <div class="col-md-6">
-
-        <?= Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php'); ?>
-
-    </div>
-
-    <div class="col-md-6">
-
-        <?= $model->getExitButton() ?>
-
-        <?= $model->getCancelButton() ?>
-
-        <?= $model->getSaveButton() ?>
-
-    </div>
-
-</div>
-
 <div class="tags-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin(); ?>
 
-    <div class="row">
+        <div class="row">
 
-        <div class="col-lg-4">
+            <div class="col-md-6">
 
-            <?= $model->getNameWidget($form) ?>
+                <?= Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php'); ?>
 
-            <?= $model->getAliasWidget($form) ?>
+            </div>
 
-            <?= $model->getStateWidget($form) ?>
+            <div class="col-md-6">
+
+                <?= $model->getExitButton() ?>
+
+                <?= $model->getCancelButton() ?>
+
+                <?= $model->getSaveButton() ?>
+
+            </div>
 
         </div>
 
-        <div class="col-lg-8">
+        <div class="row">
 
-            <?= $model->getEditorWidget($form,'description') ?>
+            <div class="col-lg-4">
+
+                <?= $model->getNameWidget($form) ?>
+
+                <?= $model->getAliasWidget($form) ?>
+
+                <?= $model->getStateWidget($form) ?>
+
+            </div>
+
+            <div class="col-lg-8">
+
+                <?= $model->getEditorWidget($form,'description') ?>
+
+            </div>
 
         </div>
-
-    </div>
 
     <?php ActiveForm::end(); ?>
 
