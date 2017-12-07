@@ -1,7 +1,5 @@
 <?php
 
-use kartik\widgets\Select2;
-
 ?>
 
     <div class="col-md-12">

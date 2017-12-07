@@ -9,7 +9,7 @@ use kartik\helpers\Html;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles[ArticlesAsset::class];
 
 // Set Title and Breadcrumbs
 $this->title = Html::encode($model->title);
@@ -30,7 +30,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 	<header>
 
     	<h1><?= Html::encode($this->title) ?></h1>
-        <time pubdate datetime="<?= $model->created ?>"></time>
+        <time datetime="<?= $model->created ?>"></time>
 
         <?php if ($model->image): ?>
             <figure>

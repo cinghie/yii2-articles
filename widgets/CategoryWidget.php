@@ -13,7 +13,6 @@
 namespace cinghie\articles\widgets;
 
 use cinghie\articles\models\Categories;
-use cinghie\articles\widgets\ItemWidget;
 use yii\bootstrap\Widget;
 
 class CategoryWidget extends Widget
@@ -31,9 +30,15 @@ class CategoryWidget extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string|void
+	 *
+	 * @throws \Exception
+	 */
+	public function run()
     {
-        $items = Categories::getItemsByCategory($this->id);
+    	$categories = new Categories();
+        $items = $categories->getItemsByCategory($this->id);
 
         echo '<div class="row">';
 

@@ -7,7 +7,7 @@
 use kartik\helpers\Html;
 
 // Set Title and Breadcrumbs
-$this->title = Yii::t('articles', 'Update {modelClass}: ', ['modelClass' => 'Attachments',]) . ' ' . $model->title;
+$this->title = Yii::t('articles', 'Update Attachments') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Articles'), 'url' => ['/articles/default/index']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Attachments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

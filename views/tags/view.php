@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles[ArticlesAsset::class];
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Tags'), 'url' => ['index']];

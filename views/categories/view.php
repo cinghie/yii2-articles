@@ -9,7 +9,7 @@ use cinghie\articles\assets\ArticlesAsset;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles[ArticlesAsset::class];
 
 // Set Title and Breadcrumbs
 $this->title = Html::encode($model->name);

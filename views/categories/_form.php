@@ -98,7 +98,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
                                 <?= $model->getStateWidget($form) ?>
 
-                                <?= $form->field($model, 'theme')->widget(Select2::classname(), [
+                                <?= $form->field($model, 'theme')->widget(Select2::className(), [
                                     'data' => $model->getThemesSelect2(),
                                     'addon' => [
                                         'prepend' => [
@@ -152,15 +152,15 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                             <div class="col-lg-12">
 
                                 <p class="bg-info">
-                                    <?= Yii::t('traits', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
-                                    (<?= Yii::t('articles', 'Max Size'). ": " .$model->getUploadMaxSize() ?>)
+                                    <?= Yii::t('traits', 'Allowed Extensions') . ': ' . implode( ', ',$model->getImagesAllowed()) ?>
+                                    (<?= Yii::t('traits', 'Max Size') . ': ' . $model->getUploadMaxSize() ?>)
                                 </p>
 
                             </div> <!-- col-lg-12 -->
 
                             <div class="col-lg-6">
 
-                                <?= $model->getImageWidget()  ?>
+                                $model->getImageWidget()  ?>
 
                             </div> <!-- col-lg-6 -->
 

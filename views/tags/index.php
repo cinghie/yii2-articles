@@ -15,7 +15,7 @@ use yii\widgets\Pjax;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles[ArticlesAsset::class];
 
 $this->title = Yii::t('articles', 'Tags');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('articles', 'Articles'), 'url' => ['/articles/default/index']];

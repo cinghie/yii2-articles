@@ -12,7 +12,7 @@ use kartik\widgets\Select2;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles[ArticlesAsset::class];
 
 // Load info
 $attachType = Yii::$app->controller->module->attachType;
@@ -71,7 +71,7 @@ $attachURL = Yii::$app->controller->module->attachURL;
 
                     <?= $model->getAliasWidget($form) ?>
 
-                    <?= $form->field($model, 'item_id')->widget(Select2::classname(), [
+                    <?= $form->field($model, 'item_id')->widget(Select2::className(), [
                         'data' => $model->getItemsSelect2(),
                         'addon' => [
                             'prepend' => [

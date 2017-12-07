@@ -6,21 +6,12 @@
  * @var $this yii\web\View
  */
 
-use kartik\helpers\Html;
 use cinghie\articles\assets\ArticlesAsset;
-
-// Load Kartik Libraries
 use kartik\widgets\ActiveForm;
-use kartik\widgets\Select2;
-
-// Load Editors Libraries
-use dosamigos\ckeditor\CKEditor;
-use dosamigos\tinymce\TinyMce;
-use kartik\markdown\MarkdownEditor;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
-$asset = $this->assetBundles['cinghie\articles\assets\ArticlesAsset'];
+$asset = $this->assetBundles[ArticlesAsset::class];
 
 ?>
 
