@@ -18,6 +18,10 @@ use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
 use cinghie\articles\models\Tags;
 use cinghie\articles\models\Tagsassign;
+use Imagine\Exception\RuntimeException;
+use yii\base\Exception;
+use yii\base\InvalidParamException;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -78,12 +82,12 @@ class ItemsController extends Controller
                         'actions' => ['view'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-view-items') || $model->access === "public" );
+                            return ( Yii::$app->user->can('articles-view-items') || $model->access === 'public' );
                         }
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \Exception('You are not allowed to access this page');
+                    throw new \RuntimeException('You are not allowed to access this page');
                 }
             ],
             'verbs' => [
@@ -104,6 +108,7 @@ class ItemsController extends Controller
 	 * Lists all Items models
 	 *
 	 * @return mixed
+	 * @throws InvalidParamException
 	 * @throws ForbiddenHttpException
 	 */
     public function actionIndex()
@@ -123,6 +128,7 @@ class ItemsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return mixed
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
     public function actionView($id)
@@ -134,11 +140,14 @@ class ItemsController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Items model
-     *
-     * @return mixed
-     */
+	/**
+	 * Creates a new Items model
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 * @throws InvalidParamException
+	 * @throws RuntimeException
+	 */
     public function actionCreate()
     {
         $model = new Items();
@@ -147,15 +156,10 @@ class ItemsController extends Controller
         if ( $model->load($post) )
         {
             // Set modified as actual date
-            $model->modified = "0000-00-00 00:00:00";
+            $model->modified = '0000-00-00 00:00:00';
 
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Items'],'title');
-
-	        // Check if cat_id was zero from form set null to db
-	        if($model->cat_id == 0) {
-	            $model->cat_id = null;
-	        }
 
             // Upload Image and Thumb if is not Null
             $imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
@@ -163,13 +167,13 @@ class ItemsController extends Controller
             $imgNameType = Yii::$app->controller->module->imageNameType;
             $imgOptions  = Yii::$app->controller->module->thumbOptions;
             $imgName     = $model->title;
-            $fileField   = "image";
+            $fileField   = 'image';
 
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
 
-            if ($model->save()) {
-
+            if ($model->save())
+            {
             	// Set Attachments
 	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
@@ -240,18 +244,16 @@ class ItemsController extends Controller
 
                 return $this->redirect(['index']);
 
-            } else {
-
-                // Set Error Message
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
-
-                return $this->render('create', ['model' => $model,]);
             }
 
-        } else {
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
-            return $this->render('create', ['model' => $model,]);
+	        return $this->render('create', ['model' => $model]);
+
         }
+
+	    return $this->render('create', ['model' => $model]);
     }
 
 	/**
@@ -260,48 +262,45 @@ class ItemsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return mixed
+	 * @throws Exception
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
+	 * @throws RuntimeException
 	 */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         $post  = Yii::$app->request->post();
 
-        if ($model->load($post)) {
-
-            $oldTags = $model->getTagsIDByItemID();
-
+        if ( $model->load($post) )
+        {
             // Set modified as actual date
-            $model->modified = date("Y-m-d H:i:s");
+            $model->modified = date( 'Y-m-d H:i:s' );
 
             // Set modified_by User
             $model->modified_by = Yii::$app->user->identity->id;
-
-	        // Check if cat_id was zero from form set null to db
-	        if($model->cat_id == 0) {
-		        $model->cat_id = null;
-	        }
 
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Items'],'title');
 
             // Upload Image and Thumb if is not Null
-            $imagePath = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
-            $thumbPath = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
+            $imagePath   = Yii::getAlias(Yii::$app->controller->module->itemImagePath);
+            $thumbPath   = Yii::getAlias(Yii::$app->controller->module->itemThumbPath);
             $imgNameType = Yii::$app->controller->module->imageNameType;
-            $imgOptions = Yii::$app->controller->module->thumbOptions;
-            $imgName = $model->title;
-            $fileField = "image";
+            $imgOptions  = Yii::$app->controller->module->thumbOptions;
+            $imgName     = $model->title;
+            $fileField   = 'image';
 
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
 
-            if($model->image == false && $image === false) {
+            // If image is false delete from db
+            if($model->image === false && $image === false) {
                 unset($model->image);
             }
 
-            if ($model->save()) {
-
+            if ($model->save())
+            {
 	            // Set Attachments
 	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
@@ -363,7 +362,7 @@ class ItemsController extends Controller
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {
                     // save thumbs to thumbPaths
-                    $thumb = $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
+                    $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
                 }
 
                 // Set Success Message
@@ -371,20 +370,18 @@ class ItemsController extends Controller
 
                 return $this->redirect(['index']);
 
-            } else {
-
-                // Set Error Message
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
-
-                return $this->render('update', ['model' => $model,]);
             }
 
-        } else {
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+	        return $this->render('update', ['model' => $model]);
+
         }
+
+	    return $this->render('update', [
+		    'model' => $model,
+	    ]);
     }
 
 	/**
@@ -392,17 +389,17 @@ class ItemsController extends Controller
 	 *
 	 * @param integer $id
 	 *
-	 * @return mixed
-	 * @throws NotFoundHttpException
 	 * @throws \Exception
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
 	 * @throws \Throwable
-	 * @throws \yii\db\StaleObjectException
 	 */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->delete()) {
+	    /** @var Items $model */
+	    if ($model->delete()) {
 	        Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
         }
 
@@ -414,8 +411,8 @@ class ItemsController extends Controller
 	 *
 	 * @throws NotFoundHttpException
 	 * @throws \Exception
+	 * @throws StaleObjectException
 	 * @throws \Throwable
-	 * @throws \yii\db\StaleObjectException
 	 */
     public function actionDeletemultiple()
     {
@@ -430,12 +427,9 @@ class ItemsController extends Controller
             $model = $this->findModel($id);
 
             if ($model->delete()) {
-
 	            Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
-
             } else {
-
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image!'));
             }
         }
 
@@ -449,6 +443,7 @@ class ItemsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return mixed
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
 	public function actionDeleteimage($id) 
@@ -456,7 +451,7 @@ class ItemsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->deleteImage()) {
-            $model->image = "";
+            $model->image = '';
             $model->save();
             Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
         } else {
@@ -482,17 +477,16 @@ class ItemsController extends Controller
 
         if($model->state) {
             $model->deactive();
-            Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Article unpublished'));
+            Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Item unpublished'));
         } else {
             $model->active();
-            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Article published'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Item published'));
         }
     }
 
 	/**
 	 * Active selected Items models
 	 *
-	 * @return mixed
 	 * @throws \yii\web\ForbiddenHttpException
 	 * @throws ForbiddenHttpException
 	 * @throws NotFoundHttpException
@@ -511,7 +505,7 @@ class ItemsController extends Controller
 
             if (!$model->state) {
                 $model->active();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items actived'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Items unpublished'));
             } else {
                 throw new ForbiddenHttpException;
             }
@@ -521,7 +515,6 @@ class ItemsController extends Controller
     /**
      * Active selected Items models
      *
-     * @return mixed
      * @throws NotFoundHttpException
      */
     public function actionDeactivemultiple()
@@ -538,7 +531,7 @@ class ItemsController extends Controller
 
             if($model->state) {
                 $model->deactive();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items inactived'));
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Items published'));
             }
         }
     }
@@ -554,9 +547,9 @@ class ItemsController extends Controller
     {
         if (($model = Items::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+	    throw new NotFoundHttpException('The requested page does not exist.');
     }
 
 	/**
@@ -571,11 +564,7 @@ class ItemsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->language == $model->getLang() || $model->getLangTag() === "all") {
-            return true;
-        } else {
-            return false;
-        }
+	    return Yii::$app->language === $model->getLang() || 'all' === $model->getLangTag();
     }
 
 }
