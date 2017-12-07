@@ -13,8 +13,11 @@
 namespace cinghie\articles;
 
 use Yii;
+use yii\base\InvalidParamException;
+use yii\base\Module;
+use yii\i18n\PhpMessageSource;
 
-class Articles extends \yii\base\Module
+class Articles extends Module
 {
     // Controller Namespace
     public $controllerNamespace = 'cinghie\articles\controllers';
@@ -23,49 +26,49 @@ class Articles extends \yii\base\Module
 	public $userClass = 'dektrium\user\models\User';
 
 	// Select Article Languages
-	public $languages = [ "en-GB" => "en-GB" ];
+	public $languages = [ 'en-GB' => 'en-GB' ];
 
     // Select Date Format
-    public $dateFormat = "d F Y";
+    public $dateFormat = 'd F Y';
 
 	// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
-	public $editor = "imperavi";
+	public $editor = 'imperavi';
 
 	// Select Path To Upload Category Image
-	public $categoryImagePath = "@webroot/img/articles/categories/";
+	public $categoryImagePath = '@webroot/img/articles/categories/';
 
 	// Select URL To Upload Category Image
-	public $categoryImageURL = "@web/img/articles/categories/";
+	public $categoryImageURL = '@web/img/articles/categories/';
 
 	// Select Path To Upload Category Thumb
-	public $categoryThumbPath = "@webroot/img/articles/categories/thumb/";
+	public $categoryThumbPath = '@webroot/img/articles/categories/thumb/';
 
 	// Select URL To Upload Category Image
-	public $categoryThumbURL = "@web/img/articles/categories/thumb/";
+	public $categoryThumbURL = '@web/img/articles/categories/thumb/';
 
 	// Select Path To Upload Item Image
-	public $itemImagePath = "@webroot/img/articles/items/";
+	public $itemImagePath = '@webroot/img/articles/items/';
 
 	// Select URL To Upload Item Image
-	public $itemImageURL = "@web/img/articles/items/";
+	public $itemImageURL = '@web/img/articles/items/';
 
 	// Select Path To Upload Item Thumb
-	public $itemThumbPath = "@webroot/img/articles/items/thumb/";
+	public $itemThumbPath = '@webroot/img/articles/items/thumb/';
 
 	// Select URL To Upload Item Thumb
-	public $itemThumbURL = "@web/img/articles/items/thumb/";
+	public $itemThumbURL = '@web/img/articles/items/thumb/';
 
 	// Select Image Name: categoryname, original, casual
-	public $imageNameType = "categoryname";
+	public $imageNameType = 'categoryname';
 
 	// Select Image Types allowed
 	public $imageType = ['png','jpg','jpeg'];
 
 	// Select Path To Upload Attachments
-	public $attachPath = "@webroot/attachments/";
+	public $attachPath = '@webroot/attachments/';
 
 	// Select URL To Upload Attachment
-	public $attachURL = "@web/attachments/";
+	public $attachURL = '@web/attachments/';
 
 	// Select Attachment Types allowed
 	public $attachType = ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'];
@@ -90,6 +93,8 @@ class Articles extends \yii\base\Module
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @throws InvalidParamException
 	 */
     public function init()
     {
@@ -107,7 +112,7 @@ class Articles extends \yii\base\Module
 		if (!isset(Yii::$app->i18n->translations['articles*'])) 
 		{
 			Yii::$app->i18n->translations['articles*'] = [
-				'class' => 'yii\i18n\PhpMessageSource',
+				'class' => PhpMessageSource::class,
 				'basePath' => __DIR__ . '/messages',
 			];
 		}
@@ -115,6 +120,8 @@ class Articles extends \yii\base\Module
 
 	/**
 	 * Setup image directory if it's not exist yet
+	 *
+	 * @throws InvalidParamException
 	 */
     protected function setupImageDirectory()
     {
