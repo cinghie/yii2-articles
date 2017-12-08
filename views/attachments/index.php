@@ -91,7 +91,7 @@ $this->registerJs('$(document).ready(function()
                     'format' => 'html',
                     'hAlign' => 'center',
                     'value' => function ($model) {
-                        $url = urldecode(Url::toRoute(['attachments/update', 'id' => $model->id]));
+                        $url = urldecode(Url::toRoute(['/articles/attachments/update', 'id' => $model->id]));
                         return Html::a($model->title,$url);
                     }
                 ],
@@ -100,7 +100,7 @@ $this->registerJs('$(document).ready(function()
                     'format' => 'html',
                     'hAlign' => 'center',
                     'value' => function ($model) {
-                        $url  = urldecode(Url::toRoute(['items/update', 'id' => $model->item_id]));
+                        $url  = urldecode(Url::toRoute(['/articles/items/update', 'id' => $model->item_id]));
                         $item = isset($model->item->title) ? $model->item->title : "";
 
                         if($item !== "") {

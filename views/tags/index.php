@@ -98,7 +98,7 @@ $this->registerJs('$(document).ready(function()
                     'format' => 'html',
                     'hAlign' => 'center',
                     'value' => function ($model) {
-                        $url = urldecode(Url::toRoute(['tags/update', 'id' => $model->id, 'alias' => $model->alias]));
+                        $url = urldecode(Url::toRoute(['/articles/tags/update', 'id' => $model->id, 'alias' => $model->alias]));
                         return Html::a($model->name,$url);
                     }
                 ],

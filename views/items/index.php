@@ -100,7 +100,7 @@ $this->registerJs('$(document).ready(function()
                         'format' => 'html',
                         'hAlign' => 'center',
                         'value' => function ($model) {
-                            $url = urldecode(Url::toRoute(['items/update',
+                            $url = urldecode(Url::toRoute(['/articles/items/update',
                                 'id' => $model->id,
                                 'alias' => $model->alias,
                                 'cat' => isset($model->category->alias) ? $model->category->alias : null
@@ -113,7 +113,7 @@ $this->registerJs('$(document).ready(function()
                         'format' => 'html',
                         'hAlign' => 'center',
                         'value' => function ($model) {
-                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->cat_id]));
+                            $url = urldecode(Url::toRoute(['/articles/categories/update', 'id' => $model->cat_id]));
                             $cat = isset($model->category->name) ? $model->category->name : "";
 
                             if($cat !== "") {

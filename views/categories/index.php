@@ -100,7 +100,7 @@ $this->registerJs('$(document).ready(function()
                         'format' => 'html',
                         'hAlign' => 'center',
                         'value' => function ($model) {
-                            $url = urldecode(Url::toRoute(['categories/update', 'id' => $model->id, 'alias' => $model->alias]));
+                            $url = urldecode(Url::toRoute(['/articles/categories/update', 'id' => $model->id, 'alias' => $model->alias]));
                             return Html::a($model->name,$url);
                         }
                     ],
@@ -110,7 +110,7 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'value' => function ($model) {
 	                        /** @var $model cinghie\articles\models\Categories */
-	                        return $model->getParentGridView('name','categories/update');
+	                        return $model->getParentGridView('name','/articles/categories/update');
                         }
                     ],
                     [
