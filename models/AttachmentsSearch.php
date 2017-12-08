@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\models;
 
+use yii\base\InvalidParamException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

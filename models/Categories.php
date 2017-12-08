@@ -24,6 +24,7 @@ use cinghie\traits\StateTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\base\InvalidParamException;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
 /**
@@ -37,11 +38,11 @@ use yii\helpers\Url;
  *
  * @property Categories $parent
  * @property Categories[] $categories
- * @property Items[] $items
- * @property array[] $themesSelect2
+ * @property ActiveQuery $items
  * @property string $categoryUrl
  * @property string $imageUrl
  * @property string $imagePath
+ * @property array[] $themesSelect2
  */
 class Categories extends Articles
 {
@@ -109,6 +110,19 @@ class Categories extends Articles
     {
         return $this->hasMany(Items::className(), ['cat_id' => 'id']);
     }
+
+	/**
+	 * Before delete Categories, delete image
+	 *
+	 * @throws InvalidParamException
+	 */
+	public function beforeDelete()
+	{
+		/** @var Categories $this */
+		$this->deleteImage();
+
+		return parent::beforeDelete();
+	}
 
 	/**
 	 * Return Tag url

@@ -80,6 +80,19 @@ class Attachments extends Articles
         return $this->hasOne(Items::className(), ['id' => 'item_id'])->from(Items::tableName() . ' AS item');
     }
 
+	/**
+	 * Before delete IAttachments, delete file attached
+	 *
+	 * @throws InvalidParamException
+	 */
+	public function beforeDelete()
+	{
+		/** @var Attachments $this */
+		$this->deleteFile();
+
+		return parent::beforeDelete();
+	}
+
     /**
      * check if current user is the author from the article id
      *

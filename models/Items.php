@@ -135,6 +135,28 @@ class Items extends Articles
     }
 
 	/**
+	 * Before delete Item, delete Image, Attachments, TagsAssigned
+	 *
+	 * @throws InvalidParamException
+	 */
+	public function beforeDelete()
+	{
+		/** @var Items $this */
+
+		// Delete Attachments
+		$this->deleteAttachments();
+		Attachments::deleteAll([ 'AND', 'item_id = '.$this->id ]);
+
+		// Delete TagsAssigned
+		Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
+
+		// Delete Image
+		$this->deleteImage();
+
+		return parent::beforeDelete();
+	}
+
+	/**
 	 * Return Attachments by item_id
 	 *
 	 * @return Attachments[]
@@ -251,28 +273,6 @@ class Items extends Articles
         }
 
 	    return [ 0 => Yii::t('articles', 'Unpublished') ];
-    }
-
-	/**
-	 * Before delete Item, delete Image, Attachments, TagsAssigned
-	 *
-	 * @throws InvalidParamException
-	 */
-    public function beforeDelete()
-    {
-	    /** @var Items $this */
-
-    	// Delete Attachments
-	    $this->deleteAttachments();
-	    Attachments::deleteAll([ 'AND', 'item_id = '.$this->id ]);
-
-	    // Delete TagsAssigned
-	    Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
-
-	    // Delete Image
-	    $this->deleteImage();
-
-	    return parent::beforeDelete();
     }
 
 }

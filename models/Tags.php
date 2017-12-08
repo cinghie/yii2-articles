@@ -74,6 +74,19 @@ class Tags extends Articles
     }
 
 	/**
+	 * Before delete Item, delete Image, Attachments, TagsAssigned
+	 *
+	 * @throws InvalidParamException
+	 */
+	public function beforeDelete()
+	{
+		/** @var Tags $this */
+		Tagsassign::deleteAll([ 'AND', 'tag_id = '.$this->id ]);
+
+		return parent::beforeDelete();
+	}
+
+	/**
 	 * Return Tag url
 	 *
 	 * @return string
