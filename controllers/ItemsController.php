@@ -58,7 +58,7 @@ class ItemsController extends Controller
                         'actions' => ['update'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->isCurrentUserCreator()) ) );
+                            return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->isCurrentUserCreator() ) );
                         }
                     ],
                     [
@@ -66,7 +66,7 @@ class ItemsController extends Controller
                         'actions' => ['changestate','activemultiple','deactivemultiple'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && ($model->isCurrentUserCreator()) ) );
+                            return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && $model->isCurrentUserCreator() ) );
                         }
                     ],
                     [
@@ -74,7 +74,7 @@ class ItemsController extends Controller
                         'actions' => ['delete','deleteimage','deletemultiple'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->isCurrentUserCreator()) ) );
+                            return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && $model->isCurrentUserCreator() ) );
                         }
                     ],
                     [
@@ -409,8 +409,8 @@ class ItemsController extends Controller
 	/**
 	 * Deletes selected Items models
 	 *
-	 * @throws NotFoundHttpException
 	 * @throws \Exception
+	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
 	 * @throws \Throwable
 	 */
@@ -540,8 +540,8 @@ class ItemsController extends Controller
      * Finds the Items model based on its primary key value
      *
      * @param integer $id
-     * @return Items the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Items
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {

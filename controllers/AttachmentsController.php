@@ -15,10 +15,14 @@ namespace cinghie\articles\controllers;
 use Yii;
 use cinghie\articles\models\Attachments;
 use cinghie\articles\models\AttachmentsSearch;
+use yii\base\Exception;
+use yii\base\InvalidParamException;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class AttachmentsController extends Controller
 {
@@ -46,7 +50,7 @@ class AttachmentsController extends Controller
                         'actions' => ['update'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && ($model->item->isCurrentUserCreator()) ) );
+                            return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->item->isCurrentUserCreator()) );
                         }
                     ],
                     [
@@ -54,7 +58,7 @@ class AttachmentsController extends Controller
                         'actions' => ['delete','deletemultiple','deleteonfly'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && ($model->item->isCurrentUserCreator()) ) );
+                            return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && $model->item->isCurrentUserCreator()) );
                         }
                     ],
                     [
@@ -62,12 +66,12 @@ class AttachmentsController extends Controller
                         'actions' => ['view'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-view-items') || $model->access === "public" );
+                            return ( Yii::$app->user->can('articles-view-items') || $model->access === 'public' );
                         }
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \Exception('You are not allowed to access this page');
+                    throw new \RuntimeException('You are not allowed to access this page');
                 }
             ],
             'verbs' => [
@@ -81,12 +85,12 @@ class AttachmentsController extends Controller
         ];
     }
 
-    /**
-     * Lists all Attachments models.
-     *
-     * @return string
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Lists all Attachments models.
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
     public function actionIndex()
     {
         $searchModel = new AttachmentsSearch();
@@ -104,6 +108,7 @@ class AttachmentsController extends Controller
 	 * @param $id
 	 *
 	 * @return string
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
     public function actionView($id)
@@ -113,13 +118,14 @@ class AttachmentsController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Attachments model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     *
-     * @return string|\yii\web\Response
-     * @throws \yii\base\InvalidParamException
-     */
+	/**
+	 * Creates a new Attachments model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 *
+	 * @return string|Response
+	 * @throws Exception
+	 * @throws InvalidParamException
+	 */
     public function actionCreate()
     {
         $model = new Attachments();
@@ -133,8 +139,8 @@ class AttachmentsController extends Controller
             // Upload Attachments if is not Null
             $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
             $attachName  = $model->title;
-            $attachType  = "original";
-            $attachField = "filename";
+            $attachType  = 'original';
+            $attachField = 'filename';
 
             // Create UploadFile Instance
             $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
@@ -144,26 +150,20 @@ class AttachmentsController extends Controller
             $model->size = $attachment->size;
 
             if ( $model->save() ) {
-
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
-
                 return $this->redirect(['index']);
-
-            } else {
-
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
-
-                return $this->render('create', [
-                    'model' => $model
-                ]);
             }
 
-        } else {
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
 
-            return $this->render('create', [
-                'model' => $model
-            ]);
+	        return $this->render('create', [
+		        'model' => $model
+	        ]);
         }
+
+	    return $this->render('create', [
+		    'model' => $model
+	    ]);
     }
 
 	/**
@@ -172,7 +172,9 @@ class AttachmentsController extends Controller
 	 *
 	 * @param $id
 	 *
-	 * @return string|\yii\web\Response
+	 * @return string|Response
+	 * @throws Exception
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
     public function actionUpdate($id)
@@ -190,45 +192,39 @@ class AttachmentsController extends Controller
             // Upload Attachments if is not Null
             $attachPath  = Yii::getAlias(Yii::$app->controller->module->attachPath);
             $attachName  = $model->title;
-            $attachType  = "original";
-            $attachField = "filename";
+            $attachType  = 'original';
+            $attachField = 'filename';
 
             // Create UploadFile Instance
             $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
 
             if($attachment) {
-
                 $model->filename = $attachment->name;
                 $model->extension = $attachment->extension;
                 $model->mimetype = $attachment->type;
                 $model->size = $attachment->size;
-
             } else {
-
                 $model->filename = $file_name;
             }
 
             if ( $model->save() ) {
-
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been updated!'));
-
                 return $this->redirect(['index']);
-
-            } else {
-
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
-
-                return $this->render('create', [
-                    'model' => $model
-                ]);
             }
 
-        } else {
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
 
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+	        return $this->render('create', [
+		        'model' => $model
+	        ]);
+
         }
+
+	    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
+
+	    return $this->render('update', [
+		    'model' => $model,
+	    ]);
     }
 
 	/**
@@ -237,24 +233,20 @@ class AttachmentsController extends Controller
 	 *
 	 * @param $id
 	 *
-	 * @return \yii\web\Response
-	 * @throws NotFoundHttpException
+	 * @return Response
 	 * @throws \Exception
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
 	 * @throws \Throwable
-	 * @throws \yii\db\StaleObjectException
 	 */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
 
         if ($model->delete()) {
-            if (!$model->deleteFile() && !empty($model->filename)) {
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment (controller delete)'));
-            } else {
-                Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
-            }
+	        Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachments has been deleted!'));
         } else {
-            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment!'));
         }
 
         return $this->redirect(['index']);
@@ -264,7 +256,6 @@ class AttachmentsController extends Controller
      * Deletes selected Attachments models.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @return void
      * @throws \Exception
      */
     public function actionDeletemultiple()
@@ -280,24 +271,11 @@ class AttachmentsController extends Controller
             $model = $this->findModel($id);
 
             if ($model->delete()) {
-
-                if (!$model->deleteFile() && !empty($model->filename)) {
-
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
-
-                } else {
-
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
-                }
-
+	            Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachments has been deleted!'));
             } else {
-
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
+                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachments!'));
             }
         }
-
-        // Set Success Message
-        Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
 
 	/**
@@ -306,23 +284,23 @@ class AttachmentsController extends Controller
 	 *
 	 * @param integer $id
 	 *
-	 * @return mixed
-	 * @throws NotFoundHttpException
+	 * @return bool
 	 * @throws \Exception
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
 	 * @throws \Throwable
-	 * @throws \yii\db\StaleObjectException
 	 */
 	public function actionDeleteonfly($id)
 	{
 		$model = $this->findModel($id);
 
 		if ($model->delete()) {
-			Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted'));
+			Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been deleted!'));
 			return true;
-		} else {
-			Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment'));
-			return false;
 		}
+
+		Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting attachment!'));
+		return false;
 	}
 
     /**
@@ -331,16 +309,16 @@ class AttachmentsController extends Controller
      *
      * @param integer $id
      *
-     * @return Attachments the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Attachments
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
         if (($model = Attachments::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+	    throw new NotFoundHttpException('The requested page does not exist.');
     }
 
 }

@@ -15,10 +15,15 @@ namespace cinghie\articles\controllers;
 use Yii;
 use cinghie\articles\models\Categories;
 use cinghie\articles\models\CategoriesSearch;
+use Imagine\Exception\RuntimeException;
+use yii\base\Exception;
+use yii\base\InvalidParamException;
+use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * CategoriesController implements the CRUD actions for Categories model.
@@ -62,12 +67,12 @@ class CategoriesController extends Controller
                         'actions' => ['view'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-view-categories') || $model->access === "public" );
+                            return ( Yii::$app->user->can('articles-view-categories') || $model->access === 'public' );
                         }
                     ],
 				],
 				'denyCallback' => function () {
-					throw new \Exception('You are not allowed to access this page');
+					throw new \RuntimeException('You are not allowed to access this page');
 				}
 			],
             'verbs' => [
@@ -88,7 +93,7 @@ class CategoriesController extends Controller
      * Lists all Categories models
      *
      * @return mixed
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function actionIndex()
     {
@@ -107,7 +112,7 @@ class CategoriesController extends Controller
      * @param int $id
      *
      * @return mixed
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      * @throws NotFoundHttpException
      */
     public function actionView($id)
@@ -115,22 +120,23 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if($model->state) {
-
             return $this->render('view', [
                 'model' => $model,
             ]);
 
-        } else {
-
-            throw new NotFoundHttpException;
         }
+
+	    throw new NotFoundHttpException;
     }
 
-    /**
-     * Creates a new Categories model
-     *
-     * @return mixed
-     */
+	/**
+	 * Creates a new Categories model
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 * @throws InvalidParamException
+	 * @throws RuntimeException
+	 */
     public function actionCreate()
     {
         $post  = Yii::$app->request->post();
@@ -139,7 +145,7 @@ class CategoriesController extends Controller
         if ($model->load($post))
         {
             // If user can publish, set state = 1
-            if($model->state = 1 && Yii::$app->user->can('articles-publish-categories')) {
+            if($model->state = ( 1 && Yii::$app->user->can( 'articles-publish-categories' ) ) ) {
                 $model->state = 1;
             }
 
@@ -177,12 +183,12 @@ class CategoriesController extends Controller
             $model->params = $params;
 
             // Upload Image and Thumb if is not Null
-            $imagePath = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
-            $thumbPath = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
+            $imagePath   = Yii::getAlias(Yii::$app->controller->module->categoryImagePath);
+            $thumbPath   = Yii::getAlias(Yii::$app->controller->module->categoryThumbPath);
             $imgNameType = Yii::$app->controller->module->imageNameType;
-            $imgOptions = Yii::$app->controller->module->thumbOptions;
-            $imgName = $model->name;
-            $fileField = "image";
+            $imgOptions  = Yii::$app->controller->module->thumbOptions;
+            $imgName     = $model->name;
+            $fileField   = 'image';
 
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName, $imgNameType, $imagePath, $fileField);
@@ -194,24 +200,20 @@ class CategoriesController extends Controller
             }
 
             if ($model->save()) {
-
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
 
                 return $this->redirect(['index']);
-
-            } else {
-
-                // Set Error Message
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
-
-                return $this->render('create', ['model' => $model,]);
             }
 
-        } else {
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
 
-            return $this->render('create', ['model' => $model,]);
+	        return $this->render('create', ['model' => $model]);
+
         }
+
+	    return $this->render('create', ['model' => $model]);
     }
 
 	/**
@@ -220,18 +222,20 @@ class CategoriesController extends Controller
 	 * @param int $id
 	 *
 	 * @return mixed
+	 * @throws Exception
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
+	 * @throws RuntimeException
 	 */
     public function actionUpdate($id)
     {
-        $post     = Yii::$app->request->post();
-        $model    = $this->findModel($id);
-        $oldImage = $model->image;
+        $post  = Yii::$app->request->post();
+        $model = $this->findModel($id);
 
         if ($model->load($post))
         {
             // If user can publish, set state = 1
-            if($model->state = 1 && Yii::$app->user->can('articles-publish-categories')) {
+            if( $model->state = (1 && Yii::$app->user->can( 'articles-publish-categories')) ) {
                 $model->state = 1;
             }
 
@@ -274,10 +278,15 @@ class CategoriesController extends Controller
             $imgNameType = Yii::$app->controller->module->imageNameType;
             $imgOptions  = Yii::$app->controller->module->thumbOptions;
             $imgName     = $model->name;
-            $fileField   = "image";
+            $fileField   = 'image';
 
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
+
+	        // If image is false delete from db
+	        if($model->image === false && $image === false) {
+		        unset($model->image);
+	        }
 
             // Upload only if valid uploaded file instance found
             if ($image !== false) {
@@ -286,25 +295,26 @@ class CategoriesController extends Controller
             }
 
             if ($model->save()) {
-
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
 
                 return $this->redirect(['index']);
-
-            } else {
-
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
             }
 
-        } else {
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
 
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+	        return $this->render('update', [
+		        'model' => $model,
+	        ]);
         }
+
+	    // Set Error Message
+	    Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
+
+	    return $this->render('update', [
+		    'model' => $model,
+	    ]);
     }
 
 	/**
@@ -313,28 +323,21 @@ class CategoriesController extends Controller
 	 * @param int $id
 	 *
 	 * @return mixed
-	 * @throws NotFoundHttpException
 	 * @throws \Exception
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
 	 * @throws \Throwable
-	 * @throws \yii\db\StaleObjectException
 	 */
     public function actionDelete($id)
     {
+	    /** @var Categories $model */
         $model = $this->findModel($id);
 
-        if ($model->delete()) {
-
-            if (!$model->deleteImage() && !empty($model->image)) {
-
-                Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
-
-            } else {
-
-                Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
-            }
-
+	    if ($model->delete()) {
+		    // Set Success Message
+		    Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been deleted!'));
         } else {
-
+		    // Set Error Message
             Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
         }
 
@@ -346,7 +349,8 @@ class CategoriesController extends Controller
 	 *
 	 * @param int $id
 	 *
-	 * @return \yii\web\Response
+	 * @return Response
+	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
 	public function actionDeleteimage($id)
@@ -354,14 +358,15 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->deleteImage()) {
-
-            $model->image = "";
+            $model->image = '';
             $model->save();
 
+	        // Set Success Message
             Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
 
         } else {
 
+        	// Set Error Message
             Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
         }
 
@@ -375,7 +380,7 @@ class CategoriesController extends Controller
 	 *
 	 * @property array $ids
 	 *
-	 * @return \yii\web\Response | void
+	 * @return Response | void
 	 * @throws NotFoundHttpException
 	 * @throws \Exception
 	 * @throws \Throwable
@@ -395,23 +400,15 @@ class CategoriesController extends Controller
 
             if ($model->delete())
             {
-                if (!$model->deleteImage() && !empty($model->image)) {
-
-                    Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
-
-                } else {
-
-                    Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
-                }
+	            // Set Success Message
+	            Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been deleted!'));
 
             } else {
 
+	            // Set Error Message
                 Yii::$app->session->setFlash('error', Yii::t('articles', 'Error deleting image'));
             }
         }
-
-        // Set Success Message
-        Yii::$app->session->setFlash('success', Yii::t('articles', 'Delete Success!'));
     }
 
 	/**
@@ -419,7 +416,7 @@ class CategoriesController extends Controller
 	 *
 	 * @param int $id
 	 *
-	 * @return \yii\web\Response
+	 * @return Response
 	 * @throws NotFoundHttpException
 	 */
     public function actionChangestate($id)
@@ -427,12 +424,9 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->state) {
-
             $model->deactive();
             Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Category unpublished'));
-
         } else {
-
             $model->active();
             Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category published'));
         }
@@ -445,7 +439,6 @@ class CategoriesController extends Controller
 	 *
 	 * @property array $ids
 	 *
-	 * @return \yii\web\Response | void
 	 * @throws NotFoundHttpException
 	 */
     public function actionActivemultiple()
@@ -462,11 +455,9 @@ class CategoriesController extends Controller
 
             if(!$model->state) {
                 $model->active();
-                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Categories actived'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Categories published'));
             }
         }
-
-        return;
     }
 
 	/**
@@ -474,7 +465,6 @@ class CategoriesController extends Controller
 	 *
 	 * @property array $ids
 	 *
-	 * @return \yii\web\Response | void
 	 * @throws NotFoundHttpException
 	 */
     public function actionDeactivemultiple()
@@ -491,11 +481,9 @@ class CategoriesController extends Controller
 
             if($model->state) {
                 $model->deactive();
-                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Categories inactived'));
+                Yii::$app->getSession()->setFlash('warning', Yii::t('articles', 'Categories published'));
             }
         }
-
-        return;
     }
 
     /**
@@ -503,16 +491,16 @@ class CategoriesController extends Controller
      *
      * @param string $id
      *
-     * @return Categories the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Categories
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
         if (($model = Categories::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+	    throw new NotFoundHttpException('The requested page does not exist.');
     }
 
 }

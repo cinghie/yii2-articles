@@ -20,7 +20,6 @@ use yii\db\StaleObjectException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -30,7 +29,7 @@ class TagsController extends Controller
 {
 	/**
 	 * @inheritdoc
-	 * @throws \Exception
+	 * @throws \RuntimeException
 	 */
     public function behaviors()
     {
@@ -173,8 +172,8 @@ class TagsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return mixed
-	 * @throws NotFoundHttpException
 	 * @throws \Exception
+	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
 	 * @throws \Throwable
 	 */
@@ -290,8 +289,8 @@ class TagsController extends Controller
      *
      * @param integer $id
      *
-     * @return Tags the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Tags
+     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
