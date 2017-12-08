@@ -207,9 +207,9 @@ class ItemsController extends Controller
 
 	            if(count($tags))
 	            {
-		            foreach ($tags as $tag) {
-
-			            $tag_id = Tags::find()->where(['name' => $tag])->one();
+		            foreach ($tags as $tag)
+		            {
+			            $tag_id = isset(Tags::find()->select(['id'])->where([ 'name' => $tag])->one()->id) ? Tags::find()->select(['id'])->where([ 'name' => $tag])->one()->id : 0;
 
 			            // Tags
 			            if(!$tag_id) {
@@ -222,9 +222,6 @@ class ItemsController extends Controller
 				            $tag_id = $newTag->id;
 			            }
 
-			            // TagsAssign
-			            Tagsassign::deleteAll(['item_id'=>$model->id]);
-
 			            $tagsAassign = new Tagsassign();
 			            $tagsAassign->item_id = $model->id;
 			            $tagsAassign->tag_id = $tag_id;
@@ -233,8 +230,7 @@ class ItemsController extends Controller
 	            }
 
                 // Upload only if valid uploaded file instance found
-                if ($image !== false)
-                {
+                if ($image !== false) {
                     // save thumbs to thumbPaths
                     $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                 }
@@ -243,14 +239,12 @@ class ItemsController extends Controller
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
 
                 return $this->redirect(['index']);
-
             }
 
 	        // Set Error Message
 	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
 	        return $this->render('create', ['model' => $model]);
-
         }
 
 	    return $this->render('create', ['model' => $model]);
@@ -270,7 +264,7 @@ class ItemsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $post  = Yii::$app->request->post();
+        $post = Yii::$app->request->post();
 
         if ( $model->load($post) )
         {
@@ -334,9 +328,12 @@ class ItemsController extends Controller
 
 	            if(count($tags))
 	            {
-                    foreach ($tags as $tag) {
+		            // TagsAssign
+		            Tagsassign::deleteAll(['item_id'=>$model->id]);
 
-	                    $tag_id = Tags::find()->where(['name' => $tag])->one();
+                    foreach ($tags as $tag)
+                    {
+	                    $tag_id = isset(Tags::find()->select(['id'])->where([ 'name' => $tag])->one()->id) ? Tags::find()->select(['id'])->where([ 'name' => $tag])->one()->id : 0;
 
                     	// Tags
 	                    if(!$tag_id) {
@@ -348,9 +345,6 @@ class ItemsController extends Controller
 
 		                    $tag_id = $newTag->id;
 	                    }
-
-	                    // TagsAssign
-	                    Tagsassign::deleteAll(['item_id'=>$model->id]);
 
                         $tagsAassign = new Tagsassign();
                         $tagsAassign->item_id = $model->id;
@@ -369,14 +363,12 @@ class ItemsController extends Controller
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
 
                 return $this->redirect(['index']);
-
             }
 
 	        // Set Error Message
 	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
 	        return $this->render('update', ['model' => $model]);
-
         }
 
 	    return $this->render('update', [

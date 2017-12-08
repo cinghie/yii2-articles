@@ -257,7 +257,7 @@ class Articles extends ActiveRecord
             ->all();
 
         foreach($tags as $tag) {
-            $array[$tag['id']] = $tag['name'];
+            $array[$tag['name']] = $tag['name'];
         }
 
         return $array;
@@ -272,12 +272,13 @@ class Articles extends ActiveRecord
     {
         $array = array();
 
-        $tags = Tagsassign::find()
+        $tagsAssign = Tagsassign::find()
             ->where(['item_id' => $this->id])
             ->all();
 
-        foreach($tags as $tag) {
-            $array[] = $tag['tag_id'];
+        foreach($tagsAssign as $tagAssign) {
+        	$tag_name = Tags::find()->select(['name'])->where(['id' => $tagAssign['tag_id']])->one()->name;
+            $array[] = $tag_name;
         }
 
         return $array;
