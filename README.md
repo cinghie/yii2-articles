@@ -107,6 +107,16 @@ Set on your configuration file, in modules section
 			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
 		],
 
+        // Slugify Options
+		$slugifyOptions = [
+		    'separator' => '-',
+		    'lowercase' => true,
+		    'trim' => true,
+		    'rulesets'  => [
+		        'default'
+		    ]
+		],
+
 		// Show Titles in the views
 		'showTitles' => true,
 		],	

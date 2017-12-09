@@ -26,21 +26,26 @@ Recommended Configuration for Advanced Template
     'articles' => [
         'class' => 'cinghie\articles\Articles',
         'userClass' => 'dektrium\user\models\User',
+
         // Select Languages allowed
         'languages' => [ 
         	"it-IT" => "it-IT", 
         	"en-GB" => "en-GB" 
-        ],          
+        ],
+
         // Select Date Format
         'dateFormat' => 'd F Y',
+
         // Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
         'editor' => 'ckeditor',
+
+        // Select Image Types allowed
+        'attachType' => ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'],
+
         // Select Image Name: categoryname, original, casual
         'imageNameType' => 'categoryname',
         // Select Image Types allowed
         'imageType' => ['png','jpg','jpeg'],
-        // Select Image Types allowed
-        'attachType' => ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'],
         // Thumbnails Options
         'thumbOptions'  => [ 
         	'small'  => ['quality' => 100, 'width' => 150, 'height' => 100],
@@ -48,6 +53,16 @@ Recommended Configuration for Advanced Template
         	'large'  => ['quality' => 100, 'width' => 300, 'height' => 250],
         	'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
         ],
+
+        // Slugify Options
+        $slugifyOptions = [
+            'separator' => '-',
+            'lowercase' => true,
+            'trim' => true,
+            'rulesets'  => [
+                'default'
+            ]
+        ]
     ],
         		
     // Module Kartik-v Grid
@@ -87,7 +102,7 @@ Recommended Configuration for Advanced Template
         'itemThumbPath' => '@frontend/web/img/articles/items/thumb/',
         // Select URL To Upload Item Thumb
         'itemThumbURL'  => '/frontend/web/img/articles/items/thumb/',
-			
+
 		// Select Path To Upload Attachments
         'attachPath' => '@frontend/web/attachments/',
         // Select URL To Upload Attachment
