@@ -76,6 +76,16 @@ class Articles extends Module
 	// Show Titles in the views
 	public $showTitles = true;
 
+	// Slugify Options
+	public $slugifyOptions = [
+		'separator' => '-',
+		'lowercase' => true,
+		'trim' => true,
+		'rulesets'  => [
+			'default'
+		]
+	];
+
 	// Thumbnails Options
 	public $thumbOptions =	[ 
 		'small'  => ['quality' => 100, 'width' => 200, 'height' => 150],
