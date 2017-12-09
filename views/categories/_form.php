@@ -160,7 +160,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
                             <div class="col-lg-6">
 
-                                $model->getImageWidget()  ?>
+                                <?= $model->getImageWidget()  ?>
 
                             </div> <!-- col-lg-6 -->
 

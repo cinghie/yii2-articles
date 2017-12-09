@@ -295,6 +295,7 @@ class CategoriesController extends Controller
             }
 
             if ($model->save()) {
+
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
 
@@ -307,10 +308,8 @@ class CategoriesController extends Controller
 	        return $this->render('update', [
 		        'model' => $model,
 	        ]);
-        }
 
-	    // Set Error Message
-	    Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
+        }
 
 	    return $this->render('update', [
 		    'model' => $model,
