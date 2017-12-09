@@ -97,7 +97,7 @@ class ItemsController extends Controller
                     'deactivemultiple' => ['post'],
                     'changestate' => ['post'],
                     'delete' => ['post'],
-					'deleteImage' => ['post'],
+					'deleteimage' => ['post'],
                     'deletemultiple' => ['post'],
                 ],
             ],
@@ -434,25 +434,28 @@ class ItemsController extends Controller
 	 *
 	 * @param integer $id
 	 *
-	 * @return mixed
+	 * @return bool
 	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
 	public function actionDeleteimage($id) 
 	{
-        $model = $this->findModel($id);
+		$model = $this->findModel($id);
 
-        if ($model->deleteImage()) {
-            $model->image = '';
-            $model->save();
-            Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
-        } else {
-            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
-        }
+		if ($model->deleteImage()) {
+			$model->image = '';
+			$model->save();
 
-        return $this->redirect([
-            'update', 'id' => $model->id,
-        ]);
+			// Set Success Message
+			Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
+
+			return true;
+		}
+
+		// Set Error Message
+		Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
+
+		return false;
 	}
 
 	/**

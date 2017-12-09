@@ -82,7 +82,7 @@ class CategoriesController extends Controller
                     'deactivemultiple' => ['post'],
                     'changestate' => ['post'],
                     'delete' => ['post'],
-                    'deleteImage' => ['post'],
+                    'deleteimage' => ['post'],
                     'deletemultiple' => ['post'],
                 ],
             ],
@@ -348,7 +348,7 @@ class CategoriesController extends Controller
 	 *
 	 * @param int $id
 	 *
-	 * @return Response
+	 * @return bool
 	 * @throws InvalidParamException
 	 * @throws NotFoundHttpException
 	 */
@@ -363,15 +363,13 @@ class CategoriesController extends Controller
 	        // Set Success Message
             Yii::$app->session->setFlash('success', Yii::t('articles', 'The image was removed successfully! Now, you can upload another by clicking Browse in the Image Tab.'));
 
-        } else {
-
-        	// Set Error Message
-            Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
+            return true;
         }
 
-        return $this->redirect([
-            'update', 'id' => $model->id,
-        ]);
+		// Set Error Message
+		Yii::$app->session->setFlash('error', Yii::t('articles', 'Error removing image. Please try again later or contact the system admin.'));
+
+        return false;
 	}
 
 	/**
