@@ -107,7 +107,7 @@ Set on your configuration file, in modules section
 			'extra'  => ['quality' => 100, 'width' => 400, 'height' => 350],
 		],
 
-        // Slugify Options
+		// Slugify Options
 		$slugifyOptions = [
 		    'separator' => '-',
 		    'lowercase' => true,
