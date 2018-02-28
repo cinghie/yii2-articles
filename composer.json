@@ -7,7 +7,7 @@
         "yii2 contents",
         "yii2 category",
         "yii2 attachments",
-        "yii2 tag",
+        "yii2 tag"
     ],
     "homepage": "https://github.com/cinghie/yii2-articles",
     "type": "yii2-extension",
