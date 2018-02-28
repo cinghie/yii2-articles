@@ -1,10 +1,17 @@
 {
     "name": "cinghie/yii2-articles",
     "description": "Yii2 Articles to create, manage, and delete articles in a Yii2 site.",
-    "keywords": ["yii2", "module", "articles", "contents","category","seo"],
+    "keywords": [
+        "yii2 articles", 
+        "yii2 blog", 
+        "yii2 contents",
+        "yii2 category",
+        "yii2 attachments",
+        "yii2 tag",
+    ],
     "homepage": "https://github.com/cinghie/yii2-articles",
     "type": "yii2-extension",
-    "license": "BSD 3-Clause",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Gogodigital.it",
