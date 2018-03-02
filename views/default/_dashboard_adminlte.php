@@ -16,7 +16,7 @@ use yii\helpers\Url;
 		<?= Simplebox3::widget([
 			'class' => 'col-md-3 col-sm-6 col-xs-12',
 			'description' => Yii::t('traits', 'More info'),
-			'icon' => 'fa fa-files-o',
+			'icon' => 'fa fa-file',
 			'link' => Url::to(['/articles/items/index']),
 			'title' => Items::find()->count(),
 			'subtitle' => Yii::t('articles','Items')
