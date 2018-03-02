@@ -192,7 +192,7 @@ $this->registerJs('$(document).ready(function()
                 'responsive' => true,
                 'hover' => true,
                 'panel' => [
-                    'heading' => '<h3 class="panel-title"><i class="fa fa-file"></i></h3>',
+                    'heading' => '<h3 class="panel-title"><i class="fa fa-file-text-o"></i></h3>',
                     'type' => 'success',
                 ],
             ]); ?>
