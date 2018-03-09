@@ -48,9 +48,9 @@ class m151021_200427_create_article_items_table extends Migration
             'copyright' => $this->string(50)->defaultValue(null),
             'user_id' => $this->integer(11)->defaultValue(null),
             'created_by' => $this->integer(11)->defaultValue(null),
-            'created' => $this->dateTime()->notNull()->defaultValue('0000-00-00 00:00:00'),
+            'created' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'modified_by' => $this->integer(11)->defaultValue(null),
-            'modified' => $this->dateTime()->notNull()->defaultValue('0000-00-00 00:00:00'),
+            'modified' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $this->tableOptions);
 
         // Add Index and Foreign Key access

@@ -45,6 +45,11 @@ class m170626_185620_insert_article_auth_permissions extends Migration
 		$this->insert('{{%auth_item}}',['name' => 'articles-view-items', 'type' => '2', 'description' => 'Can view articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-view-categories', 'type' => '2', 'description' => 'Can view categories','created_at' => time(),'updated_at' => time()]);
 
+        $this->insert('{{%auth_item}}',['name' => 'articles-index-tags', 'type' => '2', 'description' => 'Can view tag','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-create-tags', 'type' => '2', 'description' => 'Can create tag','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-update-tags', 'type' => '2', 'description' => 'Can update tag','created_at' => time(),'updated_at' => time()]);
+        $this->insert('{{%auth_item}}',['name' => 'articles-delete-tags', 'type' => '2', 'description' => 'Can delete tag','created_at' => time(),'updated_at' => time()]);
+
 		// Auth Item Child Admin Articles
 		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-create-items']);
 		$this->insert('{{%auth_item_child}}', ['parent' => 'admin', 'child' => 'articles-delete-all-items']);
