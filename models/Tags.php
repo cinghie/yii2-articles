@@ -68,9 +68,9 @@ class Tags extends Articles
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTagsassign()
+    public function getTagsAssign()
     {
-        return $this->hasMany(Tagsassign::className(), ['tag_id' => 'id']);
+        return $this->hasMany(TagsAssign::className(), ['tag_id' => 'id']);
     }
 
 	/**
@@ -81,7 +81,7 @@ class Tags extends Articles
 	public function beforeDelete()
 	{
 		/** @var Tags $this */
-		Tagsassign::deleteAll([ 'AND', 'tag_id = '.$this->id ]);
+		TagsAssign::deleteAll([ 'AND', 'tag_id = '.$this->id ]);
 
 		return parent::beforeDelete();
 	}

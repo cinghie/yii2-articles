@@ -24,6 +24,7 @@ use cinghie\traits\StateTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\base\InvalidParamException;
+use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
@@ -47,7 +48,50 @@ use yii\helpers\Url;
 class Categories extends Articles
 {
 
-    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, ParentTrait, SeoTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
+    use EditorTrait;
+    use ParentTrait {
+        rules as parentRules;
+        attributeLabels as parentAttributeLabels;
+    }
+    use NameAliasTrait {
+        rules as nameAliasRules;
+        attributeLabels as nameAliasAttributeLabels;
+    }
+    use AccessTrait {
+        rules as accessRules;
+        attributeLabels as accessAttributeLabels;
+    }
+    use ImageTrait {
+        rules as imageRules;
+        attributeLabels as imageAttributeLabels;
+    }
+    use LanguageTrait {
+        rules as languageRules;
+        attributeLabels as languageAttributeLabels;
+    }
+    use SeoTrait {
+        rules as seoRules;
+        attributeLabels as seoAttributeLabels;
+    }
+    use StateTrait {
+        rules as stateRules;
+        attributeLabels as stateAttributeLabels;
+    }
+    use UserHelpersTrait;
+    use ViewsHelpersTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+        return [
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'modified_by',
+            ]
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -62,7 +106,7 @@ class Categories extends Articles
      */
     public function rules()
     {	
-        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), ParentTrait::rules(), StateTrait::rules(),[
+        return array_merge(AccessTrait::rules(), $this->imageRules(), $this->languageRules(), $this->nameAliasRules(), $this->parentRules(), $this->stateRules(),[
             [['access', 'name', 'language', 'state', 'theme'], 'required'],
 			[['ordering'], 'integer'],
             [['theme'], 'string', 'max' => 12],
@@ -77,7 +121,7 @@ class Categories extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), ParentTrait::attributeLabels(), StateTrait::attributeLabels(),[
+        return array_merge($this->accessAttributeLabels(), $this->imageAttributeLabels(), $this->languageAttributeLabels(), $this->nameAliasAttributeLabels(), $this->parentAttributeLabels(), $this->stateAttributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
             'description' => Yii::t('articles', 'Description'),
             'theme' => Yii::t('articles', 'Theme'),
