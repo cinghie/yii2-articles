@@ -272,7 +272,7 @@ class Articles extends ActiveRecord
     {
         $array = array();
 
-        $tagsAssign = Tagsassign::find()
+        $tagsAssign = TagsAssign::find()
             ->where(['item_id' => $this->id])
             ->all();
 

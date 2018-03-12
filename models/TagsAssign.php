@@ -26,7 +26,7 @@ use yii\db\ActiveRecord;
  * @property ActiveQuery $tag
  * @property ActiveQuery $item
  */
-class Tagsassign extends ActiveRecord
+class TagsAssign extends ActiveRecord
 {
 
     /**

@@ -17,7 +17,7 @@ use cinghie\articles\models\Attachments;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
 use cinghie\articles\models\Tags;
-use cinghie\articles\models\Tagsassign;
+use cinghie\articles\models\TagsAssign;
 use Imagine\Exception\RuntimeException;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
@@ -156,7 +156,7 @@ class ItemsController extends Controller
         if ( $model->load($post) )
         {
             // Set modified as actual date
-            $model->modified = '0000-00-00 00:00:00';
+            $model->modified = date('Y-m-d H:i:s');
 
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Items'],'title');
@@ -222,7 +222,7 @@ class ItemsController extends Controller
 				            $tag_id = $newTag->id;
 			            }
 
-			            $tagsAassign = new Tagsassign();
+			            $tagsAassign = new TagsAssign();
 			            $tagsAassign->item_id = $model->id;
 			            $tagsAassign->tag_id = $tag_id;
 			            $tagsAassign->save();
@@ -329,7 +329,7 @@ class ItemsController extends Controller
 	            if(count($tags))
 	            {
 		            // TagsAssign
-		            Tagsassign::deleteAll(['item_id'=>$model->id]);
+		            TagsAssign::deleteAll(['item_id'=>$model->id]);
 
                     foreach ($tags as $tag)
                     {
@@ -346,7 +346,7 @@ class ItemsController extends Controller
 		                    $tag_id = $newTag->id;
 	                    }
 
-                        $tagsAassign = new Tagsassign();
+                        $tagsAassign = new TagsAssign();
                         $tagsAassign->item_id = $model->id;
                         $tagsAassign->tag_id = $tag_id;
                         $tagsAassign->save();
