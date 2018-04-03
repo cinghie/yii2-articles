@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'tagsSearch' => new TagsSearch(),
         ]) ?>
 
-    <? else: ?>
+    <?php else: ?>
 
 	    <?= $this->render('_dashboard_default', [
 		    'attachSearch' => new AttachmentsSearch(),
@@ -32,6 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		    'tagsSearch' => new TagsSearch(),
 	    ]) ?>
 
-    <? endif ?>
+    <?php endif ?>
 
 </div>
