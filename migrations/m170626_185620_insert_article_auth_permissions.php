@@ -30,18 +30,27 @@ class m170626_185620_insert_article_auth_permissions extends Migration
 		// Auth Item Permissions
 		$this->insert('{{%auth_item}}',['name' => 'articles-create-items', 'type' => '2', 'description' => 'Can create articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-create-categories', 'type' => '2', 'description' => 'Can create categories','created_at' => time(),'updated_at' => time()]);
+		$this->insert('{{%auth_item}}',['name' => 'articles-create-tags', 'type' => '2', 'description' => 'Can create tag','created_at' => time(),'updated_at' => time()]);
+
 		$this->insert('{{%auth_item}}',['name' => 'articles-delete-all-items', 'type' => '2', 'description' => 'Can delete all articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-delete-his-items', 'type' => '2', 'description' => 'Can delete his articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-delete-categories', 'type' => '2', 'description' => 'Can delete all categories','created_at' => time(),'updated_at' => time()]);
+		$this->insert('{{%auth_item}}',['name' => 'articles-delete-tags', 'type' => '2', 'description' => 'Can delete tag','created_at' => time(),'updated_at' => time()]);
+
 		$this->insert('{{%auth_item}}',['name' => 'articles-index-all-items', 'type' => '2', 'description' => 'Can view all articles admin grid','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-index-his-items', 'type' => '2', 'description' => 'Can view his articles admin grid','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-index-categories', 'type' => '2', 'description' => 'Can index categories admin grid','created_at' => time(),'updated_at' => time()]);
+		$this->insert('{{%auth_item}}',['name' => 'articles-index-tags', 'type' => '2', 'description' => 'Can view tag','created_at' => time(),'updated_at' => time()]);
+
 		$this->insert('{{%auth_item}}',['name' => 'articles-publish-all-items', 'type' => '2', 'description' => 'Can publish all articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-publish-his-items', 'type' => '2', 'description' => 'Can publish his articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-publish-categories', 'type' => '2', 'description' => 'Can publish categories','created_at' => time(),'updated_at' => time()]);
+
 		$this->insert('{{%auth_item}}',['name' => 'articles-update-all-items', 'type' => '2', 'description' => 'Can update all articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-update-his-items', 'type' => '2', 'description' => 'Can update his articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-update-categories', 'type' => '2', 'description' => 'Can update all categories','created_at' => time(),'updated_at' => time()]);
+		$this->insert('{{%auth_item}}',['name' => 'articles-update-tags', 'type' => '2', 'description' => 'Can update tag','created_at' => time(),'updated_at' => time()]);
+
 		$this->insert('{{%auth_item}}',['name' => 'articles-view-items', 'type' => '2', 'description' => 'Can view articles','created_at' => time(),'updated_at' => time()]);
 		$this->insert('{{%auth_item}}',['name' => 'articles-view-categories', 'type' => '2', 'description' => 'Can view categories','created_at' => time(),'updated_at' => time()]);
 

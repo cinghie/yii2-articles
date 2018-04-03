@@ -17,6 +17,8 @@ class m170616_185620_insert_article_data_demo extends Migration
 
     public function safeUp()
     {
+	    $now = new \yii\db\Expression('now()');
+
         $this->batchInsert(
             '{{%article_categories}}',
              ["id", "name", "alias", "description", "parent_id", "state", "access", "language", "theme", "ordering", "image", "image_caption", "image_credits", "params", "metadesc", "metakey", "robots", "author", "copyright"],
@@ -328,7 +330,7 @@ class m170616_185620_insert_article_data_demo extends Migration
                     'video_credits' => '',
                     'created' => '2016-04-23 03:35:30',
                     'created_by' => '1',
-                    'modified' => '0000-00-00 00:00:00',
+                    'modified' => $now,
                     'modified_by' => null,
                     'params' => '',
                     'metadesc' => '',
@@ -390,7 +392,7 @@ class m170616_185620_insert_article_data_demo extends Migration
                     'video_credits' => '',
                     'created' => '2016-04-23 03:42:44',
                     'created_by' => '1',
-                    'modified' => '0000-00-00 00:00:00',
+                    'modified' => $now,
                     'modified_by' => null,
                     'params' => '',
                     'metadesc' => '',
@@ -452,7 +454,7 @@ class m170616_185620_insert_article_data_demo extends Migration
                     'video_credits' => '',
                     'created' => '2016-04-23 03:44:28',
                     'created_by' => '1',
-                    'modified' => '0000-00-00 00:00:00',
+                    'modified' => $now,
                     'modified_by' => null,
                     'params' => '',
                     'metadesc' => '',
@@ -731,7 +733,7 @@ class m170616_185620_insert_article_data_demo extends Migration
                     'video_credits' => '',
                     'created' => '2016-06-14 22:03:24',
                     'created_by' => '1',
-                    'modified' => '0000-00-00 00:00:00',
+                    'modified' => $now,
                     'modified_by' => null,
                     'params' => '',
                     'metadesc' => '',
@@ -917,7 +919,7 @@ class m170616_185620_insert_article_data_demo extends Migration
                     'video_credits' => '',
                     'created' => '2016-06-14 22:03:24',
                     'created_by' => '1',
-                    'modified' => '0000-00-00 00:00:00',
+                    'modified' => $now,
                     'modified_by' => null,
                     'params' => '',
                     'metadesc' => '',

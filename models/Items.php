@@ -12,7 +12,6 @@
 
 namespace cinghie\articles\models;
 
-use Yii;
 use cinghie\traits\AccessTrait;
 use cinghie\traits\AttachmentTrait;
 use cinghie\traits\CreatedTrait;
@@ -27,7 +26,9 @@ use cinghie\traits\UserTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use Yii;
 use yii\base\InvalidParamException;
+use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
@@ -58,11 +59,81 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-    use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait, LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+	use AccessTrait {
+		rules as accessRules;
+		attributeLabels as accessAttributeLabels;
+	}
 
-    public $attachments;
+	use AttachmentTrait;
+
+	use CreatedTrait {
+	    rules as createdRules;
+	    attributeLabels as createdAttributeLabels;
+	}
+
+	use EditorTrait;
+
+    use ImageTrait {
+		rules as imageRules;
+	    attributeLabels as imageAttributeLabels;
+    }
+
+    use LanguageTrait {
+		rules as languageRules;
+		attributeLabels as languageAttributeLabels;
+    }
+
+    use ModifiedTrait {
+	    rules as modifiedRules;
+	    attributeLabels as modifiedAttributeLabels;
+	}
+
+	use SeoTrait {
+	    rules as seoRules;
+	    attributeLabels as seoAttributeLabels;
+	}
+
+    use StateTrait {
+	    rules as stateRules;
+	    attributeLabels as stateAttributeLabels;
+	}
+
+    use TitleAliasTrait {
+	        rules as titleAliasRules;
+	        attributeLabels as titleAliasAttributeLabels;
+    }
+
+    use UserHelpersTrait;
+
+    use UserTrait {
+	    rules as userRules;
+	    attributeLabels as userAttributeLabels;
+	}
+
+    use VideoTrait {
+		rules as videoRules;
+	    attributeLabels as videoAttributeLabels;
+    }
+
+    use ViewsHelpersTrait;
+
+	public $attachments;
     public $tags;
     public $tagsAssign;
+
+	/**
+	 * @inheritdoc
+	 */
+    public function behaviors()
+	{
+		return [
+			[
+			'class' => BlameableBehavior::class,
+			'createdByAttribute' => 'created_by',
+			'updatedByAttribute' => 'modified_by'
+			]
+		];
+    }
 
     /**
      * @inheritdoc
@@ -76,8 +147,8 @@ class Items extends Articles
      */
     public function rules()
     {
-        return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
-            [['title', 'user_id', 'created', 'modified', 'language'], 'required'],
+	    return array_merge($this->accessRules(), $this->createdRules(), $this->imageRules(), $this->languageRules(), $this->modifiedRules(), $this->seoRules(), $this->stateRules(), $this->titleAliasRules(), $this->userRules(), $this->videoRules(), [
+	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
 	        [['attachments','tags'], 'safe'],
@@ -91,7 +162,7 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), SeoTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
+	    return array_merge($this->accessAttributeLabels(), $this->createdAttributeLabels(), $this->imageAttributeLabels(), $this->languageAttributeLabels(), $this->modifiedAttributeLabels(), $this->seoAttributeLabels(), $this->stateAttributeLabels(), $this->titleAliasAttributeLabels(), $this->userAttributeLabels(),  $this->videoAttributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),

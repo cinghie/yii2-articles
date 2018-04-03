@@ -156,7 +156,7 @@ class ItemsController extends Controller
         if ( $model->load($post) )
         {
             // Set modified as actual date
-            $model->modified = '0000-00-00 00:00:00';
+	        $model->modified = date('Y-m-d H:i:s');
 
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Items'],'title');
