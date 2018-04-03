@@ -78,11 +78,11 @@ class Tagsassign extends ActiveRecord
     /**
      * @inheritdoc
      *
-     * @return TagsAssignQuery the active query used by this AR class.
+     * @return TagsassignQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new TagsAssignQuery( static::class );
+        return new TagsassignQuery( static::class );
     }
 
 }

@@ -46,7 +46,7 @@ use yii\helpers\Url;
  * @property Attachments[] $attachments
  * @property Items[] $items
  * @property Tags[] $tags
- * @property TagsAssign[] $tagsAssigns
+ * @property Tagsassign[] $tagsAssigns
  *
  * @property ActiveQuery $category
  * @property string $itemUrl
@@ -129,13 +129,13 @@ class Items extends Articles
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTagsAssigns()
+    public function getTagsassigns()
     {
-        return $this->hasMany(TagsAssign::className(), ['item_id' => 'id'])->from(TagsAssign::tableName() . ' AS tags_assign');
+        return $this->hasMany(Tagsassign::className(), ['item_id' => 'id'])->from(Tagsassign::tableName() . ' AS tags_assign');
     }
 
 	/**
-	 * Before delete Item, delete Image, Attachments, TagsAssigned
+	 * Before delete Item, delete Image, Attachments, Tagsassigned
 	 *
 	 * @throws InvalidParamException
 	 */
@@ -147,7 +147,7 @@ class Items extends Articles
 		$this->deleteAttachments();
 		Attachments::deleteAll([ 'AND', 'item_id = '.$this->id ]);
 
-		// Delete TagsAssigned
+		// Delete Tagsassigned
 		Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
 
 		// Delete Image

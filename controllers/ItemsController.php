@@ -328,7 +328,7 @@ class ItemsController extends Controller
 
 	            if(count($tags))
 	            {
-		            // TagsAssign
+		            // Tagsassign
 		            Tagsassign::deleteAll(['item_id'=>$model->id]);
 
                     foreach ($tags as $tag)

@@ -74,7 +74,7 @@ class Tags extends Articles
     }
 
 	/**
-	 * Before delete Item, delete Image, Attachments, TagsAssigned
+	 * Before delete Item, delete Image, Attachments, Tagsassigned
 	 *
 	 * @throws InvalidParamException
 	 */
