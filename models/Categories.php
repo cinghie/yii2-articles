@@ -69,6 +69,7 @@ class Categories extends Articles
 			[['robots'], 'string', 'max' => 20],
             [['author', 'copyright'], 'string', 'max' => 50],
             [['description', 'metadesc', 'metakey', 'params'], 'string'],
+	        [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => static::class, 'targetAttribute' => [ 'parent_id' => 'id']],
         ]);
     }
 
