@@ -99,8 +99,8 @@ class Items extends Articles
 	}
 
     use TitleAliasTrait {
-	        rules as titleAliasRules;
-	        attributeLabels as titleAliasAttributeLabels;
+    	rules as titleAliasRules;
+    	attributeLabels as titleAliasAttributeLabels;
     }
 
     use UserHelpersTrait;
@@ -128,9 +128,9 @@ class Items extends Articles
 	{
 		return [
 			[
-			'class' => BlameableBehavior::class,
-			'createdByAttribute' => 'created_by',
-			'updatedByAttribute' => 'modified_by'
+				'class' => BlameableBehavior::class,
+				'createdByAttribute' => 'created_by',
+				'updatedByAttribute' => 'modified_by'
 			]
 		];
     }
@@ -147,13 +147,13 @@ class Items extends Articles
      */
     public function rules()
     {
-	    return array_merge($this->accessRules(), $this->createdRules(), $this->imageRules(), $this->languageRules(), $this->modifiedRules(), $this->seoRules(), $this->stateRules(), $this->titleAliasRules(), $this->userRules(), $this->videoRules(), [
+	    return array_merge(static::accessRules(), static::createdRules(), static::imageRules(), static::languageRules(), static::modifiedRules(), static::seoRules(), static::stateRules(), static::titleAliasRules(), static::userRules(), static::videoRules(), [
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
 	        [['attachments','tags'], 'safe'],
 	        [['attachments'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
-            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['cat_id' => 'id']],
+            [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['cat_id' => 'id']],
         ]);
     }
 
@@ -162,7 +162,7 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-	    return array_merge($this->accessAttributeLabels(), $this->createdAttributeLabels(), $this->imageAttributeLabels(), $this->languageAttributeLabels(), $this->modifiedAttributeLabels(), $this->seoAttributeLabels(), $this->stateAttributeLabels(), $this->titleAliasAttributeLabels(), $this->userAttributeLabels(),  $this->videoAttributeLabels(), [
+	    return array_merge(static::accessAttributeLabels(), static::createdAttributeLabels(), static::imageAttributeLabels(), static::languageAttributeLabels(), static::modifiedAttributeLabels(), static::seoAttributeLabels(), static::stateAttributeLabels(), static::titleAliasAttributeLabels(), static::userAttributeLabels(),  static::videoAttributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),
@@ -186,7 +186,7 @@ class Items extends Articles
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'cat_id'])->from(Categories::tableName() . ' AS categories');
+        return $this->hasOne(Categories::class, ['id' => 'cat_id'])->from(Categories::tableName() . ' AS categories');
     }
 
     /**

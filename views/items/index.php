@@ -114,9 +114,9 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'value' => function ($model) {
                             $url = urldecode(Url::toRoute(['/articles/categories/update', 'id' => $model->cat_id]));
-                            $cat = isset($model->category->name) ? $model->category->name : "";
+                            $cat = isset($model->category->name) ? $model->category->name : '';
 
-                            if($cat !== "") {
+                            if($cat !== '') {
                                 return Html::a($cat,$url);
                             } else {
 	                            return '<span class="fa fa-ban text-danger"></span>';
@@ -127,6 +127,7 @@ $this->registerJs('$(document).ready(function()
                         'attribute' => 'access',
                         'format' => 'html',
                         'hAlign' => 'center',
+                        'width' => '8%',
                         'value' => function ($model) {
                             /** @var $model cinghie\articles\models\Items */
                             return $model->getAccessGridView();
