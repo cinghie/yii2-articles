@@ -71,7 +71,7 @@ $attachURL = Yii::$app->controller->module->attachURL;
 
                     <?= $model->getAliasWidget($form) ?>
 
-                    <?= $form->field($model, 'item_id')->widget(Select2::className(), [
+                    <?= $form->field($model, 'item_id')->widget(Select2::class, [
                         'data' => $model->getItemsSelect2(),
                         'addon' => [
                             'prepend' => [

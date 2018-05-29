@@ -98,7 +98,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
                                 <?= $model->getStateWidget($form) ?>
 
-                                <?= $form->field($model, 'theme')->widget(Select2::className(), [
+                                <?= $form->field($model, 'theme')->widget(Select2::class, [
                                     'data' => $model->getThemesSelect2(),
                                     'addon' => [
                                         'prepend' => [

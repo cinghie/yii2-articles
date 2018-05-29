@@ -64,7 +64,7 @@ class Tagsassign extends ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(Items::className(), ['id' => 'item_id']);
+        return $this->hasOne(Items::class, ['id' => 'item_id']);
     }
 
     /**
@@ -72,7 +72,7 @@ class Tagsassign extends ActiveRecord
      */
     public function getTag()
     {
-        return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
+        return $this->hasOne(Tags::class, ['id' => 'tag_id']);
     }
 
     /**

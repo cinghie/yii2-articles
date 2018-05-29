@@ -70,7 +70,7 @@ class Tags extends Articles
      */
     public function getTagsassign()
     {
-        return $this->hasMany(Tagsassign::className(), ['tag_id' => 'id']);
+        return $this->hasMany(Tagsassign::class, ['tag_id' => 'id']);
     }
 
 	/**

@@ -35,7 +35,7 @@ class TagsController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -63,7 +63,7 @@ class TagsController extends Controller
                 }
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'activemultiple' => ['post'],
                     'deactivemultiple' => ['post'],

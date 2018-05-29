@@ -101,7 +101,7 @@ class Categories extends Articles
      */
     public function getCategories()
     {
-        return $this->hasMany(self::className(), [ 'parent_id' => 'id']);
+        return $this->hasMany(self::class, [ 'parent_id' => 'id']);
     }
 
     /**
@@ -109,7 +109,7 @@ class Categories extends Articles
      */
     public function getItems()
     {
-        return $this->hasMany(Items::className(), ['cat_id' => 'id']);
+        return $this->hasMany(Items::class, ['cat_id' => 'id']);
     }
 
 	/**

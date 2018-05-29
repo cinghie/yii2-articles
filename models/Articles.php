@@ -43,7 +43,7 @@ class Articles extends ActiveRecord
         $orderingSelect = ['0' => Yii::t('articles', 'In Development')];
 
         /** @var $this \yii\base\Model */
-        return $form->field($this, 'ordering')->widget(Select2::className(), [
+        return $form->field($this, 'ordering')->widget(Select2::class, [
             'data' => $orderingSelect,
             'options' => [
                 'disabled' => 'disabled'
@@ -65,7 +65,7 @@ class Articles extends ActiveRecord
 	 */
     public function getTagsWidget($form)
     {
-    	return $form->field($this, 'tags')->widget(Select2::className(), [
+    	return $form->field($this, 'tags')->widget(Select2::class, [
 		    'name' => 'tags',
 		    'data' => $this->getTagsSelect2(),
 		    'options' => [
@@ -177,7 +177,8 @@ class Articles extends ActiveRecord
             'extra',
         );
 
-        foreach($sizes as $size) {
+        foreach($sizes as $size)
+        {
             if(!file_exists($path.$size)) {
                 mkdir($path.$size, 0755, true);
             }

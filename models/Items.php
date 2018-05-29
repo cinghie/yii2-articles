@@ -178,7 +178,7 @@ class Items extends Articles
      */
     public function getAttachments()
     {
-        return $this->hasMany(Attachments::className(), ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attachments');
+        return $this->hasMany(Attachments::class, ['item_id' => 'id'])->from(Attachments::tableName() . ' AS attachments');
     }
 
     /**
@@ -194,7 +194,7 @@ class Items extends Articles
      */
     public function getItems()
     {
-        return $this->hasMany(self::className(), ['cat_id' => 'id'])->from(self::tableName() . ' AS items');
+        return $this->hasMany(self::class, ['cat_id' => 'id'])->from(self::tableName() . ' AS items');
     }
 
     /**
@@ -202,7 +202,7 @@ class Items extends Articles
      */
     public function getTagsassigns()
     {
-        return $this->hasMany(Tagsassign::className(), ['item_id' => 'id'])->from(Tagsassign::tableName() . ' AS tags_assign');
+        return $this->hasMany(Tagsassign::class, ['item_id' => 'id'])->from(Tagsassign::tableName() . ' AS tags_assign');
     }
 
 	/**

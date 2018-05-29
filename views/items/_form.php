@@ -113,7 +113,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                     <div class="col-md-5">
 
-                                        <?= $form->field($model, 'cat_id')->widget(Select2::className(), [
+                                        <?= $form->field($model, 'cat_id')->widget(Select2::class, [
                                             'data' => $model->getCategoriesSelect2(),
                                             'addon' => [
                                                 'prepend' => [
@@ -146,7 +146,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                 <?= $model->getUserWidget($form) ?>
 
-                                <?= $form->field($model, 'ordering')->widget(Select2::className(), [
+                                <?= $form->field($model, 'ordering')->widget(Select2::class, [
                                     'data' => [
                                         "0" =>  Yii::t('articles', 'In Development')
                                     ],
@@ -170,7 +170,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                 <?php if ($model->isNewRecord): ?>
 
-                                    <?= $form->field($model, 'hits')->widget(Select2::className(), [
+                                    <?= $form->field($model, 'hits')->widget(Select2::class, [
                                         'data' => [
                                             "0" => "0"
                                         ],
@@ -186,7 +186,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                 <?php else : ?>
 
-                                    <?= $form->field($model, 'hits')->widget(Select2::className(), [
+                                    <?= $form->field($model, 'hits')->widget(Select2::class, [
                                         'data' => [
                                             $model->hits => $model->hits
                                         ],
