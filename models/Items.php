@@ -50,6 +50,7 @@ use yii\helpers\Url;
  * @property Tagsassign[] $tagsAssigns
  *
  * @property ActiveQuery $category
+ * @property ActiveQuery $tagsassigns
  * @property string $itemUrl
  * @property string $imageUrl
  * @property string $imagePath
@@ -147,7 +148,7 @@ class Items extends Articles
      */
     public function rules()
     {
-	    return array_merge(static::accessRules(), static::createdRules(), static::imageRules(), static::languageRules(), static::modifiedRules(), static::seoRules(), static::stateRules(), static::titleAliasRules(), static::userRules(), static::videoRules(), [
+	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), StateTrait::rules(), ModifiedTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'params'], 'string'],
@@ -162,7 +163,7 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-	    return array_merge(static::accessAttributeLabels(), static::createdAttributeLabels(), static::imageAttributeLabels(), static::languageAttributeLabels(), static::modifiedAttributeLabels(), static::seoAttributeLabels(), static::stateAttributeLabels(), static::titleAliasAttributeLabels(), static::userAttributeLabels(),  static::videoAttributeLabels(), [
+	    return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), SeoTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),
