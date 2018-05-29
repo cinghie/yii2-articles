@@ -27,6 +27,7 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\UploadedFile;
 
 /**
@@ -463,7 +464,7 @@ class ItemsController extends Controller
 	 *
 	 * @param $id
 	 *
-	 * @return void
+	 * @return Response
 	 * @throws NotFoundHttpException
 	 */
     public function actionChangestate($id)
@@ -477,12 +478,13 @@ class ItemsController extends Controller
             $model->active();
             Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Item published'));
         }
+
+	    return $this->redirect(['index']);
     }
 
 	/**
 	 * Active selected Items models
 	 *
-	 * @throws \yii\web\ForbiddenHttpException
 	 * @throws ForbiddenHttpException
 	 * @throws NotFoundHttpException
 	 */
