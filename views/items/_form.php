@@ -11,6 +11,7 @@ use cinghie\articles\assets\ArticlesAsset;
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
+use yii\helpers\Html;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -52,7 +53,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#seo">
-                                        <?= Yii::t('articles', 'SEO') ?>
+                                        <?= Yii::t('traits', 'SEO') ?>
                                     </a>
                                 </li>
                                 <li class="">
@@ -62,17 +63,22 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#video">
-                                        <?= Yii::t('articles', 'Video') ?>
+                                        <?= Yii::t('traits', 'Video') ?>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#attach">
-                                        <?= Yii::t('articles', 'Attachments') ?>
+                                        <?= Yii::t('traits', 'Attachments') ?>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#translations">
+			                            <?= Yii::t('traits', 'Tranlations') ?>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#params">
-                                        <?= Yii::t('articles', 'Options') ?>
+                                        <?= Yii::t('traits', 'Options') ?>
                                     </a>
                                 </li>
                             </ul>
@@ -295,6 +301,64 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                             </div> <!-- end col-md-12 -->
 
                         </div> <!-- end attach -->
+
+                        <div id="translations" class="row tab-pane fade">
+
+                            <?php foreach (Yii::$app->controller->module->languages as $langTag): ?>
+
+	                            <?php
+                                    $lang = substr($langTag,0,2);
+                                    $selectName = 'translation_'.substr($lang,0,2);
+                                    $titleName  = 'title_'.$lang;
+	                            ?>
+
+                                <div class="col-md-6 col-sm-12">
+
+                                    <h2><?= $langTag ?></h2>
+
+                                    <div class="row">
+
+                                        <div class="col-md-4 col-sm-6">
+
+                                            <div class="form-group">
+
+                                                <label class="control-label">Titolo</label>
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                    <?= Html::textInput($titleName, ''); ?>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6">
+
+                                            <label class="control-label">Titolo</label>
+
+                                            <div class="form-group">
+
+                                                <div class="input-group">
+
+                                                    <?= Select2::widget([
+                                                            'name' => $selectName,
+                                                            'data' => $model->getItemsSelect2(),
+                                                    ]) ?>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            <?php endforeach ?>
+
+                        </div> <!-- #translations -->
 
                         <div id="params" class="row tab-pane fade">
 

@@ -13,10 +13,10 @@
 namespace cinghie\articles;
 
 use Yii;
+use dektrium\user\models\User;
 use yii\base\InvalidParamException;
 use yii\base\Module;
 use yii\i18n\PhpMessageSource;
-use dektrium\user\models\User;
 
 class Articles extends Module
 {
