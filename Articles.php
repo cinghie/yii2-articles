@@ -16,14 +16,12 @@ use Yii;
 use yii\base\InvalidParamException;
 use yii\base\Module;
 use yii\i18n\PhpMessageSource;
+use dektrium\user\models\User;
 
 class Articles extends Module
 {
-    // Controller Namespace
-    public $controllerNamespace = 'cinghie\articles\controllers';
-
     // Select User Class
-	public $userClass = 'dektrium\user\models\User';
+	public $userClass = User::class;
 
 	// Select Article Languages
 	public $languages = [ 'en-GB' => 'en-GB' ];
@@ -136,23 +134,33 @@ class Articles extends Module
     protected function setupImageDirectory()
     {
         if(!file_exists(Yii::getAlias($this->categoryImagePath))) {
-            mkdir(Yii::getAlias($this->categoryImagePath), 0755, true);
+	        if ( ! mkdir( Yii::getAlias( $this->categoryImagePath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->categoryImagePath ) ) ) {
+		        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->categoryImagePath ) ) );
+	        }
         }
 
         if(!file_exists(Yii::getAlias($this->categoryThumbPath))) {
-            mkdir(Yii::getAlias($this->categoryThumbPath), 0755, true);
+	        if ( ! mkdir( Yii::getAlias( $this->categoryThumbPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->categoryThumbPath ) ) ) {
+		        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->categoryThumbPath ) ) );
+	        }
         }
 
         if(!file_exists(Yii::getAlias($this->itemImagePath))) {
-            mkdir(Yii::getAlias($this->itemImagePath), 0755, true);
+	        if ( ! mkdir( Yii::getAlias( $this->itemImagePath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->itemImagePath ) ) ) {
+		        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->itemImagePath ) ) );
+	        }
         }
 
         if(!file_exists(Yii::getAlias($this->itemThumbPath))) {
-            mkdir(Yii::getAlias($this->itemThumbPath), 0755, true);
+	        if ( ! mkdir( Yii::getAlias( $this->itemThumbPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->itemThumbPath ) ) ) {
+		        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->itemThumbPath ) ) );
+	        }
         }
 
         if(!file_exists(Yii::getAlias($this->attachPath))) {
-            mkdir(Yii::getAlias($this->attachPath), 0755, true);
+	        if ( ! mkdir( Yii::getAlias( $this->attachPath ), 0755, true ) && ! is_dir( Yii::getAlias( $this->attachPath ) ) ) {
+		        throw new \RuntimeException( sprintf( 'Directory "%s" was not created', Yii::getAlias( $this->attachPath ) ) );
+	        }
         }
     }
 

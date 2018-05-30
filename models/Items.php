@@ -60,63 +60,7 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-	use AccessTrait {
-		rules as accessRules;
-		attributeLabels as accessAttributeLabels;
-	}
-
-	use AttachmentTrait;
-
-	use CreatedTrait {
-	    rules as createdRules;
-	    attributeLabels as createdAttributeLabels;
-	}
-
-	use EditorTrait;
-
-    use ImageTrait {
-		rules as imageRules;
-	    attributeLabels as imageAttributeLabels;
-    }
-
-    use LanguageTrait {
-		rules as languageRules;
-		attributeLabels as languageAttributeLabels;
-    }
-
-    use ModifiedTrait {
-	    rules as modifiedRules;
-	    attributeLabels as modifiedAttributeLabels;
-	}
-
-	use SeoTrait {
-	    rules as seoRules;
-	    attributeLabels as seoAttributeLabels;
-	}
-
-    use StateTrait {
-	    rules as stateRules;
-	    attributeLabels as stateAttributeLabels;
-	}
-
-    use TitleAliasTrait {
-    	rules as titleAliasRules;
-    	attributeLabels as titleAliasAttributeLabels;
-    }
-
-    use UserHelpersTrait;
-
-    use UserTrait {
-	    rules as userRules;
-	    attributeLabels as userAttributeLabels;
-	}
-
-    use VideoTrait {
-		rules as videoRules;
-	    attributeLabels as videoAttributeLabels;
-    }
-
-    use ViewsHelpersTrait;
+	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait,  LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
 
 	public $attachments;
     public $tags;
