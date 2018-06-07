@@ -73,7 +73,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                 </li>
                                 <li class="">
                                     <a data-toggle="tab" href="#translations">
-			                            <?= Yii::t('traits', 'Tranlations') ?>
+			                            <?= Yii::t('traits', 'Translations') ?>
                                     </a>
                                 </li>
                                 <li class="">
@@ -308,44 +308,62 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
 	                            <?php
                                     $lang = substr($langTag,0,2);
+
                                     $selectName = 'translation_'.substr($lang,0,2);
                                     $titleName  = 'title_'.$lang;
+                                    $aliasName  = 'alias_'.$lang;
 	                            ?>
 
                                 <div class="col-md-6 col-sm-12">
 
-                                    <h2><?= $langTag ?></h2>
+                                    <h2><?= Yii::t('traits','Translation') ?> <?= $langTag ?></h2>
 
                                     <div class="row">
 
-                                        <div class="col-md-4 col-sm-6">
+                                        <div class="col-md-7 col-sm-6">
 
                                             <div class="form-group">
 
-                                                <label class="control-label">Titolo</label>
+                                                <label class="control-label"><?= Yii::t('traits','Title') ?></label>
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <?= Html::textInput($titleName, ''); ?>
+                                                    <?= Html::textInput($titleName, '', ['class' => 'form-control']); ?>
                                                 </div>
 
                                             </div>
 
                                         </div>
 
-                                        <div class="col-md-4 col-sm-6">
+                                        <div class="col-md-5 col-sm-6">
 
-                                            <label class="control-label">Titolo</label>
+                                            <label class="control-label"><?= Yii::t('traits','Translation') ?> <?= Yii::t('articles','Article') ?></label>
 
                                             <div class="form-group">
 
                                                 <div class="input-group">
 
                                                     <?= Select2::widget([
-                                                            'name' => $selectName,
-                                                            'data' => $model->getItemsSelect2(),
+                                                        'name' => $selectName,
+                                                        'data' => $model->getItemsSelect2(),
+                                                        'disabled' => $model->isNewRecord ? true : false
                                                     ]) ?>
 
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-7 col-sm-6">
+
+                                            <div class="form-group">
+
+                                                <label class="control-label"><?= Yii::t('traits','Alias') ?></label>
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+				                                    <?= Html::textInput($aliasName, '', ['class' => 'form-control']); ?>
                                                 </div>
 
                                             </div>
