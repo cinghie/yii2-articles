@@ -264,7 +264,7 @@ class ItemsController extends Controller
 
 			            // Set Translations values
 			            $model_lang->title = $post[$titleName];
-			            $model_lang->alias = $model_lang->getAlias($post[$titleName]);
+			            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
 			            $model_lang->language = $lang;
 			            $model_lang->introtext = $post[$introText];
 			            $model_lang->fulltext = $post[$fullText];
