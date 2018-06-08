@@ -312,6 +312,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                     $selectName = 'translation_'.substr($lang,0,2);
                                     $titleName  = 'title_'.$lang;
                                     $aliasName  = 'alias_'.$lang;
+                                    $introText  = 'introText_'.$lang;
+                                    $fullText   = 'fullText_'.$lang;
 	                            ?>
 
                                 <div class="col-md-6 col-sm-12">
@@ -320,7 +322,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                     <div class="row">
 
-                                        <div class="col-md-7 col-sm-6">
+                                        <div class="col-md-4 col-sm-6">
 
                                             <div class="form-group">
 
@@ -335,27 +337,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                         </div>
 
-                                        <div class="col-md-5 col-sm-6">
-
-                                            <label class="control-label"><?= Yii::t('traits','Translation') ?> <?= Yii::t('articles','Article') ?></label>
-
-                                            <div class="form-group">
-
-                                                <div class="input-group">
-
-                                                    <?= Select2::widget([
-                                                        'name' => $selectName,
-                                                        'data' => $model->getItemsSelect2(),
-                                                        'disabled' => $model->isNewRecord ? true : false
-                                                    ]) ?>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-md-7 col-sm-6">
+                                        <div class="col-md-4">
 
                                             <div class="form-group">
 
@@ -363,10 +345,42 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-				                                    <?= Html::textInput($aliasName, '', ['class' => 'form-control']); ?>
+			                                        <?= Html::textInput($aliasName, '', ['class' => 'form-control']); ?>
                                                 </div>
 
                                             </div>
+
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6">
+
+                                            <label class="control-label"><?= Yii::t('traits','Translation') ?> <?= Yii::t('articles','Article') ?></label>
+
+                                            <div class="form-group">
+
+                                                <div class="input-group">
+
+				                                    <?= Select2::widget([
+					                                    'name' => $selectName,
+					                                    'data' => $model->getItemsSelect2(),
+					                                    'disabled' => $model->isNewRecord ? true : false
+				                                    ]) ?>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+
+
+
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12">
+
+
 
                                         </div>
 
