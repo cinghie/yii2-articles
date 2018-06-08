@@ -537,6 +537,7 @@ class ItemsController extends Controller
      * Finds the Items model based on its primary key value
      *
      * @param integer $id
+     * 
      * @return Items
      * @throws NotFoundHttpException
      */
