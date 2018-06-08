@@ -18,6 +18,7 @@ use cinghie\articles\models\Items;
 use cinghie\articles\models\ItemsSearch;
 use cinghie\articles\models\Tags;
 use cinghie\articles\models\Tagsassign;
+use cinghie\articles\models\Translations;
 use Imagine\Exception\RuntimeException;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
@@ -175,41 +176,6 @@ class ItemsController extends Controller
 
             if ($model->save())
             {
-
-            	// Set Translations
-	            foreach(Yii::$app->controller->module->languages as $langTag)
-	            {
-		            $lang = substr($langTag,0,2);
-
-		            $titleName = 'title_'.$lang;
-		            $aliasName = 'alias_'.$lang;
-		            $introText = 'introText_'.$lang;
-		            $fullText  = 'fullText_'.$lang;
-
-		            if($post[$titleName])
-		            {
-		            	// Clone Model
-			            $model_lang = new Items();
-			            $attributes = $model->attributes;
-
-			            foreach($attributes as  $attribute => $val)
-			            {
-			            	if($attribute !== 'id') {
-					            $model_lang->{$attribute} = $val;
-				            }
-			            }
-
-			            // Set Translations values
-			            $model_lang->title     = $post[$titleName];
-			            $model_lang->alias     = $post[$aliasName];
-			            $model_lang->language  = $lang;
-			            $model_lang->introtext = $post[$introText];
-			            $model_lang->fulltext  = $post[$fullText];
-
-			            $model_lang->save();
-		            }
-	            }
-
             	// Set Attachments
 	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
@@ -270,6 +236,47 @@ class ItemsController extends Controller
                     // save thumbs to thumbPaths
                     $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
                 }
+
+	            // Set Translations
+	            foreach(Yii::$app->controller->module->languages as $langTag)
+	            {
+		            $lang = substr($langTag,0,2);
+
+		            $titleName = 'title_'.$lang;
+		            $aliasName = 'alias_'.$lang;
+		            $introText = 'introText_'.$lang;
+		            $fullText  = 'fullText_'.$lang;
+
+		            if($post[$titleName])
+		            {
+			            // Clone Model
+			            $model_lang = new Items();
+			            $attributes = $model->attributes;
+
+			            foreach($attributes as  $attribute => $val)
+			            {
+				            if($attribute !== 'id') {
+					            $model_lang->{$attribute} = $val;
+				            }
+			            }
+
+			            // Set Translations values
+			            $model_lang->title = $post[$titleName];
+			            $model_lang->alias = $post[$aliasName];
+			            $model_lang->language = $lang;
+			            $model_lang->introtext = $post[$introText];
+			            $model_lang->fulltext = $post[$fullText];
+			            $model_lang->save();
+
+			            // Set Translation Table
+			            $translation = new Translations();
+			            $translation->item_id = $model->id;
+			            $translation->translation_id = $model_lang->id;
+			            $translation->lang = $lang;
+			            $translation->lang_tag = $langTag;
+			            $translation->save();
+		            }
+	            }
 
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));

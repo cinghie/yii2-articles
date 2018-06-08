@@ -78,6 +78,7 @@ return [
 	'New Tag' => 'Nuovo Tag',
 	'No Attachment' => 'Nessun Allegato',
 	'No Parent' => 'Nessun Genitore',
+	'Not Yet Translated' => 'Non ancora tradotto',
 	'Options' => 'Opzioni',
 	'Ordering' => 'Ordinamento',
 	'Params' => 'Parametri',

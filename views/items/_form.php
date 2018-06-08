@@ -336,9 +336,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
 			                                        <?= Select2::widget([
 				                                        'name' => $selectName,
-				                                        'data' => $model->getItemsSelect2(),
+				                                        'data' => $model->getItemsLangSelect2($lang),
 				                                        'disabled' => true
-				                                        //'disabled' => $model->isNewRecord ? true : false
 			                                        ]) ?>
 
                                                 </div>

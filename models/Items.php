@@ -197,11 +197,13 @@ class Items extends Articles
 	/**
 	 * Return Translations by item_id
 	 *
+	 * @param string $lang
+	 *
 	 * @return Translations[]
 	 */
-	public function getTranslationsObject()
+	public function getTranslationsObject($lang)
 	{
-		return Translations::find()->where(['item_id' => $this->id])->all();
+		return Translations::find()->where(['item_id' => $this->id, 'lang' => $lang])->one();
 	}
 
 	/**
@@ -297,6 +299,24 @@ class Items extends Articles
 			$attachmentUrl = Yii::getAlias( Yii::$app->controller->module->attachPath ). $attachment['filename'];
 			unlink($attachmentUrl);
 		}
+	}
+
+	/**
+	 * Return array for ItemsLangSelect2
+	 *
+	 * @param string $lang
+	 *
+	 * @return array
+	 */
+	public function getItemsLangSelect2($lang)
+	{
+		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
+		}
+
+		return [ 0 => Yii::t('articles', 'Not Yet Translated') ];
 	}
 
     /**
