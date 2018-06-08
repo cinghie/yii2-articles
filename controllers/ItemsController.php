@@ -247,7 +247,9 @@ class ItemsController extends Controller
 		            $introText = 'introText_'.$lang;
 		            $fullText  = 'fullText_'.$lang;
 
-		            if($post[$titleName])
+		            $translation = $model->getTranslationsObject($lang);
+
+		            if($post[$titleName] && $translation == null)
 		            {
 			            // Clone Model
 			            $model_lang = new Items();
@@ -262,7 +264,7 @@ class ItemsController extends Controller
 
 			            // Set Translations values
 			            $model_lang->title = $post[$titleName];
-			            $model_lang->alias = $post[$aliasName];
+			            $model_lang->alias = $model_lang->getAlias($post[$titleName]);
 			            $model_lang->language = $lang;
 			            $model_lang->introtext = $post[$introText];
 			            $model_lang->fulltext = $post[$fullText];
