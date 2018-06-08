@@ -16,6 +16,7 @@ use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[Tags]].
+ *
  * @see Tags
  */
 class TagsQuery extends ActiveQuery

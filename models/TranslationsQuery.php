@@ -13,17 +13,17 @@
 namespace cinghie\articles\models;
 
 /**
- * This is the ActiveQuery class for [[Tagsassign]].
+ * This is the ActiveQuery class for [[Translations]].
  *
- * @see Tagsassign
+ * @see Translations
  */
-class TagsassignQuery extends \yii\db\ActiveQuery
+class TranslationsQuery extends \yii\db\ActiveQuery
 {
 
     /**
      * @inheritdoc
      *
-     * @return Tagsassign[]|array
+     * @return Translations[]|array
      */
     public function all($db = null)
     {
@@ -33,7 +33,7 @@ class TagsassignQuery extends \yii\db\ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Tagsassign|array|null
+     * @return Translations|array|null
      */
     public function one($db = null)
     {

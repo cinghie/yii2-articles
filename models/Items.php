@@ -45,17 +45,20 @@ use yii\helpers\Url;
  * @property string $params
  *
  * @property Attachments[] $attachments
+ * @property Attachments[] $attachs
  * @property Items[] $items
  * @property Tags[] $tags
  * @property Tagsassign[] $tagsAssigns
+ * @property Translations[] $translationsassigns
  *
  * @property ActiveQuery $category
  * @property ActiveQuery $tagsassigns
+ * @property ActiveQuery $translations
+ *
  * @property string $itemUrl
- * @property string $imageUrl
  * @property string $imagePath
+ * @property string $imageUrl
  * @property array $publishSelect2
- * @property mixed $attachs
  */
 class Items extends Articles
 {
@@ -152,6 +155,14 @@ class Items extends Articles
     }
 
 	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTranslations()
+	{
+		return $this->hasMany(Translations::class, ['item_id' => 'id'])->from(Translations::tableName() . ' AS translations');
+	}
+
+	/**
 	 * Before delete Item, delete Image, Attachments, Tagsassigned
 	 *
 	 * @throws InvalidParamException
@@ -181,6 +192,16 @@ class Items extends Articles
 	public function getAttachs()
 	{
 		return Attachments::find()->where(['item_id' => $this->id])->all();
+	}
+
+	/**
+	 * Return Translations by item_id
+	 *
+	 * @return Translations[]
+	 */
+	public function getTranslationsObject()
+	{
+		return Translations::find()->where(['item_id' => $this->id])->all();
 	}
 
 	/**

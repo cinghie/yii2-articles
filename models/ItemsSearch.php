@@ -18,6 +18,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 
+/**
+ * ItemsSearch represents the model behind the search form about `cinghie\articles\models\Items`.
+ */
 class ItemsSearch extends Items
 {
     /**
