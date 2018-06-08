@@ -105,7 +105,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                                             'content'=>'<i class="glyphicon glyphicon-blackboard"></i>'
                                         ]
                                     ],
-                                ]); ?>
+                                ]) ?>
 
                             </div> <!-- col-md-4 -->
 

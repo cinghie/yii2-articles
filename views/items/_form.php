@@ -150,21 +150,27 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                 <?= $model->getAccessWidget($form) ?>
 
+                                <?= $form->field($model, 'theme')->widget(Select2::class, [
+	                                'data' => $model->getThemesSelect2(),
+	                                'addon' => [
+		                                'prepend' => [
+			                                'content'=>'<i class="glyphicon glyphicon-blackboard"></i>'
+		                                ]
+	                                ],
+                                ]) ?>
+
                                 <?= $model->getUserWidget($form) ?>
 
                                 <?= $form->field($model, 'ordering')->widget(Select2::class, [
                                     'data' => [
-                                        "0" =>  Yii::t('articles', 'In Development')
-                                    ],
-                                    'options' => [
-                                        'disabled' => 'disabled',
+	                                    '0' =>  Yii::t('articles', 'In Development')
                                     ],
                                     'addon' => [
                                         'prepend' => [
                                             'content'=>'<i class="glyphicon glyphicon-sort"></i>'
                                         ]
                                     ],
-                                ]); ?>
+                                ]) ?>
 
                                 <?= $model->getCreatedWidget($form) ?>
 
@@ -178,17 +184,14 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                     <?= $form->field($model, 'hits')->widget(Select2::class, [
                                         'data' => [
-                                            "0" => "0"
-                                        ],
-                                        'options' => [
-                                            'disabled' => 'disabled'
+	                                        '0' => '0'
                                         ],
                                         'addon' => [
                                             'prepend' => [
                                                 'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
                                             ]
                                         ],
-                                    ]); ?>
+                                    ])?>
 
                                 <?php else : ?>
 
@@ -196,15 +199,12 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                         'data' => [
                                             $model->hits => $model->hits
                                         ],
-                                        'options' => [
-                                            'disabled' => 'disabled'
-                                        ],
                                         'addon' => [
                                             'prepend' => [
                                                 'content'=>'<i class="glyphicon glyphicon-eye-open"></i>'
                                             ]
                                         ],
-                                    ]); ?>
+                                    ])?>
 
                                 <?php endif ?>
 
@@ -309,7 +309,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 	                            <?php
                                     $lang = substr($langTag,0,2);
 
-                                    $selectName = 'translation_'.substr($lang,0,2);
+                                    $selectName = 'translation_'.$lang;
                                     $titleName  = 'title_'.$lang;
                                     $aliasName  = 'alias_'.$lang;
                                     $introText  = 'introText_'.$lang;
@@ -318,11 +318,36 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                 <div class="col-md-6 col-sm-12">
 
-                                    <h2><?= Yii::t('traits','Translation') ?> <?= $langTag ?></h2>
-
                                     <div class="row">
 
-                                        <div class="col-md-4 col-sm-6">
+                                        <div class="col-md-6">
+
+                                            <h2><?= Yii::t('traits','Translation') ?> <?= $langTag ?></h2>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <label class="control-label"></label>
+
+                                            <div class="form-group">
+
+                                                <div class="input-group">
+
+			                                        <?= Select2::widget([
+				                                        'name' => $selectName,
+				                                        'data' => $model->getItemsSelect2(),
+				                                        'disabled' => true
+				                                        //'disabled' => $model->isNewRecord ? true : false
+			                                        ]) ?>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
 
                                             <div class="form-group">
 
@@ -330,14 +355,14 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <?= Html::textInput($titleName, '', ['class' => 'form-control']); ?>
+                                                    <?= Html::textInput($titleName, '', ['class' => 'form-control'])?>
                                                 </div>
 
                                             </div>
 
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
 
                                             <div class="form-group">
 
@@ -345,42 +370,34 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-			                                        <?= Html::textInput($aliasName, '', ['class' => 'form-control']); ?>
+			                                        <?= Html::textInput($aliasName, '', ['class' => 'form-control'])?>
                                                 </div>
 
                                             </div>
 
                                         </div>
 
-                                        <div class="col-md-4 col-sm-6">
-
-                                            <label class="control-label"><?= Yii::t('traits','Translation') ?> <?= Yii::t('articles','Article') ?></label>
+                                        <div class="col-md-12">
 
                                             <div class="form-group">
 
-                                                <div class="input-group">
+                                                <label class="control-label"><?= Yii::t('articles','Introtext') ?></label>
 
-				                                    <?= Select2::widget([
-					                                    'name' => $selectName,
-					                                    'data' => $model->getItemsSelect2(),
-					                                    'disabled' => $model->isNewRecord ? true : false
-				                                    ]) ?>
-
-                                                </div>
+	                                            <?= $model->getEditorWidget(null,$introText) ?>
 
                                             </div>
 
                                         </div>
 
-                                        <div class="col-md-6 col-sm-12">
+                                        <div class="col-md-12">
 
+                                            <div class="form-group">
 
+                                                <label class="control-label" for="items-introtext"><?= Yii::t('articles','Fulltext') ?></label>
 
-                                        </div>
+                                                <?= $model->getEditorWidget(null,$fullText) ?>
 
-                                        <div class="col-md-6 col-sm-12">
-
-
+                                            </div>
 
                                         </div>
 
@@ -408,6 +425,6 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
         </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end()?>
 
 </div>

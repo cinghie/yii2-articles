@@ -95,7 +95,7 @@ class Items extends Articles
 	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), StateTrait::rules(), ModifiedTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'ordering', 'hits'], 'integer'],
-            [['introtext', 'fulltext', 'params'], 'string'],
+            [['introtext', 'fulltext', 'theme', 'params'], 'string'],
 	        [['attachments','tags'], 'safe'],
 	        [['attachments'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['cat_id' => 'id']],
@@ -112,6 +112,7 @@ class Items extends Articles
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),
             'fulltext' => Yii::t('articles', 'Fulltext'),
+            'theme' => Yii::t('articles', 'Theme'),
             'ordering' => Yii::t('articles', 'Ordering'),
             'hits' => Yii::t('articles', 'Hits'),
             'params' => Yii::t('articles', 'Params'),

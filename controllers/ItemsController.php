@@ -175,6 +175,41 @@ class ItemsController extends Controller
 
             if ($model->save())
             {
+
+            	// Set Translations
+	            foreach(Yii::$app->controller->module->languages as $langTag)
+	            {
+		            $lang = substr($langTag,0,2);
+
+		            $titleName = 'title_'.$lang;
+		            $aliasName = 'alias_'.$lang;
+		            $introText = 'introText_'.$lang;
+		            $fullText  = 'fullText_'.$lang;
+
+		            if($post[$titleName])
+		            {
+		            	// Clone Model
+			            $model_lang = new Items();
+			            $attributes = $model->attributes;
+
+			            foreach($attributes as  $attribute => $val)
+			            {
+			            	if($attribute !== 'id') {
+					            $model_lang->{$attribute} = $val;
+				            }
+			            }
+
+			            // Set Translations values
+			            $model_lang->title     = $post[$titleName];
+			            $model_lang->alias     = $post[$aliasName];
+			            $model_lang->language  = $lang;
+			            $model_lang->introtext = $post[$introText];
+			            $model_lang->fulltext  = $post[$fullText];
+
+			            $model_lang->save();
+		            }
+	            }
+
             	// Set Attachments
 	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 

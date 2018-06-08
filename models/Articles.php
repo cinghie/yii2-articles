@@ -264,6 +264,19 @@ class Articles extends ActiveRecord
         return $array;
     }
 
+	/**
+	 * Return array with Categories Themes
+	 *
+	 * @return array[]
+	 */
+	public function getThemesSelect2()
+	{
+		return [
+			'blog' => 'Blog',
+			'portfolio' => 'Portfolio'
+		];
+	}
+
     /**
      * Get Tags by Item ID
      *

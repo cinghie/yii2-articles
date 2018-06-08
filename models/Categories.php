@@ -207,21 +207,6 @@ class Categories extends Articles
 	}
 
     /**
-     * Return array with Categories Themes
-     *
-     * @return array[]
-     */
-    public function getThemesSelect2()
-    {
-        $array = [
-            'blog' => 'Blog',
-            'portfolio' => 'Portfolio'
-        ];
-
-        return $array;
-    }
-
-    /**
      * @inheritdoc
      *
      * @return CategoriesQuery the active query used by this AR class.
