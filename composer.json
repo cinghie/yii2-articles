@@ -22,8 +22,7 @@
     "require": {
         "yiisoft/yii2": "~2.0.12",
         "cinghie/yii2-traits": "*",
-        "dektrium/yii2-user": "*",
-        "vova07/yii2-imperavi-widget": "*"
+        "dektrium/yii2-user": "*"
     },
     "autoload": {
         "psr-4": {

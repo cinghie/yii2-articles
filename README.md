@@ -67,7 +67,7 @@ Set on your configuration file, in modules section
 		// Select Date Format
 		'dateFormat' => 'd F Y',
 		
-		// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
+		// Select Editor: no-editor, ckeditor, imperavi, markdown, tinymce
 		'editor' => 'ckeditor',
 		
 		// Select Path To Upload Category Image
