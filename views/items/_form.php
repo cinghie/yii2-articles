@@ -355,7 +355,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <?= Html::textInput($titleName, '', ['class' => 'form-control'])?>
+                                                    <?= Html::textInput($titleName, '', ['class' => 'form-control']) ?>
                                                 </div>
 
                                             </div>
@@ -370,7 +370,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-			                                        <?= Html::textInput($aliasName, '', ['class' => 'form-control'])?>
+			                                        <?= Html::textInput($aliasName, '', ['class' => 'form-control']) ?>
                                                 </div>
 
                                             </div>
