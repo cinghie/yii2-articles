@@ -71,6 +71,9 @@ class Articles extends Module
 	// Select Attachment Types allowed
 	public $attachType = ['jpg','jpeg','gif','png','csv','pdf','txt','doc','docs'];
 
+	// Active AdvancedTranslation
+	public $advancedTranslation = true;
+
 	// Show Titles in the views
 	public $showTitles = true;
 

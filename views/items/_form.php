@@ -71,11 +71,13 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                         <?= Yii::t('traits', 'Attachments') ?>
                                     </a>
                                 </li>
+                                <?php if(Yii::$app->controller->module->advancedTranslation): ?>
                                 <li class="">
                                     <a data-toggle="tab" href="#translations">
 			                            <?= Yii::t('traits', 'Translations') ?>
                                     </a>
                                 </li>
+	                            <?php endif ?>
                                 <li class="">
                                     <a data-toggle="tab" href="#params">
                                         <?= Yii::t('traits', 'Options') ?>
@@ -302,6 +304,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                         </div> <!-- end attach -->
 
+	                    <?php if(Yii::$app->controller->module->advancedTranslation): ?>
+
                         <div id="translations" class="row tab-pane fade">
 
                             <?php foreach (Yii::$app->controller->module->languages as $langTag): ?>
@@ -407,6 +411,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                             <?php endforeach ?>
 
                         </div> <!-- #translations -->
+
+                        <?php endif ?>
 
                         <div id="params" class="row tab-pane fade">
 
