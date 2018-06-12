@@ -74,6 +74,9 @@ class Articles extends Module
 	// Active AdvancedTranslation
 	public $advancedTranslation = true;
 
+	// Tab Menu Source
+	public $tabMenu = '@vendor/cinghie/yii2-articles/views/default/_menu.php';
+
 	// Show Titles in the views
 	public $showTitles = true;
 

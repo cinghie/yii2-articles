@@ -23,7 +23,7 @@ $asset = $this->assetBundles[ArticlesAsset::class];
 
             <div class="col-md-6">
 
-                <?= Yii::$app->view->renderFile('@vendor/cinghie/yii2-articles/views/default/_menu.php'); ?>
+                <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu); ?>
 
             </div>
 
