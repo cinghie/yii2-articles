@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<?= $this->render('_menu') ?>
+<?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu); ?>
 
 <div class="site-index">
 
