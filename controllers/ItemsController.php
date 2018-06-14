@@ -238,45 +238,48 @@ class ItemsController extends Controller
                 }
 
 	            // Set Translations
-	            foreach(Yii::$app->controller->module->languages as $langTag)
+	            if(Yii::$app->controller->module->advancedTranslation)
 	            {
-		            $lang = substr($langTag,0,2);
-
-		            $titleName = 'title_'.$lang;
-		            $aliasName = 'alias_'.$lang;
-		            $introText = 'introText_'.$lang;
-		            $fullText  = 'fullText_'.$lang;
-
-		            $translation = $model->getTranslationsObject($lang);
-
-		            if($post[$titleName] && $translation == null)
+		            foreach(Yii::$app->controller->module->languages as $langTag)
 		            {
-			            // Clone Model
-			            $model_lang = new Items();
-			            $attributes = $model->attributes;
+			            $lang = substr($langTag,0,2);
 
-			            foreach($attributes as  $attribute => $val)
+			            $titleName = 'title_'.$lang;
+			            $aliasName = 'alias_'.$lang;
+			            $introText = 'introText_'.$lang;
+			            $fullText  = 'fullText_'.$lang;
+
+			            $translation = $model->getTranslationsObject($lang);
+
+			            if($post[$titleName] && $translation == null)
 			            {
-				            if($attribute !== 'id') {
-					            $model_lang->{$attribute} = $val;
+				            // Clone Model
+				            $model_lang = new Items();
+				            $attributes = $model->attributes;
+
+				            foreach($attributes as  $attribute => $val)
+				            {
+					            if($attribute !== 'id') {
+						            $model_lang->{$attribute} = $val;
+					            }
 				            }
+
+				            // Set Translations values
+				            $model_lang->title = $post[$titleName];
+				            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
+				            $model_lang->language = $lang;
+				            $model_lang->introtext = $post[$introText];
+				            $model_lang->fulltext = $post[$fullText];
+				            $model_lang->save();
+
+				            // Set Translation Table
+				            $translation = new Translations();
+				            $translation->item_id = $model->id;
+				            $translation->translation_id = $model_lang->id;
+				            $translation->lang = $lang;
+				            $translation->lang_tag = $langTag;
+				            $translation->save();
 			            }
-
-			            // Set Translations values
-			            $model_lang->title = $post[$titleName];
-			            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
-			            $model_lang->language = $lang;
-			            $model_lang->introtext = $post[$introText];
-			            $model_lang->fulltext = $post[$fullText];
-			            $model_lang->save();
-
-			            // Set Translation Table
-			            $translation = new Translations();
-			            $translation->item_id = $model->id;
-			            $translation->translation_id = $model_lang->id;
-			            $translation->lang = $lang;
-			            $translation->lang_tag = $langTag;
-			            $translation->save();
 		            }
 	            }
 
