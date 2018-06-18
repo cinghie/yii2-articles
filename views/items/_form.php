@@ -318,6 +318,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                     $aliasName  = 'alias_'.$lang;
                                     $introText  = 'introText_'.$lang;
                                     $fullText   = 'fullText_'.$lang;
+
+                                    if($model->language !== $lang):
 	                            ?>
 
                                 <div class="col-md-6 col-sm-12">
@@ -407,6 +409,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                     </div>
 
                                 </div>
+
+                                <?php endif ?>
 
                             <?php endforeach ?>
 

@@ -341,9 +341,7 @@ class Items extends Articles
 		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
 		$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
 
-		//var_dump($translation->getTranslation()->one()->$field); exit();
-
-		if($translation_parent !== null) {
+		if($translation !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
 
@@ -360,6 +358,13 @@ class Items extends Articles
 	public function getItemsLangSelect2($lang)
 	{
 		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
+		}
+
+		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
+		$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
 
 		if($translation !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
