@@ -358,7 +358,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <?= Html::textInput($titleName, '', ['class' => 'form-control']) ?>
+                                                    <?= Html::textInput($titleName, $model->getFieldTranslation($lang,'title'), ['class' => 'form-control']) ?>
                                                 </div>
 
                                             </div>
@@ -373,7 +373,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-			                                        <?= Html::textInput($aliasName, '', ['class' => 'form-control']) ?>
+			                                        <?= Html::textInput($aliasName, $model->getFieldTranslation($lang,'alias'), ['class' => 'form-control']) ?>
                                                 </div>
 
                                             </div>
@@ -386,7 +386,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <label class="control-label"><?= Yii::t('articles','Introtext') ?></label>
 
-	                                            <?= $model->getEditorWidget(null,$introText) ?>
+	                                            <?= $model->getEditorWidget(null, $introText, '', $model->getFieldTranslation($lang,'introtext')) ?>
 
                                             </div>
 
@@ -398,7 +398,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                                 <label class="control-label" for="items-introtext"><?= Yii::t('articles','Fulltext') ?></label>
 
-                                                <?= $model->getEditorWidget(null,$fullText) ?>
+                                                <?= $model->getEditorWidget(null, $fullText, '', $model->getFieldTranslation($lang,'fulltext')) ?>
 
                                             </div>
 

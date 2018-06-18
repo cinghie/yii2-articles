@@ -302,6 +302,25 @@ class Items extends Articles
 	}
 
 	/**
+	 * Return Translations Item by lang
+	 *
+	 * @param string $lang
+	 * @param string $field
+	 *
+	 * @return Translations[] | string
+	 */
+	public function getFieldTranslation($lang,$field)
+	{
+		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one()->$field;
+		}
+
+		return '';
+	}
+
+	/**
 	 * Return array for ItemsLangSelect2
 	 *
 	 * @param string $lang
