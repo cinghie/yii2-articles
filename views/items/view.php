@@ -15,14 +15,17 @@ $asset = $this->assetBundles[ArticlesAsset::class];
 $this->title = Html::encode($model->title);
 $this->params['breadcrumbs'][] = $this->title;
 
-/* Render MetaData */
+// Render MetaData
 $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_data.php',[ 'model' => $model,]);
 
-/* Facebook Open Graph */
+// Facebook Open Graph
 $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_facebook.php',[ 'model' => $model,]);
 
-/* Twitter Card */
+// Twitter Card
 $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 'model' => $model,]);
+
+// Get Params
+$params = $model->getCategory()->params;
 
 ?>
 
@@ -46,13 +49,13 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 
     </header>
 
-    <?php if($model->getOption($model->category->params,'itemCreatedData') === 'Yes' || $model->getOption($model->category->params,'itemUser') === 'Yes'): ?>
+    <?php if($model->getOption($params,'itemCreatedData') === 'Yes' || $model->getOption($params,'itemUser') === 'Yes'): ?>
 
         <div class="row item-informations">
 
             <div class="col-md-12">
 
-                <?php if($model->getOption($model->category->params,'itemCreatedData') === 'Yes'): ?>
+                <?php if($model->getOption($params,'itemCreatedData') === 'Yes'): ?>
 
                     <span class="item-created">
                         <?= Yii::t('articles','Published on') ?> <?= $model->created ?>,
@@ -60,7 +63,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 
                 <?php endif ?>
 
-                <?php if($model->getOption($model->category->params,'itemUser') === 'Yes'): ?>
+                <?php if($model->getOption($params,'itemUser') === 'Yes'): ?>
 
                     <span class="item-created">
                         <?= Yii::t('traits','by') ?> <?= $model->createdBy->username ?>
@@ -74,7 +77,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 
     <?php endif ?>
 
-    <?php // if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
+    <?php // if ($model->introtext && $model->getOption($params,"itemIntroText") == "Yes"): ?>
 
         <div class="row item-content">
 
@@ -101,7 +104,7 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
 
 </article>
 
-<?php /* if($model->getOption($model->category->params,"itemDebug") == "Yes"): ?>
+<?php /* if($model->getOption($params,"itemDebug") == "Yes"): ?>
 
 <div class="items-view-debug">
 

@@ -352,9 +352,9 @@ class Articles extends ActiveRecord
 	 */
 	public function getOption($params,$param)
 	{
-		$params = json_decode($params);
+		$param = $params ? json_decode($params)->$param : false;
 
-		return $params->$param;
+		return $param;
 	}
 
 }
