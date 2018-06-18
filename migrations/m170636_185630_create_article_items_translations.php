@@ -23,7 +23,7 @@ class m170636_185630_create_article_items_translations extends Migration
 			'id' => $this->primaryKey(),
 			'item_id' => $this->integer(11)->defaultValue(null),
 			'translation_id' => $this->integer(11)->defaultValue(null),
-			'lang' => $this->string(2)->notNull(),
+			'lang' => $this->string(3)->notNull(),
 			'lang_tag' => $this->string(5)->notNull(),
 		], $this->tableOptions);
 

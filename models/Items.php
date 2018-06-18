@@ -163,6 +163,14 @@ class Items extends Articles
 	}
 
 	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTranslationByIDLang($id,$lang)
+	{
+		return $this->hasOne(Translations::class, ['item_id' => $id, 'lang' => $lang])->from(Translations::tableName() . ' AS translations');
+	}
+
+	/**
 	 * Before delete Item, delete Image, Attachments, Tagsassigned
 	 *
 	 * @throws InvalidParamException
@@ -195,7 +203,7 @@ class Items extends Articles
 	}
 
 	/**
-	 * Return Translations by item_id
+	 * Return Translations by lang
 	 *
 	 * @param string $lang
 	 *
@@ -204,6 +212,19 @@ class Items extends Articles
 	public function getTranslationsObject($lang)
 	{
 		return Translations::find()->where(['item_id' => $this->id, 'lang' => $lang])->one();
+	}
+
+	/**
+	 * Return Translations by ID
+	 *
+	 * @param int $id
+	 * @param string $lang
+	 *
+	 * @return Translations[]
+	 */
+	public function getTranslationsObjectByID($id,$lang)
+	{
+		return Translations::find()->where(['item_id' => $id, 'lang' => $lang])->one();
 	}
 
 	/**
@@ -314,6 +335,15 @@ class Items extends Articles
 		$translation = $this->getTranslationsObject($lang);
 
 		if($translation !== null) {
+			return $translation->getTranslation()->one()->$field;
+		}
+
+		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
+		$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
+
+		//var_dump($translation->getTranslation()->one()->$field); exit();
+
+		if($translation_parent !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
 

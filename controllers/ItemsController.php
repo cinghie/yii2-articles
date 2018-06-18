@@ -245,13 +245,12 @@ class ItemsController extends Controller
 			            $lang = substr($langTag,0,2);
 
 			            $titleName = 'title_'.$lang;
-			            $aliasName = 'alias_'.$lang;
 			            $introText = 'introText_'.$lang;
 			            $fullText  = 'fullText_'.$lang;
 
 			            $translation = $model->getTranslationsObject($lang);
 
-			            if($post[$titleName] && $translation == null)
+			            if($translation === null && $post[$titleName])
 			            {
 				            // Clone Model
 				            $model_lang = new Items();
@@ -280,6 +279,17 @@ class ItemsController extends Controller
 				            $translation->lang_tag = $langTag;
 				            $translation->save();
 			            }
+		            }
+
+		            if($model->language === 'all')
+		            {
+			            // Set Translation Table
+			            $translation2 = new Translations();
+			            $translation2->item_id = $model->id;
+			            $translation2->translation_id = $model->id;
+			            $translation2->lang = $model->language;
+			            $translation2->lang_tag = $model->language;
+			            $translation2->save();
 		            }
 	            }
 
@@ -406,6 +416,23 @@ class ItemsController extends Controller
                     // save thumbs to thumbPaths
                     $model->createThumbImages($image, $imagePath, $imgOptions, $thumbPath);
                 }
+
+	            // Set Translations
+	            if(Yii::$app->controller->module->advancedTranslation)
+	            {
+		            foreach(Yii::$app->controller->module->languages as $langTag)
+		            {
+			            $lang = substr($langTag,0,2);
+
+			            $titleName = 'title_'.$lang;
+			            $introText = 'introText_'.$lang;
+			            $fullText  = 'fullText_'.$lang;
+
+			            $translation = $model->getTranslationsObject($lang);
+
+			            var_dump($translation); exit();
+		            }
+	            }
 
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));

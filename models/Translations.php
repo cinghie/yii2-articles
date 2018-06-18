@@ -44,7 +44,7 @@ class Translations extends \yii\db\ActiveRecord
         return [
             [['item_id', 'translation_id'], 'integer'],
             [['lang', 'lang_tag'], 'required'],
-            [['lang'], 'string', 'max' => 2],
+            [['lang'], 'string', 'max' => 3],
             [['lang_tag'], 'string', 'max' => 5],
             [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => Items::class, 'targetAttribute' => ['item_id' => 'id']],
             [['translation_id'], 'exist', 'skipOnError' => true, 'targetClass' => Items::class, 'targetAttribute' => ['translation_id' => 'id']],
