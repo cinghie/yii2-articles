@@ -40,50 +40,64 @@ $this->render('@vendor/cinghie/yii2-articles/views/default/_meta_twitter.php',[ 
                 	<figcaption class="center-block">
                 		<?= $model->image_caption ?>
                     </figcaption>
-                <?php endif; ?>
+                <?php endif ?>
             </figure>
-        <?php endif; ?>
+        <?php endif ?>
 
     </header>
 
-    <div class="row item-informations">
+    <?php if($model->getOption($model->category->params,'itemCreatedData') === 'Yes' || $model->getOption($model->category->params,'itemUser') === 'Yes'): ?>
 
-        <div class="col-md-12">
+        <div class="row item-informations">
 
-            <span class="item-created">
-                <?= Yii::t('articles','Published on') ?> <?= $model->created ?>,
-            </span>
+            <div class="col-md-12">
 
-            <span class="item-created">
-                <?= Yii::t('traits','by') ?> <?= $model->createdBy->username ?>
-            </span>
+                <?php if($model->getOption($model->category->params,'itemCreatedData') === 'Yes'): ?>
 
-        </div>
+                    <span class="item-created">
+                        <?= Yii::t('articles','Published on') ?> <?= $model->created ?>,
+                    </span>
 
-    </div>
+                <?php endif ?>
 
-    <?php //if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
+                <?php if($model->getOption($model->category->params,'itemUser') === 'Yes'): ?>
 
-    <div class="row item-content">
+                    <span class="item-created">
+                        <?= Yii::t('traits','by') ?> <?= $model->createdBy->username ?>
+                    </span>
 
-        <div class="col-md-12">
+                <?php endif ?>
 
-            <?php if ($model->introtext): ?>
-                <div class="intro-text">
-                    <?= $model->introtext ?>
-                </div>
-                <hr>
-            <?php endif; ?>
-
-            <?php if ($model->fulltext): ?>
-                <div class="full-text">
-                    <?= $model->fulltext ?>
-                </div>
-            <?php endif; ?>
+            </div>
 
         </div>
 
-    </div>
+    <?php endif ?>
+
+    <?php // if ($model->introtext && $model->getOption($model->category->params,"itemIntroText") == "Yes"): ?>
+
+        <div class="row item-content">
+
+            <div class="col-md-12">
+
+                <?php if ($model->introtext): ?>
+                    <div class="intro-text">
+                        <?= $model->introtext ?>
+                    </div>
+                    <hr>
+                <?php endif ?>
+
+                <?php if ($model->fulltext): ?>
+                    <div class="full-text">
+                        <?= $model->fulltext ?>
+                    </div>
+                <?php endif ?>
+
+            </div>
+
+        </div>
+
+    <?php // endif ?>
 
 </article>
 
