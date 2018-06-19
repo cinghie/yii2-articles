@@ -94,28 +94,28 @@ class ItemsSearch extends Items
             'modified' => $this->modified,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-              ->andFilterWhere(['like', 'alias', $this->alias])
+        $query->andFilterWhere(['like', '{{%article_items}}.title', $this->title])
+              ->andFilterWhere(['like', '{{%article_items}}.alias', $this->alias])
               ->andFilterWhere(['like', 'categories.name', $this->cat_id])
               ->andFilterWhere(['like', '{{%article_items}}.access', $this->access])
               ->andFilterWhere(['like', 'createdBy.username', $this->created_by])
               ->andFilterWhere(['like', 'modifiedBy.username', $this->modified_by])
-              ->andFilterWhere(['like', 'introtext', $this->introtext])
-              ->andFilterWhere(['like', 'fulltext', $this->fulltext])
-              ->andFilterWhere(['like', 'language', $this->language])
-              ->andFilterWhere(['like', 'image', $this->image])
-              ->andFilterWhere(['like', 'image_caption', $this->image_caption])
-              ->andFilterWhere(['like', 'image_credits', $this->image_credits])
-              ->andFilterWhere(['like', 'video', $this->video])
-			  ->andFilterWhere(['like', 'video_type', $this->video_type])
-              ->andFilterWhere(['like', 'video_caption', $this->video_caption])
-              ->andFilterWhere(['like', 'video_credits', $this->video_credits])
-              ->andFilterWhere(['like', 'params', $this->params])
-              ->andFilterWhere(['like', 'metadesc', $this->metadesc])
-              ->andFilterWhere(['like', 'metakey', $this->metakey])
-              ->andFilterWhere(['like', 'robots', $this->robots])
-              ->andFilterWhere(['like', 'author', $this->author])
-              ->andFilterWhere(['like', 'copyright', $this->copyright]);
+              ->andFilterWhere(['like', '{{%article_items}}.introtext', $this->introtext])
+              ->andFilterWhere(['like', '{{%article_items}}.fulltext', $this->fulltext])
+              ->andFilterWhere(['like', '{{%article_items}}.language', $this->language])
+              ->andFilterWhere(['like', '{{%article_items}}.image', $this->image])
+              ->andFilterWhere(['like', '{{%article_items}}.image_caption', $this->image_caption])
+              ->andFilterWhere(['like', '{{%article_items}}.image_credits', $this->image_credits])
+              ->andFilterWhere(['like', '{{%article_items}}.video', $this->video])
+			  ->andFilterWhere(['like', '{{%article_items}}.video_type', $this->video_type])
+              ->andFilterWhere(['like', '{{%article_items}}.video_caption', $this->video_caption])
+              ->andFilterWhere(['like', '{{%article_items}}.video_credits', $this->video_credits])
+              ->andFilterWhere(['like', '{{%article_items}}.params', $this->params])
+              ->andFilterWhere(['like', '{{%article_items}}.metadesc', $this->metadesc])
+              ->andFilterWhere(['like', '{{%article_items}}.metakey', $this->metakey])
+              ->andFilterWhere(['like', '{{%article_items}}.robots', $this->robots])
+              ->andFilterWhere(['like', '{{%article_items}}.author', $this->author])
+              ->andFilterWhere(['like', '{{%article_items}}.copyright', $this->copyright]);
 
         return $dataProvider;
     }
