@@ -272,12 +272,12 @@ class ItemsController extends Controller
 				            $model_lang->save();
 
 				            // Set Translation Table
-				            $translation = new Translations();
-				            $translation->item_id = $model->id;
-				            $translation->translation_id = $model_lang->id;
-				            $translation->lang = $lang;
-				            $translation->lang_tag = $langTag;
-				            $translation->save();
+				            $translationItem = new Translations();
+				            $translationItem->item_id = $model->id;
+				            $translationItem->translation_id = $model_lang->id;
+				            $translationItem->lang = $lang;
+				            $translationItem->lang_tag = $langTag;
+				            $translationItem->save();
 			            }
 		            }
 
@@ -428,9 +428,45 @@ class ItemsController extends Controller
 			            $introText = 'introText_'.$lang;
 			            $fullText  = 'fullText_'.$lang;
 
-			            $translation = $model->getTranslationsObject($lang);
+			            $translation = $model->getItemTranslation($lang);
 
-			            var_dump($translation); exit();
+			            if($translation === null && $post[$titleName])
+			            {
+				            // Clone Model
+				            $model_lang = new Items();
+				            $attributes = $model->attributes;
+
+				            foreach($attributes as  $attribute => $val)
+				            {
+					            if($attribute !== 'id') {
+						            $model_lang->{$attribute} = $val;
+					            }
+				            }
+
+				            // Set Translations values
+				            $model_lang->title = $post[$titleName];
+				            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
+				            $model_lang->language = $lang;
+				            $model_lang->introtext = $post[$introText];
+				            $model_lang->fulltext = $post[$fullText];
+				            $model_lang->save();
+
+				            // Set Translation Table
+				            $translationItem = new Translations();
+				            $translationItem->item_id = $model->id;
+				            $translationItem->translation_id = $model_lang->id;
+				            $translationItem->lang = $lang;
+				            $translationItem->lang_tag = $langTag;
+				            $translationItem->save();
+
+			            } elseif($translation && $post[$titleName]) {
+
+				            $translation->title = $post[$titleName];
+				            $translation->alias = $translation->generateAlias($post[$titleName]);
+				            $translation->introtext = $post[$introText];
+				            $translation->fulltext = $post[$fullText];
+				            $translation->save();
+			            }
 		            }
 	            }
 

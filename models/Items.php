@@ -323,6 +323,35 @@ class Items extends Articles
 	}
 
 	/**
+	 * Check Translation Item by lang
+	 *
+	 * @param string $lang
+	 *
+	 * @return Items[]
+	 */
+	public function getItemTranslation($lang)
+	{
+		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one();
+		}
+
+		$translation = null;
+		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
+
+		if($translation_parent !== null) {
+			$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
+		}
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one();
+		}
+
+		return null;
+	}
+
+	/**
 	 * Return Translations Item by lang
 	 *
 	 * @param string $lang
@@ -338,8 +367,12 @@ class Items extends Articles
 			return $translation->getTranslation()->one()->$field;
 		}
 
+		$translation = null;
 		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
-		$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
+
+		if($translation_parent !== null) {
+			$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
+		}
 
 		if($translation !== null) {
 			return $translation->getTranslation()->one()->$field;
@@ -363,8 +396,12 @@ class Items extends Articles
 			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
 		}
 
+		$translation = null;
 		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
-		$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
+
+		if($translation_parent !== null) {
+			$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
+		}
 
 		if($translation !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
