@@ -26,6 +26,7 @@ use cinghie\traits\UserTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use creocoder\nestedsets\NestedSetsBehavior;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\behaviors\BlameableBehavior;
@@ -72,9 +73,20 @@ class Items extends Articles
 	/**
 	 * @inheritdoc
 	 */
+	public static function tableName()
+	{
+		return '{{%article_items}}';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
     public function behaviors()
 	{
 		return [
+			'tree' => [
+				'class' => NestedSetsBehavior::class,
+			],
 			[
 				'class' => BlameableBehavior::class,
 				'createdByAttribute' => 'created_by',
@@ -83,12 +95,15 @@ class Items extends Articles
 		];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName() {
-        return '{{%article_items}}';
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function transactions()
+	{
+		return [
+			self::SCENARIO_DEFAULT => self::OP_ALL,
+		];
+	}
 
     /**
      * @inheritdoc
