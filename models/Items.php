@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\models;
 
+use Yii;
 use cinghie\traits\AccessTrait;
 use cinghie\traits\AttachmentTrait;
 use cinghie\traits\CreatedTrait;
@@ -26,8 +27,6 @@ use cinghie\traits\UserTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
-use creocoder\nestedsets\NestedSetsBehavior;
-use Yii;
 use yii\base\InvalidParamException;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQuery;
@@ -92,6 +91,16 @@ class Items extends Articles
 		];
     }
 
+	/**
+	 * @inheritdoc
+	 */
+	public function transactions()
+	{
+		return [
+			self::SCENARIO_DEFAULT => self::OP_ALL,
+		];
+	}
+
     /**
      * @inheritdoc
      */
@@ -125,7 +134,7 @@ class Items extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAttachments()
     {
@@ -133,7 +142,7 @@ class Items extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategory()
     {
@@ -141,7 +150,7 @@ class Items extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getItems()
     {
@@ -149,7 +158,7 @@ class Items extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTagsassigns()
     {
@@ -157,7 +166,7 @@ class Items extends Articles
     }
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @return ActiveQuery
 	 */
 	public function getTranslations()
 	{
@@ -165,7 +174,10 @@ class Items extends Articles
 	}
 
 	/**
-	 * @return \yii\db\ActiveQuery
+	 * @param $id
+	 * @param $lang
+	 *
+	 * @return ActiveQuery
 	 */
 	public function getTranslationByIDLang($id,$lang)
 	{
@@ -333,6 +345,7 @@ class Items extends Articles
 	 */
 	public function getItemTranslation($lang)
 	{
+		/** @var Translations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
 		if($translation !== null) {
@@ -363,6 +376,7 @@ class Items extends Articles
 	 */
 	public function getFieldTranslation($lang,$field)
 	{
+		/** @var Translations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
 		if($translation !== null) {
@@ -392,6 +406,7 @@ class Items extends Articles
 	 */
 	public function getItemsLangSelect2($lang)
 	{
+		/** @var Translations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
 		if($translation !== null) {

@@ -39,7 +39,7 @@ class CategoriesQuery extends ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Categories[]|array
+     * @return Categories[]
      */
     public function all($db = null)
     {
@@ -49,7 +49,7 @@ class CategoriesQuery extends ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Categories|array|null
+     * @return Categories
      */
     public function one($db = null)
     {

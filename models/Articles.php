@@ -12,8 +12,12 @@
 
 namespace cinghie\articles\models;
 
+use Imagine\Exception\RuntimeException;
+use kartik\form\ActiveField;
+use kartik\widgets\ActiveForm;
 use Yii;
 use kartik\widgets\Select2;
+use yii\base\Exception;
 use yii\base\InvalidParamException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
@@ -26,6 +30,7 @@ use yii\web\UploadedFile;
  * @property array $categoriesSelect2
  * @property array $itemsSelect2
  * @property array $tagsIDByItemID
+ * @property array $themesSelect2
  * @property array $tagsSelect2
  */
 class Articles extends ActiveRecord
@@ -34,9 +39,9 @@ class Articles extends ActiveRecord
     /**
      * Generate Ordering Form Widget
      *
-     * @param \kartik\widgets\ActiveForm $form
+     * @param ActiveForm $form
      *
-     * @return \kartik\form\ActiveField
+     * @return ActiveField
      */
     public function getOrderingWidget($form)
     {
@@ -59,7 +64,7 @@ class Articles extends ActiveRecord
 	/**
 	 * Generate Tags Form Widget
 	 *
-	 * @param \kartik\widgets\ActiveForm $form
+	 * @param ActiveForm $form
 	 *
 	 * @return string
 	 */
@@ -88,7 +93,7 @@ class Articles extends ActiveRecord
 	 * @param $fileField
 	 *
 	 * @return UploadedFile|bool
-	 * @throws \yii\base\Exception
+	 * @throws Exception
 	 */
     public function uploadFile($fileName,$fileNameType,$filePath,$fileField)
     {
@@ -140,7 +145,7 @@ class Articles extends ActiveRecord
      * @param $thumbPath
      *
      * @return mixed the uploaded image instance
-     * @throws \Imagine\Exception\RuntimeException
+     * @throws RuntimeException
      */
 	public function createThumbImages($image,$imagePath,$imgOptions,$thumbPath)
 	{	
@@ -179,8 +184,8 @@ class Articles extends ActiveRecord
 
         foreach($sizes as $size)
         {
-            if(!file_exists($path.$size)) {
-                mkdir($path.$size, 0755, true);
+            if( ! file_exists( $path . $size ) && ! mkdir( $path . $size, 0755, true ) && ! is_dir( $path . $size ) ) {
+	            throw new \RuntimeException( sprintf( 'Directory "%s" was not created', $path . $size ) );
             }
         }
     }

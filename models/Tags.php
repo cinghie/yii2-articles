@@ -66,7 +66,7 @@ class Tags extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTagsassign()
     {

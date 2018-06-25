@@ -23,7 +23,7 @@ class TagsassignQuery extends \yii\db\ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Tagsassign[]|array
+     * @return Tagsassign[]
      */
     public function all($db = null)
     {
@@ -33,7 +33,7 @@ class TagsassignQuery extends \yii\db\ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Tagsassign|array|null
+     * @return Tagsassign
      */
     public function one($db = null)
     {

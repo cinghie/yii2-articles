@@ -16,7 +16,9 @@ use Yii;
 use cinghie\traits\AttachmentTrait;
 use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\ViewsHelpersTrait;
+use yii\base\Exception;
 use yii\base\InvalidParamException;
+use yii\db\ActiveQuery;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
 
@@ -73,7 +75,7 @@ class Attachments extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getItem()
     {
@@ -143,7 +145,7 @@ class Attachments extends Articles
 	 * @param $fileField
 	 *
 	 * @return UploadedFile|bool
-	 * @throws \yii\base\Exception
+	 * @throws Exception
 	 */
     public function uploadFile($fileName,$fileNameType,$filePath,$fileField)
     {

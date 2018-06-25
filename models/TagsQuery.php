@@ -39,7 +39,7 @@ class TagsQuery extends ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Tags[]|array
+     * @return Tags[]
      */
     public function all($db = null)
     {
@@ -49,7 +49,7 @@ class TagsQuery extends ActiveQuery
     /**
      * @inheritdoc
      *
-     * @return Tags|array|null
+     * @return Tags
      */
     public function one($db = null)
     {

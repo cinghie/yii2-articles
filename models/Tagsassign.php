@@ -60,7 +60,7 @@ class Tagsassign extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getItem()
     {
@@ -68,7 +68,7 @@ class Tagsassign extends ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTag()
     {

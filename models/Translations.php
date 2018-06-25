@@ -13,6 +13,7 @@
 namespace cinghie\articles\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "{{%article_items_translations}}".
@@ -57,16 +58,16 @@ class Translations extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('articles', 'ID'),
-            'item_id' => Yii::t('articles', 'Item ID'),
-            'translation_id' => Yii::t('articles', 'Translation ID'),
-            'lang' => Yii::t('articles', 'Lang'),
-            'lang_tag' => Yii::t('articles', 'Lang Tag'),
+            'id' => Yii::t('traits', 'ID'),
+            'item_id' => Yii::t('articles', 'Item'),
+            'translation_id' => Yii::t('traits', 'Translation'),
+            'lang' => Yii::t('traits', 'Language'),
+            'lang_tag' => Yii::t('traits', 'Language Tag'),
         ];
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getItem()
     {
@@ -74,7 +75,7 @@ class Translations extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTranslation()
     {
@@ -83,10 +84,12 @@ class Translations extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
+     *
      * @return TranslationsQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new TranslationsQuery(get_called_class());
+        return new TranslationsQuery( static::class );
     }
+
 }
