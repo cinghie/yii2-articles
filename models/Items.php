@@ -340,6 +340,36 @@ class Items extends Articles
 	}
 
 	/**
+	 * Check Item or Item Translation based on current lang
+	 *
+	 * @param int $id
+	 *
+	 * @return Items
+	 */
+	public function getTranslationItem($id)
+	{
+		$current_lang = Yii::$app->language;
+
+		$item = Items::find()
+			->where(['id' => $id])
+			->one();
+
+		if( $item->language === $current_lang && 0 === strpos(Yii::$app->controller->module->languageAll, $current_lang) ) {
+			return $item;
+		}
+
+		if ( $item->getItemTranslation($current_lang) !== null ) {
+			return $item->getItemTranslation($current_lang);
+		}
+
+		if( $item->getItemTranslation('all') !== null ) {
+			return $item->getItemTranslation('all');
+		}
+
+		return $item->getItemTranslation(substr(Yii::$app->controller->module->languageAll,0,2));
+	}
+
+	/**
 	 * Check Translation Item by lang
 	 *
 	 * @param string $lang
