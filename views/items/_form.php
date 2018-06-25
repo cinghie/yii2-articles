@@ -308,7 +308,11 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                         <div id="translations" class="row tab-pane fade">
 
-                            <?php foreach (Yii::$app->controller->module->languages as $langTag): ?>
+                            <?php
+
+                                foreach (Yii::$app->controller->module->languages as $langTag):
+
+                            ?>
 
 	                            <?php
                                     $lang = substr($langTag,0,2);
@@ -319,7 +323,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                     $introText  = 'introText_'.$lang;
                                     $fullText   = 'fullText_'.$lang;
 
-                                    if($model->language !== $lang):
+                                    if($model->language !== $lang && ($langTag !== Yii::$app->controller->module->languageAll || !$model->isNewRecord)):
 	                            ?>
 
                                 <div class="col-md-6 col-sm-12">

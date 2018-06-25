@@ -291,6 +291,14 @@ class ItemsController extends Controller
 			            $translation2->lang = $model->language;
 			            $translation2->lang_tag = $model->language;
 			            $translation2->save();
+
+			            // Set Translation Table
+			            $translation3 = new Translations();
+			            $translation3->item_id = $model->id;
+			            $translation3->translation_id = $model->id;
+			            $translation3->lang = substr(Yii::$app->controller->module->languageAll,0,2);
+			            $translation3->lang_tag = Yii::$app->controller->module->languageAll;
+			            $translation3->save();
 		            }
 	            }
 

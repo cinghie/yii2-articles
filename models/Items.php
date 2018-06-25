@@ -197,14 +197,14 @@ class Items extends Articles
 		$this->deleteAttachments();
 		Attachments::deleteAll([ 'AND', 'item_id = '.$this->id ]);
 
+		// Delete Image
+		$this->deleteImage();
+
 		// Delete Tagsassigned
 		Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
 
 		// Delete Translations
 		Translations::deleteAll([ 'AND', 'item_id = '.$this->id ]);
-
-		// Delete Image
-		$this->deleteImage();
 
 		return parent::beforeDelete();
 	}

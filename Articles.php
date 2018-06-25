@@ -26,6 +26,9 @@ class Articles extends Module
 	// Select Article Languages
 	public $languages = [ 'en-GB' => 'en-GB' ];
 
+	// Select Article Language for all other languages
+	public $languageAll = 'en-GB';
+
     // Select Date Format
     public $dateFormat = 'd F Y';
 
