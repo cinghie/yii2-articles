@@ -12,15 +12,16 @@
 
 namespace cinghie\articles\models;
 
+use Yii;
 use Imagine\Exception\RuntimeException;
 use kartik\form\ActiveField;
 use kartik\widgets\ActiveForm;
-use Yii;
 use kartik\widgets\Select2;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 
@@ -45,14 +46,18 @@ class Articles extends ActiveRecord
      */
     public function getOrderingWidget($form)
     {
-        $orderingSelect = ['0' => Yii::t('articles', 'In Development')];
+    	if($this->isNewRecord) {
+    		$options = ['disabled' => 'disabled'];
+		    $orderingSelect = ['0' => Yii::t('articles', 'Save to order')];
+	    } else {
+		    $options = [];
+		    $orderingSelect = $this->getItemsByCategoriesSelect2($this->cat_id);
+	    }
 
         /** @var $this \yii\base\Model */
         return $form->field($this, 'ordering')->widget(Select2::class, [
             'data' => $orderingSelect,
-            'options' => [
-                'disabled' => 'disabled'
-            ],
+            'options' => $options,
             'addon' => [
                 'prepend' => [
                     'content'=>'<i class="glyphicon glyphicon-sort"></i>'
@@ -209,6 +214,32 @@ class Articles extends ActiveRecord
 
         return $items;
     }
+
+	/**
+	 * Return array with all Items by $cat_id
+	 *
+	 * @param $cat_id
+	 *
+	 * @return array
+	 */
+	public function getItemsByCategoriesSelect2($cat_id)
+	{
+		$array = array();
+
+		$items = Items::find()
+		              ->select(['id','title'])
+		              ->where(['cat_id' => $cat_id])
+		              ->all();
+
+		foreach($items as $item)
+		{
+			if($item['id'] !== $this->id) {
+				$array[$item['id']] = $item['title'];
+			}
+		}
+
+		return $array;
+	}
 
     /**
      * Return array for Category Select2

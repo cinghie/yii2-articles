@@ -461,7 +461,7 @@ class Items extends Articles
 		return [ 0 => Yii::t('articles', 'Not Yet Translated') ];
 	}
 
-    /**
+	/**
      * Return array for Publish Status
      *
      * @return array

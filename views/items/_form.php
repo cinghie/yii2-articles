@@ -163,16 +163,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
 
                                 <?= $model->getUserWidget($form) ?>
 
-                                <?= $form->field($model, 'ordering')->widget(Select2::class, [
-                                    'data' => [
-	                                    '0' =>  Yii::t('articles', 'In Development')
-                                    ],
-                                    'addon' => [
-                                        'prepend' => [
-                                            'content'=>'<i class="glyphicon glyphicon-sort"></i>'
-                                        ]
-                                    ],
-                                ]) ?>
+                                <?= $model->getOrderingWidget($form)?>
 
                                 <?= $model->getCreatedWidget($form) ?>
 

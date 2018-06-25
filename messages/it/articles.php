@@ -85,6 +85,7 @@ return [
 	'Published' => 'Pubblicato',
 	'Published on' => 'Pubblicato il',
 	'Published by' => 'Pubblicato da',
+	'Save to order' => 'Salva per ordinare',
 	'Select Tags' => 'Seleziona Tags',
 	'Small' => 'Piccola',
 	'Show Created Data' => 'Mostra Data Creazione',
