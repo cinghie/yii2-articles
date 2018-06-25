@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use Throwable;
 use Yii;
 use cinghie\articles\models\Attachments;
 use cinghie\articles\models\Items;
@@ -250,7 +251,7 @@ class ItemsController extends Controller
 
 			            $translation = $model->getTranslationsObject($lang);
 
-			            if($translation === null && isset($post[$titleName]))
+			            if($translation === null && (isset($post[$titleName]) && $post[$titleName] !== ''))
 			            {
 				            // Clone Model
 				            $model_lang = new Items();
@@ -428,9 +429,10 @@ class ItemsController extends Controller
 			            $introText = 'introText_'.$lang;
 			            $fullText  = 'fullText_'.$lang;
 
+			            /** @var Items $translation */
 			            $translation = $model->getItemTranslation($lang);
 
-			            if($translation === null && $post[$titleName])
+			            if($translation === null && isset($post[$titleName]) && $post[$titleName] !== '')
 			            {
 				            // Clone Model
 				            $model_lang = new Items();
@@ -492,10 +494,10 @@ class ItemsController extends Controller
 	 *
 	 * @param integer $id
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
     public function actionDelete($id)
     {
@@ -512,10 +514,10 @@ class ItemsController extends Controller
 	/**
 	 * Deletes selected Items models
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
     public function actionDeletemultiple()
     {
@@ -657,7 +659,7 @@ class ItemsController extends Controller
             return $model;
         }
 
-	    throw new NotFoundHttpException('The requested page does not exist.');
+	    throw new NotFoundHttpException(Yii::t('traits','The requested page does not exist.'));
     }
 
 	/**

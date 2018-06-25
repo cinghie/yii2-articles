@@ -12,6 +12,8 @@
 
 namespace cinghie\articles\controllers;
 
+use RuntimeException;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -31,7 +33,7 @@ class DefaultController extends Controller
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \RuntimeException('You are not allowed to access this page');
+                    throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
         ];

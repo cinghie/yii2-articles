@@ -198,7 +198,7 @@ class Items extends Articles
 		Attachments::deleteAll([ 'AND', 'item_id = '.$this->id ]);
 
 		// Delete Tagsassigned
-		Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
+		Tagsassign::deleteAll('item_id = '.$this->id);
 
 		// Delete Image
 		$this->deleteImage();

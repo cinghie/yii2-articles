@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use Throwable;
 use Yii;
 use cinghie\articles\models\Attachments;
 use cinghie\articles\models\AttachmentsSearch;
@@ -234,10 +235,10 @@ class AttachmentsController extends Controller
 	 * @param $id
 	 *
 	 * @return Response
-	 * @throws \Exception
+	 * @throws Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
     public function actionDelete($id)
     {
@@ -252,12 +253,14 @@ class AttachmentsController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Deletes selected Attachments models.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @throws \Exception
-     */
+	/**
+	 * Deletes selected Attachments models.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 *
+	 * @throws NotFoundHttpException
+	 * @throws StaleObjectException
+	 * @throws Throwable
+	 */
     public function actionDeletemultiple()
     {
         $ids = Yii::$app->request->post('ids');
@@ -285,10 +288,10 @@ class AttachmentsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return bool
-	 * @throws \Exception
+	 * @throws Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
 	public function actionDeleteonfly($id)
 	{
@@ -318,7 +321,7 @@ class AttachmentsController extends Controller
             return $model;
         }
 
-	    throw new NotFoundHttpException('The requested page does not exist.');
+	    throw new NotFoundHttpException(Yii::t('traits','The requested page does not exist.'));
     }
 
 }
