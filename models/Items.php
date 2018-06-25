@@ -349,12 +349,13 @@ class Items extends Articles
 	public function getTranslationItem($id)
 	{
 		$current_lang = Yii::$app->language;
+		$default_lang = Yii::$app->getModule('articles')->languageAll;
 
 		$item = Items::find()
 			->where(['id' => $id])
 			->one();
 
-		if( $item->language === $current_lang && 0 === strpos(Yii::$app->controller->module->languageAll, $current_lang) ) {
+		if( $item->language === $current_lang && 0 === strpos($default_lang, $current_lang) ) {
 			return $item;
 		}
 
@@ -366,7 +367,7 @@ class Items extends Articles
 			return $item->getItemTranslation('all');
 		}
 
-		return $item->getItemTranslation(substr(Yii::$app->controller->module->languageAll,0,2));
+		return $item->getItemTranslation(substr($default_lang,0,2));
 	}
 
 	/**
