@@ -250,7 +250,7 @@ class ItemsController extends Controller
 
 			            $translation = $model->getTranslationsObject($lang);
 
-			            if($translation === null && $post[$titleName])
+			            if($translation === null && isset($post[$titleName]))
 			            {
 				            // Clone Model
 				            $model_lang = new Items();
@@ -459,7 +459,7 @@ class ItemsController extends Controller
 				            $translationItem->lang_tag = $langTag;
 				            $translationItem->save();
 
-			            } elseif($translation && $post[$titleName]) {
+			            } elseif($translation && isset($post[$titleName])) {
 
 				            $translation->title = $post[$titleName];
 				            $translation->alias = $translation->generateAlias($post[$titleName]);
