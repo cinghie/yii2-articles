@@ -37,35 +37,6 @@ use yii\web\UploadedFile;
 class Articles extends ActiveRecord
 {
 
-    /**
-     * Generate Ordering Form Widget
-     *
-     * @param ActiveForm $form
-     *
-     * @return ActiveField
-     */
-    public function getOrderingWidget($form)
-    {
-    	if($this->isNewRecord) {
-    		$options = ['disabled' => 'disabled'];
-		    $orderingSelect = ['0' => Yii::t('articles', 'Save to order')];
-	    } else {
-		    $options = [];
-		    $orderingSelect = $this->getItemsByCategoriesSelect2($this->cat_id);
-	    }
-
-        /** @var $this \yii\base\Model */
-        return $form->field($this, 'ordering')->widget(Select2::class, [
-            'data' => $orderingSelect,
-            'options' => $options,
-            'addon' => [
-                'prepend' => [
-                    'content'=>'<i class="glyphicon glyphicon-sort"></i>'
-                ]
-            ],
-        ]);
-    }
-
 	/**
 	 * Generate Tags Form Widget
 	 *

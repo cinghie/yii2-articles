@@ -20,6 +20,7 @@ use cinghie\traits\EditorTrait;
 use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\ModifiedTrait;
+use cinghie\traits\OrderingTrait;
 use cinghie\traits\SeoTrait;
 use cinghie\traits\StateTrait;
 use cinghie\traits\TitleAliasTrait;
@@ -28,7 +29,6 @@ use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\VideoTrait;
 use cinghie\traits\ViewsHelpersTrait;
 use yii\base\InvalidParamException;
-use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
 
@@ -63,7 +63,7 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait,  LanguageTrait, ModifiedTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
 
 	public $attachments;
     public $tags;
@@ -77,38 +77,14 @@ class Items extends Articles
 		return '{{%article_items}}';
 	}
 
-	/**
-	 * @inheritdoc
-	 */
-    public function behaviors()
-	{
-		return [
-			[
-				'class' => BlameableBehavior::class,
-				'createdByAttribute' => 'created_by',
-				'updatedByAttribute' => 'modified_by'
-			]
-		];
-    }
-
-	/**
-	 * @inheritdoc
-	 */
-	public function transactions()
-	{
-		return [
-			self::SCENARIO_DEFAULT => self::OP_ALL,
-		];
-	}
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
-	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), StateTrait::rules(), ModifiedTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
+	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::attributeLabels(), ModifiedTrait::rules(), OrderingTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
-            [['cat_id', 'ordering', 'hits'], 'integer'],
+            [['cat_id', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'theme', 'params'], 'string'],
 	        [['attachments','tags'], 'safe'],
 	        [['attachments'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
@@ -121,13 +97,12 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-	    return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), SeoTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
+	    return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), OrderingTrait::attributeLabels(), SeoTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),
             'fulltext' => Yii::t('articles', 'Fulltext'),
             'theme' => Yii::t('articles', 'Theme'),
-            'ordering' => Yii::t('articles', 'Ordering'),
             'hits' => Yii::t('articles', 'Hits'),
             'params' => Yii::t('articles', 'Params'),
         ]);
@@ -351,7 +326,7 @@ class Items extends Articles
 		$current_lang = Yii::$app->language;
 		$default_lang = Yii::$app->getModule('articles')->languageAll;
 
-		$item = Items::find()
+		$item = self::find()
 			->where(['id' => $id])
 			->one();
 

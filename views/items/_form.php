@@ -17,13 +17,8 @@ use yii\helpers\Html;
 ArticlesAsset::register($this);
 $asset = $this->assetBundles[ArticlesAsset::class];
 
-// Load info
-$attachType = Yii::$app->controller->module->attachType;
-$attachTypeString = implode(', ', $attachType);
-$attachURL = Yii::$app->controller->module->attachURL;
-
 // Set Tags
-$model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
+$model->tags = $model->getTagsIDByItemID() ?: [];
 
 ?>
 
@@ -33,7 +28,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
         'options' => [
             'enctype'=>'multipart/form-data'
         ],
-    ]); ?>
+    ]) ?>
 
         <div class="row">
 
@@ -128,7 +123,7 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                                                     'content'=>'<i class="glyphicon glyphicon-folder-open"></i>'
                                                 ]
                                             ],
-                                        ]); ?>
+                                        ]) ?>
 
                                         <?= $model->getLanguageWidget($form) ?>
 
@@ -238,8 +233,8 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                             <div class="col-lg-12">
 
                                 <p class="bg-info">
-                                    <?= Yii::t('traits', 'Allowed Extensions'). ": " .implode(", ",$model->getImagesAllowed()) ?>
-                                    (<?= Yii::t('articles', 'Max Size'). ": " .$model->getUploadMaxSize() ?>)
+                                    <?= Yii::t('traits', 'Allowed Extensions'). ': ' .implode(', ',$model->getImagesAllowed()) ?>
+                                    (<?= Yii::t('traits', 'Max Size'). ': ' .$model->getUploadMaxSize() ?>)
                                 </p>
 
                             </div> <!-- col-lg-12 -->
@@ -286,10 +281,10 @@ $model->tags = $model->getTagsIDByItemID() ? $model->getTagsIDByItemID() : [];
                             <div class="col-md-12">
 
                                 <p class="bg-info">
-		                            <?= Yii::t('traits', 'Allowed Extensions')?>: <?= $attachTypeString ?>
+		                            <?= Yii::t('traits', 'Allowed Extensions')?>: <?= implode(', ', Yii::$app->controller->module->attachType) ?>
                                 </p>
 
-                                <?= $model->getFilesWidget($attachType,$attachURL) ?>
+                                <?= $model->getFilesWidget(Yii::$app->controller->module->attachType,Yii::$app->controller->module->attachURL) ?>
 
                             </div> <!-- end col-md-12 -->
 
