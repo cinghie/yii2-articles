@@ -22,7 +22,6 @@
     "require": {
         "yiisoft/yii2": "~2.0.12",
         "cinghie/yii2-traits": "*",
-        "creocoder/yii2-nested-sets": "*",
         "dektrium/yii2-user": "*"
     },
     "autoload": {

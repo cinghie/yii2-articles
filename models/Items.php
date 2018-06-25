@@ -84,9 +84,6 @@ class Items extends Articles
     public function behaviors()
 	{
 		return [
-			'tree' => [
-				'class' => NestedSetsBehavior::class,
-			],
 			[
 				'class' => BlameableBehavior::class,
 				'createdByAttribute' => 'created_by',

@@ -23,16 +23,6 @@ use yii\db\ActiveQuery;
 class ItemsQuery extends ActiveQuery
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public function behaviors()
-	{
-		return [
-			NestedSetsQueryBehavior::class,
-		];
-	}
-
     /**
      * @inheritdoc
      *
