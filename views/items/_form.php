@@ -7,6 +7,7 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
+use cinghie\articles\models\Items;
 
 // Load Kartik Libraries
 use kartik\widgets\ActiveForm;
@@ -158,7 +159,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                                 <?= $model->getUserWidget($form) ?>
 
-                                <?= $model->getOrderingWidget($form)?>
+                                <?= $model->getOrderingWidget($form,Items::class, 'cat_id',['id','title'], ['cat_id' => $model->cat_id])?>
 
                                 <?= $model->getCreatedWidget($form) ?>
 
@@ -301,6 +302,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
                             ?>
 
 	                            <?php
+
                                     $lang = substr($langTag,0,2);
 
                                     $selectName = 'translation_'.$lang;

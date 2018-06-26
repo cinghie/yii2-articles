@@ -186,32 +186,6 @@ class Articles extends ActiveRecord
         return $items;
     }
 
-	/**
-	 * Return array with all Items by $cat_id
-	 *
-	 * @param $cat_id
-	 *
-	 * @return array
-	 */
-	public function getItemsByCategoriesSelect2($cat_id)
-	{
-		$array = array();
-
-		$items = Items::find()
-		              ->select(['id','title'])
-		              ->where(['cat_id' => $cat_id])
-		              ->all();
-
-		foreach($items as $item)
-		{
-			if($item['id'] !== $this->id) {
-				$array[$item['id']] = $item['title'];
-			}
-		}
-
-		return $array;
-	}
-
     /**
      * Return array for Category Select2
      *

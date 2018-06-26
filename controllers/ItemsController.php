@@ -362,6 +362,9 @@ class ItemsController extends Controller
 
             if ($model->save())
             {
+            	// Set Ordering
+	            $model->setOrdering(Items::class);
+
 	            // Set Attachments
 	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
