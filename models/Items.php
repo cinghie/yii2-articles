@@ -82,7 +82,7 @@ class Items extends Articles
      */
     public function rules()
     {
-	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::attributeLabels(), ModifiedTrait::rules(), OrderingTrait::rules(), SeoTrait::rules(), StateTrait::rules(), TitleAliasTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
+	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), SeoTrait::rules(), StateTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'theme', 'params'], 'string'],
