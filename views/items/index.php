@@ -174,6 +174,11 @@ $this->registerJs('$(document).ready(function()
                         'hAlign' => 'center',
                         'width' => '5%',
                     ],
+	                [
+		                'attribute' => 'ordering',
+		                'hAlign' => 'center',
+		                'width' => '5%',
+	                ],
                     [
                         'attribute' => 'state',
                         'format' => 'raw',

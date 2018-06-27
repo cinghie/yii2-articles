@@ -175,6 +175,13 @@ class ItemsController extends Controller
             // Create UploadFile Instance
             $image = $model->uploadFile($imgName,$imgNameType,$imagePath,$fileField);
 
+	        // Set Ordering
+	        if($model->cat_id)
+	        {
+		        $lastOrdering = $model->getLastOrdering(Items::class, ['cat_id' => $model->cat_id]);
+		        $model->ordering = $lastOrdering + 1;
+	        }
+
             if ($model->save())
             {
             	// Set Attachments
