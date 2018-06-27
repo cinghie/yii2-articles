@@ -159,7 +159,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                                 <?= $model->getUserWidget($form) ?>
 
-                                <?= $model->getOrderingWidget($form,Items::class, 'cat_id',['id','title'], ['cat_id' => $model->cat_id])?>
+                                <?= $model->getOrderingWidget($form,Items::class, 'cat_id',['ordering','title'], ['cat_id' => $model->cat_id])?>
 
                                 <?= $model->getCreatedWidget($form) ?>
 

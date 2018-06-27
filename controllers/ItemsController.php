@@ -331,7 +331,10 @@ class ItemsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $post = Yii::$app->request->post();
+        $post  = Yii::$app->request->post();
+
+        $oldOrdering  = $model->ordering;
+	    $lastOrdering = $model->getLastOrdering(Items::class, ['cat_id' => $model->cat_id]);
 
         if ( $model->load($post) )
         {
@@ -360,11 +363,11 @@ class ItemsController extends Controller
                 unset($model->image);
             }
 
+            // Set Ordering
+	        $model->setOrdering(Items::class,'cat_id',$oldOrdering,$lastOrdering);
+
             if ($model->save())
             {
-            	// Set Ordering
-	            $model->setOrdering(Items::class);
-
 	            // Set Attachments
 	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
 
@@ -486,7 +489,7 @@ class ItemsController extends Controller
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
 
-                return $this->redirect(['index']);
+                return $this->redirect('index');
             }
 
 	        // Set Error Message
