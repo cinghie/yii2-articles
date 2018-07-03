@@ -199,6 +199,12 @@ class CategoriesController extends Controller
                 $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
             }
 
+	        // Set Ordering
+	        if($model->cat_id)  {
+		        $lastOrdering = $model->getLastOrdering(Categories::class, ['parent_id' => $model->parent_id]);
+		        $model->ordering = $lastOrdering + 1;
+	        }
+
             if ($model->save()) {
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
@@ -231,6 +237,9 @@ class CategoriesController extends Controller
     {
         $post  = Yii::$app->request->post();
         $model = $this->findModel($id);
+
+	    $oldOrdering  = $model->ordering;
+	    $lastOrdering = $model->getLastOrdering(Categories::class, ['parent_id' => $model->parent_id]);
 
         if ($model->load($post))
         {
@@ -293,6 +302,9 @@ class CategoriesController extends Controller
                 // save thumbs to thumbPaths
                 $model->createThumbImages($image,$imagePath,$imgOptions,$thumbPath);
             }
+
+	        // Set Ordering
+	        $model->setOrdering(Categories::class,'parent_id',$oldOrdering,$lastOrdering);
 
             if ($model->save()) {
 

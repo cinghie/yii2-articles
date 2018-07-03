@@ -18,6 +18,7 @@ use cinghie\traits\EditorTrait;
 use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\NameAliasTrait;
+use cinghie\traits\OrderingTrait;
 use cinghie\traits\ParentTrait;
 use cinghie\traits\SeoTrait;
 use cinghie\traits\StateTrait;
@@ -47,7 +48,7 @@ use yii\helpers\Url;
 class Categories extends Articles
 {
 
-    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, ParentTrait, SeoTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
+    use AccessTrait, EditorTrait, ImageTrait, LanguageTrait, NameAliasTrait, OrderingTrait, ParentTrait, SeoTrait, StateTrait, UserHelpersTrait, ViewsHelpersTrait;
 
     /**
      * @inheritdoc
@@ -62,9 +63,8 @@ class Categories extends Articles
      */
     public function rules()
     {	
-        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), ParentTrait::rules(), StateTrait::rules(),[
+        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), OrderingTrait::rules(), ParentTrait::rules(), StateTrait::rules(),[
             [['access', 'name', 'language', 'state', 'theme'], 'required'],
-			[['ordering'], 'integer'],
             [['theme'], 'string', 'max' => 12],
 			[['robots'], 'string', 'max' => 20],
             [['author', 'copyright'], 'string', 'max' => 50],
@@ -78,11 +78,10 @@ class Categories extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), ParentTrait::attributeLabels(), StateTrait::attributeLabels(),[
+        return array_merge(AccessTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), OrderingTrait::attributeLabels(), ParentTrait::attributeLabels(), StateTrait::attributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
             'description' => Yii::t('articles', 'Description'),
             'theme' => Yii::t('articles', 'Theme'),
-            'ordering' => Yii::t('articles', 'Ordering'),
             'image' => Yii::t('traits', 'Image'),
             'image_caption' => Yii::t('traits', 'Image Caption'),
             'image_credits' => Yii::t('traits', 'Image Credits'),

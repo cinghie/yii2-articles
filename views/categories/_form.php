@@ -6,6 +6,7 @@
  * @var $this yii\web\View
  */
 
+use cinghie\articles\models\Categories;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 
@@ -95,6 +96,8 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                             </div> <!-- col-md-4 -->
 
                             <div class="col-md-4">
+
+	                            <?= $model->getOrderingWidget($form,Categories::class, 'parent_id',['ordering','name'], ['parent_id' => $model->parent_id])?>
 
                                 <?= $model->getStateWidget($form) ?>
 
