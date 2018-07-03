@@ -17,6 +17,7 @@ use cinghie\traits\AccessTrait;
 use cinghie\traits\AttachmentTrait;
 use cinghie\traits\CreatedTrait;
 use cinghie\traits\EditorTrait;
+use cinghie\traits\GoogleTranslateTrait;
 use cinghie\traits\ImageTrait;
 use cinghie\traits\LanguageTrait;
 use cinghie\traits\ModifiedTrait;
@@ -63,7 +64,7 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, GoogleTranslateTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
 
 	public $attachments;
     public $tags;
