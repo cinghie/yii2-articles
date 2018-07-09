@@ -29,6 +29,9 @@ class Articles extends Module
 	// Select Article Language for all other languages
 	public $languageAll = 'en-GB';
 
+	// Set Google Translate API KEY
+	public $googleTranslateApiKey = '';
+
     // Select Date Format
     public $dateFormat = 'd F Y';
 

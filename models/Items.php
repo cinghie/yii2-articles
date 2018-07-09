@@ -28,7 +28,6 @@ use cinghie\traits\TitleAliasTrait;
 use cinghie\traits\UserTrait;
 use cinghie\traits\UserHelpersTrait;
 use cinghie\traits\VideoTrait;
-use cinghie\traits\ViewsHelpersTrait;
 use yii\base\InvalidParamException;
 use yii\db\ActiveQuery;
 use yii\helpers\Url;
@@ -64,7 +63,7 @@ use yii\helpers\Url;
 class Items extends Articles
 {
 
-	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, GoogleTranslateTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait, ViewsHelpersTrait;
+	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, GoogleTranslateTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait;
 
 	public $attachments;
     public $tags;

@@ -58,7 +58,7 @@ class ItemsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update'],
+                        'actions' => ['translate','update'],
                         'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->isCurrentUserCreator() ) );
@@ -506,6 +506,67 @@ class ItemsController extends Controller
 		    'model' => $model,
 	    ]);
     }
+
+	/**
+	 * Translate an existing Item model
+	 *
+	 * @param $id
+	 *
+	 * @return Response
+	 * @throws NotFoundHttpException
+	 */
+	public function actionTranslate($id)
+	{
+		$model = $this->findModel( $id );
+		$translations = $model->translations;
+
+		$array = [];
+
+		foreach ($translations as $translation) {
+			$array[] = $translation->lang;
+		}
+
+		foreach (Yii::$app->controller->module->languages as $langTag)
+		{
+			$lang = substr($langTag,0,2);
+
+			if( !in_array( $lang, $array, true ) )
+			{
+				$title     = $model->getGoogleCloudTranslation('',$lang,$model->title);
+				$introText = $model->introtext ? $model->getGoogleCloudTranslation('',$lang,$model->introtext) : '';
+				$fullText  = $model->fulltext ? $model->getGoogleCloudTranslation('',$lang,$model->fulltext): '';
+
+				// Clone Model
+				$model_lang = new Items();
+				$attributes = $model->attributes;
+
+				foreach($attributes as  $attribute => $val)
+				{
+					if($attribute !== 'id') {
+						$model_lang->{$attribute} = $val;
+					}
+				}
+
+				// Set Translations values
+				$model_lang->title = $title;
+				$model_lang->alias = $model_lang->generateAlias($title);
+				$model_lang->language = $lang;
+				$model_lang->introtext = $introText;
+				$model_lang->fulltext = $fullText;
+				$model_lang->save();
+
+				// Set Translation Table
+				$translationItem = new Translations();
+				$translationItem->item_id = $model->id;
+				$translationItem->translation_id = $model_lang->id;
+				$translationItem->lang = $lang;
+				$translationItem->lang_tag = $langTag;
+				$translationItem->save();
+			}
+		}
+
+		return $this->redirect(['update', 'id' => $model->id]);
+	}
 
 	/**
 	 * Deletes an existing Items model

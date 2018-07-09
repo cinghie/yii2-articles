@@ -87,6 +87,8 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                             <?= $model->getExitButton() ?>
 
+                            <?= $model->getTranslationButton() ?>
+
                             <?= $model->getCancelButton() ?>
 
                             <?= $model->getSaveButton() ?>

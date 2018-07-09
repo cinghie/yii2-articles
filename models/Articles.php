@@ -13,15 +13,14 @@
 namespace cinghie\articles\models;
 
 use Yii;
-use Imagine\Exception\RuntimeException;
-use kartik\form\ActiveField;
+use cinghie\traits\ViewsHelpersTrait;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
+use Imagine\Exception\RuntimeException;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 
@@ -36,6 +35,19 @@ use yii\web\UploadedFile;
  */
 class Articles extends ActiveRecord
 {
+	use ViewsHelpersTrait;
+
+	/**
+	 * Generate Translation button
+	 *
+	 * @return string
+	 */
+	public function getTranslationButton()
+	{
+		if(!$this->isNewRecord && Yii::$app->controller->module->googleTranslateApiKey) {
+			return $this->getStandardButton('fa fa-globe', Yii::t('traits','Translate'), ['translate', 'id' => $this->id]);
+		}
+	}
 
 	/**
 	 * Generate Tags Form Widget
