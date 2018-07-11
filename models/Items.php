@@ -65,6 +65,7 @@ class Items extends Articles
 
 	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, GoogleTranslateTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait;
 
+	public $attachments;
     public $tags;
     public $tagsAssign;
 
