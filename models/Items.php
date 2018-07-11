@@ -65,7 +65,7 @@ class Items extends Articles
 
 	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, GoogleTranslateTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait;
 
-	public $attachments;
+	public $attached;
     public $tags;
     public $tagsAssign;
 
@@ -86,8 +86,8 @@ class Items extends Articles
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'theme', 'params'], 'string'],
-	        [['attachments','tags'], 'safe'],
-	        [['attachments'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
+	        [['attached','tags'], 'safe'],
+	        [['attached'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['cat_id' => 'id']],
         ]);
     }

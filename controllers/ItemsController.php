@@ -182,13 +182,13 @@ class ItemsController extends Controller
             if ($model->save())
             {
             	// Set Attachments
-	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
+	            $model->attached = UploadedFile::getInstances($model, 'attachments');
 
-	            if(count($model->attachments))
+	            if(count($model->attached))
 	            {
 		            $attachmentFolder = Yii::getAlias(Yii::$app->controller->module->attachPath);
 
-		            foreach ($model->attachments as $key => $attachment)
+		            foreach ($model->attached as $key => $attachment)
 		            {
 			            $attachmentName = $attachment->baseName;
 			            $attachmentExt  = $attachment->extension;
@@ -373,13 +373,13 @@ class ItemsController extends Controller
             if ($model->save())
             {
 	            // Set Attachments
-	            $model->attachments = UploadedFile::getInstances($model, 'attachments');
+	            $model->attached = UploadedFile::getInstances($model, 'attachments');
 
-	            if(count($model->attachments))
+	            if(count($model->attached))
 	            {
 		            $attachmentFolder = Yii::getAlias(Yii::$app->controller->module->attachPath);
 
-		            foreach ($model->attachments as $key => $attachment)
+		            foreach ($model->attached as $key => $attachment)
 		            {
 			            $attachmentName = $attachment->baseName;
 			            $attachmentExt  = $attachment->extension;
