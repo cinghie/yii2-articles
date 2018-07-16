@@ -190,7 +190,7 @@ class ItemsController extends Controller
 
 		            foreach ($model->attached as $key => $attachment)
 		            {
-			            $attachmentName = $attachment->baseName;
+			            $attachmentName = $model->purgeAttachmentName($attachment->baseName);
 			            $attachmentExt  = $attachment->extension;
 			            $attachmentSize = $attachment->size;
 			            $attachmentPath = $attachmentFolder. $attachmentName . '.' . $attachmentExt;
@@ -381,7 +381,7 @@ class ItemsController extends Controller
 
 		            foreach ($model->attached as $key => $attachment)
 		            {
-			            $attachmentName = $attachment->baseName;
+			            $attachmentName = $model->purgeAttachmentName($attachment->baseName);
 			            $attachmentExt  = $attachment->extension;
 			            $attachmentSize = $attachment->size;
 			            $attachmentPath = $attachmentFolder. $attachmentName . '.' . $attachmentExt;

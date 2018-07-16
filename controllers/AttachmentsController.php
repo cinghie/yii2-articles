@@ -145,7 +145,7 @@ class AttachmentsController extends Controller
 
             // Create UploadFile Instance
             $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
-            $model->filename = $attachment->name;
+            $model->filename = $model->purgeAttachmentName($attachment->baseName);
             $model->extension = $attachment->extension;
             $model->mimetype = $attachment->type;
             $model->size = $attachment->size;
@@ -200,7 +200,7 @@ class AttachmentsController extends Controller
             $attachment = $model->uploadFile($attachName,$attachType,$attachPath,$attachField);
 
             if($attachment) {
-                $model->filename = $attachment->name;
+                $model->filename = $model->purgeAttachmentName($attachment->baseName);
                 $model->extension = $attachment->extension;
                 $model->mimetype = $attachment->type;
                 $model->size = $attachment->size;
