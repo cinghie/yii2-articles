@@ -20,6 +20,20 @@ namespace cinghie\articles\models;
 class TranslationsQuery extends \yii\db\ActiveQuery
 {
 
+	/**
+	 * @inheritdoc
+	 *
+	 * @param int $limit
+	 * @param string $order
+	 * @param string $orderby
+	 *
+	 * @return TranslationsQuery
+	 */
+	public function last($limit, $orderby = 'id', $order = 'DESC' )
+	{
+		return $this->orderBy([$orderby => $order])->limit($limit);
+	}
+
     /**
      * @inheritdoc
      *

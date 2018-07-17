@@ -38,6 +38,9 @@ use yii\web\UploadedFile;
 class ItemsController extends Controller
 {
 
+	/**
+	 * @inheritdoc
+	 */
     public function behaviors()
     {
         return [
@@ -90,7 +93,7 @@ class ItemsController extends Controller
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \RuntimeException('You are not allowed to access this page');
+                    throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
             'verbs' => [

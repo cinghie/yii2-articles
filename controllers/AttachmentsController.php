@@ -25,9 +25,15 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+/**
+ * AttachmentsController implements the CRUD actions for Attachments model.
+ */
 class AttachmentsController extends Controller
 {
 
+	/**
+	 * @inheritdoc
+	 */
     public function behaviors()
     {
         return [
@@ -72,7 +78,7 @@ class AttachmentsController extends Controller
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \RuntimeException('You are not allowed to access this page');
+                    throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
             'verbs' => [

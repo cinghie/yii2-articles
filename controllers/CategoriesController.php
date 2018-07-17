@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use Throwable;
 use Yii;
 use cinghie\articles\models\Categories;
 use cinghie\articles\models\CategoriesSearch;
@@ -31,6 +32,9 @@ use yii\web\Response;
 class CategoriesController extends Controller
 {
 
+	/**
+	 * @inheritdoc
+	 */
     public function behaviors()
     {
         return [
@@ -72,7 +76,7 @@ class CategoriesController extends Controller
                     ],
 				],
 				'denyCallback' => function () {
-					throw new \RuntimeException('You are not allowed to access this page');
+					throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
 				}
 			],
             'verbs' => [
@@ -337,7 +341,7 @@ class CategoriesController extends Controller
 	 * @throws \Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
     public function actionDelete($id)
     {
@@ -390,10 +394,10 @@ class CategoriesController extends Controller
 	 * @property array $ids
 	 *
 	 * @return Response | void
+	 * @throws Exception
 	 * @throws NotFoundHttpException
-	 * @throws \Exception
-	 * @throws \Throwable
-	 * @throws \yii\db\StaleObjectException
+	 * @throws StaleObjectException
+	 * @throws Throwable
 	 */
     public function actionDeletemultiple()
     {

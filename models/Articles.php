@@ -27,6 +27,7 @@ use yii\web\UploadedFile;
 /**
  * Superclass for Yii2 Articles Module
  *
+ * @property string $translationButton
  * @property array $categoriesSelect2
  * @property array $itemsSelect2
  * @property array $tagsIDByItemID

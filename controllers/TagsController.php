@@ -12,6 +12,8 @@
 
 namespace cinghie\articles\controllers;
 
+use Exception;
+use Throwable;
 use Yii;
 use cinghie\articles\models\Tags;
 use cinghie\articles\models\TagsSearch;
@@ -27,9 +29,9 @@ use yii\web\NotFoundHttpException;
  */
 class TagsController extends Controller
 {
+
 	/**
 	 * @inheritdoc
-	 * @throws \RuntimeException
 	 */
     public function behaviors()
     {
@@ -59,7 +61,7 @@ class TagsController extends Controller
                     ],
                 ],
                 'denyCallback' => function () {
-                    throw new \RuntimeException('You are not allowed to access this page');
+                    throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
             'verbs' => [
@@ -79,7 +81,7 @@ class TagsController extends Controller
      * Lists all Tags models.
      *
      * @return mixed
-     * @throws \yii\base\InvalidParamException
+     * @throws InvalidParamException
      */
     public function actionIndex()
     {
@@ -172,10 +174,10 @@ class TagsController extends Controller
 	 * @param integer $id
 	 *
 	 * @return mixed
-	 * @throws \Exception
+	 * @throws Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
     public function actionDelete($id)
     {
@@ -188,10 +190,10 @@ class TagsController extends Controller
 	 * Deletes selected Tags models.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @throws NotFoundHttpException
 	 * @throws StaleObjectException
-	 * @throws \Throwable
+	 * @throws Throwable
 	 */
     public function actionDeletemultiple()
     {
