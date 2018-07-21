@@ -21,7 +21,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 		'options' => [
 			'enctype'=>'multipart/form-data'
 		],
-	]); ?>
+	]) ?>
 	
         <div class="row">
 
@@ -194,6 +194,6 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
         </div> <!-- row -->
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end() ?>
 
 </div>

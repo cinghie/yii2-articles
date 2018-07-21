@@ -32,9 +32,9 @@ use yii\helpers\Url;
 				        'hAlign' => 'center',
 				        'value' => function ($model) {
 					        $url = urldecode(Url::toRoute(['/articles/categories/update', 'id' => $model->cat_id]));
-					        $cat = isset($model->category->name) ? $model->category->name : "";
+					        $cat = isset($model->category->name) ? $model->category->name : '';
 
-					        if($cat !== "") {
+					        if($cat !== '') {
 						        return Html::a($cat,$url);
 					        } else {
 						        return '<span class="fa fa-ban text-danger"></span>';
@@ -178,9 +178,9 @@ use yii\helpers\Url;
 						'hAlign' => 'center',
 						'value' => function ($model) {
 							$url  = urldecode(Url::toRoute(['/articles/items/update', 'id' => $model->item_id]));
-							$item = isset($model->item->title) ? $model->item->title : "";
+							$item = isset($model->item->title) ? $model->item->title : '';
 
-							if($item !== "") {
+							if($item !== '') {
 								return Html::a($item,$url);
 							} else {
 								return Yii::t('articles', 'Nobody');

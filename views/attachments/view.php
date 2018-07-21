@@ -4,30 +4,50 @@
  * @var $model cinghie\articles\models\Attachments
  */
 
-use kartik\helpers\Html;
 use yii\widgets\DetailView;
 
 // Set Title and Breadcrumbs
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = $this->title;
 
+// Register action buttons js
+$this->registerJs('$(document).ready(function() 
+    {'
+	.$model->getUpdateButtonJavascript('#w1')
+	.$model->getDeleteButtonJavascript('#w1').
+	'});
+');
+
 ?>
 
+<div class="row">
+
+    <!-- action menu -->
+    <div class="col-md-6">
+
+		<?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu) ?>
+
+    </div>
+
+    <!-- action buttons -->
+    <div class="col-md-6">
+
+	    <?= $model->getExitButton() ?>
+
+		<?= $model->getDeleteButton() ?>
+
+		<?= $model->getUpdateButton() ?>
+
+		<?= $model->getCreateButton() ?>
+
+    </div>
+
+</div>
+
+<div class="separator"></div>
+
 <div class="attachments-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

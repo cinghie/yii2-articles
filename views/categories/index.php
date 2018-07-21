@@ -8,10 +8,10 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
+use kartik\grid\CheckboxColumn;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Pjax;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -40,7 +40,7 @@ $this->registerJs('$(document).ready(function()
     <!-- action menu -->
     <div class="col-md-6">
 
-        <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu); ?>
+        <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu) ?>
 
     </div>
 
@@ -75,103 +75,100 @@ $this->registerJs('$(document).ready(function()
 		</div>
 	<?php endif ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]) ?>
 
     <!-- Categories Grid -->
     <div class="categories-grid">
 
-		<?php Pjax::begin() ?>
-
-            <?= GridView::widget([
-                'dataProvider'=> $dataProvider,
-                'filterModel' => $searchModel,
-                'containerOptions' => [
-                    'class' => 'articles-categories-pjax-container'
-                ],
-                'pjaxSettings'=>[
-                    'neverTimeout' => true,
-                ],
-                'columns' => [
-                    [
-                        'class' => '\kartik\grid\CheckboxColumn'
-                    ],
-                    [
-                        'attribute' => 'name',
-                        'format' => 'html',
-                        'hAlign' => 'center',
-                        'value' => function ($model) {
-                            $url = urldecode(Url::toRoute(['/articles/categories/update', 'id' => $model->id, 'alias' => $model->alias]));
-                            return Html::a($model->name,$url);
-                        }
-                    ],
-                    [
-                        'attribute' => 'parent_id',
-                        'format' => 'html',
-                        'hAlign' => 'center',
-                        'value' => function ($model) {
-	                        /** @var $model cinghie\articles\models\Categories */
-	                        return $model->getParentGridView('name','/articles/categories/update');
-                        }
-                    ],
-                    [
-                        'attribute' => 'access',
-                        'format' => 'html',
-                        'hAlign' => 'center',
-                        'value' => function ($model) {
-                            /** @var $model cinghie\articles\models\Categories */
-                            return $model->getAccessGridView();
-                        }
-                    ],
-                    [
-                        'attribute' => 'theme',
-                        'hAlign' => 'center',
-                    ],
-                    [
-                        'attribute' => 'image',
-                        'format' => 'html',
-                        'hAlign' => 'center',
-                        'value' => function ($model) {
-                            /** @var $model cinghie\articles\models\Categories */
-	                        return $model->getImageGridView();
-                        },
-                        'width' => '8%',
-                    ],
-                    [
-                        'attribute' => 'language',
-                        'hAlign' => 'center',
-                        'width' => '6%',
-                    ],
-	                [
-		                'attribute' => 'ordering',
-		                'hAlign' => 'center',
-		                'width' => '5%',
-	                ],
-                    [
-                        'attribute' => 'state',
-                        'format' => 'raw',
-                        'hAlign' => 'center',
-                        'width' => '6%',
-                        'value' => function ($model) {
-                            /** @var $model cinghie\articles\models\Categories */
-                            return $model->getStateGridView();
-                        }
-                    ],
-                    [
-                        'attribute' => 'id',
-                        'hAlign' => 'center',
-                        'width' => '5%',
-                    ]
-                ],
-                'responsive' => true,
-                'hover' => true,
-                'panel' => [
-                    'heading' => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
-                    'type' => 'success',
-                    'footer' => ''
-                ],
-            ]); ?>
-
-		<?php Pjax::end() ?>
+	    <?= GridView::widget([
+		    'dataProvider'=> $dataProvider,
+		    'filterModel' => $searchModel,
+		    'containerOptions' => [
+			    'class' => 'articles-categories-pjax-container'
+		    ],
+		    'pjax' => true,
+		    'pjaxSettings'=>[
+			    'neverTimeout' => true,
+		    ],
+		    'columns' => [
+			    [
+				    'class' => CheckboxColumn::class
+			    ],
+			    [
+				    'attribute' => 'name',
+				    'format' => 'html',
+				    'hAlign' => 'center',
+				    'value' => function ($model) {
+					    $url = urldecode(Url::toRoute(['/articles/categories/update', 'id' => $model->id, 'alias' => $model->alias]));
+					    return Html::a($model->name,$url);
+				    }
+			    ],
+			    [
+				    'attribute' => 'parent_id',
+				    'format' => 'html',
+				    'hAlign' => 'center',
+				    'value' => function ($model) {
+					    /** @var $model cinghie\articles\models\Categories */
+					    return $model->getParentGridView('name','/articles/categories/update');
+				    }
+			    ],
+			    [
+				    'attribute' => 'access',
+				    'format' => 'html',
+				    'hAlign' => 'center',
+				    'value' => function ($model) {
+					    /** @var $model cinghie\articles\models\Categories */
+					    return $model->getAccessGridView();
+				    }
+			    ],
+			    [
+				    'attribute' => 'theme',
+				    'hAlign' => 'center',
+			    ],
+			    [
+				    'attribute' => 'image',
+				    'format' => 'html',
+				    'hAlign' => 'center',
+				    'value' => function ($model) {
+					    /** @var $model cinghie\articles\models\Categories */
+					    return $model->getImageGridView();
+				    },
+				    'width' => '8%',
+			    ],
+			    [
+				    'attribute' => 'language',
+				    'hAlign' => 'center',
+				    'width' => '6%',
+			    ],
+			    [
+				    'attribute' => 'ordering',
+				    'hAlign' => 'center',
+				    'width' => '5%',
+			    ],
+			    [
+				    'attribute' => 'state',
+				    'format' => 'raw',
+				    'hAlign' => 'center',
+				    'width' => '6%',
+				    'value' => function ($model) {
+					    /** @var $model cinghie\articles\models\Categories */
+					    return $model->getStateGridView();
+				    }
+			    ],
+			    [
+				    'attribute' => 'id',
+				    'hAlign' => 'center',
+				    'width' => '5%',
+			    ]
+		    ],
+		    'responsive' => true,
+		    'hover' => true,
+		    'panel' => [
+			    'heading' => '<h3 class="panel-title"><i class="fa fa-folder-open"></i></h3>',
+			    'type' => 'success',
+			    'footer' => ''
+		    ],
+	    ]) ?>
 
 	</div>
 

@@ -8,10 +8,10 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
+use kartik\grid\CheckboxColumn;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Pjax;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -38,7 +38,7 @@ $this->registerJs('$(document).ready(function()
     <!-- action menu -->
     <div class="col-md-6">
 
-        <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu); ?>
+        <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu) ?>
 
     </div>
 
@@ -69,95 +69,94 @@ $this->registerJs('$(document).ready(function()
         </div>
     <?php endif ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]) ?>
 
-    <?php Pjax::begin() ?>
+	<?= GridView::widget([
+		'dataProvider' => $dataProvider,
+		'filterModel' => $searchModel,
+		'containerOptions' => [
+			'class' => 'articles-attachments-pjax-container'
+		],
+		'pjax' => true,
+		'pjaxSettings'=>[
+			'neverTimeout' => true,
+		],
+		'columns' => [
+			[
+				'class' => CheckboxColumn::class
+			],
+			[
+				'attribute' => 'title',
+				'format' => 'html',
+				'hAlign' => 'center',
+				'value' => function ($model) {
+					$url = urldecode(Url::toRoute(['/articles/attachments/update', 'id' => $model->id]));
+					return Html::a($model->title,$url);
+				}
+			],
+			[
+				'attribute' => 'item_id',
+				'format' => 'html',
+				'hAlign' => 'center',
+				'width' => '12%',
+				'value' => function ($model) {
+					$url  = urldecode(Url::toRoute(['/articles/items/update', 'id' => $model->item_id]));
+					$item = isset($model->item->title) ? $model->item->title : '';
 
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'containerOptions' => [
-                'class' => 'articles-attachments-pjax-container'
-            ],
-            'pjaxSettings'=>[
-                'neverTimeout' => true,
-            ],
-            'columns' => [
-                [
-                    'class' => '\kartik\grid\CheckboxColumn'
-                ],
-                [
-                    'attribute' => 'title',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($model) {
-                        $url = urldecode(Url::toRoute(['/articles/attachments/update', 'id' => $model->id]));
-                        return Html::a($model->title,$url);
-                    }
-                ],
-                [
-                    'attribute' => 'item_id',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($model) {
-                        $url  = urldecode(Url::toRoute(['/articles/items/update', 'id' => $model->item_id]));
-                        $item = isset($model->item->title) ? $model->item->title : "";
+					if($item !== '') {
+						return Html::a($item,$url);
+					}
 
-                        if($item !== "") {
-                            return Html::a($item,$url);
-                        } else {
-                            return Yii::t('articles', 'Nobody');
-                        }
-                    }
-                ],
-                [
-                    'attribute' => 'filename',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($model) {
-                        /** @var $model cinghie\articles\models\Attachments */
-                        return Html::a($model->filename,$model->getFileUrl());
-                    }
-                ],
-                [
-                    'attribute' => 'extension',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'width' => '10%',
-                    'value' => function ($model) {
-                        /** @var $model cinghie\articles\models\Attachments */
-                        return $model->getAttachmentTypeIcon()." (".$model->extension.")";
-                    }
-                ],
-                [
-                    'attribute' => 'size',
-                    'hAlign' => 'center',
-                    'width' => '10%',
-                    'value' => function ($model) {
-                        /** @var $model cinghie\articles\models\Attachments */
-                        return $model->formatSize();
-                    }
-                ],
-                [
-                    'attribute' => 'hits',
-                    'hAlign' => 'center',
-                    'width' => '8%',
-                ],
-                [
-                    'attribute' => 'id',
-                    'hAlign' => 'center',
-                    'width' => '8%',
-                ],
-            ],
-            'responsive' => true,
-            'hover' => true,
-            'panel' => [
-                'heading'    => '<h3 class="panel-title"><i class="fa fa-paperclip"></i></h3>',
-                'type'       => 'success',
-                'showFooter' => false
-            ],
-        ]); ?>
-
-    <?php Pjax::end() ?>
+					return Yii::t('articles', 'Nobody');
+				}
+			],
+			[
+				'attribute' => 'filename',
+				'format' => 'html',
+				'hAlign' => 'center',
+				'width' => '12%',
+				'value' => function ($model) {
+					/** @var $model cinghie\articles\models\Attachments */
+					return Html::a($model->filename,$model->getFileUrl());
+				}
+			],
+			[
+				'attribute' => 'extension',
+				'format' => 'html',
+				'hAlign' => 'center',
+				'width' => '8%',
+				'value' => function ($model) {
+					/** @var $model cinghie\articles\models\Attachments */
+					return $model->getAttachmentTypeIcon(). ' (' .$model->extension. ')';
+				}
+			],
+			[
+				'attribute' => 'size',
+				'hAlign' => 'center',
+				'width' => '8%',
+				'value' => function ($model) {
+					/** @var $model cinghie\articles\models\Attachments */
+					return $model->formatSize();
+				}
+			],
+			[
+				'attribute' => 'hits',
+				'hAlign' => 'center',
+				'width' => '6%',
+			],
+			[
+				'attribute' => 'id',
+				'hAlign' => 'center',
+				'width' => '6%',
+			],
+		],
+		'responsive' => true,
+		'hover' => true,
+		'panel' => [
+			'heading'    => '<h3 class="panel-title"><i class="fa fa-paperclip"></i></h3>',
+			'type'       => 'success',
+			'showFooter' => false
+		],
+	]) ?>
 
 </div>

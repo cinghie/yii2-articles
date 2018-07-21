@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
         'options' => [
             'data-pjax' => 1
         ],
-    ]); ?>
+    ]) ?>
 
         <?= $form->field($model, 'id') ?>
 
@@ -34,6 +34,6 @@ use yii\widgets\ActiveForm;
             <?= Html::resetButton(Yii::t('traits', 'Reset'), ['class' => 'btn btn-default']) ?>
         </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end() ?>
 
 </div>

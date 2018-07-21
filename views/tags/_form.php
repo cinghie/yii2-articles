@@ -17,13 +17,13 @@ $asset = $this->assetBundles[ArticlesAsset::class];
 
 <div class="tags-form">
 
-	<?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin() ?>
 
         <div class="row">
 
             <div class="col-md-6">
 
-                <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu); ?>
+                <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu) ?>
 
             </div>
 
@@ -59,6 +59,6 @@ $asset = $this->assetBundles[ArticlesAsset::class];
 
         </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end() ?>
 
 </div>

@@ -27,7 +27,7 @@ $attachURL = Yii::$app->controller->module->attachURL;
         'options' => [
             'enctype'=>'multipart/form-data'
         ],
-    ]); ?>
+    ]) ?>
 
     <div class="row">
 
@@ -78,7 +78,7 @@ $attachURL = Yii::$app->controller->module->attachURL;
                                 'content'=>'<i class="fa fa-file-text-o"></i>'
                             ]
                         ],
-                    ]); ?>
+                    ]) ?>
 
                 </div>
 
@@ -127,6 +127,6 @@ $attachURL = Yii::$app->controller->module->attachURL;
 
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end() ?>
 
 </div>

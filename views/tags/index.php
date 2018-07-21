@@ -8,10 +8,10 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
+use kartik\grid\CheckboxColumn;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Pjax;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -39,7 +39,7 @@ $this->registerJs('$(document).ready(function()
     <!-- action menu -->
     <div class="col-md-6">
 
-        <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu); ?>
+        <?= Yii::$app->view->renderFile(\Yii::$app->controller->module->tabMenu) ?>
 
     </div>
 
@@ -74,71 +74,68 @@ $this->registerJs('$(document).ready(function()
         </div>
     <?php endif ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]) ?>
 
     <div class="tags-grid">
 
-        <?php Pjax::begin() ?>
+	    <?= GridView::widget([
+		    'dataProvider'=> $dataProvider,
+		    'filterModel' => $searchModel,
+		    'containerOptions' => [
+			    'class' => 'tags-pjax-container'
+		    ],
+		    'pjax' => true,
+		    'pjaxSettings'=>[
+			    'neverTimeout' => true,
+		    ],
+		    'columns' => [
+			    [
+				    'class' => CheckboxColumn::class
+			    ],
+			    [
+				    'attribute' => 'name',
+				    'format' => 'html',
+				    'hAlign' => 'center',
+				    'value' => function ($model) {
+					    $url = urldecode(Url::toRoute(['/articles/tags/update', 'id' => $model->id, 'alias' => $model->alias]));
+					    return Html::a($model->name,$url);
+				    }
+			    ],
+			    [
+				    'attribute' => 'alias',
+				    'width' => '35%',
+				    'hAlign' => 'center',
+			    ],
+			    [
+				    'attribute' => 'state',
+				    'format' => 'raw',
+				    'hAlign' => 'center',
+				    'width' => '6%',
+				    'value' => function ($model) {
+					    if($model->state) {
+						    return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
+							    'data-method' => 'post',
+						    ]);
+					    }
 
-        <?= GridView::widget([
-            'dataProvider'=> $dataProvider,
-            'filterModel' => $searchModel,
-            'containerOptions' => [
-                'class' => 'tags-pjax-container'
-            ],
-            'pjaxSettings'=>[
-                'neverTimeout' => true,
-            ],
-            'columns' => [
-                [
-                    'class' => '\kartik\grid\CheckboxColumn'
-                ],
-                [
-                    'attribute' => 'name',
-                    'format' => 'html',
-                    'hAlign' => 'center',
-                    'value' => function ($model) {
-                        $url = urldecode(Url::toRoute(['/articles/tags/update', 'id' => $model->id, 'alias' => $model->alias]));
-                        return Html::a($model->name,$url);
-                    }
-                ],
-                [
-                    'attribute' => 'alias',
-                    'width' => '35%',
-                    'hAlign' => 'center',
-                ],
-                [
-                    'attribute' => 'state',
-                    'format' => 'raw',
-                    'hAlign' => 'center',
-                    'width' => '6%',
-                    'value' => function ($model) {
-                        if($model->state) {
-                            return Html::a('<span class="glyphicon glyphicon-ok text-success"></span>', ['changestate', 'id' => $model->id], [
-                                'data-method' => 'post',
-                            ]);
-                        } else {
-                            return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
-                                'data-method' => 'post',
-                            ]);
-                        }
-                    },
-                ],
-                [
-                    'attribute' => 'id',
-                    'width' => '5%',
-                    'hAlign' => 'center',
-                ]
-            ],
-            'responsive' => true,
-            'hover' => true,
-            'panel' => [
-                'heading'    => '<h3 class="panel-title"><i class="fa fa-tags"></i></h3>',
-                'type'       => 'success',
-            ],
-        ]); ?>
-
-        <?php Pjax::end(); ?>
+					    return Html::a('<span class="glyphicon glyphicon-remove text-danger"></span>', ['changestate', 'id' => $model->id], [
+						    'data-method' => 'post',
+					    ]);
+				    },
+			    ],
+			    [
+				    'attribute' => 'id',
+				    'width' => '5%',
+				    'hAlign' => 'center',
+			    ]
+		    ],
+		    'responsive' => true,
+		    'hover' => true,
+		    'panel' => [
+			    'heading'    => '<h3 class="panel-title"><i class="fa fa-tags"></i></h3>',
+			    'type'       => 'success',
+		    ],
+	    ]) ?>
 
     </div>
 

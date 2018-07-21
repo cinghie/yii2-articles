@@ -48,6 +48,8 @@ class Articles extends ActiveRecord
 		if(!$this->isNewRecord && Yii::$app->getModule('articles')->googleTranslateApiKey) {
 			return $this->getStandardButton('fa fa-globe', Yii::t('traits','Translate'), ['translate', 'id' => $this->id]);
 		}
+
+		return '';
 	}
 
 	/**

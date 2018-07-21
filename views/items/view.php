@@ -55,7 +55,7 @@ $params = $model->getCategory()->params;
 
             <div class="col-md-12">
 
-                <?php if($model->getOption($params,'itemCreatedData') === 'Yes'): ?>
+                <?php if('Yes' === $model->getOption($params,'itemCreatedData')): ?>
 
                     <span class="item-created">
                         <?= Yii::t('articles','Published on') ?> <?= $model->created ?>,
@@ -63,7 +63,7 @@ $params = $model->getCategory()->params;
 
                 <?php endif ?>
 
-                <?php if($model->getOption($params,'itemUser') === 'Yes'): ?>
+                <?php if('Yes' === $model->getOption($params,'itemUser')): ?>
 
                     <span class="item-created">
                         <?= Yii::t('traits','by') ?> <?= $model->createdBy->username ?>
