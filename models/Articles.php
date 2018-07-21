@@ -45,7 +45,7 @@ class Articles extends ActiveRecord
 	 */
 	public function getTranslationButton()
 	{
-		if(!$this->isNewRecord && Yii::$app->controller->module->googleTranslateApiKey) {
+		if(!$this->isNewRecord && Yii::$app->getModule('articles')->googleTranslateApiKey) {
 			return $this->getStandardButton('fa fa-globe', Yii::t('traits','Translate'), ['translate', 'id' => $this->id]);
 		}
 	}
@@ -302,7 +302,7 @@ class Articles extends ActiveRecord
 	 * @throws InvalidParamException
 	 */
 	public function getDateFormatted($date) {
-		return Yii::$app->formatter->asDatetime($date, 'php:' . Yii::$app->controller->module->dateFormat);
+		return Yii::$app->formatter->asDatetime($date, 'php:' . Yii::$app->getModule('articles')->dateFormat);
 	}
 
 	/**

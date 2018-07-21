@@ -143,7 +143,7 @@ class Categories extends Articles
 	public function getImageUrl()
 	{
 		$file = isset($this->image) ? $this->image : 'default.jpg';
-		return Yii::getAlias(Yii::$app->controller->module->categoryImageURL).$file;
+		return Yii::getAlias(Yii::$app->getModule('articles')->categoryImageURL).$file;
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Categories extends Articles
 	 */
     public function getImagePath()
     {
-        return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->categoryImagePath).$this->image : null;
+        return isset($this->image) ? Yii::getAlias(Yii::$app->getModule('articles')->categoryImagePath).$this->image : null;
     }
 
 	/**
@@ -169,7 +169,7 @@ class Categories extends Articles
     {
         // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias(Yii::$app->controller->module->categoryImageURL) . 'thumb/' . $size . '/' . $file;
+        return Yii::getAlias(Yii::$app->getModule('articles')->categoryImageURL) . 'thumb/' . $size . '/' . $file;
     }
 
 	/**
@@ -180,11 +180,11 @@ class Categories extends Articles
 	 */
 	public function deleteImage() 
 	{
-		$image   = Yii::getAlias( Yii::$app->controller->module->categoryImagePath ) . $this->image;
-		$imageS  = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'small/' ) . $this->image;
-		$imageM  = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'medium/' ) . $this->image;
-		$imageL  = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'large/' ) . $this->image;
-		$imageXL = Yii::getAlias( Yii::$app->controller->module->categoryThumbPath . 'extra/' ) . $this->image;
+		$image   = Yii::getAlias( Yii::$app->getModule('articles')->categoryImagePath ) . $this->image;
+		$imageS  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'small/' ) . $this->image;
+		$imageM  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'medium/' ) . $this->image;
+		$imageL  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'large/' ) . $this->image;
+		$imageXL = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'extra/' ) . $this->image;
 		
 		// check if image exists on server
         if (empty($this->image) || !file_exists($image)) {

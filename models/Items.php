@@ -87,7 +87,7 @@ class Items extends Articles
             [['cat_id', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'theme', 'params'], 'string'],
 	        [['attached','tags'], 'safe'],
-	        [['attached'], 'file', 'extensions' => Yii::$app->controller->module->attachType],
+	        [['attached'], 'file', 'extensions' => Yii::$app->getModule('articles')->attachType],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['cat_id' => 'id']],
         ]);
     }
@@ -236,7 +236,7 @@ class Items extends Articles
 	 * @throws InvalidParamException
 	 */
     public function getImagePath() {
-        return isset($this->image) ? Yii::getAlias(Yii::$app->controller->module->itemImagePath).$this->image : null;
+        return isset($this->image) ? Yii::getAlias(Yii::$app->getModule('articles')->itemImagePath).$this->image : null;
     }
 
 	/**
@@ -249,7 +249,7 @@ class Items extends Articles
     {
         // return a default image placeholder if your source avatar is not found
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias(Yii::$app->controller->module->itemImageURL).$file;
+        return Yii::getAlias(Yii::$app->getModule('articles')->itemImageURL).$file;
     }
 
 	/**
@@ -263,7 +263,7 @@ class Items extends Articles
     public function getImageThumbUrl($size)
     {
         $file = isset($this->image) ? $this->image : 'default.jpg';
-        return Yii::getAlias(Yii::$app->controller->module->itemImageURL) . 'thumb/' . $size . '/' . $file;
+        return Yii::getAlias(Yii::$app->getModule('articles')->itemImageURL) . 'thumb/' . $size . '/' . $file;
     }
 
 	/**
@@ -274,11 +274,11 @@ class Items extends Articles
 	 */
 	public function deleteImage() 
 	{
-		$image   = Yii::getAlias( Yii::$app->controller->module->itemImagePath ). $this->image;
-		$imageS  = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'small/' ) . $this->image;
-		$imageM  = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'medium/' ) . $this->image;
-		$imageL  = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'large/' ) . $this->image;
-		$imageXL = Yii::getAlias( Yii::$app->controller->module->itemThumbPath . 'extra/' ) . $this->image;
+		$image   = Yii::getAlias( Yii::$app->getModule('articles')->itemImagePath ). $this->image;
+		$imageS  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'small/' ) . $this->image;
+		$imageM  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'medium/' ) . $this->image;
+		$imageL  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'large/' ) . $this->image;
+		$imageXL = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'extra/' ) . $this->image;
 		
 		// check if image exists on server
         if ( empty($this->image) || !file_exists($image) ) {
@@ -309,7 +309,7 @@ class Items extends Articles
 		$attachments = $this->getAttachs();
 
 		foreach ($attachments as $attachment) {
-			$attachmentUrl = Yii::getAlias( Yii::$app->controller->module->attachPath ). $attachment['filename'];
+			$attachmentUrl = Yii::getAlias( Yii::$app->getModule('articles')->attachPath ). $attachment['filename'];
 			unlink($attachmentUrl);
 		}
 	}

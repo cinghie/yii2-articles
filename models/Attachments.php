@@ -123,7 +123,7 @@ class Attachments extends Articles
 	 */
     public function getFileUrl()
     {
-        return Yii::getAlias(Yii::$app->controller->module->attachURL).$this->filename;
+        return Yii::getAlias(Yii::$app->getModule('articles')->attachURL).$this->filename;
     }
 
 	/**
@@ -197,7 +197,7 @@ class Attachments extends Articles
 	 */
     public function deleteFile()
     {
-        $file = Yii::getAlias(Yii::$app->controller->module->attachPath).$this->filename;
+        $file = Yii::getAlias(Yii::$app->getModule('articles')->attachPath).$this->filename;
 
         // check if image exists on server
         if ( empty($this->filename) || !file_exists($file) ) {
