@@ -156,11 +156,15 @@ class AttachmentsController extends Controller
             $model->mimetype = $attachment->type;
             $model->size = $attachment->size;
 
-            if ( $model->save() ) {
+            if ( $model->save() )
+            {
+	            // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been created!'));
-                return $this->redirect(['index']);
+
+	            return $this->redirect(['update', 'id' => $model->id]);
             }
 
+	        // Set Error Message
 	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
 
 	        return $this->render('create', [
@@ -214,7 +218,9 @@ class AttachmentsController extends Controller
                 $model->filename = $file_name;
             }
 
-            if ( $model->save() ) {
+            if ( $model->save() )
+            {
+	            // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Attachment has been updated!'));
                 return $this->redirect(['index']);
             }
@@ -227,6 +233,7 @@ class AttachmentsController extends Controller
 
         }
 
+	    // Set Error Message
 	    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
 
 	    return $this->render('update', [

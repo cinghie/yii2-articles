@@ -103,7 +103,7 @@ class ItemsController extends Controller
                     'deactivemultiple' => ['post'],
                     'changestate' => ['post'],
                     'delete' => ['post'],
-					'deleteimage' => ['post'],
+                    'deleteimage' => ['post'],
                     'deletemultiple' => ['post'],
                 ],
             ],
@@ -312,13 +312,13 @@ class ItemsController extends Controller
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been created!'));
 
-                return $this->redirect(['index']);
+	            return $this->redirect(['update', 'id' => $model->id]);
             }
 
 	        // Set Error Message
 	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
-	        return $this->render('create', ['model' => $model]);
+	        return $this->redirect('update', ['model' => $model]);
         }
 
 	    return $this->render('create', ['model' => $model]);
@@ -496,7 +496,7 @@ class ItemsController extends Controller
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Item has been updated!'));
 
-                return $this->redirect('index');
+	            return $this->render('update', ['model' => $model]);
             }
 
 	        // Set Error Message
@@ -673,7 +673,7 @@ class ItemsController extends Controller
             Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Item published'));
         }
 
-	    return $this->redirect(['index']);
+	    return $this->redirect(Yii::$app->request->referrer);
     }
 
 	/**

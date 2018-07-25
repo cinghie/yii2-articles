@@ -23,6 +23,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * TagsController implements the CRUD actions for Tags model.
@@ -128,7 +129,7 @@ class TagsController extends Controller
 	        $model->setAlias($post['Tags'],'name');
 
             if($model->save()) {
-                return $this->redirect(['index']);
+	            return $this->redirect(['update', 'id' => $model->id]);
             }
 
 	        return $this->render('create', [ 'model' => $model ]);
@@ -158,7 +159,7 @@ class TagsController extends Controller
 	        $model->setAlias($post['Tags'],'name');
 
             if($model->save()) {
-                return $this->redirect(['index']);
+	            return $this->render('update', ['model' => $model]);
             }
 
 	        return $this->render('update', [ 'model' => $model ]);
@@ -215,13 +216,14 @@ class TagsController extends Controller
         }
     }
 
-    /**
-     * Change tags state: published or unpublished.
-     *
-     * @param $id
-     *
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * Change tags state: published or unpublished.
+	 *
+	 * @param $id
+	 *
+	 * @return Response
+	 * @throws NotFoundHttpException
+	 */
     public function actionChangestate($id)
     {
         $model = $this->findModel($id);
@@ -233,6 +235,8 @@ class TagsController extends Controller
             $model->active();
             Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Tag published'));
         }
+
+	    return $this->redirect(Yii::$app->request->referrer);
     }
 
 	/**

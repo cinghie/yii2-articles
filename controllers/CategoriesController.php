@@ -209,11 +209,12 @@ class CategoriesController extends Controller
 		        $model->ordering = $lastOrdering + 1;
 	        }
 
-            if ($model->save()) {
+            if ($model->save())
+            {
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
 
-                return $this->redirect(['index']);
+	            return $this->redirect(['update', 'id' => $model->id]);
             }
 
 	        // Set Error Message
@@ -310,25 +311,22 @@ class CategoriesController extends Controller
 	        // Set Ordering
 	        $model->setOrdering(Categories::class,'parent_id',$oldOrdering,$lastOrdering);
 
-            if ($model->save()) {
-
+            if ($model->save())
+            {
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
 
-                return $this->redirect(['index']);
+	            return $this->render('update', ['model' => $model]);
             }
 
 	        // Set Error Message
 	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Category could not be saved!'));
 
-	        return $this->render('update', [
-		        'model' => $model,
-	        ]);
-
+	        return $this->render('update', ['model' => $model]);
         }
 
 	    return $this->render('update', [
-		    'model' => $model,
+		    'model' => $model
 	    ]);
     }
 
@@ -444,7 +442,7 @@ class CategoriesController extends Controller
             Yii::$app->getSession()->setFlash('success', Yii::t('articles', 'Category published'));
         }
 
-        return $this->redirect(['index']);
+	    return $this->redirect(Yii::$app->request->referrer);
     }
 
 	/**
