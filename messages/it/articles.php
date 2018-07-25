@@ -45,7 +45,7 @@ return [
 	'Error deleting tags' => 'Errore nella cancellazione dei Tags!',
 	'Error removing image. Please try again later or contact the system admin.'=>"Errore durante la rimozione dell' immagine. Riprovare più tardi o contattare l'amministratore del sistema.",
 	'Fulltext' => 'Testo Completo',
-	'Hits' => 'Visto',
+	'Hits' => 'Visualizzazioni',
 	'ID' => 'ID',
 	'Image Width' => 'Grandezza Immagine',
 	'In Development' => 'In Sviluppo',
