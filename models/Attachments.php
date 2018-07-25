@@ -116,7 +116,18 @@ class Attachments extends Articles
 	}
 
 	/**
-	 * Return file attached
+	 * Return attached file Path
+	 *
+	 * @return string
+	 * @throws InvalidParamException
+	 */
+	public function getFilePath()
+	{
+		return Yii::getAlias(Yii::$app->getModule('articles')->attachPath).$this->filename;
+	}
+
+	/**
+	 * Return attached file URL
 	 *
 	 * @return string
 	 * @throws InvalidParamException
