@@ -482,14 +482,7 @@ class ItemsController extends Controller
 				            $translationItem->lang_tag = $langTag;
 				            $translationItem->save();
 
-			            } elseif($translation && isset($post[$titleName]) && $post[$titleName] !== '') {
-
-				            $translation->title = $post[$titleName];
-				            $translation->alias = $translation->generateAlias($post[$titleName]);
-				            $translation->introtext = $post[$introText];
-				            $translation->fulltext = $post[$fullText];
-				            $translation->save();
-			            }
+			            } 
 		            }
 	            }
 
