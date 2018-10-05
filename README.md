@@ -40,8 +40,10 @@ Copy img folder to your webroot
 
 ### 2. Update yii2 articles database schema
 
-Make sure that you have properly configured `db` application component
-and run the following command:
+Make sure that you have properly configured `db` application component.
+Make sure that you have an user with id=1.
+
+Run the following command:
 ```
 $ php yii migrate/up --migrationPath=@vendor/cinghie/yii2-articles/migrations
 ```
