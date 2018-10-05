@@ -34,6 +34,7 @@ use yii\web\UploadedFile;
  * @property Items $item
  * @property bool $userAuthor
  * @property string $attachmentUrl
+ * @property string $filePath
  * @property string $fileUrl
  */
 class Attachments extends Articles

@@ -78,12 +78,12 @@ class AttachmentsSearch extends Attachments
             'size' => $this->size,
         ]);
 
-        $query->andFilterWhere(['like', 'filename', $this->filename])
+        $query->andFilterWhere(['like', '{{%article_attachments}}.filename', $this->filename])
             ->andFilterWhere(['like', 'item.title', $this->item_id])
             ->andFilterWhere(['like', 'extension', $this->extension])
             ->andFilterWhere(['like', 'mimetype', $this->mimetype])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'titleAttribute', $this->titleAttribute]);
+            ->andFilterWhere(['like', '{{%article_attachments}}.title', $this->title])
+            ->andFilterWhere(['like', '{{%article_attachments}}.titleAttribute', $this->titleAttribute]);
 
         return $dataProvider;
     }

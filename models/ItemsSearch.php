@@ -89,15 +89,15 @@ class ItemsSearch extends Items
             'user_id' => $this->user_id,
             'state' => $this->state,
             'ordering' => $this->ordering,
-            'hits' => $this->hits,
-            'created' => $this->created,
-            'modified' => $this->modified,
+            'hits' => $this->hits
         ]);
 
         $query->andFilterWhere(['like', '{{%article_items}}.title', $this->title])
               ->andFilterWhere(['like', '{{%article_items}}.alias', $this->alias])
               ->andFilterWhere(['like', 'categories.name', $this->cat_id])
               ->andFilterWhere(['like', '{{%article_items}}.access', $this->access])
+              ->andFilterWhere(['like', '{{%article_items}}.created', $this->created])
+              ->andFilterWhere(['like', '{{%article_items}}.modified', $this->modified])
               ->andFilterWhere(['like', 'createdBy.username', $this->created_by])
               ->andFilterWhere(['like', 'modifiedBy.username', $this->modified_by])
               ->andFilterWhere(['like', '{{%article_items}}.introtext', $this->introtext])
