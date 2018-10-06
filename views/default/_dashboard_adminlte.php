@@ -118,6 +118,85 @@ use yii\helpers\Url;
 
 		<?= Box::widget([
 			'class' => 'col-md-6 col-sm-12 col-xs-12',
+			'buttonLeftTitle' => Yii::t('articles','New Attachment'),
+			'buttonRightTitle' => Yii::t('articles','All Attachments'),
+			'buttonLeftLink' => Url::to(['/articles/attachments/create']),
+			'buttonRightLink' => Url::to(['/articles/attachments/index']),
+			'columns' => [
+				[
+					'attribute' => 'title',
+					'format' => 'html',
+					'hAlign' => 'center',
+					'width' => '60%',
+					'value' => function ($model) {
+						$url = urldecode(Url::toRoute(['/articles/attachments/update', 'id' => $model->id]));
+						return Html::a($model->title,$url);
+					}
+				],
+				[
+					'attribute' => 'item_id',
+					'format' => 'html',
+					'hAlign' => 'center',
+					'value' => function ($model) {
+						$url  = urldecode(Url::toRoute(['/articles/items/update', 'id' => $model->item_id]));
+						$item = isset($model->item->title) ? $model->item->title : '';
+
+						if($item !== '') {
+							return Html::a($item,$url);
+						} else {
+							return Yii::t('articles', 'Nobody');
+						}
+					}
+				],
+				/**[
+				'attribute' => 'filename',
+				'format' => 'html',
+				'hAlign' => 'center'
+				], */
+				[
+					'attribute' => 'id',
+					'hAlign' => 'center',
+					'width' => '7%',
+				]
+			],
+			'dataProvider' => $attachSearch->last(5),
+			'type' => 'box-danger',
+			'title' => Yii::t('articles','Last Attachments'),
+		]) ?>
+
+	</div>
+
+	<div class="row">
+
+		<?= Box::widget([
+			'class' => 'col-md-6 col-sm-12 col-xs-12',
+			'buttonLeftTitle' => Yii::t('articles','New Tag'),
+			'buttonRightTitle' => Yii::t('articles','All Tags'),
+			'buttonLeftLink' => Url::to(['/articles/tags/create']),
+			'buttonRightLink' => Url::to(['/articles/tags/index']),
+			'columns' => [
+				[
+					'attribute' => 'name',
+					'format' => 'html',
+					'hAlign' => 'center',
+					'value' => function ($model) {
+						$url = urldecode(Url::toRoute(['/articles/tags/update', 'id' => $model->id, 'alias' => $model->alias]));
+						return Html::a($model->name,$url);
+					}
+				],
+				[
+					'attribute' => 'id',
+					'hAlign' => 'center',
+					'width' => '7%',
+				]
+			],
+			'dataProvider' => $tagsSearch->last(5),
+			'type' => 'box-warning',
+			'title' => Yii::t('articles','Last Tags'),
+		]) ?>
+
+		<?= Box::widget([
+			'class' => 'col-md-6 col-sm-12 col-xs-12',
 			'buttonLeftTitle' => Yii::t('articles','New Category'),
 			'buttonRightTitle' => Yii::t('articles','All Categories'),
 			'buttonLeftLink' => Url::to(['/articles/categories/create']),
@@ -160,84 +239,6 @@ use yii\helpers\Url;
 			'dataProvider' => $categoriesSearch->last(5),
 			'type' => 'box-success',
 			'title' => Yii::t('articles','Last Categories'),
-		]) ?>
-
-	</div>
-
-	<div class="row">
-
-		<?= Box::widget([
-			'class' => 'col-md-6 col-sm-12 col-xs-12',
-			'buttonLeftTitle' => Yii::t('articles','New Tag'),
-			'buttonRightTitle' => Yii::t('articles','All Tags'),
-			'buttonLeftLink' => Url::to(['/articles/tags/create']),
-			'buttonRightLink' => Url::to(['/articles/tags/index']),
-			'columns' => [
-				[
-					'attribute' => 'name',
-					'format' => 'html',
-					'hAlign' => 'center',
-					'value' => function ($model) {
-						$url = urldecode(Url::toRoute(['/articles/tags/update', 'id' => $model->id, 'alias' => $model->alias]));
-						return Html::a($model->name,$url);
-					}
-				],
-				[
-					'attribute' => 'id',
-					'hAlign' => 'center',
-					'width' => '7%',
-				]
-			],
-			'dataProvider' => $tagsSearch->last(5),
-			'type' => 'box-warning',
-			'title' => Yii::t('articles','Last Tags'),
-		]) ?>
-
-		<?= Box::widget([
-			'class' => 'col-md-6 col-sm-12 col-xs-12',
-			'buttonLeftTitle' => Yii::t('articles','New Attachment'),
-			'buttonRightTitle' => Yii::t('articles','All Attachments'),
-			'buttonLeftLink' => Url::to(['/articles/attachments/create']),
-			'buttonRightLink' => Url::to(['/articles/attachments/index']),
-			'columns' => [
-				[
-					'attribute' => 'title',
-					'format' => 'html',
-					'hAlign' => 'center',
-					'value' => function ($model) {
-						$url = urldecode(Url::toRoute(['/articles/attachments/update', 'id' => $model->id]));
-						return Html::a($model->title,$url);
-					}
-				],
-				[
-					'attribute' => 'item_id',
-					'format' => 'html',
-					'hAlign' => 'center',
-					'value' => function ($model) {
-						$url  = urldecode(Url::toRoute(['/articles/items/update', 'id' => $model->item_id]));
-						$item = isset($model->item->title) ? $model->item->title : '';
-
-						if($item !== '') {
-							return Html::a($item,$url);
-						} else {
-							return Yii::t('articles', 'Nobody');
-						}
-					}
-				],
-				[
-					'attribute' => 'filename',
-					'format' => 'html',
-					'hAlign' => 'center'
-				],
-				[
-					'attribute' => 'id',
-					'hAlign' => 'center',
-					'width' => '7%',
-				]
-			],
-			'dataProvider' => $attachSearch->last(5),
-			'type' => 'box-danger',
-			'title' => Yii::t('articles','Last Attachments'),
 		]) ?>
 
 	</div>
