@@ -195,6 +195,7 @@ $this->registerJs('$(document).ready(function()
 			    ]
 		    ],
 		    'responsive' => true,
+		    'responsiveWrap' => true,
 		    'hover' => true,
 		    'panel' => [
 			    'heading' => '<h3 class="panel-title"><i class="fa fa-files-o"></i></h3>',
