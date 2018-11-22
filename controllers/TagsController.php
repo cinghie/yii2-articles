@@ -123,12 +123,16 @@ class TagsController extends Controller
         $model = new Tags();
         $post  = Yii::$app->request->post();
 
-        if ( $model->load($post) )
+        if ($model->load($post))
         {
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Tags'],'name');
 
-            if($model->save()) {
+            if($model->save())
+            {
+	            // Set Success Message
+	            Yii::$app->session->setFlash('success', Yii::t('articles', 'Tag has been created!'));
+
 	            return $this->redirect(['update', 'id' => $model->id]);
             }
 
@@ -153,12 +157,16 @@ class TagsController extends Controller
         $model = $this->findModel($id);
         $post  = Yii::$app->request->post();
 
-        if ( $model->load($post) )
+        if ($model->load($post))
         {
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Tags'],'name');
 
-            if($model->save()) {
+            if($model->save())
+            {
+	            // Set Success Message
+	            Yii::$app->session->setFlash('success', Yii::t('articles', 'Tag has been updated!'));
+
 	            return $this->render('update', ['model' => $model]);
             }
 
