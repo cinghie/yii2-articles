@@ -148,6 +148,11 @@ class CategoriesController extends Controller
 
         if ($model->load($post))
         {
+        	// Set Category NULL
+	        if(!$model->parent_id) {
+		        $model->parent_id = NULL;
+	        }
+
             // If user can publish, set state = 1
             if($model->state = ( 1 && Yii::$app->user->can( 'articles-publish-categories' ) ) ) {
                 $model->state = 1;
@@ -204,7 +209,7 @@ class CategoriesController extends Controller
             }
 
 	        // Set Ordering
-	        if($model->cat_id)  {
+	        if($model->parent_id)  {
 		        $lastOrdering = $model->getLastOrdering(Categories::class, ['parent_id' => $model->parent_id]);
 		        $model->ordering = $lastOrdering + 1;
 	        }
@@ -248,6 +253,11 @@ class CategoriesController extends Controller
 
         if ($model->load($post))
         {
+	        // Set Category NULL
+	        if(!$model->parent_id) {
+		        $model->parent_id = NULL;
+	        }
+
             // If user can publish, set state = 1
             if( $model->state = (1 && Yii::$app->user->can( 'articles-publish-categories')) ) {
                 $model->state = 1;

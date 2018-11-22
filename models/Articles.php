@@ -210,7 +210,7 @@ class Articles extends ActiveRecord
     {
 	    $categories = Categories::find()->orderBy('name')->all();
 
-        $array[''] = Yii::t('articles', 'No Parent');
+        $array[0] = Yii::t('articles', 'No Parent');
 
         foreach($categories as $category) {
 	        $array[$category['id']] = $category['name'];
