@@ -159,8 +159,13 @@ class ItemsController extends Controller
         $model = new Items();
         $post  = Yii::$app->request->post();
 
-        if ( $model->load($post) )
+        if ($model->load($post))
         {
+	        // Set Category NULL
+	        if(!$model->cat_id) {
+		        $model->cat_id = NULL;
+	        }
+
             // Set modified as actual date
 	        $model->modified = date('Y-m-d H:i:s');
 
@@ -318,7 +323,7 @@ class ItemsController extends Controller
 	        // Set Error Message
 	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Item could not be saved!'));
 
-	        return $this->redirect('update', ['model' => $model]);
+	        return $this->render('create', ['model' => $model]);
         }
 
 	    return $this->render('create', ['model' => $model]);
@@ -345,6 +350,11 @@ class ItemsController extends Controller
 
         if ( $model->load($post) )
         {
+	        // Set Category NULL
+	        if(!$model->cat_id) {
+		        $model->cat_id = NULL;
+	        }
+	        
             // Set modified as actual date
             $model->modified = date( 'Y-m-d H:i:s' );
 
