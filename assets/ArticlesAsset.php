@@ -13,10 +13,18 @@
 namespace cinghie\articles\assets;
 
 use yii\web\AssetBundle;
+use yii\web\YiiAsset;
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
+use kartik\form\ActiveFormAsset;
+use kartik\base\WidgetAsset;
+use kartik\select2\Select2Asset;
+use kartik\select2\ThemeKrajeeAsset;
+use kartik\datetime\DateTimePickerAsset;
+use kartik\file\FileInputAsset;
 
 class ArticlesAsset extends AssetBundle
 {
-	
 	/**
 	 * @inherit
 	 */
@@ -35,15 +43,14 @@ class ArticlesAsset extends AssetBundle
 	 * @inherit
 	 */
 	public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-		'yii\bootstrap\BootstrapPluginAsset',
-		'kartik\form\ActiveFormAsset',
-		'kartik\base\WidgetAsset',
-		'kartik\select2\Select2Asset',
-		'kartik\select2\ThemeKrajeeAsset',
-		'kartik\datetime\DateTimePickerAsset',
-		'kartik\file\FileInputAsset',
+		YiiAsset::class,
+		BootstrapAsset::class,
+		BootstrapPluginAsset::class,
+		ActiveFormAsset::class,
+		WidgetAsset::class,
+		Select2Asset::class,
+		ThemeKrajeeAsset::class,
+		DateTimePickerAsset::class,
+		FileInputAsset::class,
     ];
-
 }

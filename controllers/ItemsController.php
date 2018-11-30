@@ -348,13 +348,13 @@ class ItemsController extends Controller
         $oldOrdering  = $model->ordering;
 	    $lastOrdering = $model->getLastOrdering(Items::class, ['cat_id' => $model->cat_id]);
 
-        if ( $model->load($post) )
+        if ($model->load($post))
         {
 	        // Set Category NULL
 	        if(!$model->cat_id) {
 		        $model->cat_id = NULL;
 	        }
-	        
+
             // Set modified as actual date
             $model->modified = date( 'Y-m-d H:i:s' );
 

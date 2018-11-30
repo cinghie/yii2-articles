@@ -20,6 +20,9 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
 
+	/**
+	 * @inheritdoc
+	 */
     public function behaviors()
     {
         return [
@@ -39,6 +42,12 @@ class DefaultController extends Controller
         ];
     }
 
+	/**
+	 * Lists all Categories models
+	 *
+	 * @return mixed
+	 * @throws InvalidParamException
+	 */
     public function actionIndex()
     {
         return $this->render('index');

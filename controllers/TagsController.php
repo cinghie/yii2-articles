@@ -320,5 +320,5 @@ class TagsController extends Controller
 
 	    throw new NotFoundHttpException(Yii::t('traits','The requested page does not exist.'));
     }
-    
+
 }

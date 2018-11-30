@@ -138,7 +138,7 @@ class AttachmentsController extends Controller
         $model = new Attachments();
         $post  = Yii::$app->request->post();
 
-        if ( $model->load($post) )
+        if ($model->load($post))
         {
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Attachments'],'title');
@@ -195,7 +195,7 @@ class AttachmentsController extends Controller
 
         $file_name = $model->filename;
 
-        if ( $model->load($post) )
+        if ($model->load($post))
         {
 	        // If alias is not set, generate it
 	        $model->setAlias($post['Attachments'],'title');
