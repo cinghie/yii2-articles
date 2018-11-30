@@ -136,6 +136,9 @@ class TagsController extends Controller
 	            return $this->redirect(['update', 'id' => $model->id]);
             }
 
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Tag could not be saved!'));
+
 	        return $this->render('create', [ 'model' => $model ]);
         }
 
@@ -169,6 +172,9 @@ class TagsController extends Controller
 
 	            return $this->render('update', ['model' => $model]);
             }
+
+	        // Set Error Message
+	        Yii::$app->session->setFlash('error', Yii::t('articles', 'Tag could not be saved!'));
 
 	        return $this->render('update', [ 'model' => $model ]);
         }
