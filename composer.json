@@ -21,8 +21,9 @@
     ],
     "require": {
         "yiisoft/yii2": "~2.0.12",
-        "cinghie/yii2-traits": "*",
-        "dektrium/yii2-user": "*"
+        "cinghie/yii2-seo-component": "@dev",
+        "cinghie/yii2-traits": "@dev",
+        "dektrium/yii2-user": "@dev"
     },
     "autoload": {
         "psr-4": {
