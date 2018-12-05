@@ -221,16 +221,20 @@ class Articles extends ActiveRecord
 
 	/**
 	 * Return array with all Items
-     *
+	 *
+	 * @param string $orderBy
+	 * @param string $orderType
+	 *
 	 * @return array
 	 */
-	public function getItemsSelect2()
+	public function getItemsSelect2($orderBy = 'id', $orderType = 'DESC')
 	{
-        $array = array();
+		$array = array();
 
-        $items = Items::find()
-            ->select(['id','title'])
-            ->all();
+		$items = Items::find()
+			->select(['id','title'])
+			->orderBy($orderBy.' '.$orderType)
+			->all();
 
 		foreach($items as $item) {
 			$array[$item['id']] = $item['title'];
