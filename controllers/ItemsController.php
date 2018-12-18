@@ -464,7 +464,7 @@ class ItemsController extends Controller
 			            /** @var Items $translation */
 			            $translation = $model->getItemTranslation($lang);
 
-			            if($translation && isset($post[$titleName]) && $post[$titleName] !== '')
+			            if($translation && !strpos($lang, Yii::$app->controller->module->languageAll) !== false && isset($post[$titleName]) && $post[$titleName] !== '')
 			            {
 				            // Update Translations values
 				            $translation->title = $post[$titleName];
