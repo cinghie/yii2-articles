@@ -30,8 +30,8 @@ class CategoriesSearch extends Categories
     public function rules()
     {
         return [
-            [['id', 'state', 'ordering'], 'integer'],
-            [['name', 'parent_id', 'alias', 'description', 'access', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
+            [['id', 'parent_id', 'state', 'ordering'], 'integer'],
+            [['name', 'alias', 'description', 'access', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
         ];
     }
 
@@ -77,12 +77,12 @@ class CategoriesSearch extends Categories
 
         $query->andFilterWhere([
             '{{%article_categories}}.id' => $this->id,
+            '{{%article_categories}}.parent_id' => $this->parent_id,
             '{{%article_categories}}.state' => $this->state,
             '{{%article_categories}}.ordering' => $this->ordering,
         ]);
 
         $query->andFilterWhere(['like', '{{%article_categories}}.name', $this->name])
-              ->andFilterWhere(['like', 'parent.name', $this->parent_id])
               ->andFilterWhere(['like', '{{%article_categories}}.alias', $this->alias])
               ->andFilterWhere(['like', '{{%article_categories}}.description', $this->description])
               ->andFilterWhere(['like', '{{%article_categories}}.access', $this->access])

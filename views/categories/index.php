@@ -105,6 +105,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'parent_id',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getCategoriesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'html',
 				    'hAlign' => 'center',
 				    'value' => function ($model) {
@@ -114,6 +120,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'access',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getRolesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'html',
 				    'hAlign' => 'center',
 				    'value' => function ($model) {
@@ -123,6 +135,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'theme',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getThemesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'hAlign' => 'center',
 			    ],
 			    [
@@ -137,6 +155,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'language',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel::getLanguagesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'hAlign' => 'center',
 				    'width' => '6%',
 			    ],
@@ -147,6 +171,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'state',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel::getStateSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'raw',
 				    'hAlign' => 'center',
 				    'width' => '6%',

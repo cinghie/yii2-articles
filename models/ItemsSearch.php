@@ -29,8 +29,8 @@ class ItemsSearch extends Items
     public function rules()
     {
         return [
-            [['id', 'user_id', 'state', 'ordering', 'hits'], 'integer'],
-            [['title', 'alias', 'cat_id', 'access', 'created_by', 'modified_by', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
+            [['id', 'cat_id', 'user_id', 'state', 'ordering', 'hits'], 'integer'],
+            [['title', 'alias', 'access', 'created_by', 'modified_by', 'introtext', 'fulltext', 'language', 'image', 'image_caption', 'image_credits', 'video', 'video_type', 'video_caption', 'video_credits', 'created', 'modified', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright'], 'safe'],
         ];
     }
 
@@ -84,22 +84,26 @@ class ItemsSearch extends Items
             return $dataProvider;
         }
 
+        if(!$this->language) {
+	        $this->language = 'all';
+        }
+
         $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'state' => $this->state,
-            'ordering' => $this->ordering,
-            'hits' => $this->hits
+            '{{%article_items}}.id' => $this->id,
+            '{{%article_items}}.cat_id' => $this->cat_id,
+            '{{%article_items}}.created_by' => $this->created_by,
+            '{{%article_items}}.modified_by' => $this->modified_by,
+            '{{%article_items}}.user_id' => $this->user_id,
+            '{{%article_items}}.state' => $this->state,
+            '{{%article_items}}.ordering' => $this->ordering,
+            '{{%article_items}}.hits' => $this->hits
         ]);
 
         $query->andFilterWhere(['like', '{{%article_items}}.title', $this->title])
               ->andFilterWhere(['like', '{{%article_items}}.alias', $this->alias])
-              ->andFilterWhere(['like', 'categories.name', $this->cat_id])
               ->andFilterWhere(['like', '{{%article_items}}.access', $this->access])
               ->andFilterWhere(['like', '{{%article_items}}.created', $this->created])
               ->andFilterWhere(['like', '{{%article_items}}.modified', $this->modified])
-              ->andFilterWhere(['like', 'createdBy.username', $this->created_by])
-              ->andFilterWhere(['like', 'modifiedBy.username', $this->modified_by])
               ->andFilterWhere(['like', '{{%article_items}}.introtext', $this->introtext])
               ->andFilterWhere(['like', '{{%article_items}}.fulltext', $this->fulltext])
               ->andFilterWhere(['like', '{{%article_items}}.language', $this->language])
@@ -116,6 +120,9 @@ class ItemsSearch extends Items
               ->andFilterWhere(['like', '{{%article_items}}.robots', $this->robots])
               ->andFilterWhere(['like', '{{%article_items}}.author', $this->author])
               ->andFilterWhere(['like', '{{%article_items}}.copyright', $this->copyright]);
+
+	    // Print SQL query
+	    //var_dump($query->prepare(Yii::$app->db->queryBuilder)->createCommand()->rawSql);
 
         return $dataProvider;
     }

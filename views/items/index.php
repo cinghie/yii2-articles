@@ -75,7 +75,7 @@ $this->registerJs('$(document).ready(function()
         </div>
     <?php endif ?>
     
-    <?php // echo $this->render('_search', ['model' => $searchModel]) ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]) ?>
 
     <!-- Categories Grid -->
     <div class="items-grid">
@@ -109,6 +109,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'cat_id',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getCategoriesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'html',
 				    'hAlign' => 'center',
 				    'value' => function ($model) {
@@ -124,6 +130,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'access',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getRolesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'html',
 				    'hAlign' => 'center',
 				    'width' => '8%',
@@ -134,8 +146,14 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'created_by',
-				    'hAlign' => 'center',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getUsersSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'raw',
+				    'hAlign' => 'center',
 				    'value' => function ($model) {
 					    /** @var $model cinghie\articles\models\Items */
 					    return $model->getCreatedByGridView();
@@ -147,8 +165,14 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'modified_by',
-				    'hAlign' => 'center',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel->getUsersSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'raw',
+				    'hAlign' => 'center',
 				    'value' => function ($model) {
 					    /** @var $model cinghie\articles\models\Items */
 					    return $model->getModifiedByGridView();
@@ -160,7 +184,7 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'image',
-				    'format' => 'html',
+				    'format' => 'raw',
 				    'hAlign' => 'center',
 				    'value' => function ($model) {
 					    /** @var $model cinghie\articles\models\Items */
@@ -170,6 +194,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'language',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel::getLanguagesSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'hAlign' => 'center',
 				    'width' => '5%',
 			    ],
@@ -180,6 +210,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'state',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel::getStateSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'raw',
 				    'hAlign' => 'center',
 				    'width' => '5%',
