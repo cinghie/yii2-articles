@@ -179,7 +179,7 @@ $this->registerJs('$(document).ready(function()
 				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'raw',
 				    'hAlign' => 'center',
-				    'width' => '6%',
+				    'width' => '8%',
 				    'value' => function ($model) {
 					    /** @var $model cinghie\articles\models\Categories */
 					    return $model->getStateGridView();
