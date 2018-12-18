@@ -282,6 +282,7 @@ class ItemsController extends Controller
 				            $model_lang->language = $lang;
 				            $model_lang->introtext = $post[$introText];
 				            $model_lang->fulltext = $post[$fullText];
+				            $model_lang->ordering = $model->ordering;
 				            $model_lang->save();
 
 				            // Set Translation Table
@@ -463,6 +464,18 @@ class ItemsController extends Controller
 			            /** @var Items $translation */
 			            $translation = $model->getItemTranslation($lang);
 
+			            if($translation && isset($post[$titleName]) && $post[$titleName] !== '')
+			            {
+				            // Update Translations values
+				            $translation->title = $post[$titleName];
+				            $translation->alias = $translation->generateAlias($post[$titleName]);
+				            $translation->language = $lang;
+				            $translation->introtext = $post[$introText];
+				            $translation->fulltext = $post[$fullText];
+				            $translation->ordering = $model->ordering;
+				            $translation->save();
+			            }
+
 			            if($translation === null && isset($post[$titleName]) && $post[$titleName] !== '')
 			            {
 				            // Clone Model
@@ -482,6 +495,7 @@ class ItemsController extends Controller
 				            $model_lang->language = $lang;
 				            $model_lang->introtext = $post[$introText];
 				            $model_lang->fulltext = $post[$fullText];
+				            $model_lang->ordering = $model->ordering;
 				            $model_lang->save();
 
 				            // Set Translation Table
