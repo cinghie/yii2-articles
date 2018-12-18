@@ -97,7 +97,7 @@ cinghie\articles\assets\ArticlesAsset::register($this);
 
                             <div class="col-md-4">
 
-	                            <?= $model->getOrderingWidget($form,Categories::class, 'parent_id',['ordering','name'], ['parent_id' => $model->parent_id])?>
+	                            <?= $model->getOrderingWidget($form,Categories::class, 'parent_id',['ordering','name'], ['parent_id' => $model->parent_id, 'language' => $model->language])?>
 
                                 <?= $model->getStateWidget($form) ?>
 
