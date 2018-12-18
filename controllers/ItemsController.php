@@ -456,6 +456,7 @@ class ItemsController extends Controller
 		            foreach(Yii::$app->controller->module->languages as $langTag)
 		            {
 			            $lang = substr($langTag,0,2);
+			            $langDefault = substr(Yii::$app->controller->module->languageAll,0,2);
 
 			            $titleName = 'title_'.$lang;
 			            $introText = 'introText_'.$lang;
@@ -464,7 +465,7 @@ class ItemsController extends Controller
 			            /** @var Items $translation */
 			            $translation = $model->getItemTranslation($lang);
 
-			            if($translation && !strpos($lang, Yii::$app->controller->module->languageAll) !== false && isset($post[$titleName]) && $post[$titleName] !== '')
+			            if($translation && $lang !== $langDefault && isset($post[$titleName]) && $post[$titleName] !== '')
 			            {
 				            // Update Translations values
 				            $translation->title = $post[$titleName];
