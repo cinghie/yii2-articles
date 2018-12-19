@@ -30,8 +30,8 @@ class CategoriesSearch extends Categories
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'state', 'ordering'], 'integer'],
-            [['name', 'alias', 'description', 'access', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
+            [['id', 'parent_id', 'image', 'state', 'ordering'], 'integer'],
+            [['name', 'alias', 'description', 'access', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
         ];
     }
 
@@ -75,9 +75,31 @@ class CategoriesSearch extends Categories
             return $dataProvider;
         }
 
+	    if(isset($this->parent_id) && $this->parent_id !== '')
+	    {
+	    	if((int)$this->parent_id === 0) {
+			    $query->andWhere(['is', '{{%article_categories}}.parent_id', new \yii\db\Expression('NULL')]);
+		    } else {
+			    $query->andFilterWhere(['{{%article_categories}}.parent_id' => $this->parent_id]);
+		    }
+
+	    } else {
+			$query->andFilterWhere(['{{%article_categories}}.parent_id' => $this->parent_id]);
+	    }
+
+	    if(isset($this->image) && $this->image !== '')
+	    {
+	    	if((int)$this->image === 1) {
+			    $query->andWhere(['!=','{{%article_categories}}.image','']);
+		    } elseif((int)$this->image === 0) {
+			    $query->andWhere(['=','{{%article_categories}}.image', '']);
+		    }
+	    } else {
+		    $query->andFilterWhere(['like', '{{%article_categories}}.image', $this->image]);
+	    }
+
         $query->andFilterWhere([
             '{{%article_categories}}.id' => $this->id,
-            '{{%article_categories}}.parent_id' => $this->parent_id,
             '{{%article_categories}}.state' => $this->state,
             '{{%article_categories}}.ordering' => $this->ordering,
         ]);
@@ -86,7 +108,6 @@ class CategoriesSearch extends Categories
               ->andFilterWhere(['like', '{{%article_categories}}.alias', $this->alias])
               ->andFilterWhere(['like', '{{%article_categories}}.description', $this->description])
               ->andFilterWhere(['like', '{{%article_categories}}.access', $this->access])
-              ->andFilterWhere(['like', '{{%article_categories}}.image', $this->image])
               ->andFilterWhere(['like', '{{%article_categories}}.image_caption', $this->image_caption])
               ->andFilterWhere(['like', '{{%article_categories}}.image_credits', $this->image_credits])
               ->andFilterWhere(['like', '{{%article_categories}}.metadesc', $this->metadesc])
@@ -96,6 +117,9 @@ class CategoriesSearch extends Categories
               ->andFilterWhere(['like', '{{%article_categories}}.copyright', $this->copyright])
               ->andFilterWhere(['like', '{{%article_categories}}.theme', $this->theme])
               ->andFilterWhere(['like', '{{%article_categories}}.language', $this->language]);
+
+	    // Print SQL query
+	    //var_dump($query->prepare(Yii::$app->db->queryBuilder)->createCommand()->rawSql);
 
         return $dataProvider;
     }

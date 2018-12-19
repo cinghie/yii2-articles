@@ -88,9 +88,31 @@ class ItemsSearch extends Items
 	        $this->language = 'all';
         }
 
+	    if(isset($this->cat_id) && $this->cat_id !== '')
+	    {
+		    if((int)$this->cat_id === 0) {
+			    $query->andWhere(['is', '{{%article_items}}.cat_id', new \yii\db\Expression('NULL')]);
+		    } else {
+			    $query->andFilterWhere(['{{%article_items}}.cat_id' => $this->cat_id]);
+		    }
+
+	    } else {
+		    $query->andFilterWhere(['{{%article_items}}.cat_id' => $this->cat_id]);
+	    }
+
+	    if(isset($this->image) && $this->image !== '')
+	    {
+		    if((int)$this->image === 1) {
+			    $query->andWhere(['!=','{{%article_items}}.image','']);
+		    } elseif((int)$this->image === 0) {
+			    $query->andWhere(['=','{{%article_items}}.image', '']);
+		    }
+	    } else {
+		    $query->andFilterWhere(['like', '{{%article_categories}}.image', $this->image]);
+	    }
+
         $query->andFilterWhere([
             '{{%article_items}}.id' => $this->id,
-            '{{%article_items}}.cat_id' => $this->cat_id,
             '{{%article_items}}.created_by' => $this->created_by,
             '{{%article_items}}.modified_by' => $this->modified_by,
             '{{%article_items}}.user_id' => $this->user_id,
@@ -107,7 +129,6 @@ class ItemsSearch extends Items
               ->andFilterWhere(['like', '{{%article_items}}.introtext', $this->introtext])
               ->andFilterWhere(['like', '{{%article_items}}.fulltext', $this->fulltext])
               ->andFilterWhere(['like', '{{%article_items}}.language', $this->language])
-              ->andFilterWhere(['like', '{{%article_items}}.image', $this->image])
               ->andFilterWhere(['like', '{{%article_items}}.image_caption', $this->image_caption])
               ->andFilterWhere(['like', '{{%article_items}}.image_credits', $this->image_credits])
               ->andFilterWhere(['like', '{{%article_items}}.video', $this->video])

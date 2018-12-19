@@ -145,6 +145,15 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'image',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => [
+				        '1' => Yii::t('traits','Yes'),
+				        '0' => Yii::t('traits','No')
+                    ],
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'html',
 				    'hAlign' => 'center',
 				    'value' => function ($model) {
