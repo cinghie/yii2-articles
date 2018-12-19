@@ -30,8 +30,8 @@ class CategoriesSearch extends Categories
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'image', 'state', 'ordering'], 'integer'],
-            [['name', 'alias', 'description', 'access', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
+            [['id', 'parent_id', 'state', 'ordering'], 'integer'],
+            [['name', 'alias', 'description', 'access', 'image', 'image_caption', 'image_credits', 'params', 'metadesc', 'metakey', 'robots', 'author', 'copyright', 'theme', 'language'], 'safe'],
         ];
     }
 
