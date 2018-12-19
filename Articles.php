@@ -83,6 +83,9 @@ class Articles extends Module
 	// Tab Menu Source
 	public $tabMenu = '@vendor/cinghie/yii2-articles/views/default/_menu.php';
 
+	// Filter Language Default
+	public $filterLanguageDefault = 'en';
+
 	// Show Titles in the views
 	public $showTitles = true;
 

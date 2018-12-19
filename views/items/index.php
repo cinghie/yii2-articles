@@ -207,7 +207,7 @@ $this->registerJs('$(document).ready(function()
 			    [
 				    'attribute' => 'language',
 				    'filterType' => GridView::FILTER_SELECT2,
-				    'filter' => $searchModel::getLanguagesSelect2(),
+				    'filter' => $searchModel::getLanguagesFilterSelect2(),
 				    'filterWidgetOptions' => [
 					    'pluginOptions' => ['allowClear' => true],
 				    ],
