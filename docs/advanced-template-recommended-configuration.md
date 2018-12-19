@@ -32,6 +32,8 @@ Recommended Configuration for Advanced Template
         	"it-IT" => "it-IT", 
         	"en-GB" => "en-GB" 
         ],
+        // Select Default Language  
+        'languageAll' => 'it-IT',
 
         // Select Date Format
         'dateFormat' => 'd F Y',

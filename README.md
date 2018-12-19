@@ -64,6 +64,8 @@ Set on your configuration file, in modules section
 			"it-IT" => "it-IT", 
 			"en-GB" => "en-GB" 
 		],			
+		// Select Default Language  
+		'languageAll' => 'it-IT',
 		
 		// Select Date Format
 		'dateFormat' => 'd F Y',
