@@ -108,6 +108,12 @@ $this->registerJs('$(document).ready(function()
 			    ],
 			    [
 				    'attribute' => 'state',
+				    'filterType' => GridView::FILTER_SELECT2,
+				    'filter' => $searchModel::getStateSelect2(),
+				    'filterWidgetOptions' => [
+					    'pluginOptions' => ['allowClear' => true],
+				    ],
+				    'filterInputOptions' => ['placeholder' => ''],
 				    'format' => 'raw',
 				    'hAlign' => 'center',
 				    'width' => '6%',

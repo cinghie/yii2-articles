@@ -8,9 +8,11 @@
  */
 
 use cinghie\articles\assets\ArticlesAsset;
+use cinghie\articles\models\Attachments;
 use kartik\grid\CheckboxColumn;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 // Load Articles Assets
@@ -122,6 +124,7 @@ $this->registerJs('$(document).ready(function()
 			],
 			[
 				'attribute' => 'extension',
+                'filter' => ArrayHelper::map(Attachments::find()->distinct()->all(), 'extension', 'extension'),
 				'format' => 'html',
 				'hAlign' => 'center',
 				'width' => '8%',
