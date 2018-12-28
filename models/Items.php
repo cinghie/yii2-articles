@@ -372,7 +372,7 @@ class Items extends Articles
 			return $translation->getTranslation()->one();
 		}
 
-		return null;
+		return $this;
 	}
 
 	/**
