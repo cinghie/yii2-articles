@@ -350,7 +350,7 @@ class Items extends Articles
 	 *
 	 * @param string $lang
 	 *
-	 * @return Items[]
+	 * @return Items[] || Items
 	 */
 	public function getItemTranslation($lang)
 	{
@@ -372,7 +372,7 @@ class Items extends Articles
 			return $translation->getTranslation()->one();
 		}
 
-		return $this;
+		return null;
 	}
 
 	/**

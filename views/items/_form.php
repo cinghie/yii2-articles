@@ -314,7 +314,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
                                     $fullText   = 'fullText_'.$lang;
 
                                     if($model->language !== $lang && $langTag !== Yii::$app->controller->module->languageAll):
-                                        
+
 	                            ?>
 
                                 <div class="col-md-6 col-sm-12">
