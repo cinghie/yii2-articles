@@ -258,7 +258,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                         </div> <!-- #image -->
 
-                        <!-- video -->
+                        <!-- Video -->
                         <div id="video" class="row tab-pane fade">
 
                             <div class="col-md-6">
@@ -279,6 +279,8 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                         </div> <!-- end video -->
 
+                        <!-- Attachments -->
+
                         <div id="attach" class="row tab-pane fade">
 
                             <div class="col-md-12">
@@ -291,111 +293,114 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                             </div> <!-- end col-md-12 -->
 
-                        </div> <!-- end attach -->
+                        </div> <!-- end Attachments -->
 
+                        <!-- Translations -->
 	                    <?php if(Yii::$app->controller->module->advancedTranslation): ?>
 
-                        <div id="translations" class="row tab-pane fade">
+                            <div id="translations" class="row tab-pane fade">
 
-                            <?php
+                                <?php
 
-                                foreach (Yii::$app->controller->module->languages as $langTag):
+                                    foreach (Yii::$app->controller->module->languages as $langTag):
 
-                            ?>
+                                ?>
 
-	                            <?php
+                                    <?php
 
-                                    $lang = substr($langTag,0,2);
+                                        $lang = substr($langTag,0,2);
 
-                                    $selectName = 'translation_'.$lang;
-                                    $titleName  = 'title_'.$lang;
-                                    $aliasName  = 'alias_'.$lang;
-                                    $introText  = 'introText_'.$lang;
-                                    $fullText   = 'fullText_'.$lang;
+                                        $selectName = 'translation_'.$lang;
+                                        $titleName  = 'title_'.$lang;
+                                        $aliasName  = 'alias_'.$lang;
+                                        $introText  = 'introText_'.$lang;
+                                        $fullText   = 'fullText_'.$lang;
 
-                                    if($model->language !== $lang && $langTag !== Yii::$app->controller->module->languageAll):
+                                        if($model->language !== $lang && $langTag !== Yii::$app->controller->module->languageAll):
 
-	                            ?>
+                                    ?>
 
-                                <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
 
-                                    <div class="row">
+                                        <div class="row">
 
-                                        <div class="col-md-6">
+                                            <div class="col-md-6">
 
-                                            <h2><?= Yii::t('traits','Translation') ?> <?= $langTag ?></h2>
+                                                <h2><?= Yii::t('traits','Translation') ?> <?= $langTag ?></h2>
 
-                                        </div>
+                                            </div>
 
-                                        <div class="col-md-6">
+                                            <div class="col-md-6">
 
-                                            <label class="control-label"></label>
+                                                <label class="control-label"></label>
 
-                                            <div class="form-group">
+                                                <div class="form-group">
 
-                                                <div class="input-group">
+                                                    <div class="input-group">
 
-			                                        <?= Select2::widget([
-				                                        'name' => $selectName,
-				                                        'data' => $model->getItemsLangSelect2($lang),
-				                                        'disabled' => true
-			                                        ]) ?>
+                                                        <?= Select2::widget([
+                                                            'name' => $selectName,
+                                                            'data' => $model->getItemsLangSelect2($lang),
+                                                            'disabled' => true
+                                                        ]) ?>
+
+                                                    </div>
 
                                                 </div>
 
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-6">
 
-                                        <div class="col-md-6">
+                                                <div class="form-group">
 
-                                            <div class="form-group">
+                                                    <label class="control-label"><?= Yii::t('traits','Title') ?></label>
 
-                                                <label class="control-label"><?= Yii::t('traits','Title') ?></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <?= Html::textInput($titleName, $model->getFieldTranslation($lang,'title'), ['class' => 'form-control']) ?>
+                                                    </div>
 
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                    <?= Html::textInput($titleName, $model->getFieldTranslation($lang,'title'), ['class' => 'form-control']) ?>
                                                 </div>
 
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-6">
 
-                                        <div class="col-md-6">
+                                                <div class="form-group">
 
-                                            <div class="form-group">
+                                                    <label class="control-label"><?= Yii::t('traits','Alias') ?></label>
 
-                                                <label class="control-label"><?= Yii::t('traits','Alias') ?></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        <?= Html::textInput($aliasName, $model->getFieldTranslation($lang,'alias'), ['class' => 'form-control']) ?>
+                                                    </div>
 
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-			                                        <?= Html::textInput($aliasName, $model->getFieldTranslation($lang,'alias'), ['class' => 'form-control']) ?>
                                                 </div>
 
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-12">
 
-                                        <div class="col-md-12">
+                                                <div class="form-group">
 
-                                            <div class="form-group">
+                                                    <label class="control-label"><?= Yii::t('articles','Introtext') ?></label>
 
-                                                <label class="control-label"><?= Yii::t('articles','Introtext') ?></label>
+                                                    <?= $model->getEditorWidget(null, $introText, '', $model->getFieldTranslation($lang,'introtext')) ?>
 
-	                                            <?= $model->getEditorWidget(null, $introText, '', $model->getFieldTranslation($lang,'introtext')) ?>
+                                                </div>
 
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-12">
 
-                                        <div class="col-md-12">
+                                                <div class="form-group">
 
-                                            <div class="form-group">
+                                                    <label class="control-label" for="items-introtext"><?= Yii::t('articles','Fulltext') ?></label>
 
-                                                <label class="control-label" for="items-introtext"><?= Yii::t('articles','Fulltext') ?></label>
+                                                    <?= $model->getEditorWidget(null, $fullText, '', $model->getFieldTranslation($lang,'fulltext')) ?>
 
-                                                <?= $model->getEditorWidget(null, $fullText, '', $model->getFieldTranslation($lang,'fulltext')) ?>
+                                                </div>
 
                                             </div>
 
@@ -403,16 +408,15 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                                     </div>
 
-                                </div>
+                                    <?php endif ?>
 
-                                <?php endif ?>
+                                <?php endforeach ?>
 
-                            <?php endforeach ?>
-
-                        </div> <!-- #translations -->
+                            </div> <!-- #translations -->
 
                         <?php endif ?>
 
+                        <!-- Params -->
                         <div id="params" class="row tab-pane fade">
 
                             <div class="separator"></div>
