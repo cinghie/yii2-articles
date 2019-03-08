@@ -469,6 +469,7 @@ class ItemsController extends Controller
 			            {
 				            // Update Translations values
 				            $translation->title = $post[$titleName];
+				            $translation->cat_id = $model->cat_id;
 				            $translation->alias = $translation->generateAlias($post[$titleName]);
 				            $translation->language = $lang;
 				            $translation->introtext = $post[$introText];
@@ -492,6 +493,7 @@ class ItemsController extends Controller
 
 				            // Set Translations values
 				            $model_lang->title = $post[$titleName];
+				            $model_lang->cat_id = $model->cat_id;
 				            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
 				            $model_lang->language = $lang;
 				            $model_lang->introtext = $post[$introText];
@@ -506,7 +508,6 @@ class ItemsController extends Controller
 				            $translationItem->lang = $lang;
 				            $translationItem->lang_tag = $langTag;
 				            $translationItem->save();
-
 			            } 
 		            }
 	            }
