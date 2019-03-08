@@ -9,6 +9,7 @@
 use cinghie\articles\models\Categories;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
+use yii\helpers\Html;
 
 // Load Articles Assets
 cinghie\articles\assets\ArticlesAsset::register($this);
@@ -50,6 +51,13 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                                         <?= Yii::t('traits', 'Image') ?>
                                     </a>
                                 </li>
+	                            <?php if(Yii::$app->controller->module->advancedTranslation): ?>
+                                    <li class="">
+                                        <a data-toggle="tab" href="#translations">
+				                            <?= Yii::t('traits', 'Translations') ?>
+                                        </a>
+                                    </li>
+	                            <?php endif ?>
                                 <li class="">
                                     <a data-toggle="tab" href="#params">
                                         <?= Yii::t('traits', 'Options') ?>
@@ -176,6 +184,114 @@ cinghie\articles\assets\ArticlesAsset::register($this);
                             </div> <!-- col-lg-6 -->
 
                         </div> <!-- #image -->
+
+                        <!-- Translations -->
+	                    <?php if(Yii::$app->controller->module->advancedTranslation): ?>
+
+                            <div id="translations" class="row tab-pane fade">
+
+			                    <?php
+
+			                    foreach (Yii::$app->controller->module->languages as $langTag):
+
+				                ?>
+
+				                <?php
+
+				                    $lang = substr($langTag,0,2);
+
+				                    $selectName  = 'translation_'.$lang;
+				                    $titleName   = 'name_'.$lang;
+				                    $aliasName   = 'alias_'.$lang;
+				                    $description = 'description_'.$lang;
+
+				                    if($model->language !== $lang && $langTag !== Yii::$app->controller->module->languageAll):
+
+					                    ?>
+
+                                        <div class="col-md-6 col-sm-12">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <h2><?= Yii::t('traits','Translation') ?> <?= $langTag ?></h2>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label class="control-label"></label>
+
+                                                    <div class="form-group">
+
+                                                        <div class="input-group">
+
+										                    <?= Select2::widget([
+											                    'name' => $selectName,
+											                    'data' => $model->getCategoriesLangSelect2($lang),
+											                    'disabled' => true
+										                    ]) ?>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+
+                                                        <label class="control-label"><?= Yii::t('traits','Name') ?></label>
+
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+										                    <?= Html::textInput($titleName, $model->getFieldTranslation($lang,'name'), ['class' => 'form-control']) ?>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <div class="form-group">
+
+                                                        <label class="control-label"><?= Yii::t('traits','Alias') ?></label>
+
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+										                    <?= Html::textInput($aliasName, $model->getFieldTranslation($lang,'alias'), ['class' => 'form-control']) ?>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-12">
+
+                                                    <div class="form-group">
+
+                                                        <label class="control-label"><?= Yii::t('articles','Description') ?></label>
+
+									                    <?= $model->getEditorWidget(null, $description, '', $model->getFieldTranslation($lang,'description')) ?>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+				                    <?php endif ?>
+
+			                    <?php endforeach ?>
+
+                            </div> <!-- #translations -->
+
+	                    <?php endif ?>
 
                         <!-- Params -->
                         <div id="params" class="row tab-pane fade">

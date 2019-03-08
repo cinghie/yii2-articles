@@ -112,6 +112,31 @@ class Categories extends Articles
     }
 
 	/**
+	 * Return CategoriesTranslations by lang
+	 *
+	 * @param string $lang
+	 *
+	 * @return CategoriesTranslations[]
+	 */
+	public function getTranslationsObject($lang)
+	{
+		return CategoriesTranslations::find()->where(['cat_id' => $this->id, 'lang' => $lang])->one();
+	}
+
+	/**
+	 * Return CategoriesTranslations by ID
+	 *
+	 * @param int $id
+	 * @param string $lang
+	 *
+	 * @return CategoriesTranslations[]
+	 */
+	public function getTranslationsObjectByID($id,$lang)
+	{
+		return CategoriesTranslations::find()->where(['cat_id' => $id, 'lang' => $lang])->one();
+	}
+
+	/**
 	 * Before delete Categories, delete image
 	 *
 	 * @throws InvalidParamException
@@ -203,6 +228,97 @@ class Categories extends Articles
 		}
 
 		return false;
+	}
+
+	/**
+	 * Check Translation Item by lang
+	 *
+	 * @param string $lang
+	 *
+	 * @return Items[] || Items
+	 */
+	public function getCategoryTranslation($lang)
+	{
+		/** @var CategoriesTranslations $translation */
+		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one();
+		}
+
+		$translation = null;
+		$translation_parent = CategoriesTranslations::find()->where(['translation_id' => $this->id])->one();
+
+		if($translation_parent !== null) {
+			$translation = $this->getTranslationsObjectByID($translation_parent->cat_id,$lang);
+		}
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Return CategoriesTranslations Item by lang
+	 *
+	 * @param string $lang
+	 * @param string $field
+	 *
+	 * @return CategoriesTranslations[] | string
+	 */
+	public function getFieldTranslation($lang,$field)
+	{
+		/** @var CategoriesTranslations $translation */
+		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one()->$field;
+		}
+
+		$translation = null;
+		$translation_parent = CategoriesTranslations::find()->where(['translation_id' => $this->id])->one();
+
+		if($translation_parent !== null) {
+			$translation = $this->getTranslationsObjectByID($translation_parent->cat_id,$lang);
+		}
+
+		if($translation !== null) {
+			return $translation->getTranslation()->one()->$field;
+		}
+
+		return '';
+	}
+
+	/**
+	 * Return array for ItemsLangSelect2
+	 *
+	 * @param string $lang
+	 *
+	 * @return array
+	 */
+	public function getCategoriesLangSelect2($lang)
+	{
+		/** @var CategoriesTranslations $translation */
+		$translation = $this->getTranslationsObject($lang);
+
+		if($translation !== null) {
+			return [ $translation->translation_id => $translation->getTranslation()->one()->name ];
+		}
+
+		$translation = null;
+		$translation_parent = CategoriesTranslations::find()->where(['translation_id' => $this->id])->one();
+
+		if($translation_parent !== null) {
+			$translation = $this->getTranslationsObjectByID($translation_parent->cat_id,$lang);
+		}
+
+		if($translation !== null) {
+			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
+		}
+
+		return [ 0 => Yii::t('articles', 'Not Yet Translated') ];
 	}
 
     /**

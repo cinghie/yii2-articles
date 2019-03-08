@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use cinghie\articles\models\CategoriesTranslations;
 use Throwable;
 use Yii;
 use cinghie\articles\models\Categories;
@@ -216,6 +217,69 @@ class CategoriesController extends Controller
 
             if ($model->save())
             {
+	            // Set Translations
+	            if(Yii::$app->controller->module->advancedTranslation)
+	            {
+		            foreach(Yii::$app->controller->module->languages as $langTag)
+		            {
+			            $lang = substr($langTag,0,2);
+
+			            $titleName = 'name_'.$lang;
+			            $description = 'description_'.$lang;
+
+			            $translation = $model->getTranslationsObject($lang);
+
+			            if($translation === null && (isset($post[$titleName]) && $post[$titleName] !== ''))
+			            {
+				            // Clone Model
+				            $model_lang = new Categories();
+				            $attributes = $model->attributes;
+
+				            foreach($attributes as  $attribute => $val)
+				            {
+					            if($attribute !== 'id') {
+						            $model_lang->{$attribute} = $val;
+					            }
+				            }
+
+				            // Set Translations values
+				            $model_lang->name = $post[$titleName];
+				            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
+				            $model_lang->language = $lang;
+				            $model_lang->description = $post[$description];
+				            $model_lang->ordering = $model->ordering ?: 0;
+				            $model_lang->save();
+
+				            // Set Translation Table
+				            $translationItem = new CategoriesTranslations();
+				            $translationItem->cat_id = $model->id;
+				            $translationItem->translation_id = $model_lang->id;
+				            $translationItem->lang = $lang;
+				            $translationItem->lang_tag = $langTag;
+				            $translationItem->save();
+			            }
+		            }
+
+		            if($model->language === 'all')
+		            {
+			            // Set Translation Table
+			            $translation2 = new CategoriesTranslations();
+			            $translation2->cat_id = $model->id;
+			            $translation2->translation_id = $model->id;
+			            $translation2->lang = $model->language;
+			            $translation2->lang_tag = $model->language;
+			            $translation2->save();
+
+			            // Set Translation Table
+			            $translation3 = new CategoriesTranslations();
+			            $translation3->cat_id = $model->id;
+			            $translation3->translation_id = $model->id;
+			            $translation3->lang = substr(Yii::$app->controller->module->languageAll,0,2);
+			            $translation3->lang_tag = Yii::$app->controller->module->languageAll;
+			            $translation3->save();
+		            }
+	            }
+
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been created!'));
 
@@ -323,6 +387,64 @@ class CategoriesController extends Controller
 
             if ($model->save())
             {
+	            // Set Translations
+	            if(Yii::$app->controller->module->advancedTranslation)
+	            {
+		            foreach(Yii::$app->controller->module->languages as $langTag)
+		            {
+			            $lang = substr($langTag,0,2);
+			            $langDefault = substr(Yii::$app->controller->module->languageAll,0,2);
+
+			            $titleName = 'name_'.$lang;
+			            $description = 'description_'.$lang;
+
+			            /** @var Categories $translation */
+			            $translation = $model->getCategoryTranslation($lang);
+
+			            if($translation && $lang !== $langDefault && isset($post[$titleName]) && $post[$titleName] !== '')
+			            {
+				            // Update Translations values
+				            $translation->name = $post[$titleName];
+				            $translation->alias = $translation->generateAlias($post[$titleName]);
+				            $translation->language = $lang;
+				            $translation->description = $post[$description];
+				            $translation->ordering = $model->ordering ?: 0;
+				            $translation->save();
+			            }
+
+			            if($translation === null && isset($post[$titleName]) && $post[$titleName] !== '')
+			            {
+				            // Clone Model
+				            $model_lang = new Categories();
+				            $attributes = $model->attributes;
+
+				            foreach($attributes as  $attribute => $val)
+				            {
+					            if($attribute !== 'id') {
+						            $model_lang->{$attribute} = $val;
+					            }
+				            }
+
+				            // Set Translations values
+				            $model_lang->name = $post[$titleName];
+				            $model_lang->alias = $model_lang->generateAlias($post[$titleName]);
+				            $model_lang->language = $lang;
+				            $model_lang->description = $post[$description];
+				            $model_lang->ordering = $model->ordering ?: 0;
+				            $model_lang->save();
+
+				            // Set Translation Table
+				            $translationItem = new CategoriesTranslations();
+				            $translationItem->cat_id = $model->id;
+				            $translationItem->translation_id = $model_lang->id;
+				            $translationItem->lang = $lang;
+				            $translationItem->lang_tag = $langTag;
+				            $translationItem->save();
+
+			            }
+		            }
+	            }
+
                 // Set Success Message
                 Yii::$app->session->setFlash('success', Yii::t('articles', 'Category has been updated!'));
 
