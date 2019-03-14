@@ -29,6 +29,9 @@ class Articles extends Module
 	// Select Article Language for all other languages
 	public $languageAll = 'en-GB';
 
+	// Show Only Default Language in List Views
+	public $languageShowOnlyDefault = false;
+
 	// Set Google Translate API KEY
 	public $googleTranslateApiKey = '';
 

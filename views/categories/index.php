@@ -165,9 +165,9 @@ $this->registerJs('$(document).ready(function()
 			    [
 				    'attribute' => 'language',
 				    'filterType' => GridView::FILTER_SELECT2,
-				    'filter' => $searchModel::getLanguagesSelect2(),
+				    'filter' => $searchModel::getLanguagesFilterSelect2(Yii::$app->controller->module->languageShowOnlyDefault),
 				    'filterWidgetOptions' => [
-					    'pluginOptions' => ['allowClear' => true],
+					    'pluginOptions' => ['allowClear' => false],
 				    ],
 				    'filterInputOptions' => ['placeholder' => ''],
 				    'hAlign' => 'center',

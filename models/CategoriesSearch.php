@@ -98,6 +98,28 @@ class CategoriesSearch extends Categories
 		    $query->andFilterWhere(['like', '{{%article_categories}}.image', $this->image]);
 	    }
 
+	    if(Yii::$app->controller->module->languageShowOnlyDefault) {
+
+		    $query->andFilterWhere(['like', '{{%article_categories}}.language', 'all']);
+
+	    } elseif(isset($this->language)) {
+
+		    $languageAll = Yii::$app->controller->module->languageAll;
+		    $languageDefault = substr($languageAll,0,2);
+
+		    if($this->language === 'all') {
+
+		    } elseif($this->language === $languageDefault) {
+			    $query->andFilterWhere(['like', '{{%article_categories}}.language', 'all']);
+		    } else {
+			    $query->andFilterWhere(['like', '{{%article_categories}}.language', $this->language]);
+		    }
+
+	    } else {
+		    $this->language = Yii::$app->controller->module->filterLanguageDefault;
+		    $query->andFilterWhere(['like', '{{%article_categories}}.language', $this->language]);
+	    }
+
         $query->andFilterWhere([
             '{{%article_categories}}.id' => $this->id,
             '{{%article_categories}}.state' => $this->state,

@@ -84,27 +84,6 @@ class ItemsSearch extends Items
             return $dataProvider;
         }
 
-        if(isset($this->language))
-        {
-	        $languageAll = Yii::$app->controller->module->languageAll;
-	        $languageDefault = substr($languageAll,0,2);
-
-        	if($this->language === 'all') {
-
-	        } elseif($this->language === $languageDefault) {
-		        $query->andFilterWhere(['like', '{{%article_items}}.language', 'all']);
-	        } else {
-        		$query->andFilterWhere(['like', '{{%article_items}}.language', $this->language]);
-	        }
-        } else {
-	        $this->language = Yii::$app->controller->module->filterLanguageDefault;
-	        $query->andFilterWhere(['like', '{{%article_items}}.language', $this->language]);
-        }
-
-        /**if(!$this->language) {
-	        $this->language = 'all';
-        }*/
-
 	    if(isset($this->cat_id) && $this->cat_id !== '')
 	    {
 		    if((int)$this->cat_id === 0) {
@@ -126,6 +105,28 @@ class ItemsSearch extends Items
 		    }
 	    } else {
 		    $query->andFilterWhere(['like', '{{%article_categories}}.image', $this->image]);
+	    }
+
+	    if(Yii::$app->controller->module->languageShowOnlyDefault) {
+
+		    $query->andFilterWhere(['like', '{{%article_items}}.language', 'all']);
+
+	    } elseif(isset($this->language)) {
+
+		    $languageAll = Yii::$app->controller->module->languageAll;
+		    $languageDefault = substr($languageAll,0,2);
+
+		    if($this->language === 'all') {
+
+		    } elseif($this->language === $languageDefault) {
+			    $query->andFilterWhere(['like', '{{%article_items}}.language', 'all']);
+		    } else {
+			    $query->andFilterWhere(['like', '{{%article_items}}.language', $this->language]);
+		    }
+
+	    } else {
+		    $this->language = Yii::$app->controller->module->filterLanguageDefault;
+		    $query->andFilterWhere(['like', '{{%article_items}}.language', $this->language]);
 	    }
 
         $query->andFilterWhere([
