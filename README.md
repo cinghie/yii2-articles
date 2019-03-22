@@ -162,18 +162,33 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ```
 'components' => [
 
-        // Url Manager
-        'urlManager' => [
-            // Disable index.php
-            'showScriptName' => false,
-            // Disable r= routes
-            'enablePrettyUrl' => true,
-            // Disable site/ from the URL
-            'rules' => [
-                '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
-                '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
-            ],
+    // Url Manager
+    'urlManager' => [
+        // Disable index.php
+        'showScriptName' => false,
+        // Disable r= routes
+        'enablePrettyUrl' => true,
+        // Disable site/ from the URL
+        'rules' => [
+            '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
+            '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
         ],
+     ],
+     
+],
+```
+
+## Override
+
+### Override view example
+
+```
+'view' => [
+    'theme' => [
+        'pathMap' => [
+            '@cinghie/articles/views/items' => '@app/views/articles/items',
+        ],
+    ],
 ],
 ```
 
