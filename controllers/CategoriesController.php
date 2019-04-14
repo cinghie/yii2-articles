@@ -12,11 +12,11 @@
 
 namespace cinghie\articles\controllers;
 
-use cinghie\articles\models\CategoriesTranslations;
 use Throwable;
 use Yii;
 use cinghie\articles\models\Categories;
 use cinghie\articles\models\CategoriesSearch;
+use cinghie\articles\models\CategoriesTranslations;
 use Imagine\Exception\RuntimeException;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
@@ -32,7 +32,6 @@ use yii\web\Response;
  */
 class CategoriesController extends Controller
 {
-
 	/**
 	 * @inheritdoc
 	 */
@@ -70,13 +69,13 @@ class CategoriesController extends Controller
 					[
                         'allow' => true,
                         'actions' => ['view'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-view-categories') || $model->access === 'public' );
                         }
                     ],
 				],
-				'denyCallback' => function () {
+				'denyCallback' => static function () {
 					throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
 				}
 			],

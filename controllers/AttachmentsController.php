@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use RuntimeException;
 use Throwable;
 use Yii;
 use cinghie\articles\models\Attachments;
@@ -30,7 +31,6 @@ use yii\web\Response;
  */
 class AttachmentsController extends Controller
 {
-
 	/**
 	 * @inheritdoc
 	 */
@@ -43,7 +43,7 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items') );
                         }
                     ],
@@ -55,7 +55,7 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['update'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->item->isCurrentUserCreator()) );
                         }
@@ -63,7 +63,7 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['delete','deletemultiple','deleteonfly'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && $model->item->isCurrentUserCreator()) );
                         }
@@ -71,14 +71,14 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-view-items') || $model->access === 'public' );
                         }
                     ],
                 ],
-                'denyCallback' => function () {
-                    throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
+                'denyCallback' => static function () {
+                    throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
             'verbs' => [
@@ -336,5 +336,4 @@ class AttachmentsController extends Controller
 
 	    throw new NotFoundHttpException(Yii::t('traits','The requested page does not exist.'));
     }
-
 }

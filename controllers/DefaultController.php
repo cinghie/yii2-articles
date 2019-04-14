@@ -35,7 +35,7 @@ class DefaultController extends Controller
                         'roles' => ['admin']
                     ],
                 ],
-                'denyCallback' => function () {
+                'denyCallback' => static function () {
                     throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],

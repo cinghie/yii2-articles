@@ -13,6 +13,7 @@
 namespace cinghie\articles\controllers;
 
 use Exception;
+use RuntimeException;
 use Throwable;
 use Yii;
 use cinghie\articles\models\Tags;
@@ -61,8 +62,8 @@ class TagsController extends Controller
                         'roles' => ['articles-delete-tags'],
                     ],
                 ],
-                'denyCallback' => function () {
-                    throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
+                'denyCallback' => static function () {
+                    throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
             'verbs' => [

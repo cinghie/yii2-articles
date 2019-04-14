@@ -50,7 +50,7 @@ class ItemsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items') );
                         }
                     ],
@@ -62,7 +62,7 @@ class ItemsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['translate','update'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->isCurrentUserCreator() ) );
                         }
@@ -70,7 +70,7 @@ class ItemsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['changestate','activemultiple','deactivemultiple'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-publish-all-items') || ( Yii::$app->user->can('articles-publish-his-items') && $model->isCurrentUserCreator() ) );
                         }
@@ -78,7 +78,7 @@ class ItemsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['delete','deleteimage','deletemultiple'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && $model->isCurrentUserCreator() ) );
                         }
@@ -86,13 +86,13 @@ class ItemsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'matchCallback' => function () {
+                        'matchCallback' => static function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-view-items') || $model->access === 'public' );
                         }
                     ],
                 ],
-                'denyCallback' => function () {
+                'denyCallback' => static function () {
                     throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
