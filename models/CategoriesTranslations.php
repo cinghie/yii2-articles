@@ -83,6 +83,27 @@ class CategoriesTranslations extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * Get Translation ID by Cat ID
+	 *
+	 * @param integer $id
+	 * @param string $lang
+	 *
+	 * @return Categories|null
+	 */
+	public static function getTranslationCatIdByIDLang($id,$lang)
+	{
+		$catObject = self::find()->select('translation_id')->where(['cat_id' => $id, 'lang' => $lang])->one();
+
+		if($catObject === null) {
+			$catID = $id;
+		} else {
+			$catID = $catObject->translation_id;
+		}
+
+		return Categories::findOne($catID);
+	}
+
+	/**
 	 * @inheritdoc
 	 *
 	 * @return CategoriesTranslationsQuery the active query used by this AR class.
@@ -91,5 +112,4 @@ class CategoriesTranslations extends \yii\db\ActiveRecord
 	{
 		return new CategoriesTranslationsQuery( static::class );
 	}
-
 }
