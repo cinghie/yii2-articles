@@ -69,13 +69,13 @@ class CategoriesController extends Controller
 					[
                         'allow' => true,
                         'actions' => ['view'],
-                        'matchCallback' => static function () {
+                        'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-view-categories') || $model->access === 'public' );
                         }
                     ],
 				],
-				'denyCallback' => static function () {
+				'denyCallback' => function () {
 					throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
 				}
 			],

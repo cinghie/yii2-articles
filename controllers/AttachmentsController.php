@@ -43,7 +43,7 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['index'],
-                        'matchCallback' => static function () {
+                        'matchCallback' => function () {
                             return ( Yii::$app->user->can('articles-index-all-items') || Yii::$app->user->can('articles-index-his-items') );
                         }
                     ],
@@ -55,7 +55,7 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['update'],
-                        'matchCallback' => static function () {
+                        'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->item->isCurrentUserCreator()) );
                         }
@@ -63,7 +63,7 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['delete','deletemultiple','deleteonfly'],
-                        'matchCallback' => static function () {
+                        'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-delete-all-items') || ( Yii::$app->user->can('articles-delete-his-items') && $model->item->isCurrentUserCreator()) );
                         }
@@ -71,13 +71,13 @@ class AttachmentsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['view'],
-                        'matchCallback' => static function () {
+                        'matchCallback' => function () {
                             $model = $this->findModel(Yii::$app->request->get('id'));
                             return ( Yii::$app->user->can('articles-view-items') || $model->access === 'public' );
                         }
                     ],
                 ],
-                'denyCallback' => static function () {
+                'denyCallback' => function () {
                     throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],

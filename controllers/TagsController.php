@@ -62,7 +62,7 @@ class TagsController extends Controller
                         'roles' => ['articles-delete-tags'],
                     ],
                 ],
-                'denyCallback' => static function () {
+                'denyCallback' => function () {
                     throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
                 }
             ],
