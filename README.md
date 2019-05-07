@@ -186,7 +186,21 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 
 ## Override
 
-### Override view example
+Override models example, on model config
+
+```
+'modules' => [ 
+	// Module Articles
+	'articles' => [ 
+		'class' => 'cinghie\articles\Articles',
+		'modelMap' => [
+			'Items' => '@app\models\MyItemsModel'
+		]
+	]
+],
+```
+
+Override view example
 
 ```
 'view' => [
