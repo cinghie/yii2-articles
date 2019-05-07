@@ -13,7 +13,11 @@
 namespace cinghie\articles;
 
 use Yii;
+use cinghie\articles\models\Attachments;
+use cinghie\articles\models\Categories;
 use cinghie\articles\models\Items;
+use cinghie\articles\models\Tags;
+use cinghie\articles\models\Translations;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
 use yii\db\ActiveRecord;
@@ -23,12 +27,20 @@ use yii\db\ActiveRecord;
  */
 class Bootstrap implements BootstrapInterface
 {
-    /** @var array Model's map */
+    /**
+     * @var array
+     */
     private $_modelMap = [
+        'Attachments' => Attachments::class,
+        'Categories' => Categories::class,
         'Items' => Items::class,
+        'Tags' => Tags::class,
+        'Translations' => Translations::class,
     ];
 
-    /** @inheritdoc */
+    /**
+     * @inheritdoc
+     */
     public function bootstrap($app)
     {
         /**
@@ -45,7 +57,9 @@ class Bootstrap implements BootstrapInterface
                 Yii::$container->set($class, $definition);
                 $modelName = is_array($definition) ? $definition['class'] : $definition;
                 $module->modelMap[$name] = $modelName;
-                if (in_array($name, ['User', 'Profile', 'Token', 'Account'])) {
+
+                if (in_array($name, ['Items', 'Categories', 'Tags', 'Translations']))
+                {
                     Yii::$container->set($name . 'Query', function () use ($modelName) {
                         return $modelName::find();
                     });
