@@ -62,7 +62,6 @@ use yii\helpers\Url;
  */
 class Items extends Articles
 {
-
 	use AccessTrait, AttachmentTrait, CreatedTrait, EditorTrait, GoogleTranslateTrait, ImageTrait,  LanguageTrait, ModifiedTrait, OrderingTrait, SeoTrait, StateTrait, TitleAliasTrait, UserHelpersTrait, UserTrait, VideoTrait;
 
 	public $attached;
@@ -388,7 +387,7 @@ class Items extends Articles
 		/** @var Translations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
-		if($translation !== null) {
+		if($translation !== null && $translation->item_id !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
 
@@ -399,7 +398,7 @@ class Items extends Articles
 			$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->item_id !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
 
@@ -418,18 +417,18 @@ class Items extends Articles
 		/** @var Translations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
-		if($translation !== null) {
+		if($translation !== null && $translation->translation_id !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
 		}
 
 		$translation = null;
 		$translation_parent = Translations::find()->where(['translation_id' => $this->id])->one();
 
-		if($translation_parent !== null) {
+		if($translation_parent !== null && $translation_parent->item_id !== null) {
 			$translation = $this->getTranslationsObjectByID($translation_parent->item_id,$lang);
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->translation_id !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
 		}
 
@@ -449,5 +448,4 @@ class Items extends Articles
 
 	    return [ 0 => Yii::t('articles', 'Unpublished') ];
     }
-
 }
