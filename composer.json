@@ -30,6 +30,6 @@
         }
     },
     "extra": {
-        "bootstrap": "cinghie\\articles\\Bootstrap",
+        "bootstrap": "cinghie\\articles\\Bootstrap"
     }
 }
