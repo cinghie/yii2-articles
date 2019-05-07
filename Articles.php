@@ -89,6 +89,9 @@ class Articles extends Module
 	// Filter Language Default
 	public $filterLanguageDefault = 'all';
 
+	// Model map
+	public $modelMap = [];
+
 	// Show Titles in the views
 	public $showTitles = true;
 
