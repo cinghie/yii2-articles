@@ -54,11 +54,12 @@ class Bootstrap implements BootstrapInterface
             foreach ($this->_modelMap as $name => $definition)
             {
                 $class = "cinghie\\articles\\models\\" . $name;
+
                 Yii::$container->set($class, $definition);
                 $modelName = is_array($definition) ? $definition['class'] : $definition;
                 $module->modelMap[$name] = $modelName;
 
-                if (in_array($name, ['Items', 'Categories', 'Tags', 'Translations']))
+                if (in_array($name,['Attachments','Categories','Items','Tags','Translations']))
                 {
                     Yii::$container->set($name . 'Query', function () use ($modelName) {
                         return $modelName::find();
