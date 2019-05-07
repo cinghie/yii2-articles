@@ -224,12 +224,14 @@ Override models example, on model config
 Override view example
 
 ```
-'view' => [
-    'theme' => [
-        'pathMap' => [
-            '@cinghie/articles/views/items' => '@app/views/articles/items',
-        ],
-    ],
+'components' => [ 
+	'view' => [
+		'theme' => [
+			'pathMap' => [
+				'@cinghie/articles/views/items' => '@app/views/articles/items',
+			],
+		],
+	],
 ],
 ```
 
