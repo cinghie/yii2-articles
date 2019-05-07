@@ -170,14 +170,21 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 
     // Url Manager
     'urlManager' => [
+	'class' => 'codemix\localeurls\UrlManager',
+	// All languages including the default language
+	'languages' => ['it', 'en'],
+	// The default language is now treated like any other configured language
+	'enableDefaultLanguageUrlCode' => true,
         // Disable index.php
         'showScriptName' => false,
         // Disable r= routes
         'enablePrettyUrl' => true,
         // Disable site/ from the URL
         'rules' => [
-            '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
-            '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
+            '<alias:index|about|contact>' => 'site/<alias>',
+	    '<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/categories/view',
+	    '<cat>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/items/view',
+	    '<tags>/<id:\d+>/<alias:[A-Za-z0-9 -_.]+>' => 'articles/tags/view'
         ],
      ],
      
