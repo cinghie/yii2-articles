@@ -17,9 +17,11 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
+/**
+ * Class DefaultController
+ */
 class DefaultController extends Controller
 {
-
 	/**
 	 * @inheritdoc
 	 */
@@ -52,5 +54,4 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
-
 }

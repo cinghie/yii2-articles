@@ -37,7 +37,6 @@ use yii\web\UploadedFile;
  */
 class ItemsController extends Controller
 {
-
 	/**
 	 * @inheritdoc
 	 */
@@ -777,5 +776,4 @@ class ItemsController extends Controller
 
 	    return Yii::$app->language === $model->getLang() || 'all' === $model->getLangTag();
     }
-
 }
