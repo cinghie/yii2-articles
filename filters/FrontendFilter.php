@@ -25,7 +25,7 @@ class FrontendFilter extends ActionFilter
     /**
      * @var array
      */
-    public $controllers = ['index','create','update','translate','delete','activemultiple','deactivemultiple','deletemultiple','deleteimage','changestate'];
+    public $controllers = ['index','create','update','translate','changestate','activemultiple','deactivemultiple','delete','deletemultiple','deleteonfly','deleteimage'];
 
     /**
      * @param Action $action
