@@ -191,6 +191,21 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ],
 ```
 
+## Filters
+
+If you have a Yii2 App Advanced (frontend/backend) you can exclude frontend actions 
+
+```
+'modules' => [ 
+	
+	'articles' => [ 
+		'class' => 'cinghie\articles\Articles',
+		'as frontend' => 'cinghie\articles\filters\FrontendFilter',
+	]
+	
+],
+```
+
 ## Overrides
 
 Override controller example, on modules config
