@@ -18,6 +18,7 @@ use cinghie\articles\models\Categories;
 use cinghie\articles\models\Items;
 use cinghie\articles\models\Tags;
 use cinghie\articles\models\Translations;
+use yii\base\Application;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
 use yii\db\ActiveRecord;
@@ -38,9 +39,9 @@ class Bootstrap implements BootstrapInterface
         'Translations' => Translations::class,
     ];
 
-    /**
-     * @inheritdoc
-     */
+	/**
+	 * @param Application $app
+	 */
     public function bootstrap($app)
     {
         /**
