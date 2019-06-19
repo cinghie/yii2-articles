@@ -139,6 +139,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 	                                        <?= $model->getEditorWidget($form,'introtext', 'imperavi', $model->introtext ?: '', [
 		                                        'lang' => substr(Yii::$app->language, 0, 2),
 		                                        'minHeight' => 260,
+		                                        //'imageManagerJson' => Url::to(['/articles/items/images-get']),
 		                                        'imageUpload' => Url::to(['/articles/items/image-upload']),
 		                                        'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
 	                                        ]) ?>
@@ -146,6 +147,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 	                                        <?= $model->getEditorWidget($form,'fulltext', 'imperavi', $model->fulltext ?: '', [
 		                                        'lang' => substr(Yii::$app->language, 0, 2),
 		                                        'minHeight' => 260,
+		                                        //'imageManagerJson' => Url::to(['/articles/items/images-get']),
 		                                        'imageUpload' => Url::to(['/articles/items/image-upload']),
 		                                        'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
 	                                        ]) ?>

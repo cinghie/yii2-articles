@@ -32,6 +32,7 @@ use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use vova07\imperavi\actions\GetImagesAction;
 
 /**
  * ItemsController implements the CRUD actions for Items model.
@@ -93,7 +94,7 @@ class ItemsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['image-upload'],
+                        'actions' => ['images-get','image-upload'],
 	                    'roles' => ['articles-create-items','articles-update-all-items','articles-publish-his-items'],
                     ],
                 ],
@@ -121,6 +122,12 @@ class ItemsController extends Controller
 	public function actions()
 	{
 		return [
+			'images-get' => [
+				'class' => GetImagesAction::class,
+				'options' => ['only' => ['*.jpg', '*.jpeg', '*.png']],
+				'path' => Yii::$app->controller->module->editorImagePath,
+				'url' => Yii::$app->controller->module->editorImageURL,
+			],
 			'image-upload' => [
 				'class' => UploadFileAction::class,
 				'path' => Yii::$app->controller->module->editorImagePath,
