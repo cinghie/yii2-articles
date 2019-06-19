@@ -8,11 +8,10 @@
 
 use cinghie\articles\assets\ArticlesAsset;
 use cinghie\articles\models\Items;
-
-// Load Kartik Libraries
 use kartik\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 // Load Articles Assets
 ArticlesAsset::register($this);
@@ -134,9 +133,31 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                                     <div class="col-md-12">
 
-                                        <?= $model->getEditorWidget($form,'introtext') ?>
+                                        <?php if(Yii::$app->controller->module->editor === 'imperavi'): ?>
 
-                                        <?= $model->getEditorWidget($form,'fulltext') ?>
+
+	                                        <?= $model->getEditorWidget($form,'introtext', 'imperavi', $model->introtext ?: '', [
+		                                        'lang' => substr(Yii::$app->language, 0, 2),
+		                                        'minHeight' => 260,
+		                                        'imageUpload' => Url::to(['/newsletters/items/image-upload']),
+		                                        'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
+	                                        ]) ?>
+
+	                                        <?= $model->getEditorWidget($form,'fulltext', 'imperavi', $model->fulltext ?: '', [
+		                                        'lang' => substr(Yii::$app->language, 0, 2),
+		                                        'minHeight' => 260,
+		                                        'imageUpload' => Url::to(['/newsletters/items/image-upload']),
+		                                        'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
+	                                        ]) ?>
+
+
+                                        <?php else: ?>
+
+	                                        <?= $model->getEditorWidget($form,'introtext') ?>
+
+	                                        <?= $model->getEditorWidget($form,'fulltext') ?>
+
+                                        <?php endif ?>
 
                                     </div> <!-- end col-md-12 -->
 

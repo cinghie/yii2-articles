@@ -39,7 +39,13 @@ class Articles extends Module
     public $dateFormat = 'd F Y';
 
 	// Select Editor: no-editor, ckeditor, imperavi, tinymce, markdown
-	public $editor = 'ckeditor';
+	public $editor = 'imperavi';
+
+	// Select Editor Path To Upload Image
+	public $editorImagePath = '@webroot/img/articles/';
+
+	// Select Editor URL To Upload Image
+	public $editorImageURL = '@web/img/articles/';
 
 	// Select Path To Upload Category Image
 	public $categoryImagePath = '@webroot/img/articles/categories/';

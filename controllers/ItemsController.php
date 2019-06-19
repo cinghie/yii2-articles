@@ -12,6 +12,7 @@
 
 namespace cinghie\articles\controllers;
 
+use Imagine\Exception\RuntimeException;
 use Throwable;
 use Yii;
 use cinghie\articles\models\Attachments;
@@ -20,7 +21,7 @@ use cinghie\articles\models\ItemsSearch;
 use cinghie\articles\models\Tags;
 use cinghie\articles\models\Tagsassign;
 use cinghie\articles\models\Translations;
-use Imagine\Exception\RuntimeException;
+use vova07\imperavi\actions\UploadFileAction;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
 use yii\db\StaleObjectException;
@@ -90,6 +91,14 @@ class ItemsController extends Controller
                             return ( Yii::$app->user->can('articles-view-items') || $model->access === 'public' );
                         }
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['image-upload'],
+                        'matchCallback' => function () {
+                            $model = $this->findModel(Yii::$app->request->get('id'));
+                            return ( Yii::$app->user->can('articles-create-items') || Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->isCurrentUserCreator() ) );
+                        }
+                    ],
                 ],
                 'denyCallback' => function () {
                     throw new \RuntimeException(Yii::t('traits','You are not allowed to access this page'));
@@ -108,6 +117,20 @@ class ItemsController extends Controller
             ],
         ];
     }
+
+	/**
+	 * @return array
+	 */
+	public function actions()
+	{
+		return [
+			'image-upload' => [
+				'class' => UploadFileAction::class,
+				'path' => Yii::$app->controller->module->editorImagePath,
+				'url' => Yii::$app->controller->module->editorImageURL,
+			],
+		];
+	}
 
 	/**
 	 * Lists all Items models
