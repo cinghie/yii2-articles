@@ -208,7 +208,11 @@ class Articles extends ActiveRecord
      */
     public function getCategoriesSelect2()
     {
-	    $categories = Categories::find()->orderBy('name')->all();
+    	if(Yii::$app->controller->module->languageShowOnlyDefault) {
+		    $categories = Categories::find()->where(['language' => 'all'])->orderBy('name')->all();
+	    } else {
+		    $categories = Categories::find()->orderBy('name')->all();
+	    }
 
         $array[0] = Yii::t('articles', 'No Parent');
 
