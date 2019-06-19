@@ -94,10 +94,7 @@ class ItemsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['image-upload'],
-                        'matchCallback' => function () {
-                            $model = $this->findModel(Yii::$app->request->get('id'));
-                            return ( Yii::$app->user->can('articles-create-items') || Yii::$app->user->can('articles-update-all-items') || ( Yii::$app->user->can('articles-update-his-items') && $model->isCurrentUserCreator() ) );
-                        }
+	                    'roles' => ['articles-create-items','articles-update-all-items','articles-publish-his-items'],
                     ],
                 ],
                 'denyCallback' => function () {
