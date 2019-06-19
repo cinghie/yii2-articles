@@ -139,14 +139,14 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 	                                        <?= $model->getEditorWidget($form,'introtext', 'imperavi', $model->introtext ?: '', [
 		                                        'lang' => substr(Yii::$app->language, 0, 2),
 		                                        'minHeight' => 260,
-		                                        'imageUpload' => Url::to(['/newsletters/items/image-upload']),
+		                                        'imageUpload' => Url::to(['/articles/items/image-upload']),
 		                                        'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
 	                                        ]) ?>
 
 	                                        <?= $model->getEditorWidget($form,'fulltext', 'imperavi', $model->fulltext ?: '', [
 		                                        'lang' => substr(Yii::$app->language, 0, 2),
 		                                        'minHeight' => 260,
-		                                        'imageUpload' => Url::to(['/newsletters/items/image-upload']),
+		                                        'imageUpload' => Url::to(['/articles/items/image-upload']),
 		                                        'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
 	                                        ]) ?>
 
