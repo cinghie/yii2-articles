@@ -409,7 +409,22 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                                                     <label class="control-label"><?= Yii::t('articles','Introtext') ?></label>
 
-                                                    <?= $model->getEditorWidget(null, $introText, '', $model->getFieldTranslation($lang,'introtext')) ?>
+	                                                <?php if(Yii::$app->controller->module->editor === 'imperavi'): ?>
+
+
+		                                                <?= $model->getEditorWidget(null,$introText, 'imperavi', $model->getFieldTranslation($lang,'introtext') ?: '', [
+			                                                'lang' => substr(Yii::$app->language, 0, 2),
+			                                                'minHeight' => 260,
+			                                                //'imageManagerJson' => Url::to(['/articles/items/images-get']),
+			                                                'imageUpload' => Url::to(['/articles/items/image-upload']),
+			                                                'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
+		                                                ]) ?>
+
+	                                                <?php else: ?>
+
+		                                                <?= $model->getEditorWidget(null, $introText, '', $model->getFieldTranslation($lang,'introtext')) ?>
+
+	                                                <?php endif ?>
 
                                                 </div>
 
@@ -421,7 +436,21 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 
                                                     <label class="control-label" for="items-introtext"><?= Yii::t('articles','Fulltext') ?></label>
 
-                                                    <?= $model->getEditorWidget(null, $fullText, '', $model->getFieldTranslation($lang,'fulltext')) ?>
+	                                                <?php if(Yii::$app->controller->module->editor === 'imperavi'): ?>
+
+		                                                <?= $model->getEditorWidget(null, $fullText, 'imperavi', $model->getFieldTranslation($lang,'fulltext') ?: '', [
+			                                                'lang' => substr(Yii::$app->language, 0, 2),
+			                                                'minHeight' => 260,
+			                                                //'imageManagerJson' => Url::to(['/articles/items/images-get']),
+			                                                'imageUpload' => Url::to(['/articles/items/image-upload']),
+			                                                'plugins' => ['counter','fontfamily','fontcolor','fontsize','imagemanager','table','clips','fullscreen'],
+		                                                ]) ?>
+
+	                                                <?php else: ?>
+
+		                                                <?= $model->getEditorWidget(null, $fullText, '', $model->getFieldTranslation($lang,'fulltext')) ?>
+
+	                                                <?php endif ?>
 
                                                 </div>
 
