@@ -87,7 +87,7 @@ class CategoriesController extends Controller
                     'changestate' => ['post'],
                     'delete' => ['post'],
                     'deleteimage' => ['post'],
-                    'deletemultiple' => ['post'],
+                    //'deletemultiple' => ['post'],
                 ],
             ],
         ];

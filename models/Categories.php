@@ -39,6 +39,7 @@ use yii\helpers\Url;
  *
  * @property Categories $parent
  * @property Categories[] $categories
+ * @property Translations[] $translations
  * @property ActiveQuery $items
  * @property string $categoryUrl
  * @property string $imageUrl
@@ -96,7 +97,7 @@ class Categories extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategories()
     {
@@ -104,12 +105,20 @@ class Categories extends Articles
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getItems()
     {
         return $this->hasMany(Items::class, ['cat_id' => 'id']);
     }
+
+	/**
+	 * @return ActiveQuery
+	 */
+	public function getTranslations()
+	{
+		return $this->hasMany(CategoriesTranslations::class, ['cat_id' => 'id']);
+	}
 
 	/**
 	 * Return CategoriesTranslations by lang
@@ -144,9 +153,55 @@ class Categories extends Articles
 	public function beforeDelete()
 	{
 		/** @var Categories $this */
+		$this->deleteTranslations();
 		$this->deleteImage();
 
 		return parent::beforeDelete();
+	}
+
+	/**
+	 * Delete Translations
+	 */
+	public function deleteTranslations()
+	{
+		foreach ($this->translations as $translation){
+			$translation->delete();
+		}
+
+		return true;
+	}
+
+	/**
+	 * Delete Images
+	 *
+	 * @return mixed the uploaded image instance
+	 * @throws InvalidParamException
+	 */
+	public function deleteImage()
+	{
+		$image   = Yii::getAlias( Yii::$app->getModule('articles')->categoryImagePath ) . $this->image;
+		$imageS  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'small/' ) . $this->image;
+		$imageM  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'medium/' ) . $this->image;
+		$imageL  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'large/' ) . $this->image;
+		$imageXL = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'extra/' ) . $this->image;
+
+		// check if image exists on server
+		if (empty($this->image) || !file_exists($image)) {
+			return false;
+		}
+
+		// check if uploaded file can be deleted on server
+		if (unlink($image))
+		{
+			unlink($imageS);
+			unlink($imageM);
+			unlink($imageL);
+			unlink($imageXL);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -198,39 +253,6 @@ class Categories extends Articles
     }
 
 	/**
-	 * Delete Image
-	 *
-	 * @return mixed the uploaded image instance
-	 * @throws InvalidParamException
-	 */
-	public function deleteImage() 
-	{
-		$image   = Yii::getAlias( Yii::$app->getModule('articles')->categoryImagePath ) . $this->image;
-		$imageS  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'small/' ) . $this->image;
-		$imageM  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'medium/' ) . $this->image;
-		$imageL  = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'large/' ) . $this->image;
-		$imageXL = Yii::getAlias( Yii::$app->getModule('articles')->categoryThumbPath . 'extra/' ) . $this->image;
-		
-		// check if image exists on server
-        if (empty($this->image) || !file_exists($image)) {
-            return false;
-        }
-		
-		// check if uploaded file can be deleted on server
-		if (unlink($image))
-		{
-			unlink($imageS);
-			unlink($imageM);
-			unlink($imageL);
-			unlink($imageXL);
-			
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Check Translation Item by lang
 	 *
 	 * @param string $lang
@@ -277,7 +299,7 @@ class Categories extends Articles
 			return '';
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->getTranslation()->one() !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
 
@@ -288,7 +310,7 @@ class Categories extends Articles
 			$translation = $this->getTranslationsObjectByID($translation_parent->cat_id,$lang);
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->getTranslation()->one() !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
 
@@ -311,7 +333,7 @@ class Categories extends Articles
 			return [ 0 => Yii::t('articles', 'Not Yet Translated') ];
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->getTranslation()->one() !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->name ];
 		}
 
@@ -322,7 +344,7 @@ class Categories extends Articles
 			$translation = $this->getTranslationsObjectByID($translation_parent->cat_id,$lang);
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->getTranslation()->one() !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->title ];
 		}
 
