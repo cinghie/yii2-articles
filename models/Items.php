@@ -178,9 +178,73 @@ class Items extends Articles
 		Tagsassign::deleteAll([ 'AND', 'item_id = '.$this->id ]);
 
 		// Delete Translations
-		Translations::deleteAll([ 'AND', 'item_id = '.$this->id ]);
+		$this->deleteTranslations();
 
 		return parent::beforeDelete();
+	}
+	
+	/**
+	 * Delete Attachments
+	 *
+	 * @throws InvalidParamException
+	 */
+	public function deleteAttachments()
+	{
+		$attachments = $this->getAttachs();
+
+		foreach ($attachments as $attachment) {
+			$attachmentUrl = Yii::getAlias( Yii::$app->getModule('articles')->attachPath ). $attachment['filename'];
+			unlink($attachmentUrl);
+		}
+	}
+	
+	/**
+	 * Delete Image
+	 *
+	 * @return mixed the uploaded image instance
+	 * @throws InvalidParamException
+	 */
+	public function deleteImage() 
+	{
+		$image   = Yii::getAlias( Yii::$app->getModule('articles')->itemImagePath ). $this->image;
+		$imageS  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'small/' ) . $this->image;
+		$imageM  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'medium/' ) . $this->image;
+		$imageL  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'large/' ) . $this->image;
+		$imageXL = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'extra/' ) . $this->image;
+		
+		// check if image exists on server
+        if ( empty($this->image) || !file_exists($image) ) {
+            return false;
+        }
+		
+		// check if uploaded file can be deleted on server
+		if (unlink($image))
+		{
+			unlink($imageS);
+			unlink($imageM);
+			unlink($imageL);
+			unlink($imageXL);
+			
+			return true;
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Delete Translations
+	 */
+	public function deleteTranslations()
+	{
+		/** @var CategoriesTranslations $translation */
+		foreach($this->translations as $translation)
+		{
+			if ($this->id !== $translation->translation_id && ($item = self::findOne($translation->translation_id)) !== null) {
+				$item->delete();
+			}
+
+			$translation->delete();
+		}
 	}
 
 	/**
@@ -264,54 +328,6 @@ class Items extends Articles
         $file = isset($this->image) ? $this->image : 'default.jpg';
         return Yii::getAlias(Yii::$app->getModule('articles')->itemImageURL) . 'thumb/' . $size . '/' . $file;
     }
-
-	/**
-	 * Delete Image
-	 *
-	 * @return mixed the uploaded image instance
-	 * @throws InvalidParamException
-	 */
-	public function deleteImage() 
-	{
-		$image   = Yii::getAlias( Yii::$app->getModule('articles')->itemImagePath ). $this->image;
-		$imageS  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'small/' ) . $this->image;
-		$imageM  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'medium/' ) . $this->image;
-		$imageL  = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'large/' ) . $this->image;
-		$imageXL = Yii::getAlias( Yii::$app->getModule('articles')->itemThumbPath . 'extra/' ) . $this->image;
-		
-		// check if image exists on server
-        if ( empty($this->image) || !file_exists($image) ) {
-            return false;
-        }
-		
-		// check if uploaded file can be deleted on server
-		if (unlink($image))
-		{
-			unlink($imageS);
-			unlink($imageM);
-			unlink($imageL);
-			unlink($imageXL);
-			
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Delete Attachments
-	 *
-	 * @throws InvalidParamException
-	 */
-	public function deleteAttachments()
-	{
-		$attachments = $this->getAttachs();
-
-		foreach ($attachments as $attachment) {
-			$attachmentUrl = Yii::getAlias( Yii::$app->getModule('articles')->attachPath ). $attachment['filename'];
-			unlink($attachmentUrl);
-		}
-	}
 
 	/**
 	 * Check Item or Item Translation based on current lang
