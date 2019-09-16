@@ -273,6 +273,10 @@ class Categories extends Articles
 		/** @var CategoriesTranslations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
+		if($this->isNewRecord) {
+			return '';
+		}
+
 		if($translation !== null) {
 			return $translation->getTranslation()->one()->$field;
 		}
@@ -302,6 +306,10 @@ class Categories extends Articles
 	{
 		/** @var CategoriesTranslations $translation */
 		$translation = $this->getTranslationsObject($lang);
+
+		if($this->isNewRecord) {
+			return [ 0 => Yii::t('articles', 'Not Yet Translated') ];
+		}
 
 		if($translation !== null) {
 			return [ $translation->translation_id => $translation->getTranslation()->one()->name ];
