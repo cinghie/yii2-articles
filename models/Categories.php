@@ -39,7 +39,7 @@ use yii\helpers\Url;
  *
  * @property Categories $parent
  * @property Categories[] $categories
- * @property Translations[] $translations
+ * @property CategoriesTranslations[] $translations
  * @property ActiveQuery $items
  * @property string $categoryUrl
  * @property string $imageUrl
@@ -164,11 +164,15 @@ class Categories extends Articles
 	 */
 	public function deleteTranslations()
 	{
-		foreach ($this->translations as $translation){
+		/** @var CategoriesTranslations $translation */
+		foreach($this->translations as $translation)
+		{
+			if ($this->id !== $translation->translation_id && ($category = self::findOne($translation->translation_id)) !== null) {
+				$category->delete();
+			}
+
 			$translation->delete();
 		}
-
-		return true;
 	}
 
 	/**
@@ -264,7 +268,7 @@ class Categories extends Articles
 		/** @var CategoriesTranslations $translation */
 		$translation = $this->getTranslationsObject($lang);
 
-		if($translation !== null) {
+		if($translation !== null && $translation->getTranslation()->one() !== null) {
 			return $translation->getTranslation()->one();
 		}
 
@@ -275,7 +279,7 @@ class Categories extends Articles
 			$translation = $this->getTranslationsObjectByID($translation_parent->cat_id,$lang);
 		}
 
-		if($translation !== null) {
+		if($translation !== null && $translation->getTranslation()->one() !== null) {
 			return $translation->getTranslation()->one();
 		}
 
