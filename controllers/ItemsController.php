@@ -107,7 +107,7 @@ class ItemsController extends Controller
                 'actions' => [
                     'activemultiple' => ['post'],
                     'deactivemultiple' => ['post'],
-                    'changestate' => ['post'],
+                    //'changestate' => ['post'],
                     'delete' => ['post'],
                     'deleteimage' => ['post'],
                     'deletemultiple' => ['post'],
@@ -709,6 +709,25 @@ class ItemsController extends Controller
     public function actionChangestate($id)
     {
         $model = $this->findModel($id);
+
+        if(isset($model->translations) && $model->translations !== null && count($model->translations))
+        {
+        	foreach($model->translations as $translation)
+			{
+				$currentModelID = $translation->translation_id;
+
+				if($currentModelID !== $model->id)
+				{
+					$currentModel = $this->findModel($currentModelID);
+
+					if($currentModel->state) {
+						$currentModel->deactive();
+					} else {
+						$currentModel->active();
+					}
+				}
+			}
+        }
 
         if($model->state) {
             $model->deactive();
