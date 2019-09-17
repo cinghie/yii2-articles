@@ -107,7 +107,7 @@ class ItemsController extends Controller
                 'actions' => [
                     'activemultiple' => ['post'],
                     'deactivemultiple' => ['post'],
-                    //'changestate' => ['post'],
+                    'changestate' => ['post'],
                     'delete' => ['post'],
                     'deleteimage' => ['post'],
                     'deletemultiple' => ['post'],
