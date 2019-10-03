@@ -254,6 +254,8 @@ Override view example, on components config
 ],
 ```
 
+Override examples can be found on overrides folder 
+
 ## Users Auth
 
 ### Articles Permissions
