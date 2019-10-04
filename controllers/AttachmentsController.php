@@ -233,9 +233,6 @@ class AttachmentsController extends Controller
 
         }
 
-	    // Set Error Message
-	    Yii::$app->session->setFlash('error', Yii::t('articles', 'Attachment could not be saved!'));
-
 	    return $this->render('update', [
 		    'model' => $model,
 	    ]);

@@ -39,7 +39,6 @@ use yii\web\UploadedFile;
  */
 class Attachments extends Articles
 {
-
     use AttachmentTrait, TitleAliasTrait, ViewsHelpersTrait;
 
     /**
@@ -168,9 +167,7 @@ class Attachments extends Articles
 
         // if no file was uploaded abort the upload
         if ($file === null) {
-
             return false;
-
         }
 
 	    // set fileName by fileNameType
@@ -223,5 +220,4 @@ class Attachments extends Articles
 
         return false;
     }
-
 }
