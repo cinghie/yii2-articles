@@ -137,6 +137,30 @@ class Attachments extends Articles
         return Yii::getAlias(Yii::$app->getModule('articles')->attachURL).$this->filename;
     }
 
+    /**
+     * Get File Size string
+     *
+     * @param string $size
+     *
+     * @return float|int|string
+     */
+    public function getFileSize($size = 'KB')
+    {
+        switch ($size)
+        {
+            case 'GB':
+                $size = round(($this->size / 1024) / 1024 / 1024,2).' GB';
+                break;
+            case 'MB':
+                $size = round(($this->size / 1024) / 1024,2).' MB';
+                break;
+            default:
+                $size = round($this->size / 1024,2).' KB';
+        }
+
+        return $size;
+    }
+
 	/**
 	 * Return user of the author from the article
 	 *
