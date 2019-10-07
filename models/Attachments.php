@@ -140,13 +140,13 @@ class Attachments extends Articles
     /**
      * Get File Size string
      *
-     * @param string $size
+     * @param string $sizeType
      *
      * @return float|int|string
      */
-    public function getFileSize($size = 'KB')
+    public function getFileSize($sizeType = 'KB')
     {
-        switch ($size)
+        switch ($sizeType)
         {
             case 'GB':
                 $size = round(($this->size / 1024) / 1024 / 1024,2).' GB';
@@ -156,6 +156,31 @@ class Attachments extends Articles
                 break;
             default:
                 $size = round($this->size / 1024,2).' KB';
+        }
+
+        return $size;
+    }
+
+    /**
+     * Get File Size string
+     *
+     * @param $size
+     * @param string $sizeType
+     *
+     * @return float|int|string
+     */
+    public function setFileSize($size, $sizeType = 'KB')
+    {
+        switch ($sizeType)
+        {
+            case 'GB':
+                $size = round(($size / 1024) / 1024 / 1024,2).' GB';
+                break;
+            case 'MB':
+                $size = round(($size / 1024) / 1024,2).' MB';
+                break;
+            default:
+                $size = round($size / 1024,2).' KB';
         }
 
         return $size;
