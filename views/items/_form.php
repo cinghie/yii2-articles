@@ -312,7 +312,7 @@ $model->tags = $model->getTagsIDByItemID() ?: [];
 		                            <?= Yii::t('traits', 'Allowed Extensions')?>: <?= implode(', ', Yii::$app->controller->module->attachType) ?>
                                 </p>
 
-                                <?= $model->getFilesWidget(Yii::$app->controller->module->attachType,Yii::$app->controller->module->attachURL) ?>
+                                <?= $model->getFilesWidget(Yii::$app->controller->module->attachType) ?>
 
                             </div> <!-- end col-md-12 -->
 
