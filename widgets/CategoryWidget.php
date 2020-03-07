@@ -13,27 +13,36 @@
 namespace cinghie\articles\widgets;
 
 use cinghie\articles\models\Categories;
+use Exception;
 use yii\bootstrap\Widget;
 
+/**
+ * Class CategoryWidget
+ */
 class CategoryWidget extends Widget
 {
-
+	/** @var integer */
     public $id;
+
+	/** @var string */
     public $classes;
 
+	/**
+	 * Widget init
+	 */
     public function init()
     {
-        parent::init();
+	    if(!$this->id) {
+		    $this->id = 1;
+	    }
 
-        if(!$this->id) {
-            $this->id = 1;
-        }
+        parent::init();
     }
 
 	/**
-	 * @return string|void
+	 * @return string
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function run()
     {
@@ -53,5 +62,4 @@ class CategoryWidget extends Widget
 
         echo '</div>';
     }
-
 }

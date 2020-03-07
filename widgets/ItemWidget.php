@@ -17,40 +17,50 @@ use kartik\helpers\Html;
 use yii\bootstrap\Widget;
 use yii\helpers\HtmlPurifier;
 
+/**
+ * Class ItemWidget
+ */
 class ItemWidget extends Widget
 {
-
+	/** @var integer */
     public $id;
+
+	/** @var string */
     public $classes;
+
+	/** @var string */
     public $orderby;
 
+	/**
+	 * Widget init
+	 */
     public function init()
     {
-        parent::init();
-
-        /*
-         * Set id to 1, if not set in widget
-         */
         if(!$this->id) {
             $this->id = 1;
         }
 
-        /*
-         * Set orderby to id, if not set in widget
-         */
         if(!$this->orderby) {
             $this->orderby = 'id';
         }
+
+	    parent::init();
     }
 
+	/**
+	 * @return string
+	 */
     public function run()
     {
         /** @var Items $item */
         $item = Items::find()->where(['id' => $this->id])->one();
 
-        return '<div class="articleWidget articleWidget-'.$this->id.' '.$this->classes.'">
-                <h3><a href="'.$item->getItemUrl().'" title="'.Html::encode($item->title).'">'.Html::encode($item->title).'</a></h3>
-                <div class="widgetText">'.HtmlPurifier::process($item->introtext).'</div>
-            </div>';
+        /** @var string $html */
+        $html = '<div class="articleWidget articleWidget-'.$this->id.' '.$this->classes.'">';
+        $html .= '<h3><a href="'.$item->getItemUrl().'" title="'.Html::encode($item->title).'">'.Html::encode($item->title).'</a></h3>';
+        $html .= '<div class="widgetText">'.HtmlPurifier::process($item->introtext).'</div>';
+        $html .= '</div>';
+
+        return $html;
     }
 }

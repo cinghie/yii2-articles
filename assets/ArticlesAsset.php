@@ -23,6 +23,9 @@ use kartik\select2\ThemeKrajeeAsset;
 use kartik\datetime\DateTimePickerAsset;
 use kartik\file\FileInputAsset;
 
+/**
+ * Class ArticlesAsset
+ */
 class ArticlesAsset extends AssetBundle
 {
 	/**

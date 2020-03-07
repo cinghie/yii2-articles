@@ -12,18 +12,21 @@
 
 namespace cinghie\articles\widgets;
 
-use kartik\helpers\Html;
 use yii\bootstrap\Widget;
-use yii\helpers\HtmlPurifier;
 
+/**
+ * Class CategoriesWidget
+ */
 class CategoriesWidget extends Widget
 {
-
+	/** @var integer */
     public $id;
 
+	/**
+	 * Widget init
+	 */
     public function init()
     {
         parent::init();
     }
-
 }
