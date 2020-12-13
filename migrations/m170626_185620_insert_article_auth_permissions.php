@@ -12,6 +12,9 @@
 
 use cinghie\traits\migrations\Migration;
 
+/**
+ * Class m170626_185620_insert_article_auth_permissions
+ */
 class m170626_185620_insert_article_auth_permissions extends Migration
 {
 	/**
@@ -185,5 +188,4 @@ class m170626_185620_insert_article_auth_permissions extends Migration
 			return parent::insert($table, $columns);
 		}
 	}
-
 }

@@ -12,9 +12,14 @@
 
 use cinghie\traits\migrations\Migration;
 
+/**
+ * Class m170616_185620_insert_article_data_demo
+ */
 class m170616_185620_insert_article_data_demo extends Migration
 {
-
+	/**
+	 * @inheritdoc
+	 */
     public function safeUp()
     {
 	    $now = new \yii\db\Expression('now()');
@@ -963,10 +968,12 @@ class m170616_185620_insert_article_data_demo extends Migration
         );
     }
 
+	/**
+	 * @inheritdoc
+	 */
     public function safeDown()
     {
         //$this->truncateTable('{{%article_categories}} CASCADE');
         //$this->truncateTable('{{%article_items}} CASCADE');
     }
-
 }

@@ -12,9 +12,11 @@
 
 use cinghie\traits\migrations\Migration;
 
+/**
+ * Class m151021_200518_create_article_attachments_table
+ */
 class m151021_200518_create_article_attachments_table extends Migration
 {
-
 	/**
 	 * @inheritdoc
 	 */
@@ -56,5 +58,4 @@ class m151021_200518_create_article_attachments_table extends Migration
         $this->dropIndex('{{index_article_attachments_item_id}}', '{{%article_attachments}}');
         $this->dropTable('{{%article_attachments}}');
     }
-
 }

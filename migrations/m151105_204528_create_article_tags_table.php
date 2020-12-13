@@ -12,9 +12,11 @@
 
 use cinghie\traits\migrations\Migration;
 
+/**
+ * Class m151105_204528_create_article_tags_table
+ */
 class m151105_204528_create_article_tags_table extends Migration
 {
-
 	/**
 	 * @inheritdoc
 	 */
@@ -73,5 +75,4 @@ class m151105_204528_create_article_tags_table extends Migration
         $this->dropTable('{{%article_tags_assign}}');
         $this->dropTable('{{%article_tags}}');
     }
-
 }

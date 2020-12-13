@@ -12,6 +12,9 @@
 
 use cinghie\traits\migrations\Migration;
 
+/**
+ * Class m170636_185640_create_article_categories_translations
+ */
 class m170636_185640_create_article_categories_translations extends Migration
 {
 	/**
@@ -65,5 +68,4 @@ class m170636_185640_create_article_categories_translations extends Migration
 		$this->dropIndex('index_article_categories_translations_cat_id', '{{%article_categories_translations}}');
 		$this->dropTable('{{%article_categories_translations}}');
 	}
-
 }
