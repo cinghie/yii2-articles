@@ -24,7 +24,8 @@
     },
     "require-dev": {
         "cinghie/yii2-seo-component": "@dev",
-        "cinghie/yii2-traits": "@dev"
+        "cinghie/yii2-traits": "@dev",
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {
