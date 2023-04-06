@@ -20,7 +20,9 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "~2.0.14",
+        "yiisoft/yii2": "~2.0.14"
+    },
+    "require-dev": {
         "cinghie/yii2-seo-component": "@dev",
         "cinghie/yii2-traits": "@dev"
     },
