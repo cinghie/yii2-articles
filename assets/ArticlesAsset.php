@@ -14,8 +14,8 @@ namespace cinghie\articles\assets;
 
 use yii\web\AssetBundle;
 use yii\web\YiiAsset;
-use yii\bootstrap\BootstrapAsset;
-use yii\bootstrap\BootstrapPluginAsset;
+use yii\bootstrap4\BootstrapAsset;
+use yii\bootstrap4\BootstrapPluginAsset;
 use kartik\form\ActiveFormAsset;
 use kartik\base\WidgetAsset;
 use kartik\select2\Select2Asset;

@@ -12,7 +12,7 @@
 
 namespace cinghie\articles\widgets;
 
-use yii\bootstrap\Widget;
+use yii\bootstrap4\Widget;
 
 /**
  * Class CategoriesWidget

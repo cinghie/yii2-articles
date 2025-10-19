@@ -14,7 +14,7 @@ namespace cinghie\articles\widgets;
 
 use cinghie\articles\models\Categories;
 use Exception;
-use yii\bootstrap\Widget;
+use yii\bootstrap4\Widget;
 
 /**
  * Class CategoryWidget

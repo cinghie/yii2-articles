@@ -14,7 +14,7 @@ namespace cinghie\articles\widgets;
 
 use cinghie\articles\models\Items;
 use kartik\helpers\Html;
-use yii\bootstrap\Widget;
+use yii\bootstrap4\Widget;
 use yii\helpers\HtmlPurifier;
 
 /**

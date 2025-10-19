@@ -10,7 +10,7 @@
 * @version 0.6.6
 */
 
-use yii\bootstrap\Nav;
+use yii\bootstrap4\Nav;
 
 ?>
 
