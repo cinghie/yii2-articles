@@ -81,7 +81,7 @@ class Items extends Articles
      */
     public function rules()
     {
-	    return array_merge(AccessTrait::rules(), CreatedTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), ModifiedTrait::rules(), OrderingTrait::rules(), SeoTrait::rules(), StateTrait::rules(), UserTrait::rules(), VideoTrait::rules(), [
+	    return array_merge($this->getAccessRules(), $this->getCreatedRules(), $this->getImageRules(), $this->getLanguageRules(), $this->getModifiedRules(), $this->getOrderingRules(), $this->getSeoRules(), $this->getStateRules(), $this->getUserRules(), $this->getVideoRules(), [
 	    	[['title', 'user_id', 'created', 'modified', 'language'], 'required'],
             [['cat_id', 'hits'], 'integer'],
             [['introtext', 'fulltext', 'theme', 'params'], 'string'],

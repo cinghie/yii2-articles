@@ -54,7 +54,7 @@ class Attachments extends Articles
      */
     public function rules()
     {
-        return array_merge(AttachmentTrait::rules(),TitleAliasTrait::rules(), [
+        return array_merge($this->getAttachmentRules(), $this->getTitleAliasRules(), [
             [['title'], 'required'],
             [['item_id', 'hits'], 'integer'],
             [['titleAttribute'], 'string'],

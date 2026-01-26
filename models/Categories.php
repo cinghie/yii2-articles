@@ -64,7 +64,7 @@ class Categories extends Articles
      */
     public function rules()
     {	
-        return array_merge(AccessTrait::rules(), ImageTrait::rules(), LanguageTrait::rules(), NameAliasTrait::rules(), OrderingTrait::rules(), ParentTrait::rules(), StateTrait::rules(),[
+        return array_merge($this->getAccessRules(), $this->getImageRules(), $this->getLanguageRules(), $this->getNameAliasRules(), $this->getOrderingRules(), $this->getParentRules(), $this->getStateRules(),[
             [['access', 'name', 'language', 'state', 'theme'], 'required'],
             [['theme'], 'string', 'max' => 12],
 			[['robots'], 'string', 'max' => 20],

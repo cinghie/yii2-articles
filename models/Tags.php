@@ -48,7 +48,7 @@ class Tags extends Articles
      */
     public function rules()
     {
-        return array_merge(NameAliasTrait::rules(), StateTrait::rules(), [
+        return array_merge($this->getNameAliasRules(), $this->getStateRules(), [
             [['name'], 'required'],
             [['description'], 'string'],
         ]);
