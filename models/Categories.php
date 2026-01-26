@@ -79,7 +79,7 @@ class Categories extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AccessTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), NameAliasTrait::attributeLabels(), OrderingTrait::attributeLabels(), ParentTrait::attributeLabels(), StateTrait::attributeLabels(),[
+        return array_merge($this->getAccessAttributeLabels(), $this->getImageAttributeLabels(), $this->getLanguageAttributeLabels(), $this->getNameAliasAttributeLabels(), $this->getOrderingAttributeLabels(), $this->getParentAttributeLabels(), $this->getStateAttributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
             'description' => Yii::t('articles', 'Description'),
             'theme' => Yii::t('articles', 'Theme'),

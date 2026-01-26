@@ -96,7 +96,7 @@ class Items extends Articles
      */
     public function attributeLabels()
     {
-	    return array_merge(AccessTrait::attributeLabels(), CreatedTrait::attributeLabels(), ImageTrait::attributeLabels(), LanguageTrait::attributeLabels(), ModifiedTrait::attributeLabels(), OrderingTrait::attributeLabels(), SeoTrait::attributeLabels(), StateTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), UserTrait::attributeLabels(),  VideoTrait::attributeLabels(), [
+	    return array_merge($this->getAccessAttributeLabels(), $this->getCreatedAttributeLabels(), $this->getImageAttributeLabels(), $this->getLanguageAttributeLabels(), $this->getModifiedAttributeLabels(), $this->getOrderingAttributeLabels(), $this->getSeoAttributeLabels(), $this->getStateAttributeLabels(), $this->getTitleAliasAttributeLabels(), $this->getUserAttributeLabels(), $this->getVideoAttributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'cat_id' => Yii::t('articles', 'Catid'),
             'introtext' => Yii::t('articles', 'Introtext'),

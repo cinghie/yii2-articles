@@ -59,7 +59,7 @@ class Tags extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(NameAliasTrait::attributeLabels(), StateTrait::attributeLabels(),[
+        return array_merge($this->getNameAliasAttributeLabels(), $this->getStateAttributeLabels(),[
             'id' => Yii::t('articles', 'ID'),
             'description' => Yii::t('articles', 'Description'),
         ]);

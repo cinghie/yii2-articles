@@ -66,7 +66,7 @@ class Attachments extends Articles
      */
     public function attributeLabels()
     {
-        return array_merge(AttachmentTrait::attributeLabels(), TitleAliasTrait::attributeLabels(), [
+        return array_merge($this->getAttachmentAttributeLabels(), $this->getTitleAliasAttributeLabels(), [
             'id' => Yii::t('articles', 'ID'),
             'item_id' => Yii::t('articles', 'Article'),
             'titleAttribute' => Yii::t('articles', 'Title Attribute'),
